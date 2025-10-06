@@ -6,6 +6,39 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    /* Font Family */
+    --font-sans: 'Poppins', 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+
+    /* Custom Dark Theme Colors */
+    --color-darkBg: #1e1e28;
+    --color-darkBg-secondary: #252540;
+    --color-darkCard: #2b2b40;
+    --color-darkCard-hover: #323254;
+    --color-gold: #c9aa71;
+    --color-gold-light: #d4ba8e;
+    --color-gold-dark: #b89a5f;
+    --color-light: #e4e6ea;
+    --color-light-muted: #a8a8b8;
+
+    /* Custom Box Shadows */
+    --shadow-dark-card: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    --shadow-dark-card-hover: 0 12px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    --shadow-gold: 0 8px 24px rgba(201, 170, 113, 0.3);
+    --shadow-gold-glow: 0 0 20px rgba(201, 170, 113, 0.4);
+}
+
+@layer utilities {
+    /* Custom Gradient Backgrounds */
+    .bg-gradient-dark {
+        background: linear-gradient(135deg, #1e1e28 0%, #252540 100%);
+    }
+
+    .bg-gradient-card {
+        background: linear-gradient(145deg, #2b2b40, #323254);
+    }
+
+    .bg-gradient-gold {
+        background: linear-gradient(135deg, #b89a5f, #d4ba8e);
+    }
 }

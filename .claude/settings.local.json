@@ -3,7 +3,9 @@
     "allow": [
       "Bash(php artisan make:migration:*)",
       "Bash(php artisan make:model:*)",
-      "Bash(php artisan make:controller:*)"
+      "Bash(php artisan make:controller:*)",
+      "WebFetch(domain:codewithsadee.github.io)",
+      "Read(//Users/hafizzeeshanriaz/Sites/personal/hafiz.dev/**)"
     ],
     "deny": [],
     "ask": []

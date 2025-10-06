@@ -2,17 +2,17 @@
     <x-slot:title>{{ $post->seo_title ?? $post->title }}</x-slot:title>
     <x-slot:description>{{ $post->seo_description ?? $post->excerpt }}</x-slot:description>
 
-    <article class="max-w-4xl mx-auto px-4 py-16">
+    <article class="max-w-4xl mx-auto px-4 py-16 relative z-10">
         <!-- Breadcrumb -->
-        <nav class="text-sm text-gray-500 mb-8">
-            <a href="/" class="hover:text-blue-600">Home</a> /
-            <a href="/blog" class="hover:text-blue-600">Blog</a> /
-            <span class="text-gray-700">{{ $post->title }}</span>
+        <nav class="text-sm text-light-muted mb-8">
+            <a href="/" class="hover:text-gold transition-colors">Home</a> /
+            <a href="/blog" class="hover:text-gold transition-colors">Blog</a> /
+            <span class="text-light">{{ $post->title }}</span>
         </nav>
 
         <!-- Post Header -->
         <header class="mb-12">
-            <div class="flex items-center gap-4 text-sm text-gray-500 mb-4">
+            <div class="flex items-center gap-4 text-sm text-light-muted mb-4">
                 <time>{{ $post->published_at->format('M d, Y') }}</time>
                 <span>•</span>
                 <span>{{ $post->reading_time }} min read</span>
@@ -20,12 +20,12 @@
                 <span>{{ number_format($post->views) }} views</span>
             </div>
 
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+            <h1 class="text-4xl md:text-5xl font-bold text-light mb-6 leading-tight">
                 {{ $post->title }}
             </h1>
 
             @if($post->excerpt)
-                <p class="text-xl text-gray-600 leading-relaxed">
+                <p class="text-xl text-light-muted leading-relaxed">
                     {{ $post->excerpt }}
                 </p>
             @endif
@@ -34,7 +34,7 @@
             @if($post->tags)
                 <div class="flex flex-wrap gap-2 mt-6">
                     @foreach($post->tags as $tag)
-                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
+                        <span class="px-3 py-1 bg-gold/20 text-gold rounded-full text-sm border border-gold/30">
                             {{ $tag }}
                         </span>
                     @endforeach
@@ -46,66 +46,66 @@
         @if($post->featured_image)
             <img src="{{ url('storage/' . $post->featured_image) }}"
                  alt="{{ $post->title }}"
-                 class="w-full rounded-lg mb-12 shadow-lg"
+                 class="w-full rounded-lg mb-12 shadow-gold border border-gold/20"
                  onerror="this.style.display='none'">
         @endif
 
         <!-- Post Content -->
-        <div class="prose prose-lg prose-headings:font-bold prose-headings:tracking-tight prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-code:text-pink-600 prose-code:bg-gray-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-[''] prose-code:after:content-[''] prose-pre:bg-gray-900 prose-pre:text-gray-100 max-w-none mb-16">
+        <div class="prose prose-lg prose-invert prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-light prose-a:text-gold prose-a:no-underline hover:prose-a:underline prose-p:text-light-muted prose-p:leading-relaxed prose-li:text-light-muted prose-strong:text-light prose-code:text-gold prose-code:bg-darkCard prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:border prose-code:border-gold/20 prose-code:before:content-[''] prose-code:after:content-[''] prose-pre:bg-darkCard prose-pre:border prose-pre:border-gold/20 prose-pre:text-light max-w-none mb-16">
             {!! Str::markdown($post->content) !!}
         </div>
 
         <!-- CTA Box: MOST IMPORTANT FOR FREELANCE LEADS! -->
-        <div class="my-16 p-8 bg-blue-50 border-2 border-blue-200 rounded-lg">
-            <h3 class="text-2xl font-bold text-gray-900 mb-4">
+        <div class="my-16 p-8 bg-gradient-card border-2 border-gold/30 rounded-xl shadow-dark-card">
+            <h3 class="text-2xl font-bold text-light mb-4">
                 Need Help With Your Laravel Project?
             </h3>
-            <p class="text-gray-700 mb-6">
+            <p class="text-light-muted mb-6 leading-relaxed">
                 I specialize in building custom Laravel applications, process automation,
                 and SaaS development. Whether you need to eliminate repetitive tasks or
                 build something from scratch, let's discuss your project.
             </p>
             <div class="flex flex-wrap gap-4">
                 <a href="/#contact"
-                   class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition">
+                   class="px-6 py-3 bg-gold text-darkBg font-semibold rounded-lg hover:bg-gold-light transition-all duration-300 hover:shadow-gold-glow hover:-translate-y-0.5">
                     Schedule Free Consultation
                 </a>
                 <a href="/#portfolio"
-                   class="px-6 py-3 border-2 border-blue-600 text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition">
+                   class="px-6 py-3 border-2 border-gold text-gold font-semibold rounded-lg hover:bg-gold/10 transition-all duration-300">
                     View My Work
                 </a>
             </div>
-            <p class="text-sm text-gray-600 mt-4">
+            <p class="text-sm text-light-muted mt-4">
                 ⚡ Currently available for 2-3 new projects
             </p>
         </div>
 
         <!-- Author Bio -->
-        <div class="flex items-start gap-6 p-6 bg-gray-100 rounded-lg">
+        <div class="flex items-start gap-6 p-6 bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card">
             <img src="/profile-photo.png"
                  alt="Hafiz Riaz"
-                 class="w-20 h-20 rounded-full">
+                 class="w-20 h-20 rounded-2xl border-4 border-gold/30 shadow-gold">
             <div>
-                <h4 class="text-gray-900 font-bold text-lg mb-2">About Hafiz Riaz</h4>
-                <p class="text-gray-700 mb-4">
+                <h4 class="text-light font-bold text-lg mb-2">About Hafiz Riaz</h4>
+                <p class="text-light-muted mb-4 leading-relaxed">
                     Full Stack Developer from Turin, Italy. I build web applications with
                     Laravel and Vue.js, and automate business processes. Creator of ReplyGenius,
                     StudyLab, and other SaaS products.
                 </p>
-                <a href="/" class="text-blue-600 hover:underline">View Portfolio →</a>
+                <a href="/" class="text-gold hover:text-gold-light transition-colors">View Portfolio →</a>
             </div>
         </div>
 
         <!-- Related Posts -->
         @if($relatedPosts->count() > 0)
             <div class="mt-16">
-                <h3 class="text-2xl font-bold text-gray-900 mb-8">Related Articles</h3>
+                <h3 class="text-2xl font-bold text-light mb-8">Related Articles</h3>
                 <div class="grid md:grid-cols-3 gap-6">
                     @foreach($relatedPosts as $related)
                         <a href="{{ route('blog.show', $related->slug) }}"
-                           class="block p-6 bg-gray-100 rounded-lg hover:bg-gray-200 transition">
-                            <h4 class="text-gray-900 font-semibold mb-2">{{ $related->title }}</h4>
-                            <p class="text-gray-600 text-sm">{{ Str::limit($related->excerpt, 80) }}</p>
+                           class="block p-6 bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 hover:-translate-y-1 group">
+                            <h4 class="text-light font-semibold mb-2 group-hover:text-gold transition-colors">{{ $related->title }}</h4>
+                            <p class="text-light-muted text-sm">{{ Str::limit($related->excerpt, 80) }}</p>
                         </a>
                     @endforeach
                 </div>

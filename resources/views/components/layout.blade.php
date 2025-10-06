@@ -13,24 +13,29 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="bg-gray-50 text-gray-900 antialiased h-full flex flex-col">
-    <!-- Simple Navigation -->
-    <nav class="bg-white border-b border-gray-100 sticky top-0 z-50 backdrop-blur-sm bg-white/90">
+<body class="bg-gradient-dark text-light antialiased h-full flex flex-col relative overflow-x-hidden">
+    <!-- Background Pattern -->
+    <div class="fixed top-0 left-0 w-full h-full pointer-events-none z-0" style="background-image: radial-gradient(circle at 20% 50%, rgba(201, 170, 113, 0.03) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(201, 170, 113, 0.03) 0%, transparent 50%), radial-gradient(circle at 40% 80%, rgba(201, 170, 113, 0.02) 0%, transparent 50%);"></div>
+
+    <!-- Dark Navigation -->
+    <nav class="bg-darkCard/80 border-b border-gold/10 sticky top-0 z-50 backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <a href="/" class="text-xl font-bold text-gray-900 hover:text-blue-600 transition-colors">
+                <a href="/" class="text-xl font-bold text-light hover:text-gold transition-colors duration-300">
                     Hafiz Riaz
                 </a>
 
                 <div class="flex items-center gap-8">
-                    <a href="/" class="text-gray-600 hover:text-gray-900 font-medium transition-colors">Home</a>
-                    <a href="/blog" class="text-gray-600 hover:text-gray-900 font-medium transition-colors">Blog</a>
-                    <a href="/#contact" class="px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition-all hover:shadow-lg hover:shadow-blue-500/30">
+                    <a href="/" class="text-light-muted hover:text-light font-medium transition-colors duration-300">Home</a>
+                    <a href="/#services" class="text-light-muted hover:text-light font-medium transition-colors duration-300">Services</a>
+                    <a href="/#portfolio" class="text-light-muted hover:text-light font-medium transition-colors duration-300">Portfolio</a>
+                    <a href="/blog" class="text-light-muted hover:text-light font-medium transition-colors duration-300">Blog</a>
+                    <a href="/#contact" class="px-5 py-2.5 bg-gold text-darkBg rounded-lg hover:bg-gold-light font-semibold transition-all duration-300 hover:shadow-gold-glow hover:-translate-y-0.5">
                         Hire Me
                     </a>
                 </div>
@@ -43,12 +48,17 @@
         {{ $slot }}
     </main>
 
-    <!-- Simple Footer -->
-    <footer class="bg-gray-900 text-white mt-20">
-        <div class="max-w-7xl mx-auto px-4 py-12 text-center">
-            <p class="text-gray-400">
-                © {{ date('Y') }} Hafiz Riaz. All rights reserved.
-            </p>
+    <!-- Dark Footer -->
+    <footer class="bg-darkCard/60 border-t border-gold/10 mt-20 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 py-12">
+            <div class="text-center">
+                <p class="text-light-muted mb-2">
+                    © {{ date('Y') }} Hafiz Riaz. All rights reserved.
+                </p>
+                <p class="text-sm text-light-muted/70">
+                    Built with Laravel & Tailwind CSS
+                </p>
+            </div>
         </div>
     </footer>
 </body>

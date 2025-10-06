@@ -59,8 +59,7 @@ class PostForm
                             ])
                             ->fileAttachmentsDisk('public')
                             ->fileAttachmentsDirectory('blog-attachments')
-                            ->placeholder('Start writing your post...')
-                            ->helperText('Supports Markdown syntax. Use the toolbar or type markdown directly.'),
+                            ->placeholder('Start writing your post...'),
 
                         Textarea::make('excerpt')
                             ->label('Excerpt (Optional)')

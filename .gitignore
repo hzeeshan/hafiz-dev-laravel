@@ -25,3 +25,8 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+medium-exported-data
+
+# Ignore default Laravel pagination views, keep custom dark-theme
+resources/views/vendor/pagination/*.blade.php
+!resources/views/vendor/pagination/dark-theme.blade.php

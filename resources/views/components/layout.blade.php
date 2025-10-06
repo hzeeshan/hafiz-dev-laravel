@@ -61,7 +61,7 @@
 
     <!-- Dark Footer -->
     <footer class="bg-darkCard/60 border-t border-gold/10 mt-20 relative z-10">
-        <div class="max-w-7xl mx-auto px-4 py-12">
+        <div class="max-w-7xl mx-auto px-4 py-5">
             <div class="text-center">
                 <p class="text-light-muted mb-2">
                     © {{ date('Y') }} Hafiz Riaz. All rights reserved.

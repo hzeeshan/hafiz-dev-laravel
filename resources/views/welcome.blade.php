@@ -3,24 +3,25 @@
     <x-slot:description>Senior Full Stack Developer specializing in Laravel, Vue.js, process automation, and SaaS development. Building web applications and automating business processes.</x-slot:description>
 
     <div class="relative z-10">
-        <!-- Hero Section -->
-        <section class="min-h-[85vh] flex items-center justify-center px-4 pt-20" id="home">
+        <!-- Hero Section - OPTION B: Compact with Smaller Inline Image -->
+        <section class="min-h-[70vh] flex items-center justify-center px-4 pt-28 pb-16" id="home">
             <div class="max-w-4xl mx-auto text-center">
-                <div class="mb-10">
+                <!-- Smaller Profile Image -->
+                <div class="mb-6">
                     <img src="/profile-photo.png"
                          alt="Hafiz Riaz"
-                         class="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-2xl border-4 border-gold shadow-gold">
+                         class="w-24 h-24 mx-auto rounded-full border-3 border-gold shadow-gold">
                 </div>
 
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-light mb-4">
-                    Hafiz Riaz
-                </h1>
-
-                <p class="text-xl md:text-2xl text-gold mb-8 font-medium">
+                <p class="text-lg md:text-xl text-gold mb-3 font-medium">
                     Senior Full Stack Developer
                 </p>
 
-                <div class="text-base md:text-lg text-light-muted max-w-3xl mx-auto mb-10 leading-relaxed space-y-4">
+                <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-light mb-6 leading-tight">
+                    Laravel • Vue.js • Process Automation
+                </h1>
+
+                <div class="text-base md:text-lg text-light-muted max-w-2xl mx-auto mb-8 leading-relaxed space-y-4">
                     <p>
                         I'm Hafiz, a Full Stack Developer from Torino, Italy. I specialize in building web applications with PHP, Laravel, Vue.js, and automating business processes that save companies hours of manual work.
                     </p>
@@ -32,15 +33,41 @@
                     </p>
                 </div>
 
-                <div class="flex flex-wrap gap-4 justify-center mb-12">
+                <div class="flex flex-wrap gap-4 justify-center mb-8">
                     <a href="/blog"
-                       class="px-8 py-4 bg-gold text-darkBg font-semibold rounded-lg hover:bg-gold-light transition-all duration-300 hover:shadow-gold-glow hover:-translate-y-0.5">
-                        Read My Blog
+                       class="px-8 py-3 bg-gold text-darkBg font-semibold rounded-lg hover:bg-gold-light transition-all duration-300 hover:shadow-gold-glow hover:-translate-y-0.5">
+                        Read Blog
                     </a>
-                    <a href="#contact"
-                       class="px-8 py-4 border-2 border-gold text-gold font-semibold rounded-lg hover:bg-gold/10 transition-all duration-300">
-                        Get In Touch
+                    <a href="#portfolio"
+                       class="px-8 py-3 border-2 border-gold text-gold font-semibold rounded-lg hover:bg-gold/10 transition-all duration-300">
+                        View Portfolio
                     </a>
+                </div>
+
+                <!-- Direct Contact Info - Above the Fold -->
+                <div class="mb-6 space-y-3">
+                    <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-light">
+                        <a href="mailto:contact@hafiz.dev" class="flex items-center gap-2 hover:text-gold transition-colors">
+                            <span class="text-lg">📧</span>
+                            <span class="font-medium">contact@hafiz.dev</span>
+                        </a>
+                        <span class="text-light-muted hidden sm:inline">|</span>
+                        <a href="tel:+393888255329" class="flex items-center gap-2 hover:text-gold transition-colors">
+                            <span class="text-lg">📱</span>
+                            <span class="font-medium">(+39) 3888255329</span>
+                        </a>
+                    </div>
+                    <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-light-muted text-sm">
+                        <span class="flex items-center gap-2">
+                            <span>📍</span>
+                            <span>Torino, Italy</span>
+                        </span>
+                        <span class="hidden sm:inline">•</span>
+                        <span class="flex items-center gap-2 text-gold font-medium">
+                            <span>🟢</span>
+                            <span>Available for 2-3 new projects</span>
+                        </span>
+                    </div>
                 </div>
 
                 <!-- Social Links -->
@@ -434,9 +461,9 @@
                         </div>
                     </div>
 
-                    <!-- Quick Links -->
+                    <!-- Quick Contact -->
                     <div class="bg-gradient-card p-8 rounded-xl border border-gold/20 shadow-dark-card">
-                        <h3 class="text-2xl font-bold text-light mb-6">Let's Connect</h3>
+                        <h3 class="text-2xl font-bold text-light mb-6">Ready to Start?</h3>
 
                         <p class="text-light-muted mb-6 leading-relaxed">
                             I'm currently available for freelance projects and consulting. Whether you need help with Laravel development, process automation, or building a SaaS product, I'd love to hear from you.
@@ -444,17 +471,17 @@
 
                         <div class="space-y-3">
                             <a href="mailto:contact@hafiz.dev"
-                               class="block w-full px-6 py-3 bg-gold text-darkBg font-semibold rounded-lg hover:bg-gold-light transition-all duration-300 text-center">
-                                Send Email
+                               class="block w-full px-6 py-4 bg-gold text-darkBg font-semibold rounded-lg hover:bg-gold-light transition-all duration-300 text-center text-lg">
+                                📧 contact@hafiz.dev
                             </a>
-                            <a href="/blog"
-                               class="block w-full px-6 py-3 border-2 border-gold text-gold font-semibold rounded-lg hover:bg-gold/10 transition-all duration-300 text-center">
-                                Read My Blog
+                            <a href="tel:+393888255329"
+                               class="block w-full px-6 py-4 border-2 border-gold text-gold font-semibold rounded-lg hover:bg-gold/10 transition-all duration-300 text-center text-lg">
+                                📱 (+39) 3888255329
                             </a>
                         </div>
 
-                        <p class="text-sm text-light-muted mt-6">
-                            ⚡ Currently available for 2-3 new projects
+                        <p class="text-sm text-gold font-medium mt-6 text-center">
+                            🟢 Available for 2-3 new projects
                         </p>
                     </div>
                 </div>

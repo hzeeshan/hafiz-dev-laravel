@@ -3,7 +3,7 @@
 use App\Http\Controllers\BlogController;
 use Illuminate\Support\Facades\Route;
 
-// Current static home (keep for now)
+// Homepage
 Route::get('/', function () {
     return view('welcome');
 });

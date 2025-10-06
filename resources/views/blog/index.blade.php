@@ -2,6 +2,14 @@
     <x-slot:title>Blog - Hafiz Riaz</x-slot:title>
     <x-slot:description>Laravel development, process automation, and SaaS building insights.</x-slot:description>
 
+    <!-- Override background pattern for blog pages -->
+    <style>
+        body > div:first-of-type {
+            background-image: none !important;
+            background: #1e1e28;
+        }
+    </style>
+
     <div class="max-w-7xl mx-auto px-4 py-16 relative z-10">
         <!-- Header -->
         <div class="text-center mb-16">

@@ -19,77 +19,84 @@ class PostForm
     {
         return $schema
             ->components([
-                Section::make('Post Content')
+                // Main Content Section - Single Column for Focus
+                Section::make('Content')
+                    ->description('Write your blog post content')
                     ->schema([
                         TextInput::make('title')
+                            ->label('Post Title')
                             ->required()
                             ->maxLength(255)
                             ->live(onBlur: true)
                             ->afterStateUpdated(fn ($state, callable $set) =>
                                 $set('slug', Str::slug($state))
-                            ),
+                            )
+                            ->placeholder('How to Build a Laravel Blog with Filament'),
 
                         TextInput::make('slug')
                             ->required()
                             ->maxLength(255)
                             ->unique(ignoreRecord: true)
-                            ->helperText('Auto-generated from title'),
-
-                        Textarea::make('excerpt')
-                            ->maxLength(500)
-                            ->rows(3)
-                            ->helperText('Brief summary (auto-generated if empty)'),
+                            ->helperText('Auto-generated from title')
+                            ->disabled()
+                            ->dehydrated(),
 
                         MarkdownEditor::make('content')
+                            ->label('Post Content')
                             ->required()
-                            ->columnSpanFull()
                             ->toolbarButtons([
+                                'attachFiles',
                                 'bold',
                                 'italic',
+                                'strike',
                                 'link',
                                 'heading',
                                 'bulletList',
                                 'orderedList',
                                 'codeBlock',
                                 'blockquote',
-                            ]),
-                    ])
-                    ->columns(2),
+                                'table',
+                            ])
+                            ->fileAttachmentsDisk('public')
+                            ->fileAttachmentsDirectory('blog-attachments')
+                            ->placeholder('Start writing your post...')
+                            ->helperText('Supports Markdown syntax. Use the toolbar or type markdown directly.'),
 
-                Section::make('Media')
+                        Textarea::make('excerpt')
+                            ->label('Excerpt (Optional)')
+                            ->maxLength(500)
+                            ->rows(3)
+                            ->helperText('Brief summary - leave empty to auto-generate from content')
+                            ->placeholder('A short summary of your post...'),
+                    ])
+                    ->columnSpanFull(),
+
+                // Media & Tags Section - Visually Grouped
+                Section::make('Media & Tags')
+                    ->description('Add a featured image and categorize your post')
                     ->schema([
                         FileUpload::make('featured_image')
+                            ->label('Featured Image')
                             ->image()
                             ->imageEditor()
                             ->disk('public')
                             ->directory('blog-images')
                             ->visibility('public')
-                            ->helperText('Recommended: 1200x630px'),
-                    ]),
+                            ->helperText('Recommended: 1200×630px (16:9 aspect ratio)')
+                            ->columnSpanFull(),
 
-                Section::make('Meta Information')
-                    ->schema([
                         TagsInput::make('tags')
-                            ->suggestions(['Laravel', 'PHP', 'Vue.js', 'Docker', 'SaaS', 'Automation'])
-                            ->helperText('Press Enter to add tag'),
-
-                        TextInput::make('seo_title')
-                            ->maxLength(60)
-                            ->helperText('Leave empty to use post title'),
-
-                        Textarea::make('seo_description')
-                            ->maxLength(160)
-                            ->rows(2)
-                            ->helperText('Leave empty to use excerpt'),
-
-                        TextInput::make('reading_time')
-                            ->numeric()
-                            ->suffix('minutes')
-                            ->helperText('Auto-calculated if empty'),
+                            ->suggestions(['Laravel', 'PHP', 'Vue.js', 'Docker', 'SaaS', 'Automation', 'AI', 'Chrome Extensions'])
+                            ->helperText('Press Enter to add tags')
+                            ->placeholder('Laravel, PHP, Vue.js')
+                            ->columnSpanFull(),
                     ])
-                    ->columns(2),
+                    ->columnSpanFull()
+                    ->collapsed(false),
 
+                // Publishing Settings - Compact Two-Column
                 Section::make('Publishing')
+                    ->description('Set post status and publish date')
                     ->schema([
                         Select::make('status')
                             ->options([
@@ -98,13 +105,43 @@ class PostForm
                                 'published' => 'Published',
                             ])
                             ->required()
-                            ->default('draft'),
+                            ->default('draft')
+                            ->columnSpan(1),
 
                         DateTimePicker::make('published_at')
                             ->label('Publish Date')
-                            ->helperText('Leave empty to publish immediately'),
+                            ->helperText('Leave empty to publish immediately')
+                            ->columnSpan(1),
                     ])
-                    ->columns(2),
+                    ->columns(2)
+                    ->columnSpanFull(),
+
+                // SEO Section - Collapsed by Default (Less Cognitive Load)
+                Section::make('SEO & Advanced')
+                    ->description('Optimize for search engines (optional)')
+                    ->schema([
+                        TextInput::make('seo_title')
+                            ->label('SEO Title')
+                            ->maxLength(60)
+                            ->helperText('Leave empty to use post title (recommended: 50-60 characters)')
+                            ->placeholder('Custom title for search engines'),
+
+                        Textarea::make('seo_description')
+                            ->label('Meta Description')
+                            ->maxLength(160)
+                            ->rows(3)
+                            ->helperText('Leave empty to use excerpt (recommended: 150-160 characters)')
+                            ->placeholder('A compelling description for search results...'),
+
+                        TextInput::make('reading_time')
+                            ->label('Reading Time')
+                            ->numeric()
+                            ->suffix('minutes')
+                            ->helperText('Auto-calculated if empty')
+                            ->placeholder('5'),
+                    ])
+                    ->columnSpanFull()
+                    ->collapsed(true), // Collapsed by default - reduces overwhelm
             ]);
     }
 }

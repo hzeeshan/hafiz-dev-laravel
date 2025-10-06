@@ -2,6 +2,14 @@
     <x-slot:title>{{ $post->seo_title ?? $post->title }}</x-slot:title>
     <x-slot:description>{{ $post->seo_description ?? $post->excerpt }}</x-slot:description>
 
+    <!-- Override background pattern for blog posts -->
+    <style>
+        body > div:first-of-type {
+            background-image: none !important;
+            background: #1e1e28;
+        }
+    </style>
+
     <article class="max-w-4xl mx-auto px-4 py-16 relative z-10">
         <!-- Breadcrumb -->
         <nav class="text-sm text-light-muted mb-6">
@@ -57,12 +65,12 @@
         @endif
 
         <!-- Post Content -->
-        <div class="prose prose-lg prose-invert prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-light prose-a:text-gold prose-a:no-underline hover:prose-a:underline prose-p:text-light-muted prose-p:leading-relaxed prose-li:text-light-muted prose-strong:text-light prose-code:text-gold prose-code:bg-darkCard prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:border prose-code:border-gold/20 prose-code:before:content-[''] prose-code:after:content-[''] prose-pre:bg-darkCard prose-pre:border prose-pre:border-gold/20 prose-pre:text-light max-w-none mb-16">
+        <div class="blog-content mb-16">
             {!! Str::markdown($post->content) !!}
         </div>
 
         <!-- CTA Box: MOST IMPORTANT FOR FREELANCE LEADS! -->
-        <div class="my-16 p-8 bg-gradient-card border-2 border-gold/30 rounded-xl shadow-dark-card">
+        <div class="my-16 p-8 bg-darkCard/50 border-2 border-gold/30 rounded-xl shadow-dark-card">
             <h3 class="text-2xl font-bold text-light mb-4">
                 Need Help With Your Laravel Project?
             </h3>
@@ -87,7 +95,7 @@
         </div>
 
         <!-- Author Bio -->
-        <div class="flex items-start gap-6 p-6 bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card">
+        <div class="flex items-start gap-6 p-6 bg-darkCard/50 rounded-xl border border-gold/20 shadow-dark-card">
             <img src="/profile-photo.png"
                  alt="Hafiz Riaz"
                  class="w-20 h-20 rounded-2xl border-4 border-gold/30 shadow-gold">

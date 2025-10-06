@@ -4,20 +4,26 @@
 
     <article class="max-w-4xl mx-auto px-4 py-16 relative z-10">
         <!-- Breadcrumb -->
-        <nav class="text-sm text-light-muted mb-8">
-            <a href="/" class="hover:text-gold transition-colors">Home</a> /
-            <a href="/blog" class="hover:text-gold transition-colors">Blog</a> /
-            <span class="text-light">{{ $post->title }}</span>
+        <nav class="text-sm text-light-muted mb-6">
+            <a href="/" class="hover:text-gold transition-colors">Home</a>
+            <span class="mx-2">/</span>
+            <a href="/blog" class="hover:text-gold transition-colors">Blog</a>
+            <span class="mx-2">/</span>
+            <span class="text-light">{{ Str::limit($post->title, 50) }}</span>
         </nav>
 
         <!-- Post Header -->
         <header class="mb-12">
-            <div class="flex items-center gap-4 text-sm text-light-muted mb-4">
-                <time>{{ $post->published_at->format('M d, Y') }}</time>
-                <span>•</span>
+            <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-light-muted mb-6">
+                <time datetime="{{ $post->published_at->toIso8601String() }}">
+                    {{ $post->published_at->format('M d, Y') }}
+                </time>
+                <span class="hidden sm:inline">•</span>
                 <span>{{ $post->reading_time }} min read</span>
-                <span>•</span>
-                <span>{{ number_format($post->views) }} views</span>
+                @if($post->views >= 100)
+                    <span class="hidden sm:inline">•</span>
+                    <span>{{ number_format($post->views) }} views</span>
+                @endif
             </div>
 
             <h1 class="text-4xl md:text-5xl font-bold text-light mb-6 leading-tight">

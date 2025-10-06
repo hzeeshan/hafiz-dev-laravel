@@ -73,9 +73,16 @@
                 @endforeach
             </div>
 
-            <!-- Pagination -->
-            <div class="mt-12">
-                {{ $posts->links() }}
+            <!-- Pagination Info -->
+            <div class="flex flex-col items-center gap-6 mt-16">
+                <p class="text-base text-light-muted font-medium">
+                    Showing <span class="font-bold text-gold">{{ $posts->firstItem() }}</span>
+                    to <span class="font-bold text-gold">{{ $posts->lastItem() }}</span>
+                    of <span class="font-bold text-gold">{{ $posts->total() }}</span> posts
+                </p>
+
+                <!-- Pagination -->
+                {{ $posts->links('vendor.pagination.dark-theme') }}
             </div>
         @else
             <div class="text-center py-12">

@@ -4,13 +4,13 @@
 
     <!-- Override background pattern for blog posts -->
     <style>
-        body > div:first-of-type {
+        body>div:first-of-type {
             background-image: none !important;
             background: #1e1e28;
         }
     </style>
 
-    <article class="max-w-4xl mx-auto px-4 py-16 relative z-10">
+    <article class="max-w-4xl mx-auto px-4 py-8 relative z-10">
         <!-- Breadcrumb -->
         <nav class="text-sm text-light-muted mb-6">
             <a href="/" class="hover:text-gold transition-colors">Home</a>
@@ -28,7 +28,7 @@
                 </time>
                 <span class="hidden sm:inline">•</span>
                 <span>{{ $post->reading_time }} min read</span>
-                @if($post->views >= 100)
+                @if ($post->views >= 100)
                     <span class="hidden sm:inline">•</span>
                     <span>{{ number_format($post->views) }} views</span>
                 @endif
@@ -38,16 +38,16 @@
                 {{ $post->title }}
             </h1>
 
-            @if($post->excerpt)
+            @if ($post->excerpt)
                 <p class="text-xl text-light-muted leading-relaxed">
                     {{ $post->excerpt }}
                 </p>
             @endif
 
             <!-- Tags -->
-            @if($post->tags)
+            @if ($post->tags)
                 <div class="flex flex-wrap gap-2 mt-6">
-                    @foreach($post->tags as $tag)
+                    @foreach ($post->tags as $tag)
                         <span class="px-3 py-1 bg-gold/20 text-gold rounded-full text-sm border border-gold/30">
                             {{ $tag }}
                         </span>
@@ -57,11 +57,9 @@
         </header>
 
         <!-- Featured Image -->
-        @if($post->featured_image)
-            <img src="{{ url('storage/' . $post->featured_image) }}"
-                 alt="{{ $post->title }}"
-                 class="w-full rounded-lg mb-12 shadow-gold border border-gold/20"
-                 onerror="this.style.display='none'">
+        @if ($post->featured_image)
+            <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}"
+                class="w-full rounded-lg mb-12 shadow-gold border border-gold/20" onerror="this.style.display='none'">
         @endif
 
         <!-- Post Content -->
@@ -81,11 +79,11 @@
             </p>
             <div class="flex flex-wrap gap-4">
                 <a href="/#contact"
-                   class="px-6 py-3 bg-gold text-darkBg font-semibold rounded-lg hover:bg-gold-light transition-all duration-300 hover:shadow-gold-glow hover:-translate-y-0.5">
+                    class="px-6 py-3 bg-gold text-darkBg font-semibold rounded-lg hover:bg-gold-light transition-all duration-300 hover:shadow-gold-glow hover:-translate-y-0.5">
                     Schedule Free Consultation
                 </a>
                 <a href="/#portfolio"
-                   class="px-6 py-3 border-2 border-gold text-gold font-semibold rounded-lg hover:bg-gold/10 transition-all duration-300">
+                    class="px-6 py-3 border-2 border-gold text-gold font-semibold rounded-lg hover:bg-gold/10 transition-all duration-300">
                     View My Work
                 </a>
             </div>
@@ -96,9 +94,8 @@
 
         <!-- Author Bio -->
         <div class="flex items-start gap-6 p-6 bg-darkCard/50 rounded-xl border border-gold/20 shadow-dark-card">
-            <img src="/profile-photo.png"
-                 alt="Hafiz Riaz"
-                 class="w-20 h-20 rounded-2xl border-4 border-gold/30 shadow-gold">
+            <img src="/profile-photo.png" alt="Hafiz Riaz"
+                class="w-20 h-20 rounded-2xl border-4 border-gold/30 shadow-gold">
             <div>
                 <h4 class="text-light font-bold text-lg mb-2">About Hafiz Riaz</h4>
                 <p class="text-light-muted mb-4 leading-relaxed">
@@ -111,14 +108,15 @@
         </div>
 
         <!-- Related Posts -->
-        @if($relatedPosts->count() > 0)
+        @if ($relatedPosts->count() > 0)
             <div class="mt-16">
                 <h3 class="text-2xl font-bold text-light mb-8">Related Articles</h3>
                 <div class="grid md:grid-cols-3 gap-6">
-                    @foreach($relatedPosts as $related)
+                    @foreach ($relatedPosts as $related)
                         <a href="{{ route('blog.show', $related->slug) }}"
-                           class="block p-6 bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 hover:-translate-y-1 group">
-                            <h4 class="text-light font-semibold mb-2 group-hover:text-gold transition-colors">{{ $related->title }}</h4>
+                            class="block p-6 bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 hover:-translate-y-1 group">
+                            <h4 class="text-light font-semibold mb-2 group-hover:text-gold transition-colors">
+                                {{ $related->title }}</h4>
                             <p class="text-light-muted text-sm">{{ Str::limit($related->excerpt, 80) }}</p>
                         </a>
                     @endforeach

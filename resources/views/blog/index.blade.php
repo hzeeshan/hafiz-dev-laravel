@@ -27,7 +27,7 @@
                     <article class="bg-gradient-card rounded-xl shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 overflow-hidden border border-gold/10 group hover:-translate-y-1">
                         @if($post->featured_image)
                             <a href="{{ route('blog.show', $post->slug) }}" class="block overflow-hidden">
-                                <img src="{{ url('storage/' . $post->featured_image) }}"
+                                <img src="{{ asset('storage/' . $post->featured_image) }}"
                                      alt="{{ $post->title }}"
                                      class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
                                      onerror="this.style.display='none'">

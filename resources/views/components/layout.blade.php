@@ -1,22 +1,138 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth scroll-pt-20 h-full">
+<html lang="en-US" class="scroll-smooth scroll-pt-20 h-full">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $title ?? 'Hafiz Riaz - Full Stack Developer' }}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    @if (isset($description))
-        <meta name="description" content="{{ $description }}">
-    @endif
+    {{-- Primary Meta Tags --}}
+    <title>{{ $title ?? 'Hafiz Riaz | Laravel & Vue.js Developer | Process Automation Expert' }}</title>
+    <meta name="title" content="{{ $title ?? 'Hafiz Riaz | Laravel & Vue.js Developer | Process Automation Expert' }}">
+    <meta name="description"
+        content="{{ $description ?? 'Expert Laravel & Vue.js developer specializing in process automation, SaaS development, and custom web applications. Based in Turin, Italy. Available for freelance projects.' }}">
+    <meta name="keywords"
+        content="Laravel developer, Vue.js developer, Process automation, SaaS development, Full stack developer, PHP developer, Web application development, Italy, {{ $keywords ?? 'Freelance developer' }}">
+    <meta name="author" content="Hafiz Riaz">
+    <meta name="robots"
+        content="{{ $robots ?? 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1' }}">
 
-    <!-- Google Fonts -->
+    {{-- Canonical URL --}}
+    <link rel="canonical" href="{{ $canonical ?? url()->current() }}">
+
+    {{-- Favicon --}}
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('profile-photo.png') }}">
+
+    {{-- Open Graph / Facebook --}}
+    <meta property="og:type" content="{{ $ogType ?? 'website' }}">
+    <meta property="og:url" content="{{ $ogUrl ?? url()->current() }}">
+    <meta property="og:title" content="{{ $ogTitle ?? ($title ?? 'Hafiz Riaz | Laravel & Vue.js Developer') }}">
+    <meta property="og:description"
+        content="{{ $ogDescription ?? ($description ?? 'Expert Laravel & Vue.js developer specializing in process automation, SaaS development, and custom web applications. Available for freelance projects.') }}">
+    <meta property="og:image" content="{{ $ogImage ?? asset('profile-photo.png') }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Hafiz Riaz - Laravel Developer">
+    <meta property="og:locale" content="en_US">
+
+    {{-- Twitter Card --}}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{ $ogUrl ?? url()->current() }}">
+    <meta name="twitter:title" content="{{ $ogTitle ?? ($title ?? 'Hafiz Riaz | Laravel & Vue.js Developer') }}">
+    <meta name="twitter:description"
+        content="{{ $ogDescription ?? ($description ?? 'Expert Laravel & Vue.js developer specializing in process automation and SaaS development.') }}">
+    <meta name="twitter:image" content="{{ $ogImage ?? asset('profile-photo.png') }}">
+    <meta name="twitter:site" content="@hafizzeeshan619">
+    <meta name="twitter:creator" content="@hafizzeeshan619">
+
+    {{-- DNS Prefetch & Preconnect for Performance --}}
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    {{-- Google Fonts --}}
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
+    {{-- Structured Data - Organization/Person Schema --}}
+    <script type="application/ld+json">
+    {
+      "@@context": "https://schema.org",
+      "@@type": "Person",
+      "name": "Hafiz Riaz",
+      "url": "https://hafiz.dev",
+      "image": "https://hafiz.dev/profile-photo.png",
+      "sameAs": [
+        "https://github.com/hzeeshan",
+        "https://www.linkedin.com/in/hafiz-riaz-777501150/",
+        "https://x.com/hafizzeeshan619"
+      ],
+      "jobTitle": "Full Stack Developer",
+      "description": "Laravel & Vue.js developer specializing in process automation, SaaS development, and web applications",
+      "worksFor": {
+        "@@type": "Organization",
+        "name": "Freelance"
+      },
+      "address": {
+        "@@type": "PostalAddress",
+        "addressLocality": "Turin",
+        "addressRegion": "Piedmont",
+        "addressCountry": "IT"
+      },
+      "email": "contact@@hafiz.dev",
+      "telephone": "+393888255329",
+      "knowsAbout": ["Laravel", "Vue.js", "PHP", "Process Automation", "SaaS Development", "Web Development", "JavaScript", "MySQL", "Docker"],
+      "alumniOf": {
+        "@@type": "EducationalOrganization",
+        "name": "Self-taught Developer"
+      }
+    }
+    </script>
+
+    {{-- Website Schema with Sitelinks Search --}}
+    <script type="application/ld+json">
+    {
+      "@@context": "https://schema.org",
+      "@@type": "WebSite",
+      "@@id": "https://hafiz.dev/#website",
+      "url": "https://hafiz.dev",
+      "name": "Hafiz Riaz - Laravel Developer",
+      "description": "Laravel & Vue.js development, process automation, and SaaS building",
+      "publisher": {
+        "@@type": "Person",
+        "@@id": "https://hafiz.dev/#person"
+      },
+      "inLanguage": "en-US"
+    }
+    </script>
+
+    {{-- Additional page-specific schemas will be added in child views --}}
+    @stack('schemas')
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    {{-- Additional head content --}}
+    @stack('head')
+
+    {{-- Google Analytics - Only in production --}}
+    @production
+        @if (config('services.google_analytics.tracking_id'))
+            <!-- Google tag (gtag.js) -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id={{ config('services.google_analytics.tracking_id') }}">
+            </script>
+            <script>
+                window.dataLayer = window.dataLayer || [];
+
+                function gtag() {
+                    dataLayer.push(arguments);
+                }
+                gtag('js', new Date());
+                gtag('config', '{{ config('services.google_analytics.tracking_id') }}');
+            </script>
+        @endif
+    @endproduction
 </head>
 
 <body class="bg-gradient-dark text-light antialiased h-full flex flex-col relative overflow-x-hidden">
@@ -65,9 +181,6 @@
                 <p class="text-light-muted mb-2">
                     © {{ date('Y') }} Hafiz Riaz. All rights reserved.
                 </p>
-                {{-- <p class="text-sm text-gold">
-                    Available for Laravel projects worldwide
-                </p> --}}
             </div>
         </div>
     </footer>

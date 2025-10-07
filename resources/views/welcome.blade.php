@@ -1,7 +1,89 @@
 <x-layout>
-    <x-slot:title>Hafiz Riaz - Full Stack Developer & Laravel Expert</x-slot:title>
-    <x-slot:description>Senior Full Stack Developer specializing in Laravel, Vue.js, process automation, and SaaS
-        development. Building web applications and automating business processes.</x-slot:description>
+    <x-slot:title>Hafiz Riaz | Laravel & Vue.js Developer | Process Automation Expert</x-slot:title>
+    <x-slot:description>Expert Laravel & Vue.js developer based in Turin, Italy. Specializing in process automation,
+        SaaS development, and custom web applications. Available for freelance projects. 10+ years experience building
+        scalable solutions.</x-slot:description>
+    <x-slot:keywords>Laravel developer Italy, Vue.js developer, Process automation specialist, SaaS development, Full
+        stack developer Turin, Freelance web developer, PHP expert, Laravel Filament, Chrome extension developer</x-slot:keywords>
+    <x-slot:canonical>{{ url('/') }}</x-slot:canonical>
+
+    {{-- Homepage Open Graph --}}
+    <x-slot:ogTitle>Hafiz Riaz | Laravel & Vue.js Developer | Process Automation Expert</x-slot:ogTitle>
+    <x-slot:ogDescription>Expert Laravel & Vue.js developer specializing in process automation and SaaS development.
+        Available for freelance projects.</x-slot:ogDescription>
+    <x-slot:ogType>website</x-slot:ogType>
+    <x-slot:ogUrl>{{ url('/') }}</x-slot:ogUrl>
+    <x-slot:ogImage>{{ asset('profile-photo.png') }}</x-slot:ogImage>
+
+    @push('schemas')
+        {{-- Professional Service Schema --}}
+        {{--         <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "ProfessionalService",
+          "name": "Hafiz Riaz - Laravel Developer",
+          "image": "https://hafiz.dev/profile-photo.png",
+          "@id": "https://hafiz.dev",
+          "url": "https://hafiz.dev",
+          "telephone": "+393888255329",
+          "email": "contact@hafiz.dev",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "",
+            "addressLocality": "Turin",
+            "addressRegion": "Piedmont",
+            "postalCode": "",
+            "addressCountry": "IT"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 45.0703,
+            "longitude": 7.6869
+          },
+          "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday"
+            ],
+            "opens": "09:00",
+            "closes": "18:00"
+          },
+          "priceRange": "€€",
+          "areaServed": {
+            "@type": "Country",
+            "name": "Worldwide"
+          }
+        }
+        </script> --}}
+
+        {{-- Offer Schema --}}
+        {{-- <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Laravel Development Services",
+            "description": "Professional Laravel web application development, process automation, and SaaS solutions",
+            "provider": {
+              "@type": "Person",
+              "@id": "https://hafiz.dev/#person"
+            },
+            "serviceType": "Web Development",
+            "areaServed": "Worldwide"
+          },
+          "availability": "https://schema.org/InStock",
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "priceCurrency": "EUR"
+          }
+        }
+        </script> --}}
+    @endpush
 
     <div class="relative z-10">
         <!-- Hero Section - OPTION B: Compact with Smaller Inline Image -->

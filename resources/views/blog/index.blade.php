@@ -1,6 +1,50 @@
 <x-layout>
-    <x-slot:title>Blog - Hafiz Riaz</x-slot:title>
-    <x-slot:description>Laravel development, process automation, and SaaS building insights.</x-slot:description>
+    <x-slot:title>Laravel & SaaS Development Blog | Hafiz Riaz</x-slot:title>
+    <x-slot:description>Expert insights on Laravel development, process automation, SaaS building, Vue.js, Chrome extensions, and AI integration. Practical tutorials and lessons from building real products.</x-slot:description>
+    <x-slot:keywords>Laravel blog, SaaS development tutorials, Process automation guides, Vue.js tutorials, PHP development, Web development blog, Laravel tips, Chrome extension development</x-slot:keywords>
+    <x-slot:canonical>{{ route('blog.index') }}</x-slot:canonical>
+
+    {{-- Blog Open Graph --}}
+    <x-slot:ogTitle>Laravel & SaaS Development Blog | Hafiz Riaz</x-slot:ogTitle>
+    <x-slot:ogDescription>Expert insights on Laravel development, process automation, and SaaS building. Practical tutorials from real-world experience.</x-slot:ogDescription>
+    <x-slot:ogType>website</x-slot:ogType>
+    <x-slot:ogUrl>{{ route('blog.index') }}</x-slot:ogUrl>
+
+    @push('schemas')
+        {{-- Blog Schema --}}
+        <script type="application/ld+json">
+        {
+          "@@context": "https://schema.org",
+          "@@type": "Blog",
+          "@@id": "https://hafiz.dev/blog/#blog",
+          "url": "https://hafiz.dev/blog",
+          "name": "Hafiz Riaz Blog",
+          "description": "Laravel development, process automation, and SaaS building insights",
+          "author": {
+            "@@type": "Person",
+            "@@id": "https://hafiz.dev/#person",
+            "name": "Hafiz Riaz"
+          },
+          "publisher": {
+            "@@type": "Person",
+            "@@id": "https://hafiz.dev/#person"
+          },
+          "inLanguage": "en-US",
+          "blogPost": {!! json_encode($posts->take(10)->map(function($post) {
+              return [
+                  '@type' => 'BlogPosting',
+                  'headline' => $post->title,
+                  'url' => route('blog.show', $post->slug),
+                  'datePublished' => $post->published_at->toIso8601String(),
+                  'author' => [
+                      '@type' => 'Person',
+                      'name' => 'Hafiz Riaz'
+                  ]
+              ];
+          })->values()->all(), JSON_UNESCAPED_SLASHES) !!}
+        }
+        </script>
+    @endpush
 
     <!-- Override background pattern for blog pages -->
     <style>

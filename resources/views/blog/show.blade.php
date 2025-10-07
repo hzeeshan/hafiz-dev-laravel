@@ -1,6 +1,104 @@
 <x-layout>
-    <x-slot:title>{{ $post->seo_title ?? $post->title }}</x-slot:title>
+    {{-- SEO Meta Tags --}}
+    <x-slot:title>{{ $post->seo_title ?? $post->title . ' | Hafiz Riaz - Laravel Developer' }}</x-slot:title>
     <x-slot:description>{{ $post->seo_description ?? $post->excerpt }}</x-slot:description>
+    <x-slot:keywords>{{ implode(', ', $post->tags ?? []) }}, Laravel, PHP, Web Development</x-slot:keywords>
+    <x-slot:canonical>{{ route('blog.show', $post->slug) }}</x-slot:canonical>
+
+    {{-- Open Graph --}}
+    <x-slot:ogType>article</x-slot:ogType>
+    <x-slot:ogTitle>{{ $post->title }}</x-slot:ogTitle>
+    <x-slot:ogDescription>{{ $post->excerpt }}</x-slot:ogDescription>
+    <x-slot:ogImage>{{ $post->featured_image ? asset('storage/' . $post->featured_image) : asset('profile-photo.png') }}</x-slot:ogImage>
+    <x-slot:ogUrl>{{ route('blog.show', $post->slug) }}</x-slot:ogUrl>
+
+    {{-- Article-Specific Structured Data --}}
+    @push('schemas')
+        {{-- Article/BlogPosting Schema --}}
+        <script type="application/ld+json">
+        {
+          "@@context": "https://schema.org",
+          "@@type": "BlogPosting",
+          "headline": {{ Js::from($post->title) }},
+          "description": {{ Js::from($post->excerpt) }},
+          "image": {{ Js::from($post->featured_image ? asset('storage/' . $post->featured_image) : asset('profile-photo.png')) }},
+          "datePublished": {{ Js::from($post->published_at->toIso8601String()) }},
+          "dateModified": {{ Js::from($post->updated_at->toIso8601String()) }},
+          "author": {
+            "@@type": "Person",
+            "@@id": "https://hafiz.dev/#person",
+            "name": "Hafiz Riaz",
+            "url": "https://hafiz.dev"
+          },
+          "publisher": {
+            "@@type": "Person",
+            "@@id": "https://hafiz.dev/#person",
+            "name": "Hafiz Riaz",
+            "logo": {
+              "@@type": "ImageObject",
+              "url": "https://hafiz.dev/profile-photo.png",
+              "width": 600,
+              "height": 600
+            }
+          },
+          "mainEntityOfPage": {
+            "@@type": "WebPage",
+            "@@id": {{ Js::from(route('blog.show', $post->slug)) }}
+          },
+          "keywords": {{ Js::from($post->tags ? implode(', ', $post->tags) : '') }},
+          "wordCount": {{ str_word_count(strip_tags($post->content)) }},
+          "timeRequired": "PT{{ $post->reading_time }}M",
+          "articleBody": {{ Js::from(strip_tags($post->content)) }},
+          "url": {{ Js::from(route('blog.show', $post->slug)) }},
+          "isPartOf": {
+            "@@type": "Blog",
+            "@@id": "https://hafiz.dev/blog/#blog"
+          },
+          "inLanguage": "en-US"
+        }
+        </script>
+
+        {{-- Breadcrumb Schema --}}
+        <script type="application/ld+json">
+        {
+          "@@context": "https://schema.org",
+          "@@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://hafiz.dev"
+            },
+            {
+              "@@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://hafiz.dev/blog"
+            },
+            {
+              "@@type": "ListItem",
+              "position": 3,
+              "name": {{ Js::from($post->title) }},
+              "item": {{ Js::from(route('blog.show', $post->slug)) }}
+            }
+          ]
+        }
+        </script>
+    @endpush
+
+    {{-- Article-specific Open Graph tags --}}
+    @push('head')
+        <meta property="article:published_time" content="{{ $post->published_at->toIso8601String() }}">
+        <meta property="article:modified_time" content="{{ $post->updated_at->toIso8601String() }}">
+        <meta property="article:author" content="Hafiz Riaz">
+        <meta property="article:section" content="Technology">
+        @if($post->tags)
+            @foreach($post->tags as $tag)
+                <meta property="article:tag" content="{{ $tag }}">
+            @endforeach
+        @endif
+    @endpush
 
     <!-- Override background pattern for blog posts -->
     <style>

@@ -1,2 +1,16 @@
+# robots.txt for hafiz.dev
+# SEO optimized - Generated Oct 2025
+
 User-agent: *
-Disallow:
+Disallow: /admin
+Disallow: /admin/
+Disallow: /livewire/
+Disallow: /storage/
+
+# Allow all other pages
+Allow: /
+Allow: /blog
+Allow: /blog/*
+
+# Sitemap location
+Sitemap: https://hafiz.dev/sitemap.xml

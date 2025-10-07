@@ -31,3 +31,6 @@ medium-exported-data
 resources/views/vendor/pagination/*.blade.php
 !resources/views/vendor/pagination/dark-theme.blade.php
 .claude
+
+# Auto-generated files (regenerate with commands)
+/public/sitemap.xml

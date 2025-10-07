@@ -5,7 +5,7 @@
 
     <div class="relative z-10">
         <!-- Hero Section - OPTION B: Compact with Smaller Inline Image -->
-        <section class="min-h-screen flex items-center justify-center px-4 pt-4 pb-20" id="home">
+        <section class="min-h-screen flex items-center justify-center px-4 -mt-16 pt-16 pb-20" id="home">
             <div class="max-w-4xl mx-auto text-center">
                 <!-- Smaller Profile Image -->
                 <div class="mb-3">

@@ -1,0 +1,98 @@
+# Git files
+.git/
+.gitignore
+.gitattributes
+
+# Development files
+.env
+.env.example
+.env.local
+.env.development
+.env.testing
+.env.production
+README.md
+CLAUDE.md
+.claude/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Development dependencies
+composer.lock
+vendor/bin/
+vendor/*/tests/
+vendor/*/test/
+vendor/*/.git/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Build tools
+vite.config.js
+tailwind.config.js
+postcss.config.js
+public/hot
+
+# Development scripts
+scripts/
+deploy.sh
+*.sh
+
+# Testing
+tests/
+phpunit.xml
+.phpunit.result.cache
+coverage/
+
+# Logs (but keep the directories)
+storage/logs/*.log
+storage/logs/laravel*.log
+
+# Temporary files
+storage/framework/cache/data/*
+storage/framework/sessions/*
+storage/framework/testing/*
+storage/framework/views/*
+bootstrap/cache/*.php
+
+# Development tools
+.php-cs-fixer.php
+.php-cs-fixer.cache
+.phpstan.neon
+pint.json
+
+# Database files - NEVER sync to production!
+database/*.sqlite
+database/database.sqlite
+database/*.db
+
+# Backup files
+*.bak
+*.backup
+*.orig
+backups/
+
+# Documentation (development-only)
+docs/
+README.md
+CHANGELOG.md
+CONTRIBUTING.md
+LICENSE.md
+
+# Filament development files
+vendor/filament/*/docs/
+vendor/filament/*/tests/

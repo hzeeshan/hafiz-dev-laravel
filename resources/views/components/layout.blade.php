@@ -32,8 +32,7 @@
                 <a href="/"
                     class="text-xl font-bold text-light hover:text-gold transition-colors duration-300 flex items-center gap-2">
                     <span class="text-gold">&lt;/&gt;</span>
-                    <span>Hafiz Riaz <span class="text-gold">•</span> <span class="text-light-muted font-normal">Laravel
-                            Developer</span></span>
+                    <span>hafiz.dev</span>
                 </a>
 
                 <div class="flex items-center gap-8">

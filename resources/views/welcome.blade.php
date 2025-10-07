@@ -65,7 +65,7 @@
                         <span class="hidden sm:inline">•</span>
                         <span class="flex items-center gap-2 text-gold font-medium">
                             <span>🟢</span>
-                            <span>Available for 2-3 new projects</span>
+                            <span>Accepting new projects</span>
                         </span>
                     </div>
                 </div>
@@ -481,7 +481,7 @@
                         </div>
 
                         <p class="text-sm text-gold font-medium mt-6 text-center">
-                            🟢 Available for 2-3 new projects
+                            🟢 Accepting new projects
                         </p>
                     </div>
                 </div>

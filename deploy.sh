@@ -161,6 +161,9 @@ run_server_commands() {
         sudo chmod 664 database/*.sqlite 2>/dev/null || true
         sudo chmod -R 755 .
 
+        # Create storage symlink (force recreate to ensure it's correct)
+        php artisan storage:link --force
+
         # Run migrations
         php artisan migrate --force
 

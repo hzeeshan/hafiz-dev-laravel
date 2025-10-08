@@ -17,18 +17,18 @@
 
     @push('schemas')
         {{-- Professional Service Schema --}}
-        {{--         <script type="application/ld+json">
+        <script type="application/ld+json">
         {
-          "@context": "https://schema.org",
-          "@type": "ProfessionalService",
+          "@@context": "https://schema.org",
+          "@@type": "ProfessionalService",
           "name": "Hafiz Riaz - Laravel Developer",
           "image": "https://hafiz.dev/profile-photo.png",
-          "@id": "https://hafiz.dev",
+          "@@id": "https://hafiz.dev",
           "url": "https://hafiz.dev",
           "telephone": "+393888255329",
-          "email": "contact@hafiz.dev",
+          "email": "contact@@hafiz.dev",
           "address": {
-            "@type": "PostalAddress",
+            "@@type": "PostalAddress",
             "streetAddress": "",
             "addressLocality": "Turin",
             "addressRegion": "Piedmont",
@@ -36,12 +36,12 @@
             "addressCountry": "IT"
           },
           "geo": {
-            "@type": "GeoCoordinates",
+            "@@type": "GeoCoordinates",
             "latitude": 45.0703,
             "longitude": 7.6869
           },
           "openingHoursSpecification": {
-            "@type": "OpeningHoursSpecification",
+            "@@type": "OpeningHoursSpecification",
             "dayOfWeek": [
               "Monday",
               "Tuesday",
@@ -54,45 +54,45 @@
           },
           "priceRange": "€€",
           "areaServed": {
-            "@type": "Country",
+            "@@type": "Country",
             "name": "Worldwide"
           }
         }
-        </script> --}}
+        </script>
 
         {{-- Offer Schema --}}
-        {{-- <script type="application/ld+json">
+        <script type="application/ld+json">
         {
-          "@context": "https://schema.org",
-          "@type": "Offer",
+          "@@context": "https://schema.org",
+          "@@type": "Offer",
           "itemOffered": {
-            "@type": "Service",
+            "@@type": "Service",
             "name": "Laravel Development Services",
             "description": "Professional Laravel web application development, process automation, and SaaS solutions",
             "provider": {
-              "@type": "Person",
-              "@id": "https://hafiz.dev/#person"
+              "@@type": "Person",
+              "@@id": "https://hafiz.dev/#person"
             },
             "serviceType": "Web Development",
             "areaServed": "Worldwide"
           },
           "availability": "https://schema.org/InStock",
           "priceSpecification": {
-            "@type": "PriceSpecification",
+            "@@type": "PriceSpecification",
             "priceCurrency": "EUR"
           }
         }
-        </script> --}}
+        </script>
     @endpush
 
     <div class="relative z-10">
-        <!-- Hero Section - OPTION B: Compact with Smaller Inline Image -->
+        <!-- Hero Section  -->
         <section class="min-h-screen flex items-center justify-center px-4 -mt-16 pt-16 pb-20" id="home">
             <div class="max-w-4xl mx-auto text-center">
                 <!-- Smaller Profile Image -->
-                <div class="mb-3">
+                <div class="mb-2 mt-3">
                     <img src="/profile-photo.png" alt="Hafiz Riaz"
-                        class="w-24 h-24 mx-auto rounded-full border-3 border-gold shadow-gold">
+                        class="w-20 h-20 mx-auto rounded-full border-3 border-gold shadow-gold">
                 </div>
 
                 <p class="text-lg md:text-xl text-gold mb-2 font-medium">

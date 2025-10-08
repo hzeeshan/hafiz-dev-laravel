@@ -69,6 +69,12 @@ storage/framework/testing/*
 storage/framework/views/*
 bootstrap/cache/*.php
 
+# User uploaded files (production-only data)
+storage/app/public/blog-images/
+storage/app/public/blog-attachments/
+storage/app/private/blog-images/
+storage/app/private/livewire-tmp/
+
 # Development tools
 .php-cs-fixer.php
 .php-cs-fixer.cache

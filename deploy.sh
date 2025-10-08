@@ -95,16 +95,6 @@ build_assets() {
     php artisan livewire:publish --assets
     php artisan filament:assets
 
-    # Create Laravel caches
-    log_info "Creating Laravel caches..."
-    php artisan config:cache
-    php artisan route:cache
-    php artisan view:cache
-
-    # Cache Filament icons and components
-    log_info "Optimizing Filament..."
-    php artisan filament:optimize
-
     log_success "Assets built successfully"
 }
 
@@ -169,20 +159,16 @@ run_server_commands() {
         # Create storage symlink (force recreate to ensure it's correct)
         php artisan storage:link --force
 
-        # Publish vendor assets (Livewire, Filament)
-        php artisan livewire:publish --assets
-        php artisan filament:assets
-
         # Run migrations
         php artisan migrate --force
 
-        # Clear and optimize
+        # Clear all caches
         php artisan optimize:clear
-        php artisan optimize
+        php artisan filament:optimize-clear
 
-        # Optimize Filament (icons, components, cache)
+        # Rebuild all caches
+        php artisan optimize
         php artisan filament:optimize
-        php artisan filament:cache-components
 
         # Restart queue workers if any
         php artisan queue:restart

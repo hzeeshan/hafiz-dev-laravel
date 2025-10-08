@@ -166,6 +166,9 @@
             {!! Str::markdown($post->content) !!}
         </div>
 
+        <!-- Visual Separator -->
+        <hr class="my-16 border-t border-gold/10">
+
         <!-- CTA Box: MOST IMPORTANT FOR FREELANCE LEADS! -->
         <div class="my-16 p-8 bg-darkCard/50 border-2 border-gold/30 rounded-xl shadow-dark-card">
             <h3 class="text-2xl font-bold text-light mb-4">
@@ -208,7 +211,10 @@
 
         <!-- Related Posts -->
         @if ($relatedPosts->count() > 0)
-            <div class="mt-16">
+            <!-- Visual Separator -->
+            <hr class="my-16 border-t border-gold/10">
+
+            <div class="mt-0">
                 <h3 class="text-2xl font-bold text-light mb-8">Related Articles</h3>
                 <div class="grid md:grid-cols-3 gap-6">
                     @foreach ($relatedPosts as $related)

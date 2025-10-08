@@ -157,7 +157,8 @@
         <!-- Featured Image -->
         @if ($post->featured_image)
             <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}"
-                class="w-full rounded-lg mb-12 shadow-gold border border-gold/20" onerror="this.style.display='none'">
+                class="w-full rounded-lg mb-12 shadow-gold border border-gold/20"
+                onerror="this.src='{{ asset('blog-placeholder.svg') }}'">
         @endif
 
         <!-- Post Content -->
@@ -212,10 +213,18 @@
                 <div class="grid md:grid-cols-3 gap-6">
                     @foreach ($relatedPosts as $related)
                         <a href="{{ route('blog.show', $related->slug) }}"
-                            class="block p-6 bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 hover:-translate-y-1 group">
-                            <h4 class="text-light font-semibold mb-2 group-hover:text-gold transition-colors">
-                                {{ $related->title }}</h4>
-                            <p class="text-light-muted text-sm">{{ Str::limit($related->excerpt, 80) }}</p>
+                            class="block bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 hover:-translate-y-1 group overflow-hidden">
+                            @if ($related->featured_image)
+                                <img src="{{ asset('storage/' . $related->featured_image) }}"
+                                     alt="{{ $related->title }}"
+                                     class="w-full h-48 object-cover"
+                                     onerror="this.src='{{ asset('blog-placeholder.svg') }}'">
+                            @endif
+                            <div class="p-6">
+                                <h4 class="text-light font-semibold mb-2 group-hover:text-gold transition-colors">
+                                    {{ $related->title }}</h4>
+                                <p class="text-light-muted text-sm">{{ Str::limit($related->excerpt, 80) }}</p>
+                            </div>
                         </a>
                     @endforeach
                 </div>

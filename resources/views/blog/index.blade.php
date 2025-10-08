@@ -74,7 +74,7 @@
                                 <img src="{{ asset('storage/' . $post->featured_image) }}"
                                      alt="{{ $post->title }}"
                                      class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
-                                     onerror="this.style.display='none'">
+                                     onerror="this.src='{{ asset('blog-placeholder.svg') }}'">
                             </a>
                         @endif
 

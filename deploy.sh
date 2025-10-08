@@ -90,6 +90,11 @@ build_assets() {
     log_info "Building production assets..."
     npm run build
 
+    # Publish vendor assets locally (will be synced to server)
+    log_info "Publishing vendor assets..."
+    php artisan livewire:publish --assets
+    php artisan filament:assets
+
     # Create Laravel caches
     log_info "Creating Laravel caches..."
     php artisan config:cache
@@ -163,6 +168,10 @@ run_server_commands() {
 
         # Create storage symlink (force recreate to ensure it's correct)
         php artisan storage:link --force
+
+        # Publish vendor assets (Livewire, Filament)
+        php artisan livewire:publish --assets
+        php artisan filament:assets
 
         # Run migrations
         php artisan migrate --force

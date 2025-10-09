@@ -43,12 +43,13 @@ class BlogContentGenerator
         };
 
         // Generate metadata (SEO, excerpt, etc.)
-        // Pass AI-generated excerpt if available
+        // Pass AI-generated excerpt and meta description if available
         $metadata = $this->generateMetadata(
             $content['title'],
             $content['content'],
             $topic,
-            $content['ai_generated_excerpt'] ?? null
+            $content['ai_generated_excerpt'] ?? null,
+            $content['ai_generated_meta_description'] ?? null
         );
 
         // Convert markdown to HTML
@@ -161,27 +162,75 @@ class BlogContentGenerator
         $prompt = <<<PROMPT
         You are Hafiz Riaz, a Laravel developer and automation expert with 7+ years of experience building SaaS products, Chrome extensions, and automation tools.
 
-        TASK: Write a comprehensive technical blog post about "{$topic->title}"
+        TASK: Write a comprehensive, SEO-optimized technical blog post about "{$topic->title}"
 
-        REQUIREMENTS:
-        - Length: {$this->minWordCount}-{$this->maxWordCount} words
-        - Target Audience: {$topic->target_audience}
-        - Voice: First-person, professional but conversational
-        - Include: Working code examples (Laravel 11 syntax)
-        - Explain: Trade-offs, best practices, real-world applications
-        - Add: Personal experience ("In my projects...", "I've found that...")
+        AUDIENCE: {$topic->target_audience}
+        PRIMARY KEYWORDS: {$topic->keywords}
+        CONTEXT: {$topic->description}
+        WORD COUNT: {$this->minWordCount}-{$this->maxWordCount} words
 
-        STRUCTURE:
-        1. Hook: Start with a specific problem or scenario
-        2. Introduction: Why this matters
-        3. Main Content: Technical explanation with code
-        4. Practical Examples: Real working code (not pseudocode)
-        5. Trade-offs & Alternatives: When to use/not use
-        6. Conclusion: Summary + next steps
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        SEO OPTIMIZATION (CRITICAL - This Drives Leads & Traffic)
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+        1. TITLE: Include primary keyword near beginning, 50-60 chars, make it compelling
+        2. FIRST PARAGRAPH: Use primary keyword in first 100 words naturally
+        3. HEADERS: Use H2/H3 with keyword variations ("How to...", "Best practices...")
+        4. KEYWORD DENSITY: 1-2% primary keyword (natural, not stuffed)
+        5. LSI KEYWORDS: Use related terms throughout (semantic SEO)
+        6. META DESCRIPTION: 150-160 chars, primary keyword in first 120 chars, compelling
+        7. FEATURED SNIPPET: Structure one section to answer "What is..." or "How to..." clearly
+        8. INTERNAL LINKS: Suggest 2-3 links using [link to: Related Topic Name]
+        9. SCANNABILITY: Short paragraphs (2-4 sentences), bullet points, numbered lists
+
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        CONTENT STRUCTURE
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+        1. HOOK & INTRODUCTION (150-200 words)
+           - Start with specific problem (include primary keyword)
+           - Why this matters to reader
+           - What they'll learn/achieve
+           - Personal credibility
+
+        2. MAIN CONTENT (800-1500 words)
+           - H2: Major topics (with keyword variations)
+           - H3: Specific steps
+           - Working code examples (Laravel 11)
+           - Explain why, not just how
+           - Real-world use cases
+
+        3. STEP-BY-STEP TUTORIAL (300-500 words)
+           - "How to [achieve X]" format (featured snippet target)
+           - Numbered steps with code
+           - Clear success criteria
+
+        4. TRADE-OFFS & ALTERNATIVES (200-300 words)
+           - Pros and cons
+           - When to use/not use
+           - Alternative solutions
+
+        5. COMMON MISTAKES (150-200 words)
+           - Targets "mistakes to avoid" searches
+           - Solutions for each
+
+        6. CONCLUSION (100-150 words)
+           - Recap key points
+           - Actionable next step
+
         7. CTA: {$hireCta}
 
-        KEYWORDS: {$topic->keywords}
-        DESCRIPTION: {$topic->description}
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        WRITING STYLE
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+        ✓ First-person, conversational but professional
+        ✓ Active voice, short sentences (15-20 words avg)
+        ✓ Transition words (However, Additionally, Therefore)
+        ✓ Code comments explaining logic
+        ✓ Personal examples ("In my projects...", "I've found...")
+        ✓ Natural keyword integration (NO stuffing)
+        ✓ Bold important terms, use bullet points
         PROMPT;
 
         if ($topic->custom_prompt) {
@@ -190,33 +239,51 @@ class BlogContentGenerator
 
         $prompt .= "\n\nOUTPUT FORMAT (CRITICAL - Follow exactly):
 
-        # [Your Title]
+        # [SEO-Optimized Title with Primary Keyword]
 
-        EXCERPT: [Your compelling 1-2 sentence summary, max 150 chars]
+        EXCERPT: [Compelling 1-2 sentence summary with keyword, max 150 chars]
 
-        IMAGE_PROMPT: [Your detailed image generation prompt, 80-120 words]
+        META_DESCRIPTION: [150-160 chars, primary keyword in first 120 chars, compelling CTA]
 
-        [Your blog post content starts here...]
+        IMAGE_PROMPT: [Detailed image prompt, 80-120 words, NO text on image]
 
-        EXAMPLE OUTPUT:
-        # Building Real-Time Chat with Laravel Reverb
+        [Your blog post content with proper headers starts here...]
 
-        EXCERPT: Learn how to build a modern real-time chat system using Laravel Reverb's WebSocket server and Vue.js components in under 30 minutes.
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        EXAMPLE OUTPUT
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-        IMAGE_PROMPT: Abstract visualization of real-time data flow: glowing cyan data packets streaming through dark fiber-optic channels from multiple users, converging at a central Laravel Reverb server node (represented as a pulsing geometric hub with orange/red accents), then broadcasting outward to connected Vue.js clients shown as translucent green devices. Dark navy background with neon highlights, modern tech aesthetic, dynamic motion blur effects, 3D isometric perspective. NO text on image.
+        # Building Real-Time Chat with Laravel Reverb in 30 Minutes
 
-        Real-time features used to require complex infrastructure...
+        EXCERPT: Learn how to build production-ready real-time chat using Laravel Reverb's WebSocket server and Vue.js in under 30 minutes.
 
-        CRITICAL RULES:
-        1. Line 1: Title starting with #
-        2. Line 2: Blank line
-        3. Line 3: EXCERPT: [text]
-        4. Line 4: Blank line
-        5. Line 5: IMAGE_PROMPT: [detailed description]
-        6. Line 6: Blank line
-        7. Line 7+: Blog content
+        META_DESCRIPTION: Complete guide to building real-time chat with Laravel Reverb. Includes working code, WebSocket setup, and Vue.js integration for developers.
 
-        DO NOT skip the EXCERPT or IMAGE_PROMPT lines. They are mandatory.";
+        IMAGE_PROMPT: Abstract visualization of real-time data flow: glowing cyan data packets streaming through dark fiber-optic channels from multiple users, converging at a central Laravel Reverb server node (pulsing geometric hub with orange/red accents), broadcasting outward to Vue.js clients (translucent green devices). Dark navy background, neon highlights, modern tech aesthetic, 3D isometric perspective. NO text.
+
+        Real-time features used to require complex infrastructure like Pusher or Socket.io. [link to: Comparing WebSocket Solutions] With Laravel Reverb's release in 2024, you can build production-ready applications without third-party services.
+
+        In my experience building [client project name], real-time features became critical...
+
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        CRITICAL RULES (DO NOT DEVIATE)
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+        Line 1: # Title (with primary keyword, 50-60 chars)
+        Line 2: Blank
+        Line 3: EXCERPT: [summary with keyword]
+        Line 4: Blank
+        Line 5: META_DESCRIPTION: [150-160 chars with keyword]
+        Line 6: Blank
+        Line 7: IMAGE_PROMPT: [detailed description]
+        Line 8: Blank
+        Line 9+: Blog content with H2/H3 headers
+
+        DO NOT skip EXCERPT, META_DESCRIPTION, or IMAGE_PROMPT - all are mandatory.
+        DO NOT keyword stuff - keep it natural and reader-focused.
+        DO include [link to: Topic] suggestions (2-3 throughout content).
+        DO use primary keyword in first 100 words of content.
+        DO structure one section for featured snippet targeting.";
 
         return $prompt;
     }
@@ -379,6 +446,15 @@ class BlogContentGenerator
             $content = preg_replace('/^EXCERPT:\s*.+$/m', '', $content);
         }
 
+        // Extract meta description if provided by AI (format: "META_DESCRIPTION: text")
+        $aiGeneratedMetaDescription = null;
+        if (preg_match('/^META_DESCRIPTION:\s*(.+)$/m', $content, $metaMatch)) {
+            $aiGeneratedMetaDescription = trim($metaMatch[1]);
+            // Remove the META_DESCRIPTION line from content
+            $content = preg_replace('/^META_DESCRIPTION:\s*.+$/m', '', $content);
+            Log::info('Extracted AI-generated meta description', ['length' => mb_strlen($aiGeneratedMetaDescription)]);
+        }
+
         // Extract image prompt if provided by AI (format: "IMAGE_PROMPT: text")
         $aiGeneratedImagePrompt = null;
         if (preg_match('/^IMAGE_PROMPT:\s*(.+)$/m', $content, $imagePromptMatch)) {
@@ -413,6 +489,7 @@ class BlogContentGenerator
             'tags' => $tags,
             'reading_time' => $readingTime,
             'ai_generated_excerpt' => $aiGeneratedExcerpt, // Pass this to generateMetadata
+            'ai_generated_meta_description' => $aiGeneratedMetaDescription, // Pass to generateMetadata
             'ai_generated_image_prompt' => $aiGeneratedImagePrompt, // Pass to image generation
             'generation_metadata' => [
                 'word_count' => $wordCount,
@@ -433,9 +510,10 @@ class BlogContentGenerator
      * @param string $content
      * @param BlogTopic $topic
      * @param string|null $aiGeneratedExcerpt
+     * @param string|null $aiGeneratedMetaDescription
      * @return array
      */
-    protected function generateMetadata(string $title, string $content, BlogTopic $topic, ?string $aiGeneratedExcerpt = null): array
+    protected function generateMetadata(string $title, string $content, BlogTopic $topic, ?string $aiGeneratedExcerpt = null, ?string $aiGeneratedMetaDescription = null): array
     {
         // If AI generated a good excerpt, use it (preferred)
         if ($aiGeneratedExcerpt && mb_strlen($aiGeneratedExcerpt) > 20) {
@@ -455,13 +533,21 @@ class BlogContentGenerator
             $seoTitle = mb_substr($seoTitle, 0, 57) . '...';
         }
 
-        // Generate SEO description (max 160 chars, truncate cleanly)
-        $seoDescription = $excerpt;
-        if (mb_strlen($seoDescription) > 160) {
-            $truncated = mb_substr($seoDescription, 0, 157);
-            // Remove trailing "..." from excerpt if present
-            $truncated = rtrim($truncated, '.');
-            $seoDescription = $truncated . '...';
+        // Use AI-generated meta description if available (preferred for SEO)
+        if ($aiGeneratedMetaDescription && mb_strlen($aiGeneratedMetaDescription) >= 120) {
+            $seoDescription = $aiGeneratedMetaDescription;
+            // Ensure it's exactly 160 chars or less
+            if (mb_strlen($seoDescription) > 160) {
+                $seoDescription = mb_substr($seoDescription, 0, 157) . '...';
+            }
+        } else {
+            // Fallback: Use excerpt as meta description
+            $seoDescription = $excerpt;
+            if (mb_strlen($seoDescription) > 160) {
+                $truncated = mb_substr($seoDescription, 0, 157);
+                $truncated = rtrim($truncated, '.');
+                $seoDescription = $truncated . '...';
+            }
         }
 
         return [

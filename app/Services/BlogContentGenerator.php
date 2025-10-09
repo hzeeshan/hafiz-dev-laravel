@@ -45,7 +45,37 @@ class BlogContentGenerator
         // Generate metadata (SEO, excerpt, etc.)
         $metadata = $this->generateMetadata($content['title'], $content['content'], $topic);
 
-        return array_merge($content, $metadata);
+        // Convert markdown to HTML
+        $htmlContent = $this->convertMarkdownToHtml($content['content']);
+
+        // Flatten generation_metadata for easier access in jobs
+        $generationMetadata = $content['generation_metadata'] ?? [];
+
+        return [
+            'title' => $content['title'],
+            'content' => $content['content'],
+            'html_content' => $htmlContent,
+            'markdown_content' => $content['content'],
+            'tags' => $content['tags'] ?? [],
+            'reading_time' => $content['reading_time'] ?? 5,
+
+            // SEO fields (match job expectations)
+            'meta_title' => $metadata['seo_title'],
+            'meta_description' => $metadata['seo_description'],
+            'excerpt' => $metadata['excerpt'],
+
+            // Quality & code review
+            'quality_score' => $generationMetadata['quality_score'] ?? null,
+            'has_code' => $generationMetadata['requires_code_review'] ?? false,
+            'word_count' => $generationMetadata['word_count'] ?? 0,
+
+            // AI generation tracking
+            'model' => $generationMetadata['model'] ?? 'unknown',
+            'ai_provider' => 'openrouter',
+            'tokens' => $generationMetadata['tokens'] ?? 0,
+            'cost' => $generationMetadata['cost'] ?? 0,
+            'generation_time' => $generationMetadata['generation_time'] ?? 0,
+        ];
     }
 
     /**
@@ -419,5 +449,73 @@ class BlogContentGenerator
     {
         // If content has code blocks, it should be reviewed
         return substr_count($content, '```') > 0;
+    }
+
+    /**
+     * Convert Markdown content to HTML
+     *
+     * @param string $markdown
+     * @return string
+     */
+    protected function convertMarkdownToHtml(string $markdown): string
+    {
+        // Use Laravel's Str::markdown() for basic conversion
+        // Or if you have league/commonmark installed, use that
+        if (class_exists(\League\CommonMark\CommonMarkConverter::class)) {
+            $converter = new \League\CommonMark\CommonMarkConverter([
+                'html_input' => 'strip',
+                'allow_unsafe_links' => false,
+            ]);
+            return $converter->convert($markdown)->getContent();
+        }
+
+        // Fallback to basic Str::markdown if available
+        if (method_exists(Str::class, 'markdown')) {
+            return Str::markdown($markdown);
+        }
+
+        // Simple fallback conversion
+        return $this->simpleMarkdownToHtml($markdown);
+    }
+
+    /**
+     * Simple markdown to HTML conversion (fallback)
+     *
+     * @param string $markdown
+     * @return string
+     */
+    protected function simpleMarkdownToHtml(string $markdown): string
+    {
+        $html = $markdown;
+
+        // Convert headers
+        $html = preg_replace('/^#### (.+)$/m', '<h4>$1</h4>', $html);
+        $html = preg_replace('/^### (.+)$/m', '<h3>$1</h3>', $html);
+        $html = preg_replace('/^## (.+)$/m', '<h2>$1</h2>', $html);
+        $html = preg_replace('/^# (.+)$/m', '<h1>$1</h1>', $html);
+
+        // Convert code blocks
+        $html = preg_replace('/```(\w+)?\n(.*?)\n```/s', '<pre><code>$2</code></pre>', $html);
+
+        // Convert inline code
+        $html = preg_replace('/`([^`]+)`/', '<code>$1</code>', $html);
+
+        // Convert bold
+        $html = preg_replace('/\*\*(.+?)\*\*/', '<strong>$1</strong>', $html);
+
+        // Convert italic
+        $html = preg_replace('/\*(.+?)\*/', '<em>$1</em>', $html);
+
+        // Convert lists
+        $html = preg_replace('/^- (.+)$/m', '<li>$1</li>', $html);
+        $html = preg_replace('/(<li>.*<\/li>)/s', '<ul>$1</ul>', $html);
+
+        // Convert links
+        $html = preg_replace('/\[([^\]]+)\]\(([^\)]+)\)/', '<a href="$2">$1</a>', $html);
+
+        // Convert paragraphs
+        $html = '<p>' . preg_replace('/\n\n/', '</p><p>', $html) . '</p>';
+
+        return $html;
     }
 }

@@ -9,8 +9,8 @@ use Illuminate\Support\Str;
 
 class FalImageService
 {
-    protected string $apiKey;
-    protected string $baseUrl;
+    protected ?string $apiKey;
+    protected ?string $baseUrl;
     protected int $timeout = 60;
 
     public function __construct()
@@ -32,6 +32,10 @@ class FalImageService
         ?string $model = null,
         array $options = []
     ): array {
+        if (!$this->apiKey) {
+            throw new \Exception('Fal.ai API key not configured. Set FAL_API_KEY in .env file.');
+        }
+
         $model = $model ?? config('blog.image_models.primary');
         $startTime = microtime(true);
 

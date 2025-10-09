@@ -2,25 +2,12 @@
 
 namespace App\Services\AI;
 
-use EchoLabs\Prism\Facades\Prism;
-use EchoLabs\Prism\Providers\OpenAI\OpenAI;
 use Illuminate\Support\Facades\Log;
+use Prism\Prism\Enums\Provider;
+use Prism\Prism\Prism;
 
 class OpenRouterService
 {
-    protected string $apiKey;
-    protected string $baseUrl;
-    protected string $siteUrl;
-    protected string $siteName;
-
-    public function __construct()
-    {
-        $this->apiKey = config('services.openrouter.api_key');
-        $this->baseUrl = config('services.openrouter.base_url');
-        $this->siteUrl = config('services.openrouter.site_url');
-        $this->siteName = config('services.openrouter.site_name');
-    }
-
     /**
      * Generate content using specified model
      *
@@ -47,41 +34,40 @@ class OpenRouterService
                 'prompt_length' => strlen($prompt),
             ]);
 
-            // Use Prism with OpenAI provider pointing to OpenRouter
-            $response = Prism::using(
-                OpenAI::class,
-                $this->apiKey,
-                $this->baseUrl
-            )->text()
-                ->using($model)
+            // Use Prism's native OpenRouter provider
+            $response = Prism::text()
+                ->using(Provider::OpenRouter, $model)
                 ->withMaxTokens($maxTokens)
                 ->withClientOptions([
-                    'headers' => [
-                        'HTTP-Referer' => $this->siteUrl,
-                        'X-Title' => $this->siteName,
-                    ],
+                    'timeout' => 120, // 2 minutes for long blog posts
                 ])
-                ->withPrompt($prompt);
+                ->withPrompt($prompt)
+                ->generate();
 
             $generationTime = round((microtime(true) - $startTime), 2);
 
             $content = $response->text;
             $usage = $response->usage ?? null;
 
+            // Get token counts (handling different property names)
+            $inputTokens = $usage?->promptTokens ?? 0;
+            $outputTokens = $usage?->completionTokens ?? 0;
+            $totalTokens = $inputTokens + $outputTokens;
+
             Log::info('OpenRouter generation completed', [
                 'model' => $model,
                 'generation_time' => $generationTime,
-                'tokens' => $usage?->totalTokens ?? 0,
+                'tokens' => $totalTokens,
             ]);
 
             return [
                 'content' => $content,
-                'tokens' => $usage?->totalTokens ?? 0,
-                'input_tokens' => $usage?->promptTokens ?? 0,
-                'output_tokens' => $usage?->completionTokens ?? 0,
+                'tokens' => $totalTokens,
+                'input_tokens' => $inputTokens,
+                'output_tokens' => $outputTokens,
                 'model' => $model,
                 'generation_time' => $generationTime,
-                'cost' => $this->estimateCost($model, $usage?->promptTokens ?? 0, $usage?->completionTokens ?? 0),
+                'cost' => $this->estimateCost($model, $inputTokens, $outputTokens),
             ];
         } catch (\Exception $e) {
             Log::error('OpenRouter generation failed', [
@@ -134,20 +120,14 @@ class OpenRouterService
         $model = $model ?? config('blog.models.primary');
 
         try {
-            $response = Prism::using(
-                OpenAI::class,
-                $this->apiKey,
-                $this->baseUrl
-            )->text()
-                ->using($model)
+            $response = Prism::text()
+                ->using(Provider::OpenRouter, $model)
                 ->withMaxTokens(4000)
                 ->withClientOptions([
-                    'headers' => [
-                        'HTTP-Referer' => $this->siteUrl,
-                        'X-Title' => $this->siteName,
-                    ],
+                    'timeout' => 120,
                 ])
-                ->withPrompt($prompt . "\n\nReturn ONLY valid JSON, no markdown formatting.");
+                ->withPrompt($prompt . "\n\nReturn ONLY valid JSON, no markdown formatting.")
+                ->generate();
 
             $content = $response->text;
 
@@ -182,7 +162,7 @@ class OpenRouterService
             'deepseek/deepseek-r1' => ['input' => 0.55, 'output' => 2.19],
             'anthropic/claude-3.5-sonnet' => ['input' => 3.00, 'output' => 15.00],
             'openai/gpt-4o-mini' => ['input' => 0.15, 'output' => 0.60],
-            'google/gemini-2.0-flash-thinking-exp:free' => ['input' => 0.00, 'output' => 0.00],
+            'google/gemini-2.0-flash-exp' => ['input' => 0.00, 'output' => 0.00],
         ];
 
         $modelPricing = $pricing[$model] ?? ['input' => 0.10, 'output' => 0.30]; // Default estimate

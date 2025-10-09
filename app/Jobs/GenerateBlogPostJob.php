@@ -7,6 +7,7 @@ use App\Models\BlogTopic;
 use App\Models\Post;
 use App\Services\BlogContentGenerator;
 use App\Services\AI\FalImageService;
+use App\Services\NotificationService;
 use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -34,7 +35,7 @@ class GenerateBlogPostJob implements ShouldQueue
     /**
      * Execute the job.
      */
-    public function handle(BlogContentGenerator $contentGenerator, FalImageService $imageService): void
+    public function handle(BlogContentGenerator $contentGenerator, FalImageService $imageService, NotificationService $notification): void
     {
         // Create generation log
         $log = BlogGenerationLog::create([
@@ -87,18 +88,17 @@ class GenerateBlogPostJob implements ShouldQueue
                 }
             }
 
-            // Create the blog post
+            // Create the blog post (store as markdown, Filament will handle display)
             $post = Post::create([
                 'blog_topic_id' => $this->topic->id,
                 'title' => $content['title'],
                 'slug' => Str::slug($content['title']),
-                'content' => $content['html_content'],
-                'excerpt' => $content['meta_description'],
+                'content' => $content['content'], // Store markdown, not HTML
+                'excerpt' => $content['excerpt'], // Plain text excerpt
                 'featured_image' => $featuredImageUrl,
-                'meta_title' => $content['meta_title'],
-                'meta_description' => $content['meta_description'],
+                'seo_title' => $content['meta_title'],
+                'seo_description' => $content['meta_description'],
                 'reading_time' => $content['reading_time'] ?? 5,
-                'author_id' => config('blog.default_author_id', 1),
                 'auto_generated' => true,
                 'generation_quality_score' => $content['quality_score'] ?? null,
                 'requires_code_review' => $content['has_code'] ?? false,
@@ -138,8 +138,12 @@ class GenerateBlogPostJob implements ShouldQueue
                 'quality_score' => $content['quality_score'] ?? 'N/A',
             ]);
 
-            // Send Telegram notification if enabled
-            $this->sendTelegramNotification('success', $post, $totalCost, $generationTime);
+            // Send Telegram notification
+            $notification->sendGenerationSuccess($this->topic, $post, [
+                'generation_time' => $generationTime,
+                'cost' => $totalCost,
+                'quality_score' => $content['quality_score'] ?? 'N/A',
+            ]);
 
         } catch (Exception $e) {
             // Update topic back to pending
@@ -160,74 +164,11 @@ class GenerateBlogPostJob implements ShouldQueue
             ]);
 
             // Send failure notification
-            $this->sendTelegramNotification('failure', null, 0, 0, $e->getMessage());
+            $notification->sendGenerationFailure($this->topic, $e->getMessage(), [
+                'retry_count' => 0,
+            ]);
 
             throw $e;
         }
-    }
-
-    /**
-     * Send Telegram notification
-     */
-    protected function sendTelegramNotification(string $type, ?Post $post, float $cost, int $time, ?string $error = null): void
-    {
-        if (!config('blog.notifications.telegram_enabled', false)) {
-            return;
-        }
-
-        $shouldNotify = $type === 'success'
-            ? config('blog.notifications.notify_on_success', true)
-            : config('blog.notifications.notify_on_failure', true);
-
-        if (!$shouldNotify) {
-            return;
-        }
-
-        try {
-            $botToken = config('blog.notifications.telegram_bot_token');
-            $chatId = config('blog.notifications.telegram_chat_id');
-
-            if (!$botToken || !$chatId) {
-                return;
-            }
-
-            $message = $type === 'success'
-                ? $this->formatSuccessMessage($post, $cost, $time)
-                : $this->formatFailureMessage($error);
-
-            $url = "https://api.telegram.org/bot{$botToken}/sendMessage";
-
-            $ch = curl_init($url);
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
-                'chat_id' => $chatId,
-                'text' => $message,
-                'parse_mode' => 'HTML',
-            ]));
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_exec($ch);
-            curl_close($ch);
-        } catch (Exception $e) {
-            Log::warning("Telegram notification failed: {$e->getMessage()}");
-        }
-    }
-
-    protected function formatSuccessMessage(Post $post, float $cost, int $time): string
-    {
-        return "✅ <b>Blog Post Generated</b>\n\n"
-            . "📝 <b>Title:</b> {$post->title}\n"
-            . "⏱ <b>Time:</b> {$time}s\n"
-            . "💰 <b>Cost:</b> $" . number_format($cost, 4) . "\n"
-            . "📊 <b>Quality:</b> {$post->generation_quality_score}/10\n"
-            . "🔍 <b>Status:</b> " . ucfirst($post->status) . "\n\n"
-            . "👉 Review at: " . url("/admin/posts/{$post->id}/edit");
-    }
-
-    protected function formatFailureMessage(?string $error): string
-    {
-        return "❌ <b>Blog Generation Failed</b>\n\n"
-            . "📝 <b>Topic:</b> {$this->topic->title}\n"
-            . "❗️ <b>Error:</b> " . ($error ? Str::limit($error, 200) : 'Unknown error') . "\n\n"
-            . "👉 Check logs for details";
     }
 }

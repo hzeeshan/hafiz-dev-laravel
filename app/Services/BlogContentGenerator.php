@@ -43,7 +43,13 @@ class BlogContentGenerator
         };
 
         // Generate metadata (SEO, excerpt, etc.)
-        $metadata = $this->generateMetadata($content['title'], $content['content'], $topic);
+        // Pass AI-generated excerpt if available
+        $metadata = $this->generateMetadata(
+            $content['title'],
+            $content['content'],
+            $topic,
+            $content['ai_generated_excerpt'] ?? null
+        );
 
         // Convert markdown to HTML
         $htmlContent = $this->convertMarkdownToHtml($content['content']);
@@ -179,7 +185,20 @@ class BlogContentGenerator
             $prompt .= "\n\nADDITIONAL INSTRUCTIONS:\n{$topic->custom_prompt}";
         }
 
-        $prompt .= "\n\nIMPORTANT: Return ONLY markdown content. Start directly with title (# Title). No preamble, no explanations about what you're doing.";
+        $prompt .= "\n\nOUTPUT FORMAT:
+Return your response in this exact format:
+
+# [Your Title]
+
+EXCERPT: [Write a compelling 1-2 sentence summary that hooks readers and makes them want to read more. No markdown, plain text only. Max 150 characters.]
+
+[Rest of your markdown content here...]
+
+IMPORTANT:
+- Start with the title (# Title)
+- Next line MUST be \"EXCERPT: [your summary]\"
+- Then the full blog post content
+- The excerpt should be enticing, not just the first paragraph";
 
         return $prompt;
     }
@@ -334,6 +353,14 @@ class BlogContentGenerator
         preg_match('/^#\s+(.+)$/m', $content, $titleMatch);
         $title = $titleMatch[1] ?? 'Untitled Post';
 
+        // Extract excerpt if provided by AI (format: "EXCERPT: text")
+        $aiGeneratedExcerpt = null;
+        if (preg_match('/^EXCERPT:\s*(.+)$/m', $content, $excerptMatch)) {
+            $aiGeneratedExcerpt = trim($excerptMatch[1]);
+            // Remove the EXCERPT line from content
+            $content = preg_replace('/^EXCERPT:\s*.+$/m', '', $content);
+        }
+
         // Remove title from content
         $content = preg_replace('/^#\s+.+$/m', '', $content, 1);
         $content = trim($content);
@@ -354,6 +381,7 @@ class BlogContentGenerator
             'content' => $content,
             'tags' => $tags,
             'reading_time' => $readingTime,
+            'ai_generated_excerpt' => $aiGeneratedExcerpt, // Pass this to generateMetadata
             'generation_metadata' => [
                 'word_count' => $wordCount,
                 'quality_score' => $qualityScore,
@@ -372,25 +400,102 @@ class BlogContentGenerator
      * @param string $title
      * @param string $content
      * @param BlogTopic $topic
+     * @param string|null $aiGeneratedExcerpt
      * @return array
      */
-    protected function generateMetadata(string $title, string $content, BlogTopic $topic): array
+    protected function generateMetadata(string $title, string $content, BlogTopic $topic, ?string $aiGeneratedExcerpt = null): array
     {
-        // Generate excerpt (first 200 chars of content, no markdown)
-        $plainText = strip_tags($content);
-        $excerpt = Str::limit($plainText, 200);
+        // If AI generated a good excerpt, use it (preferred)
+        if ($aiGeneratedExcerpt && mb_strlen($aiGeneratedExcerpt) > 20) {
+            $excerpt = $aiGeneratedExcerpt;
+            // Ensure it's not too long
+            if (mb_strlen($excerpt) > 200) {
+                $excerpt = mb_substr($excerpt, 0, 197) . '...';
+            }
+        } else {
+            // Fallback: Generate excerpt by stripping markdown
+            $excerpt = $this->generateExcerptFromContent($content);
+        }
 
-        // Generate SEO title (max 60 chars)
-        $seoTitle = Str::limit($title, 60);
+        // Generate SEO title (max 60 chars, truncate cleanly)
+        $seoTitle = $title;
+        if (mb_strlen($seoTitle) > 60) {
+            $seoTitle = mb_substr($seoTitle, 0, 57) . '...';
+        }
 
-        // Generate SEO description (max 160 chars)
-        $seoDescription = Str::limit($excerpt, 160);
+        // Generate SEO description (max 160 chars, truncate cleanly)
+        $seoDescription = $excerpt;
+        if (mb_strlen($seoDescription) > 160) {
+            $truncated = mb_substr($seoDescription, 0, 157);
+            // Remove trailing "..." from excerpt if present
+            $truncated = rtrim($truncated, '.');
+            $seoDescription = $truncated . '...';
+        }
 
         return [
             'excerpt' => $excerpt,
             'seo_title' => $seoTitle,
             'seo_description' => $seoDescription,
         ];
+    }
+
+    /**
+     * Generate excerpt from content by stripping markdown (fallback method)
+     *
+     * @param string $content
+     * @return string
+     */
+    protected function generateExcerptFromContent(string $content): string
+    {
+        // Strip ALL markdown formatting
+        $plainText = $content;
+
+        // Remove code blocks first (including content inside)
+        $plainText = preg_replace('/```[\s\S]*?```/m', '', $plainText);
+
+        // Remove inline code
+        $plainText = preg_replace('/`([^`]+)`/', '$1', $plainText);
+
+        // Remove headers (##, ###, etc.)
+        $plainText = preg_replace('/^#{1,6}\s+(.*)$/m', '$1', $plainText);
+
+        // Remove links but keep text [text](url) -> text
+        $plainText = preg_replace('/\[([^\]]+)\]\([^\)]+\)/', '$1', $plainText);
+
+        // Remove images
+        $plainText = preg_replace('/!\[([^\]]*)\]\([^\)]+\)/', '', $plainText);
+
+        // Remove bold/italic (**text** or *text* or __text__ or _text_)
+        $plainText = preg_replace('/[*_]{1,2}([^*_]+)[*_]{1,2}/', '$1', $plainText);
+
+        // Remove blockquotes (> text)
+        $plainText = preg_replace('/^>\s+(.*)$/m', '$1', $plainText);
+
+        // Remove horizontal rules
+        $plainText = preg_replace('/^(-{3,}|_{3,}|\*{3,})$/m', '', $plainText);
+
+        // Remove list markers (-, *, +, 1., 2., etc.)
+        $plainText = preg_replace('/^[\s]*[-*+]\s+/m', '', $plainText);
+        $plainText = preg_replace('/^[\s]*\d+\.\s+/m', '', $plainText);
+
+        // Normalize whitespace (multiple spaces/newlines to single space)
+        $plainText = preg_replace('/\s+/', ' ', $plainText);
+
+        // Trim and clean up
+        $plainText = trim($plainText);
+
+        // Generate excerpt (200 chars without "...")
+        $excerpt = mb_substr($plainText, 0, 200);
+        if (mb_strlen($plainText) > 200) {
+            // Find last complete word within 200 chars
+            $lastSpace = mb_strrpos($excerpt, ' ');
+            if ($lastSpace !== false) {
+                $excerpt = mb_substr($excerpt, 0, $lastSpace);
+            }
+            $excerpt .= '...';
+        }
+
+        return $excerpt;
     }
 
     /**

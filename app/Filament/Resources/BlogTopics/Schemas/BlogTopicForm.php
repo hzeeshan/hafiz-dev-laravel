@@ -25,16 +25,15 @@ class BlogTopicForm
                             ->columnSpanFull()
                             ->helperText('Main topic or article title'),
 
-                        Grid::make(2)
-                            ->schema([
-                                TextInput::make('category')
-                                    ->maxLength(100)
-                                    ->placeholder('e.g., Laravel, PHP, DevOps'),
+                        TextInput::make('category')
+                            ->maxLength(100)
+                            ->placeholder('e.g., Laravel, PHP, DevOps')
+                            ->columnSpan(1),
 
-                                TextInput::make('target_audience')
-                                    ->maxLength(100)
-                                    ->placeholder('e.g., Intermediate Laravel Developers'),
-                            ]),
+                        TextInput::make('target_audience')
+                            ->maxLength(100)
+                            ->placeholder('e.g., Intermediate Laravel Developers')
+                            ->columnSpan(1),
 
                         Textarea::make('keywords')
                             ->rows(2)
@@ -48,39 +47,39 @@ class BlogTopicForm
                             ->placeholder('Brief description or angle for this topic')
                             ->helperText('Guides the AI on what to focus on'),
 
-                        Grid::make(2)
-                            ->schema([
-                                Select::make('priority')
-                                    ->options([
-                                        1 => '1 - Lowest',
-                                        2 => '2',
-                                        3 => '3',
-                                        4 => '4',
-                                        5 => '5 - Medium',
-                                        6 => '6',
-                                        7 => '7',
-                                        8 => '8',
-                                        9 => '9',
-                                        10 => '10 - Highest',
-                                    ])
-                                    ->default(5)
-                                    ->required()
-                                    ->helperText('Higher priority topics are processed first'),
+                        Select::make('priority')
+                            ->options([
+                                1 => '1 - Lowest',
+                                2 => '2',
+                                3 => '3',
+                                4 => '4',
+                                5 => '5 - Medium',
+                                6 => '6',
+                                7 => '7',
+                                8 => '8',
+                                9 => '9',
+                                10 => '10 - Highest',
+                            ])
+                            ->default(5)
+                            ->required()
+                            ->helperText('Higher priority topics are processed first')
+                            ->columnSpan(1),
 
-                                Select::make('status')
-                                    ->options([
-                                        'pending' => 'Pending',
-                                        'generating' => 'Generating',
-                                        'review' => 'Review',
-                                        'approved' => 'Approved',
-                                        'published' => 'Published',
-                                        'skipped' => 'Skipped',
-                                    ])
-                                    ->default('pending')
-                                    ->required()
-                                    ->disabled(fn ($record) => $record && in_array($record->status, ['generating'])),
-                            ]),
-                    ]),
+                        Select::make('status')
+                            ->options([
+                                'pending' => 'Pending',
+                                'generating' => 'Generating',
+                                'review' => 'Review',
+                                'approved' => 'Approved',
+                                'published' => 'Published',
+                                'skipped' => 'Skipped',
+                            ])
+                            ->default('pending')
+                            ->required()
+                            ->disabled(fn ($record) => $record && in_array($record->status, ['generating']))
+                            ->columnSpan(1),
+                    ])
+                    ->columns(2),
 
                 Section::make('Content Generation')
                     ->schema([
@@ -95,6 +94,7 @@ class BlogTopicForm
                             ->default('topic')
                             ->required()
                             ->live()
+                            ->columnSpanFull()
                             ->helperText('How should this content be generated?'),
 
                         TextInput::make('source_url')
@@ -119,45 +119,19 @@ class BlogTopicForm
                             ->placeholder('Add any custom instructions for the AI...')
                             ->helperText('Optional: Additional context or specific requirements'),
                     ])
-                    ->collapsible(),
+                    ->collapsible()
+                    ->columns(1),
 
                 Section::make('Scheduling & Automation')
                     ->schema([
                         DateTimePicker::make('scheduled_for')
                             ->native(false)
                             ->helperText('When should this post be auto-generated? Leave empty for manual generation.')
-                            ->timezone('UTC'),
-                    ])
-                    ->collapsible(),
-
-                Section::make('Distribution Settings')
-                    ->description('Select which platforms to publish this post to')
-                    ->schema([
-                        Grid::make(4)
-                            ->schema([
-                                Toggle::make('publish_to_devto')
-                                    ->label('Dev.to')
-                                    ->default(true)
-                                    ->inline(false),
-
-                                Toggle::make('publish_to_hashnode')
-                                    ->label('Hashnode')
-                                    ->default(true)
-                                    ->inline(false),
-
-                                Toggle::make('publish_to_linkedin')
-                                    ->label('LinkedIn')
-                                    ->default(true)
-                                    ->inline(false),
-
-                                Toggle::make('publish_to_medium')
-                                    ->label('Medium')
-                                    ->default(false)
-                                    ->inline(false),
-                            ]),
+                            ->timezone('UTC')
+                            ->columnSpanFull(),
                     ])
                     ->collapsible()
-                    ->collapsed(),
+                    ->columns(1),
 
                 Section::make('Metadata (Auto-filled)')
                     ->schema([

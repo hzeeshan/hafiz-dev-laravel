@@ -27,6 +27,10 @@ class Post extends Model
         'auto_generated',
         'generation_quality_score',
         'requires_code_review',
+        'publish_to_devto',
+        'publish_to_hashnode',
+        'publish_to_linkedin',
+        'publish_to_medium',
     ];
 
     protected $casts = [
@@ -35,6 +39,10 @@ class Post extends Model
         'auto_generated' => 'boolean',
         'requires_code_review' => 'boolean',
         'generation_quality_score' => 'integer',
+        'publish_to_devto' => 'boolean',
+        'publish_to_hashnode' => 'boolean',
+        'publish_to_linkedin' => 'boolean',
+        'publish_to_medium' => 'boolean',
     ];
 
     // Relationships

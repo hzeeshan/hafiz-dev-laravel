@@ -57,6 +57,11 @@ return [
         'base_url' => 'https://fal.run',
     ],
 
+    'together' => [
+        'api_key' => env('TOGETHER_API_KEY'),
+        'base_url' => 'https://api.together.xyz/v1',
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Multi-Platform Publishing APIs

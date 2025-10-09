@@ -41,17 +41,33 @@ return [
     |--------------------------------------------------------------------------
     | Image Generation Settings
     |--------------------------------------------------------------------------
+    | Provider options: 'fal' (Fal.ai), 'together' (Together.ai)
+    | Recommendation:
+    |   - Local/Development: 'together' (cheaper for testing: $0.003/image)
+    |   - Production: 'fal' (better quality/reliability: $0.046/image)
     */
 
     'image_provider' => env('BLOG_IMAGE_PROVIDER', 'fal'),
 
+    // Provider configuration with fallback support
+    'image_providers' => [
+        'primary' => env('BLOG_IMAGE_PRIMARY_PROVIDER', 'fal'),
+        'fallback' => env('BLOG_IMAGE_FALLBACK_PROVIDER', 'together'),
+    ],
+
     'featured_images_count' => env('BLOG_FEATURED_IMAGES_COUNT', 1),
     'inline_images_count' => env('BLOG_INLINE_IMAGES_COUNT', 0), // 0 = text-only blog posts
 
+    // Fal.ai models (Production recommended)
     'image_models' => [
         'primary' => env('BLOG_IMAGE_PRIMARY_MODEL', 'fal-ai/flux/dev'),
         'fallback' => env('BLOG_IMAGE_FALLBACK_MODEL', 'fal-ai/flux/schnell'),
         'high_quality' => env('BLOG_IMAGE_HQ_MODEL', 'fal-ai/flux-pro'),
+
+        // Together.ai models (Cheaper for development)
+        'together_primary' => env('BLOG_IMAGE_TOGETHER_PRIMARY', 'black-forest-labs/FLUX.1-schnell'),
+        'together_fallback' => env('BLOG_IMAGE_TOGETHER_FALLBACK', 'black-forest-labs/FLUX.1-dev'),
+        'together_hq' => env('BLOG_IMAGE_TOGETHER_HQ', 'black-forest-labs/FLUX.1.1-pro'),
     ],
 
     'image_settings' => [

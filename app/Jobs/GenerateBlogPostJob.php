@@ -2,11 +2,12 @@
 
 namespace App\Jobs;
 
+use App\Contracts\ImageServiceInterface;
 use App\Models\BlogGenerationLog;
 use App\Models\BlogTopic;
 use App\Models\Post;
+use App\Services\AI\ImageServiceFactory;
 use App\Services\BlogContentGenerator;
-use App\Services\AI\FalImageService;
 use App\Services\NotificationService;
 use Exception;
 use Illuminate\Bus\Queueable;
@@ -34,8 +35,10 @@ class GenerateBlogPostJob implements ShouldQueue
     /**
      * Execute the job.
      */
-    public function handle(BlogContentGenerator $contentGenerator, FalImageService $imageService, NotificationService $notification): void
+    public function handle(BlogContentGenerator $contentGenerator, NotificationService $notification): void
     {
+        // Get image service based on configuration
+        $imageService = ImageServiceFactory::make();
         // Create generation log
         $log = BlogGenerationLog::create([
             'topic_id' => $this->topic->id,

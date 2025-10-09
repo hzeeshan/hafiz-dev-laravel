@@ -8,20 +8,19 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class FalImageService implements ImageServiceInterface
+class TogetherImageService implements ImageServiceInterface
 {
     protected ?string $apiKey;
-    protected ?string $baseUrl;
+    protected string $baseUrl = 'https://api.together.xyz/v1';
     protected int $timeout = 60;
 
     public function __construct()
     {
-        $this->apiKey = config('services.fal.api_key');
-        $this->baseUrl = config('services.fal.base_url');
+        $this->apiKey = config('services.together.api_key');
     }
 
     /**
-     * Generate image using Fal.ai
+     * Generate image using Together.ai
      *
      * @param string $prompt
      * @param array $options
@@ -30,59 +29,56 @@ class FalImageService implements ImageServiceInterface
     public function generate(string $prompt, array $options = []): array
     {
         if (!$this->apiKey) {
-            throw new \Exception('Fal.ai API key not configured. Set FAL_API_KEY in .env file.');
+            throw new \Exception('Together.ai API key not configured. Set TOGETHER_API_KEY in .env file.');
         }
-
-        $model = $options['model'] ?? config('blog.image_models.primary');
 
         $startTime = microtime(true);
 
+        $model = $options['model'] ?? config('blog.image_models.together_primary', 'black-forest-labs/FLUX.1-schnell');
+
         try {
-            Log::info('Fal.ai image generation started', [
+            Log::info('Together.ai image generation started', [
                 'model' => $model,
                 'prompt' => Str::limit($prompt, 100),
             ]);
 
             // Prepare request payload
-            $payload = array_merge([
+            $payload = [
+                'model' => $model,
                 'prompt' => $prompt,
-                'image_size' => [
-                    'width' => config('blog.image_settings.width', 1792),
-                    'height' => config('blog.image_settings.height', 1024),
-                ],
-                'num_inference_steps' => $options['steps'] ?? 28,
-                'guidance_scale' => $options['guidance'] ?? 3.5,
-                'num_images' => 1,
-                'enable_safety_checker' => true,
-                'output_format' => config('blog.image_settings.format', 'jpeg'),
-            ], $options);
+                'width' => $options['width'] ?? config('blog.image_settings.width', 1024),
+                'height' => $options['height'] ?? config('blog.image_settings.height', 1024),
+                'steps' => $options['steps'] ?? $this->getDefaultSteps($model),
+                'n' => 1,
+                'response_format' => 'url',
+            ];
 
-            // Call Fal.ai API
+            // Call Together.ai API
             $response = Http::withHeaders([
-                'Authorization' => 'Key ' . $this->apiKey,
+                'Authorization' => 'Bearer ' . $this->apiKey,
                 'Content-Type' => 'application/json',
             ])
                 ->timeout($this->timeout)
-                ->post("{$this->baseUrl}/{$model}", $payload);
+                ->post("{$this->baseUrl}/images/generations", $payload);
 
             if (!$response->successful()) {
-                throw new \Exception('Fal.ai API error: ' . $response->body());
+                throw new \Exception('Together.ai API error: ' . $response->body());
             }
 
             $data = $response->json();
-            $imageUrl = $data['images'][0]['url'] ?? null;
+            $imageUrl = $data['data'][0]['url'] ?? null;
 
             if (!$imageUrl) {
-                throw new \Exception('No image URL in Fal.ai response');
+                throw new \Exception('No image URL in Together.ai response');
             }
 
             // Download and save image locally
             $localPath = $this->downloadAndSaveImage($imageUrl);
 
             $generationTime = round((microtime(true) - $startTime), 2);
-            $cost = $this->estimateCost($model, $payload['image_size']);
+            $cost = $this->estimateCost($model, $payload['width'], $payload['height']);
 
-            Log::info('Fal.ai image generation completed', [
+            Log::info('Together.ai image generation completed', [
                 'model' => $model,
                 'generation_time' => $generationTime,
                 'cost' => $cost,
@@ -93,13 +89,14 @@ class FalImageService implements ImageServiceInterface
                 'url' => $imageUrl,
                 'local_path' => $localPath,
                 'model' => $model,
+                'provider' => $this->getProviderName(),
                 'generation_time' => $generationTime,
                 'cost' => $cost,
-                'width' => $payload['image_size']['width'],
-                'height' => $payload['image_size']['height'],
+                'width' => $payload['width'],
+                'height' => $payload['height'],
             ];
         } catch (\Exception $e) {
-            Log::error('Fal.ai image generation failed', [
+            Log::error('Together.ai image generation failed', [
                 'model' => $model,
                 'error' => $e->getMessage(),
             ]);
@@ -121,13 +118,13 @@ class FalImageService implements ImageServiceInterface
         ?string $primaryModel = null,
         ?string $fallbackModel = null
     ): array {
-        $primaryModel = $primaryModel ?? config('blog.image_models.primary');
-        $fallbackModel = $fallbackModel ?? config('blog.image_models.fallback');
+        $primaryModel = $primaryModel ?? config('blog.image_models.together_primary', 'black-forest-labs/FLUX.1-schnell');
+        $fallbackModel = $fallbackModel ?? config('blog.image_models.together_fallback', 'black-forest-labs/FLUX.1.1-pro');
 
         try {
             return $this->generate($prompt, ['model' => $primaryModel]);
         } catch (\Exception $e) {
-            Log::warning('Primary image model failed, trying fallback', [
+            Log::warning('Primary model failed, trying fallback', [
                 'primary' => $primaryModel,
                 'fallback' => $fallbackModel,
                 'error' => $e->getMessage(),
@@ -148,7 +145,7 @@ class FalImageService implements ImageServiceInterface
      */
     public function generateFeaturedImage(string $title, string $excerpt, array $tags = [], ?string $customPrompt = null): array
     {
-        // Use custom AI-generated prompt if provided (check for non-empty string), otherwise build static prompt
+        // Use custom AI-generated prompt if provided, otherwise build static prompt
         $prompt = ($customPrompt && trim($customPrompt) !== '')
             ? $customPrompt
             : $this->buildFeaturedImagePrompt($title, $excerpt, $tags);
@@ -203,37 +200,49 @@ class FalImageService implements ImageServiceInterface
     }
 
     /**
-     * Estimate cost based on model and image size
+     * Get default steps based on model
      *
      * @param string $model
-     * @param array $imageSize
-     * @return float
+     * @return int
      */
-    protected function estimateCost(string $model, array $imageSize): float
+    protected function getDefaultSteps(string $model): int
     {
-        $megapixels = ($imageSize['width'] * $imageSize['height']) / 1_000_000;
+        // FLUX.1-schnell is optimized for 1-4 steps
+        if (str_contains($model, 'schnell')) {
+            return 4;
+        }
 
-        // Fal.ai pricing per megapixel
-        $pricing = [
-            'fal-ai/flux/dev' => 0.025,
-            'fal-ai/flux/schnell' => 0.003,
-            'fal-ai/flux-pro' => 0.04,
-            'fal-ai/flux-1.1-pro' => 0.04,
-        ];
+        // FLUX.1-dev works best with 28-50 steps
+        if (str_contains($model, 'dev')) {
+            return 28;
+        }
 
-        $pricePerMegapixel = $pricing[$model] ?? 0.025;
-
-        return round($megapixels * $pricePerMegapixel, 4);
+        // FLUX.1.1-pro uses adaptive steps
+        return 28;
     }
 
     /**
-     * Get available image models
+     * Estimate cost based on model and image size
      *
-     * @return array
+     * @param string $model
+     * @param int $width
+     * @param int $height
+     * @return float
      */
-    public function getAvailableModels(): array
+    protected function estimateCost(string $model, int $width, int $height): float
     {
-        return config('blog.image_models');
+        $megapixels = ($width * $height) / 1_000_000;
+
+        // Together.ai pricing per megapixel
+        $pricing = [
+            'black-forest-labs/FLUX.1-schnell' => 0.003,      // Fastest, cheapest
+            'black-forest-labs/FLUX.1-dev' => 0.025,          // Balanced
+            'black-forest-labs/FLUX.1.1-pro' => 0.04,         // Highest quality
+        ];
+
+        $pricePerMegapixel = $pricing[$model] ?? 0.003; // Default to schnell
+
+        return round($megapixels * $pricePerMegapixel, 4);
     }
 
     /**
@@ -243,7 +252,7 @@ class FalImageService implements ImageServiceInterface
      */
     public function getProviderName(): string
     {
-        return 'fal';
+        return 'together';
     }
 
     /**
@@ -258,28 +267,39 @@ class FalImageService implements ImageServiceInterface
         }
 
         try {
-            // Simple connectivity check
             $response = Http::withHeaders([
-                'Authorization' => 'Key ' . $this->apiKey,
-            ])->timeout(10)->get("{$this->baseUrl}/fal-ai/flux/dev");
+                'Authorization' => 'Bearer ' . $this->apiKey,
+            ])->timeout(10)->get("{$this->baseUrl}/models");
 
             return $response->successful();
         } catch (\Exception $e) {
-            Log::warning('Fal.ai health check failed', ['error' => $e->getMessage()]);
+            Log::warning('Together.ai health check failed', ['error' => $e->getMessage()]);
             return false;
         }
     }
 
     /**
-     * Get cost estimate for standard 1792x1024 image with FLUX dev
+     * Get cost estimate for standard 1024x1024 image with default model
      *
      * @return float
      */
     public function getCostPerImage(): float
     {
-        // Using FLUX dev as default
-        $width = config('blog.image_settings.width', 1792);
-        $height = config('blog.image_settings.height', 1024);
-        return $this->estimateCost('fal-ai/flux/dev', ['width' => $width, 'height' => $height]);
+        // Using FLUX.1-schnell (cheapest option)
+        return 0.003; // $0.003 per megapixel × 1 MP
+    }
+
+    /**
+     * Get available models for this provider
+     *
+     * @return array
+     */
+    public function getAvailableModels(): array
+    {
+        return [
+            'together_primary' => config('blog.image_models.together_primary', 'black-forest-labs/FLUX.1-schnell'),
+            'together_fallback' => config('blog.image_models.together_fallback', 'black-forest-labs/FLUX.1-dev'),
+            'together_hq' => config('blog.image_models.together_hq', 'black-forest-labs/FLUX.1.1-pro'),
+        ];
     }
 }

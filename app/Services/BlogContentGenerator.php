@@ -70,6 +70,9 @@ class BlogContentGenerator
             'meta_description' => $metadata['seo_description'],
             'excerpt' => $metadata['excerpt'],
 
+            // AI-generated image prompt (for FalImageService)
+            'ai_generated_image_prompt' => $content['ai_generated_image_prompt'] ?? null,
+
             // Quality & code review
             'quality_score' => $generationMetadata['quality_score'] ?? null,
             'has_code' => $generationMetadata['requires_code_review'] ?? false,
@@ -156,7 +159,7 @@ class BlogContentGenerator
         $hireCta = config('blog.templates.hire_me_cta');
 
         $prompt = <<<PROMPT
-        You are Hafiz Riaz, a Laravel developer and automation expert with 5+ years of experience building SaaS products, Chrome extensions, and automation tools.
+        You are Hafiz Riaz, a Laravel developer and automation expert with 7+ years of experience building SaaS products, Chrome extensions, and automation tools.
 
         TASK: Write a comprehensive technical blog post about "{$topic->title}"
 
@@ -185,20 +188,35 @@ class BlogContentGenerator
             $prompt .= "\n\nADDITIONAL INSTRUCTIONS:\n{$topic->custom_prompt}";
         }
 
-        $prompt .= "\n\nOUTPUT FORMAT:
-Return your response in this exact format:
+        $prompt .= "\n\nOUTPUT FORMAT (CRITICAL - Follow exactly):
 
-# [Your Title]
+        # [Your Title]
 
-EXCERPT: [Write a compelling 1-2 sentence summary that hooks readers and makes them want to read more. No markdown, plain text only. Max 150 characters.]
+        EXCERPT: [Your compelling 1-2 sentence summary, max 150 chars]
 
-[Rest of your markdown content here...]
+        IMAGE_PROMPT: [Your detailed image generation prompt, 80-120 words]
 
-IMPORTANT:
-- Start with the title (# Title)
-- Next line MUST be \"EXCERPT: [your summary]\"
-- Then the full blog post content
-- The excerpt should be enticing, not just the first paragraph";
+        [Your blog post content starts here...]
+
+        EXAMPLE OUTPUT:
+        # Building Real-Time Chat with Laravel Reverb
+
+        EXCERPT: Learn how to build a modern real-time chat system using Laravel Reverb's WebSocket server and Vue.js components in under 30 minutes.
+
+        IMAGE_PROMPT: Abstract visualization of real-time data flow: glowing cyan data packets streaming through dark fiber-optic channels from multiple users, converging at a central Laravel Reverb server node (represented as a pulsing geometric hub with orange/red accents), then broadcasting outward to connected Vue.js clients shown as translucent green devices. Dark navy background with neon highlights, modern tech aesthetic, dynamic motion blur effects, 3D isometric perspective. NO text on image.
+
+        Real-time features used to require complex infrastructure...
+
+        CRITICAL RULES:
+        1. Line 1: Title starting with #
+        2. Line 2: Blank line
+        3. Line 3: EXCERPT: [text]
+        4. Line 4: Blank line
+        5. Line 5: IMAGE_PROMPT: [detailed description]
+        6. Line 6: Blank line
+        7. Line 7+: Blog content
+
+        DO NOT skip the EXCERPT or IMAGE_PROMPT lines. They are mandatory.";
 
         return $prompt;
     }
@@ -361,6 +379,19 @@ IMPORTANT:
             $content = preg_replace('/^EXCERPT:\s*.+$/m', '', $content);
         }
 
+        // Extract image prompt if provided by AI (format: "IMAGE_PROMPT: text")
+        $aiGeneratedImagePrompt = null;
+        if (preg_match('/^IMAGE_PROMPT:\s*(.+)$/m', $content, $imagePromptMatch)) {
+            $aiGeneratedImagePrompt = trim($imagePromptMatch[1]);
+            // Remove the IMAGE_PROMPT line from content
+            $content = preg_replace('/^IMAGE_PROMPT:\s*.+$/m', '', $content);
+            Log::info('Extracted AI-generated image prompt from content');
+        } else {
+            // Fallback: AI didn't provide image prompt, generate one using AI
+            Log::info('AI did not provide IMAGE_PROMPT, generating fallback');
+            $aiGeneratedImagePrompt = $this->generateImagePromptFallback($title, $content);
+        }
+
         // Remove title from content
         $content = preg_replace('/^#\s+.+$/m', '', $content, 1);
         $content = trim($content);
@@ -382,6 +413,7 @@ IMPORTANT:
             'tags' => $tags,
             'reading_time' => $readingTime,
             'ai_generated_excerpt' => $aiGeneratedExcerpt, // Pass this to generateMetadata
+            'ai_generated_image_prompt' => $aiGeneratedImagePrompt, // Pass to image generation
             'generation_metadata' => [
                 'word_count' => $wordCount,
                 'quality_score' => $qualityScore,
@@ -622,5 +654,52 @@ IMPORTANT:
         $html = '<p>' . preg_replace('/\n\n/', '</p><p>', $html) . '</p>';
 
         return $html;
+    }
+
+    /**
+     * Generate image prompt using AI as fallback when main generation doesn't provide one
+     *
+     * @param string $title
+     * @param string $content
+     * @return string|null
+     */
+    protected function generateImagePromptFallback(string $title, string $content): ?string
+    {
+        try {
+            // Extract first 500 words for context
+            $words = str_word_count($content, 2);
+            $first500Words = implode(' ', array_slice($words, 0, 500));
+
+            $prompt = <<<PROMPT
+            You are an expert at creating detailed image generation prompts for FLUX/DALL-E.
+
+            BLOG POST TITLE: {$title}
+
+            CONTENT PREVIEW: {$first500Words}
+
+            TASK: Generate a single, detailed image prompt (80-120 words) for a professional blog header image that visually represents the key concepts from this technical article.
+
+            REQUIREMENTS:
+            - Be specific about visual metaphors, colors, composition, and mood
+            - Focus on abstract representations of technical concepts
+            - Use modern tech aesthetic with dark backgrounds and vibrant accents
+            - NO text or words should appear in the image
+            - Make it visually compelling and relevant to the content
+
+            OUTPUT: Just the image prompt, nothing else.
+
+            EXAMPLE: "Abstract visualization of database optimization: flowing data streams transforming from chaotic red tangles into organized blue pipelines, with cache layers shown as transparent accelerator rings, against dark gradient background transitioning from warm orange to cool cyan, modern 3D abstract style, energetic and dynamic composition. NO text on image."
+            PROMPT;
+
+            // Use primary model for fallback image prompt (reliable and cheap)
+            $response = $this->ai->generate($prompt, config('blog.models.primary'));
+
+            return trim($response['content']);
+        } catch (\Exception $e) {
+            Log::warning('Failed to generate fallback image prompt', [
+                'error' => $e->getMessage(),
+            ]);
+            return null; // Will fall back to static template in FalImageService
+        }
     }
 }

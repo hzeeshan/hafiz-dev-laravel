@@ -14,7 +14,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
@@ -69,9 +68,20 @@ class GenerateBlogPostJob implements ShouldQueue
                 Log::info("Generating featured image for: {$this->topic->title}");
 
                 try {
+                    // Use AI-generated image prompt if available, otherwise FalImageService will use static template
+                    $customImagePrompt = $content['ai_generated_image_prompt'] ?? null;
+
+                    if ($customImagePrompt) {
+                        Log::info("Using AI-generated image prompt", [
+                            'prompt_preview' => substr($customImagePrompt, 0, 100) . '...',
+                        ]);
+                    }
+
                     $imageResult = $imageService->generateFeaturedImage(
                         $content['title'],
-                        $content['content']
+                        $content['excerpt'],
+                        $content['tags'] ?? [],
+                        $customImagePrompt
                     );
 
                     $featuredImageUrl = $imageResult['local_path'] ?? $imageResult['url'];

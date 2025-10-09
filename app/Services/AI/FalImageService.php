@@ -37,6 +37,7 @@ class FalImageService
         }
 
         $model = $model ?? config('blog.image_models.primary');
+
         $startTime = microtime(true);
 
         try {
@@ -145,11 +146,22 @@ class FalImageService
      * @param string $title
      * @param string $excerpt
      * @param array $tags
+     * @param string|null $customPrompt AI-generated custom prompt (optional)
      * @return array
      */
-    public function generateFeaturedImage(string $title, string $excerpt, array $tags = []): array
+    public function generateFeaturedImage(string $title, string $excerpt, array $tags = [], ?string $customPrompt = null): array
     {
-        $prompt = $this->buildFeaturedImagePrompt($title, $excerpt, $tags);
+        // Use custom AI-generated prompt if provided (check for non-empty string), otherwise build static prompt
+        $prompt = ($customPrompt && trim($customPrompt) !== '')
+            ? $customPrompt
+            : $this->buildFeaturedImagePrompt($title, $excerpt, $tags);
+
+        Log::info('Generating featured image', [
+            'title' => Str::limit($title, 50),
+            'prompt_type' => ($customPrompt && trim($customPrompt) !== '') ? 'ai-generated' : 'static-template',
+            'prompt_length' => strlen($prompt),
+        ]);
+
         return $this->generateWithFallback($prompt);
     }
 

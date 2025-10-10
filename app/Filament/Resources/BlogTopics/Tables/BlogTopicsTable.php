@@ -22,13 +22,11 @@ class BlogTopicsTable
                 TextColumn::make('title')
                     ->searchable()
                     ->sortable()
-                    ->limit(50)
-                    ->wrap()
-                    ->weight('bold'),
+                    ->limit(40),
 
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (string $state): string => match ($state) {
+                    ->color(fn(string $state): string => match ($state) {
                         'pending' => 'gray',
                         'generating' => 'warning',
                         'review' => 'info',
@@ -41,7 +39,7 @@ class BlogTopicsTable
 
                 TextColumn::make('generation_mode')
                     ->badge()
-                    ->color(fn (string $state): string => match ($state) {
+                    ->color(fn(string $state): string => match ($state) {
                         'topic' => 'primary',
                         'context_youtube' => 'danger',
                         'context_blog' => 'success',
@@ -49,7 +47,7 @@ class BlogTopicsTable
                         'manual' => 'gray',
                         default => 'gray',
                     })
-                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                    ->formatStateUsing(fn(string $state): string => match ($state) {
                         'topic' => 'Topic',
                         'context_youtube' => 'YouTube',
                         'context_blog' => 'Blog',
@@ -57,22 +55,24 @@ class BlogTopicsTable
                         'manual' => 'Manual',
                         default => $state,
                     })
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('category')
                     ->searchable()
                     ->sortable()
-                    ->toggleable(),
+                    ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('priority')
                     ->badge()
-                    ->color(fn (int $state): string => match (true) {
+                    ->color(fn(int $state): string => match (true) {
                         $state >= 8 => 'danger',
                         $state >= 6 => 'warning',
                         $state >= 4 => 'info',
                         default => 'gray',
                     })
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('scheduled_for')
                     ->dateTime('M j, Y g:i A')
@@ -83,7 +83,7 @@ class BlogTopicsTable
                 IconColumn::make('post_generated')
                     ->label('Generated')
                     ->boolean()
-                    ->getStateUsing(fn ($record) => $record->generated_at !== null)
+                    ->getStateUsing(fn($record) => $record->generated_at !== null)
                     ->toggleable(),
 
                 TextColumn::make('platforms')
@@ -142,13 +142,13 @@ class BlogTopicsTable
                     ->query(function ($query, $data) {
                         return $query->when(
                             $data['value'] === 'high',
-                            fn ($query) => $query->where('priority', '>=', 8)
+                            fn($query) => $query->where('priority', '>=', 8)
                         )->when(
                             $data['value'] === 'medium',
-                            fn ($query) => $query->whereBetween('priority', [4, 7])
+                            fn($query) => $query->whereBetween('priority', [4, 7])
                         )->when(
                             $data['value'] === 'low',
-                            fn ($query) => $query->where('priority', '<=', 3)
+                            fn($query) => $query->where('priority', '<=', 3)
                         );
                     }),
             ])
@@ -159,9 +159,9 @@ class BlogTopicsTable
                     ->color('success')
                     ->requiresConfirmation()
                     ->modalHeading('Generate Blog Post')
-                    ->modalDescription(fn ($record) => "This will generate a blog post for: {$record->title}")
+                    ->modalDescription(fn($record) => "This will generate a blog post for: {$record->title}")
                     ->modalSubmitActionLabel('Generate')
-                    ->visible(fn ($record) => in_array($record->status, ['pending', 'skipped']))
+                    ->visible(fn($record) => in_array($record->status, ['pending', 'skipped']))
                     ->action(function ($record) {
                         // Dispatch the job
                         GenerateBlogPostJob::dispatch($record);
@@ -177,8 +177,8 @@ class BlogTopicsTable
                     ->label('View Post')
                     ->icon('heroicon-o-eye')
                     ->color('primary')
-                    ->visible(fn ($record) => $record->post !== null)
-                    ->url(fn ($record) => route('filament.admin.resources.posts.edit', ['record' => $record->post->id])),
+                    ->visible(fn($record) => $record->post !== null)
+                    ->url(fn($record) => route('filament.admin.resources.posts.edit', ['record' => $record->post->id])),
 
                 EditAction::make(),
 
@@ -186,13 +186,14 @@ class BlogTopicsTable
                     ->label('View Logs')
                     ->icon('heroicon-o-document-text')
                     ->color('gray')
-                    ->url(fn ($record) => $record->generationLogs()->exists()
-                        ? route('filament.admin.resources.blog-generation-logs.view', [
-                            'record' => $record->generationLogs()->latest()->first()->id
-                        ])
-                        : null
+                    ->url(
+                        fn($record) => $record->generationLogs()->exists()
+                            ? route('filament.admin.resources.blog-generation-logs.view', [
+                                'record' => $record->generationLogs()->latest()->first()->id
+                            ])
+                            : null
                     )
-                    ->visible(fn ($record) => $record->generationLogs()->exists()),
+                    ->visible(fn($record) => $record->generationLogs()->exists()),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

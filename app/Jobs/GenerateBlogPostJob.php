@@ -66,6 +66,7 @@ class GenerateBlogPostJob implements ShouldQueue
             $featuredImageUrl = null;
             $imageCost = 0;
             $imageCount = 0;
+            $actualImagePrompt = null;
 
             if (config('blog.featured_images_count', 1) > 0) {
                 Log::info("Generating featured image for: {$this->topic->title}");
@@ -90,6 +91,8 @@ class GenerateBlogPostJob implements ShouldQueue
                     $featuredImageUrl = $imageResult['local_path'] ?? $imageResult['url'];
                     $imageCost = $imageResult['cost'] ?? 0;
                     $imageCount = 1;
+                    // Capture the actual prompt used (from result or fallback to custom)
+                    $actualImagePrompt = $imageResult['prompt'] ?? $customImagePrompt;
 
                     $log->update([
                         'status' => 'images_generated',
@@ -141,10 +144,10 @@ class GenerateBlogPostJob implements ShouldQueue
             ];
 
             // Add image prompt if image was generated
-            if ($featuredImageUrl && isset($content['ai_generated_image_prompt'])) {
+            if ($featuredImageUrl && $actualImagePrompt) {
                 $prompts['image'] = [
                     'description' => 'Image Generation Prompt',
-                    'prompt' => $content['ai_generated_image_prompt'],
+                    'prompt' => $actualImagePrompt,
                     'provider' => $imageService::class,
                 ];
             }

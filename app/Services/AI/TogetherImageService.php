@@ -94,6 +94,7 @@ class TogetherImageService implements ImageServiceInterface
                 'cost' => $cost,
                 'width' => $payload['width'],
                 'height' => $payload['height'],
+                'prompt' => $prompt,
             ];
         } catch (\Exception $e) {
             Log::error('Together.ai image generation failed', [

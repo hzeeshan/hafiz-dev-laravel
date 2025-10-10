@@ -97,6 +97,7 @@ class FalImageService implements ImageServiceInterface
                 'cost' => $cost,
                 'width' => $payload['image_size']['width'],
                 'height' => $payload['image_size']['height'],
+                'prompt' => $prompt,
             ];
         } catch (\Exception $e) {
             Log::error('Fal.ai image generation failed', [

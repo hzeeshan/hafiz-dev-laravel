@@ -18,6 +18,24 @@ class EditPost extends EditRecord
                 ->formId('form')
                 ->label('Save Changes')
                 ->icon('heroicon-o-check-circle'),
+
+            // View Generation Log button (for AI-generated posts)
+            Actions\Action::make('viewGenerationLog')
+                ->label('View Generation Log')
+                ->icon('heroicon-o-document-text')
+                ->color('gray')
+                ->url(function () {
+                    $post = $this->record;
+
+                    // Get the generation log for this post
+                    $log = \App\Models\BlogGenerationLog::where('post_id', $post->id)->latest()->first();
+
+                    return $log
+                        ? route('filament.admin.resources.blog-generation-logs.view', ['record' => $log->id])
+                        : null;
+                })
+                ->visible(fn () => $this->record->auto_generated && \App\Models\BlogGenerationLog::where('post_id', $this->record->id)->exists()),
+
             Actions\DeleteAction::make(),
         ];
     }

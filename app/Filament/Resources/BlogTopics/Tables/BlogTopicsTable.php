@@ -183,15 +183,15 @@ class BlogTopicsTable
                 EditAction::make(),
 
                 Action::make('viewLogs')
-                    ->label('Logs')
+                    ->label('View Logs')
                     ->icon('heroicon-o-document-text')
                     ->color('gray')
-                    ->modalHeading('Generation Logs')
-                    ->modalContent(fn ($record) => view('filament.modals.generation-logs', [
-                        'logs' => $record->generationLogs()->latest()->take(5)->get(),
-                    ]))
-                    ->modalSubmitAction(false)
-                    ->modalCancelActionLabel('Close')
+                    ->url(fn ($record) => $record->generationLogs()->exists()
+                        ? route('filament.admin.resources.blog-generation-logs.view', [
+                            'record' => $record->generationLogs()->latest()->first()->id
+                        ])
+                        : null
+                    )
                     ->visible(fn ($record) => $record->generationLogs()->exists()),
             ])
             ->toolbarActions([

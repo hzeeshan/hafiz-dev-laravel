@@ -18,6 +18,7 @@ class BlogGenerationLog extends Model
         'content_tokens',
         'image_count',
         'cost_tracking',
+        'prompts',
         'ai_provider',
         'ai_model',
         'image_provider',
@@ -25,6 +26,7 @@ class BlogGenerationLog extends Model
 
     protected $casts = [
         'cost_tracking' => 'array',
+        'prompts' => 'array',
         'generation_time' => 'integer',
         'content_tokens' => 'integer',
         'image_count' => 'integer',

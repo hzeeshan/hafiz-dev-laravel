@@ -130,6 +130,24 @@ class GenerateBlogPostJob implements ShouldQueue
                 'generated_at' => now(),
             ]);
 
+            // Prepare prompts data
+            $prompts = [
+                'content' => [
+                    'description' => 'Content Generation Prompt',
+                    'prompt' => $content['content_prompt'] ?? 'N/A',
+                    'model' => $content['model'] ?? 'unknown',
+                ],
+            ];
+
+            // Add image prompt if image was generated
+            if ($featuredImageUrl && isset($content['ai_generated_image_prompt'])) {
+                $prompts['image'] = [
+                    'description' => 'Image Generation Prompt',
+                    'prompt' => $content['ai_generated_image_prompt'],
+                    'provider' => $imageService::class,
+                ];
+            }
+
             // Complete log
             $log->update([
                 'post_id' => $post->id,
@@ -141,6 +159,7 @@ class GenerateBlogPostJob implements ShouldQueue
                     'total' => round($totalCost, 6),
                     'currency' => 'USD',
                 ],
+                'prompts' => $prompts,
             ]);
 
             Log::info("Blog post generated successfully", [

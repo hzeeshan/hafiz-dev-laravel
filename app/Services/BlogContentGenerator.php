@@ -85,6 +85,9 @@ class BlogContentGenerator
             'tokens' => $generationMetadata['tokens'] ?? 0,
             'cost' => $generationMetadata['cost'] ?? 0,
             'generation_time' => $generationMetadata['generation_time'] ?? 0,
+
+            // Prompt used for content generation
+            'content_prompt' => $content['prompt_used'] ?? null,
         ];
     }
 
@@ -100,7 +103,10 @@ class BlogContentGenerator
 
         $response = $this->ai->generateWithFallback($prompt);
 
-        return $this->parseGeneratedContent($response['content'], $response);
+        $result = $this->parseGeneratedContent($response['content'], $response);
+        $result['prompt_used'] = $prompt; // Store the prompt for logging
+
+        return $result;
     }
 
     /**
@@ -115,7 +121,10 @@ class BlogContentGenerator
 
         $response = $this->ai->generateWithFallback($prompt);
 
-        return $this->parseGeneratedContent($response['content'], $response);
+        $result = $this->parseGeneratedContent($response['content'], $response);
+        $result['prompt_used'] = $prompt; // Store the prompt for logging
+
+        return $result;
     }
 
     /**
@@ -130,7 +139,10 @@ class BlogContentGenerator
 
         $response = $this->ai->generateWithFallback($prompt);
 
-        return $this->parseGeneratedContent($response['content'], $response);
+        $result = $this->parseGeneratedContent($response['content'], $response);
+        $result['prompt_used'] = $prompt; // Store the prompt for logging
+
+        return $result;
     }
 
     /**
@@ -145,7 +157,10 @@ class BlogContentGenerator
 
         $response = $this->ai->generateWithFallback($prompt);
 
-        return $this->parseGeneratedContent($response['content'], $response);
+        $result = $this->parseGeneratedContent($response['content'], $response);
+        $result['prompt_used'] = $prompt; // Store the prompt for logging
+
+        return $result;
     }
 
     /**

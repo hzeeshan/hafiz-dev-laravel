@@ -99,7 +99,12 @@ class BlogContentGenerator
      */
     protected function generateFromTopic(BlogTopic $topic): array
     {
-        $prompt = $this->buildTopicPrompt($topic);
+        // Choose prompt based on content type
+        $prompt = match ($topic->content_type ?? 'technical') {
+            'opinion' => $this->buildOpinionPrompt($topic),
+            'news' => $this->buildNewsPrompt($topic),
+            default => $this->buildTopicPrompt($topic),
+        };
 
         $response = $this->ai->generateWithFallback($prompt);
 
@@ -175,14 +180,18 @@ class BlogContentGenerator
         $hireCta = config('blog.templates.hire_me_cta');
 
         $prompt = <<<PROMPT
-        You are Hafiz Riaz, a Laravel developer and automation expert with 9+ years of experience building SaaS products, Chrome extensions, and automation tools.
+        You are Hafiz Riaz, a Laravel developer and automation expert with 10+ years of experience building SaaS products, Chrome extensions, and automation tools.
 
         TASK: Write a comprehensive, SEO-optimized technical blog post about "{$topic->title}"
 
         AUDIENCE: {$topic->target_audience}
         PRIMARY KEYWORDS: {$topic->keywords}
         CONTEXT: {$topic->description}
-        WORD COUNT: {$this->minWordCount}-{$this->maxWordCount} words
+
+        ⚠️ WORD COUNT REQUIREMENT (NON-NEGOTIABLE): {$this->minWordCount}-{$this->maxWordCount} words
+        - Minimum {$this->minWordCount} words is MANDATORY
+        - DO NOT submit content shorter than {$this->minWordCount} words
+        - Aim for {$this->maxWordCount} words for maximum value and SEO
 
         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         SEO OPTIMIZATION (CRITICAL - This Drives Leads & Traffic)
@@ -211,7 +220,7 @@ class BlogContentGenerator
         2. MAIN CONTENT (800-1500 words)
            - H2: Major topics (with keyword variations)
            - H3: Specific steps
-           - Working code examples (Laravel 11)
+           - Working code examples (latest Laravel version)
            - Explain why, not just how
            - Real-world use cases
 
@@ -321,7 +330,7 @@ class BlogContentGenerator
 
         META_DESCRIPTION: [150-160 chars, primary keyword in first 120 chars, compelling CTA]
 
-        IMAGE_PROMPT: [Detailed image prompt, 80-120 words, NO text on image]
+        IMAGE_PROMPT: [Detailed image prompt, NO text on image]
 
         TAGS: [3-5 relevant tags, comma-separated]
 
@@ -367,6 +376,291 @@ class BlogContentGenerator
         DO use primary keyword in first 100 words of content.
         DO structure one section for featured snippet targeting.
         DO generate 3-5 specific, relevant tags (e.g., 'Laravel', 'Multi-tenancy', 'SaaS', 'Docker', 'API Development').";
+
+        return $prompt;
+    }
+
+    /**
+     * Build prompt for opinion/essay/news content (non-technical)
+     *
+     * @param BlogTopic $topic
+     * @return string
+     */
+    protected function buildOpinionPrompt(BlogTopic $topic): string
+    {
+        $authorBio = config('blog.templates.author_bio');
+        $hireCta = config('blog.templates.hire_me_cta');
+        $contentType = $topic->content_type ?? 'opinion';
+
+        $prompt = <<<PROMPT
+        You are Hafiz Riaz, a Laravel developer and automation expert with 10+ years of experience building SaaS products, Chrome extensions, and automation tools.
+
+        TASK: Write an engaging, thought-provoking {$contentType} piece about "{$topic->title}"
+
+        AUDIENCE: {$topic->target_audience}
+        PRIMARY KEYWORDS: {$topic->keywords}
+        CONTEXT: {$topic->description}
+
+        ⚠️ WORD COUNT REQUIREMENT (NON-NEGOTIABLE): {$this->minWordCount}-{$this->maxWordCount} words
+        - Minimum {$this->minWordCount} words is MANDATORY - this is a FULL article, not a short post
+        - DO NOT submit content shorter than {$this->minWordCount} words
+        - Develop your argument fully with examples, anecdotes, and depth
+
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        CONTENT STYLE (Opinion/Essay)
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+        ✓ PERSONAL & CONVERSATIONAL: Write like you're having coffee with a friend
+        ✓ STORYTELLING: Use personal anecdotes and real experiences
+        ✓ STRONG OPINIONS: Don't be afraid to take a stance (with reasoning)
+        ✓ ENGAGING HOOK: Start with something that grabs attention immediately
+        ✓ AUTHENTIC VOICE: Sound like a real person, not a corporate blog
+        ✓ CODE EXAMPLES: Only if genuinely relevant to your point (NOT mandatory)
+
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        CONTENT STRUCTURE (Flexible - adapt to your topic)
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+        1. COMPELLING HOOK (100-150 words)
+           - Start with a bold statement, surprising fact, or personal story
+           - Make readers want to keep reading
+           - Set up the main argument/theme
+
+        2. MAIN ARGUMENT/NARRATIVE (800-1200 words)
+           - Share your perspective with clear reasoning
+           - Use personal experiences and concrete examples
+           - Address counterarguments briefly
+           - Include data/stats/screenshots if it strengthens your point
+           - Code examples: ONLY if relevant (not forced)
+
+        3. SUPPORTING POINTS (400-600 words)
+           - 2-4 key points that support your main argument
+           - Real-world examples or comparisons
+           - Can include "what I learned" or "how this changed my thinking"
+
+        4. TAKEAWAY & CALL TO ACTION (150-200 words)
+           - Summarize the key insight
+           - What should readers do with this information?
+           - End with CTA: {$hireCta}
+
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        WRITING VOICE (Critical for Opinion Pieces)
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+        ✓ CONVERSATIONAL: Use "I", "you", contractions, rhetorical questions
+        ✓ SPECIFIC: "Last month when building X" not "When working on projects"
+        ✓ OPINIONATED: "This is overrated" "I'm not convinced" "Here's why I think..."
+        ✓ VULNERABLE: Admit mistakes, share what you got wrong
+        ✓ CONFIDENT: Take a stance, don't hedge with "maybe" constantly
+        ✓ RELATABLE: Share frustrations, wins, learning moments
+
+        EXAMPLES OF GOOD OPINION WRITING:
+        - "I spent 3 years overengineering everything. Here's what I'd do differently..."
+        - "Everyone says X is the future. I disagree, and here's why..."
+        - "The tech industry has a Y problem. Here's what I've observed..."
+        - "I tried Z for 6 months. Spoiler: it's not worth the hype."
+
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        HUMANIZATION (Make it sound REAL)
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+        ✓ Vary sentence length dramatically (3 words. Then 25 words explaining something.)
+        ✓ Use em dashes — like this — for emphasis
+        ✓ Include one-sentence paragraphs for impact.
+        ✓ Ask rhetorical questions: "Why does this matter?"
+        ✓ Use conversational phrases: "Here's the thing...", "Look...", "Truth is..."
+        ✓ Share actual numbers: "After 47 failed deployments...", "It took me 8 hours to realize..."
+        ✓ Be self-deprecating when appropriate: "Rookie mistake on my part..."
+
+        ❌ AVOID AI RED FLAGS:
+        - Don't use: "delve", "realm", "landscape", "tapestry", "in conclusion"
+        - Don't make every paragraph the same length
+        - Don't be overly formal or corporate-sounding
+        - Don't force code examples if they don't fit naturally
+
+        PROMPT;
+
+        if ($topic->custom_prompt) {
+            $prompt .= "\n\nADDITIONAL INSTRUCTIONS:\n{$topic->custom_prompt}";
+        }
+
+        $prompt .= "\n\nOUTPUT FORMAT (CRITICAL - Follow exactly):
+
+        # [Engaging Title - Can be provocative or question-based]
+
+        EXCERPT: [1-2 sentence hook that makes people want to read, max 150 chars]
+
+        META_DESCRIPTION: [150-160 chars, include main keyword, compelling preview]
+
+        IMAGE_PROMPT: [Detailed image prompt, 80-120 words, visual metaphor for your argument, NO text]
+
+        TAGS: [3-5 relevant tags based on topic, comma-separated]
+
+        [Your opinion/essay content starts here...]
+
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        EXAMPLE OUTPUT (Opinion Piece)
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+        # I'll Instantly Know You Used ChatGPT If I See This
+
+        EXCERPT: After reviewing 200+ AI-generated pull requests, I can spot ChatGPT code in seconds. Here's what gives it away.
+
+        META_DESCRIPTION: The telltale signs of ChatGPT-generated code that experienced developers spot immediately. Learn what to avoid and how to use AI effectively.
+
+        IMAGE_PROMPT: Split-screen comparison showing generic robotic code on left (grey, templated, lifeless) versus human-crafted code on right (colorful, with personality, annotations). Dark background, neon code syntax highlighting, dramatic lighting showing the contrast. NO text.
+
+        TAGS: AI, ChatGPT, Code Review, Software Development, Opinion
+
+        Look, I'm not anti-AI. I use ChatGPT daily.
+
+        But there's a pattern I've noticed after reviewing hundreds of pull requests over the past year. And it's getting obvious.
+
+        Last week, I reviewed a PR that claimed to implement a new authentication system. The code worked. Tests passed. Everything looked fine on the surface.
+
+        But within 30 seconds, I knew it was ChatGPT-generated. Not because I'm some AI detective — because the code had that *feeling*.
+
+        [... rest of opinion piece continues ...]
+
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        CRITICAL RULES
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+        DO NOT skip EXCERPT, META_DESCRIPTION, IMAGE_PROMPT, or TAGS - all are mandatory.
+        DO NOT force code examples - only include if genuinely relevant to your argument.
+        DO write with personality - be opinionated, personal, and authentic.
+        DO vary structure based on content - not every piece needs the same format.
+        DO make it engaging - this should be interesting to read, not just informative.
+        DO generate 3-5 specific, relevant tags based on the topic.";
+
+        return $prompt;
+    }
+
+    /**
+     * Build prompt for news/update content (timely, factual)
+     *
+     * @param BlogTopic $topic
+     * @return string
+     */
+    protected function buildNewsPrompt(BlogTopic $topic): string
+    {
+        $hireCta = config('blog.templates.hire_me_cta');
+
+        $prompt = <<<PROMPT
+        You are Hafiz Riaz, a Laravel developer and automation expert with 10+ years of experience building SaaS products, Chrome extensions, and automation tools.
+
+        TASK: Write a timely, informative news/update article about "{$topic->title}"
+
+        AUDIENCE: {$topic->target_audience}
+        PRIMARY KEYWORDS: {$topic->keywords}
+        CONTEXT: {$topic->description}
+
+        ⚠️ WORD COUNT REQUIREMENT (NON-NEGOTIABLE): {$this->minWordCount}-{$this->maxWordCount} words
+        - Minimum {$this->minWordCount} words is MANDATORY - provide comprehensive coverage
+        - DO NOT submit content shorter than {$this->minWordCount} words
+        - Include detailed explanations, examples, and migration guidance to meet word count
+
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        CONTENT STYLE (News/Updates)
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+        ✓ TIMELY & FACTUAL: Report what's new, what changed, and when
+        ✓ PRACTICAL FOCUS: How does this affect developers? What should they do?
+        ✓ OBJECTIVE TONE: Less personal opinion, more analysis and implications
+        ✓ ACTIONABLE: Include installation/setup commands and migration examples
+        ✓ CLEAR STRUCTURE: Easy to scan with headings, bullet points, code blocks
+        ✓ BALANCED: Mention both benefits and potential issues/limitations
+
+        ⚠️ CODE EXAMPLES RULES (CRITICAL):
+        - ONLY include code for actual installation commands (bash/terminal)
+        - ONLY show documented, real APIs - DO NOT invent fake API examples
+        - If you don't know the exact API, describe it in text instead
+        - Prefer showing "before/after" migration examples with real code
+
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        CONTENT STRUCTURE (News/Update Format)
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+        1. LEDE (Lead Paragraph) (100-150 words)
+           - What happened? When? Why does it matter?
+           - Key announcement or change upfront
+           - Who should care about this?
+
+        2. WHAT'S NEW (300-500 words)
+           - List the major new features/changes
+           - Use bullet points or numbered lists for clarity
+           - Include brief code examples for new APIs/syntax if applicable
+
+        3. WHAT'S DIFFERENT (200-400 words)
+           - Breaking changes or deprecations (if any)
+           - Migration path or upgrade notes
+           - Before/after code comparisons if relevant
+
+        4. DEVELOPER IMPACT & NEXT STEPS (300-400 words)
+           - How to get started / How to upgrade
+           - Quick installation/setup example
+           - Best use cases for the new features
+
+        5. CONCLUSION & RESOURCES (100-150 words)
+           - Summary of key takeaways
+           - Your take: Is it worth adopting now?
+           - CTA: {$hireCta}
+
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        WRITING VOICE (News Style)
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+        ✓ INFORMATIVE: Focus on facts, features, and practical impact
+        ✓ CLEAR & CONCISE: Get to the point quickly
+        ✓ DEVELOPER-FRIENDLY: Use technical terms appropriately
+        ✓ HELPFUL: Include code examples and actionable guidance
+        ✓ BALANCED: Acknowledge both benefits and limitations
+
+        EXAMPLES:
+        - "Laravel 11 was released on March 12, 2024, bringing slimmed-down application structure..."
+        - "NotebookLM's latest update adds audio overviews, allowing you to..."
+        - "Docker alternatives are gaining traction. Here's what changed with Podman 5.0..."
+
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        HUMANIZATION
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+        ✓ Use active voice: "The team released" not "Was released"
+        ✓ Short paragraphs (2-4 sentences)
+        ✓ Specific dates/versions: "Released March 2024"
+        ✓ Developer perspective: "This means you can..."
+
+        ❌ AVOID: "game-changer", "revolutionary", "delve", "landscape"
+
+        PROMPT;
+
+        if ($topic->custom_prompt) {
+            $prompt .= "\n\nADDITIONAL INSTRUCTIONS:\n{$topic->custom_prompt}";
+        }
+
+        $prompt .= "\n\nOUTPUT FORMAT (CRITICAL - Follow exactly):
+
+        # [Clear, Descriptive Title - What Changed and When]
+
+        EXCERPT: [1-2 sentence summary, max 150 chars]
+
+        META_DESCRIPTION: [150-160 chars with main keyword]
+
+        IMAGE_PROMPT: [Detailed image prompt, 80-120 words, NO text]
+
+        TAGS: [3-5 relevant tags, comma-separated]
+
+        [Your news content starts here...]
+
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        CRITICAL RULES
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+        DO NOT skip EXCERPT, META_DESCRIPTION, IMAGE_PROMPT, or TAGS.
+        DO include specific versions, dates, and technical details.
+        DO provide code examples if relevant.
+        DO maintain an informative, helpful tone.
+        DO generate 3-5 specific, relevant tags.";
 
         return $prompt;
     }
@@ -418,7 +712,7 @@ class BlogContentGenerator
 
         META_DESCRIPTION: [150-160 chars with keyword]
 
-        IMAGE_PROMPT: [Detailed image prompt, 80-120 words, NO text]
+        IMAGE_PROMPT: [Detailed image prompt, NO text]
 
         TAGS: [3-5 relevant tags, comma-separated]
 
@@ -560,29 +854,30 @@ class BlogContentGenerator
         preg_match('/^#\s+(.+)$/m', $content, $titleMatch);
         $title = $titleMatch[1] ?? 'Untitled Post';
 
-        // Extract excerpt if provided by AI (format: "EXCERPT: text")
+        // Extract excerpt if provided by AI (format: "EXCERPT: text" or "**EXCERPT:** text")
         $aiGeneratedExcerpt = null;
-        if (preg_match('/^EXCERPT:\s*(.+)$/m', $content, $excerptMatch)) {
-            $aiGeneratedExcerpt = trim($excerptMatch[1]);
-            // Remove the EXCERPT line from content
-            $content = preg_replace('/^EXCERPT:\s*.+$/m', '', $content);
+        if (preg_match('/\*\*EXCERPT:\*\*\s*(.+)|^EXCERPT:\s*(.+)/m', $content, $excerptMatch)) {
+            $aiGeneratedExcerpt = trim($excerptMatch[1] ?? $excerptMatch[2]);
+            // Remove the entire line including markdown formatting
+            $content = preg_replace('/^\*\*EXCERPT:\*\*.*$|^EXCERPT:.*$/m', '', $content, 1);
+            Log::info('Extracted and removed EXCERPT from content', ['excerpt_length' => mb_strlen($aiGeneratedExcerpt)]);
         }
 
-        // Extract meta description if provided by AI (format: "META_DESCRIPTION: text")
+        // Extract meta description if provided by AI (format: "META_DESCRIPTION: text" or "**META_DESCRIPTION:** text")
         $aiGeneratedMetaDescription = null;
-        if (preg_match('/^META_DESCRIPTION:\s*(.+)$/m', $content, $metaMatch)) {
-            $aiGeneratedMetaDescription = trim($metaMatch[1]);
-            // Remove the META_DESCRIPTION line from content
-            $content = preg_replace('/^META_DESCRIPTION:\s*.+$/m', '', $content);
+        if (preg_match('/\*\*META_DESCRIPTION:\*\*\s*(.+)|^META_DESCRIPTION:\s*(.+)/m', $content, $metaMatch)) {
+            $aiGeneratedMetaDescription = trim($metaMatch[1] ?? $metaMatch[2]);
+            // Remove the entire line including markdown formatting
+            $content = preg_replace('/^\*\*META_DESCRIPTION:\*\*.*$|^META_DESCRIPTION:.*$/m', '', $content, 1);
             Log::info('Extracted AI-generated meta description', ['length' => mb_strlen($aiGeneratedMetaDescription)]);
         }
 
-        // Extract image prompt if provided by AI (format: "IMAGE_PROMPT: text")
+        // Extract image prompt if provided by AI (format: "IMAGE_PROMPT: text" or "**IMAGE_PROMPT:** text" - can be multi-line)
         $aiGeneratedImagePrompt = null;
-        if (preg_match('/^IMAGE_PROMPT:\s*(.+)$/m', $content, $imagePromptMatch)) {
-            $aiGeneratedImagePrompt = trim($imagePromptMatch[1]);
-            // Remove the IMAGE_PROMPT line from content
-            $content = preg_replace('/^IMAGE_PROMPT:\s*.+$/m', '', $content);
+        if (preg_match('/\*\*IMAGE_PROMPT:\*\*\s*(.+?)(?=\n\n|\*\*TAGS:)|^IMAGE_PROMPT:\s*(.+?)(?=\n\n|^TAGS:)/ms', $content, $imagePromptMatch)) {
+            $aiGeneratedImagePrompt = trim($imagePromptMatch[1] ?? $imagePromptMatch[2]);
+            // Remove the IMAGE_PROMPT section including markdown formatting
+            $content = preg_replace('/^\*\*IMAGE_PROMPT:\*\*.*?(?=\n\n|\*\*TAGS:)|^IMAGE_PROMPT:.*?(?=\n\n|^TAGS:)/ms', '', $content, 1);
             Log::info('Extracted AI-generated image prompt from content');
         } else {
             // Fallback: AI didn't provide image prompt, generate one using AI
@@ -590,15 +885,25 @@ class BlogContentGenerator
             $aiGeneratedImagePrompt = $this->generateImagePromptFallback($title, $content);
         }
 
-        // Extract tags if provided by AI (format: "TAGS: tag1, tag2, tag3")
+        // Extract tags if provided by AI (format: "TAGS: tag1, tag2, tag3" or "**TAGS:** tag1, tag2, tag3")
         $tags = [];
-        if (preg_match('/^TAGS:\s*(.+)$/m', $content, $tagsMatch)) {
-            $tagsString = trim($tagsMatch[1]);
-            // Split by comma and clean up
-            $tags = array_map('trim', explode(',', $tagsString));
-            // Remove the TAGS line from content
-            $content = preg_replace('/^TAGS:\s*.+$/m', '', $content);
-            Log::info('Extracted AI-generated tags', ['tags' => $tags, 'count' => count($tags)]);
+        if (preg_match('/\*\*TAGS:\*\*\s*(.+)|^TAGS:\s*(.+)/m', $content, $tagsMatch)) {
+            $tagsString = trim($tagsMatch[1] ?? $tagsMatch[2]);
+            // Remove the entire line including markdown formatting
+            $content = preg_replace('/^\*\*TAGS:\*\*.*$|^TAGS:.*$/m', '', $content, 1);
+
+            // Only process if we have actual tag content
+            if (!empty($tagsString)) {
+                // Split by comma and clean up
+                $tags = array_map('trim', explode(',', $tagsString));
+                // Remove any empty tags
+                $tags = array_filter($tags, fn($tag) => !empty($tag));
+                Log::info('Extracted AI-generated tags', ['tags' => $tags, 'count' => count($tags)]);
+            } else {
+                // TAGS label found but no content, use fallback
+                Log::info('TAGS label found but empty, using fallback extraction');
+                $tags = $this->extractTags($content);
+            }
         } else {
             // Fallback: AI didn't provide tags, use extraction method
             Log::info('AI did not provide TAGS, using fallback extraction');
@@ -607,6 +912,10 @@ class BlogContentGenerator
 
         // Remove title from content
         $content = preg_replace('/^#\s+.+$/m', '', $content, 1);
+
+        // Clean up multiple blank lines left after extraction (replace 3+ newlines with 2)
+        $content = preg_replace('/\n{3,}/', "\n\n", $content);
+
         $content = trim($content);
 
         // Calculate reading time
@@ -767,7 +1076,10 @@ class BlogContentGenerator
             }
         }
 
-        return array_slice($foundTags, 0, 5); // Max 5 tags
+        $tags = array_slice($foundTags, 0, 5); // Max 5 tags
+
+        // Always return proper array, never array with empty string
+        return !empty($tags) ? $tags : [];
     }
 
     /**

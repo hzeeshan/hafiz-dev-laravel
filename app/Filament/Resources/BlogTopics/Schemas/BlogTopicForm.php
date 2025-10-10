@@ -83,13 +83,24 @@ class BlogTopicForm
 
                 Section::make('Content Generation')
                     ->schema([
+                        Select::make('content_type')
+                            ->options([
+                                'technical' => '💻 Technical Tutorial (with code examples)',
+                                'opinion' => '💭 Opinion/Essay (general audience)',
+                                'news' => '📰 News/Update (no code required)',
+                            ])
+                            ->default('technical')
+                            ->required()
+                            ->live()
+                            ->columnSpanFull()
+                            ->helperText('What type of content is this?'),
+
                         Select::make('generation_mode')
                             ->options([
                                 'topic' => 'Topic-Based (Original)',
                                 'context_youtube' => 'YouTube Video Analysis',
                                 'context_blog' => 'Blog Post Remix',
                                 'context_twitter' => 'Twitter Thread Expansion',
-                                'manual' => 'Manual (Skip AI)',
                             ])
                             ->default('topic')
                             ->required()

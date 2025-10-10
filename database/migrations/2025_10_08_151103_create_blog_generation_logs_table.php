@@ -40,6 +40,9 @@ return new class extends Migration
             // Cost Tracking
             $table->json('cost_tracking')->nullable()->comment('JSON: {content: 0.002, images: 0.025, total: 0.027}');
 
+            // Prompts Storage
+            $table->json('prompts')->nullable()->comment('JSON: {content: {...}, image: {...}}');
+
             // AI Details
             $table->string('ai_provider', 50)->nullable()->comment('deepseek or openai');
             $table->string('ai_model', 100)->nullable();

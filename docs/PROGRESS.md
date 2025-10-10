@@ -1,8 +1,8 @@
 # Automated Blog Generation - Progress
 
-**Last Updated**: October 9, 2025
+**Last Updated**: October 10, 2025
 **Branch**: `feature/automated-blog-generation`
-**Status**: ✅ **PRODUCTION READY**
+**Status**: ✅ **PRODUCTION READY** (with word count limitation)
 
 ---
 
@@ -10,9 +10,9 @@
 
 Automated blog generation system with AI-powered content and image generation.
 
-**Time Investment**: ~20 hours
+**Time Investment**: ~22 hours
 **Cost**: $0.003-0.046 per post
-**Features**: 3 generation modes, image generation, Telegram notifications
+**Features**: 3 content types, 3 generation modes, image generation, Telegram notifications
 
 ---
 
@@ -26,10 +26,13 @@ Automated blog generation system with AI-powered content and image generation.
 - **Notifications**: Telegram success/failure alerts
 
 ### ✅ Content Generation
-- **Topic Mode**: Generate from title + keywords
+- **3 Content Types**: Technical (code-heavy), Opinion (personal essays), News (factual updates)
+- **Specialized Prompts**: Different AI instructions per content type
+- **Metadata Extraction**: Auto-extracts EXCERPT, META_DESCRIPTION, IMAGE_PROMPT, TAGS
+- **Topic Mode**: Generate from title + keywords + content type
 - **YouTube Mode**: Analyze video transcripts (future)
 - **Blog Remix Mode**: Response to other articles (future)
-- **Quality Control**: SEO validation, excerpt generation, code detection
+- **Quality Control**: SEO validation, excerpt generation, tag extraction
 
 ### ✅ Image Generation
 - **Environment-based providers**: Fal.ai (production), Together.ai (local)
@@ -55,6 +58,9 @@ Automated blog generation system with AI-powered content and image generation.
 | Oct 9 | `d71d97e` | AI-generated dynamic image prompts |
 | Oct 9 | `2fc0190` | Fal.ai integration complete |
 | Oct 9 | `2f7c624` | Environment-based image providers |
+| Oct 10 | TBD | Content type system (technical/opinion/news) |
+| Oct 10 | TBD | Metadata extraction fix + tag saving |
+| Oct 10 | TBD | Navigation improvements (icons, order) |
 
 ---
 
@@ -189,7 +195,20 @@ docs/
 
 ## Known Issues
 
-None - system is production ready ✅
+### ⚠️ Word Count Below Target
+**Issue**: AI generates 400-900 words instead of 1500-2500 target
+**Impact**: Posts lack depth, reduced SEO value
+**Investigated**: Prompt modifications unsuccessful
+**Potential Solutions**:
+- Switch to Claude 3.5 Sonnet or GPT-4 (better at long-form)
+- Add validation + regeneration if < 1400 words
+- Split generation into sections
+- Accept 800-1200 as "good enough"
+
+### ✅ Recently Fixed
+- ~~Metadata appearing in content~~ → Fixed with markdown-aware regex
+- ~~Tags not saving~~ → Fixed with array filtering
+- ~~Poor navigation UX~~ → Fixed with better order and icons
 
 ---
 
@@ -198,11 +217,16 @@ None - system is production ready ✅
 | Task | Command |
 |------|---------|
 | Generate post | `/admin/blog-topics` → Generate Now |
-| Reset topics | `echo "yes" \| php artisan blog:reset-topics --all` |
+| Reset topics & seed data | `php artisan migrate:fresh --seed` |
 | Test Telegram | `php artisan blog:test-telegram` |
 | Switch to Together.ai | Set `BLOG_IMAGE_PROVIDER=together` in .env |
 | Switch to Fal.ai | Set `BLOG_IMAGE_PROVIDER=fal` in .env |
 | Check costs | View in Filament or query `BlogGenerationLog` |
+
+**Content Types:**
+- **💻 Technical**: Code-heavy tutorials (Laravel, PHP, DevOps)
+- **💭 Opinion**: Personal essays and hot takes
+- **📰 News**: Product updates and release coverage
 
 ---
 

@@ -29,8 +29,12 @@ return new class extends Migration
                 'context_youtube',    // YouTube video analysis
                 'context_blog',       // Blog post remix
                 'context_twitter',    // Twitter thread expansion (future)
-                'manual'              // Skip AI generation
             ])->default('topic');
+
+            // Content Type
+            $table->enum('content_type', ['technical', 'opinion', 'news'])
+                ->default('technical')
+                ->comment('Type of content: technical (with code), opinion (general), or news (updates)');
 
             // Context Sources
             $table->string('source_url', 500)->nullable();

@@ -4,6 +4,7 @@
 **Branch**: `feature/automated-blog-generation`
 **Started**: October 8, 2025
 **Completed**: October 9, 2025
+**Updated**: October 10, 2025 (Content Type System)
 
 ---
 
@@ -14,11 +15,12 @@ AI-powered blog generation system that creates high-quality technical content wi
 **Inspired by**: [StudyLab.app](https://studylab.app) automation (95% time savings, $4/year)
 
 **Key Features:**
-- ✅ AI content generation (3 modes)
-- ✅ Automatic image generation
+- ✅ AI content generation (3 content types: technical, opinion, news)
+- ✅ Automatic image generation (environment-based providers)
 - ✅ Mandatory review workflow
 - ✅ Telegram notifications
 - ✅ Cost tracking & analytics
+- ✅ Smart metadata extraction (tags, excerpts, SEO)
 
 ---
 
@@ -57,16 +59,44 @@ Manual Review & Publish
 
 ---
 
-## Content Generation Modes
+## Content Types
+
+The system supports **3 distinct content types**, each with specialized AI prompts:
+
+### 1. 💻 Technical (Code-Heavy)
+In-depth tutorials with working code examples, step-by-step guides, and best practices.
+
+**Style:** Professional, educational, SEO-optimized
+**Includes:** Multiple code blocks, architecture diagrams, before/after comparisons
+**Example:** "Building Multi-Tenant SaaS in Laravel 11"
+
+### 2. 💭 Opinion/Essay (Personal)
+Thought-provoking pieces with personal experiences, hot takes, and industry commentary.
+
+**Style:** Conversational, opinionated, storytelling-focused
+**Includes:** Code only if naturally relevant (not forced)
+**Example:** "I'll Instantly Know You Used ChatGPT If I See This"
+
+### 3. 📰 News/Updates (Factual)
+Timely coverage of new releases, updates, and industry developments.
+
+**Style:** Objective, informative, practical
+**Includes:** What's new, migration guides, setup examples
+**Example:** "NotebookLM Just Got a Serious Upgrade"
+
+---
+
+## Generation Modes
 
 ### 1. Topic-Based (Active)
-Generate from scratch using title + keywords.
+Generate from scratch using title + keywords + content type.
 
 **Example:**
 ```php
 BlogTopic::create([
     'title' => 'Building Multi-Tenant SaaS in Laravel',
     'keywords' => 'laravel, saas, multi-tenancy',
+    'content_type' => 'technical',  // or 'opinion', 'news'
     'generation_mode' => 'topic',
 ]);
 ```
@@ -83,7 +113,8 @@ Respond to external blog posts with alternative approaches.
 
 ### BlogTopic
 - Title, keywords, description, category
-- Generation mode (topic/youtube/blog/manual)
+- **Content type** (technical/opinion/news) - determines AI prompt style
+- Generation mode (topic/youtube/blog/twitter)
 - Source URL/content for context modes
 - Status (pending/generating/review/published)
 - Priority (1-10)
@@ -184,13 +215,28 @@ See [IMAGE_PROVIDERS.md](./IMAGE_PROVIDERS.md) for provider details.
 
 ## Quality Controls
 
-**Automated Checks:**
-- Minimum word count (1500-2500)
-- Code examples required
-- SEO title/description validation (<60/160 chars)
-- Excerpt generation (clean markdown)
+### Metadata Extraction System
+The AI generates structured metadata that is automatically extracted and saved separately:
 
-**Manual Review:**
+**Extracted Fields:**
+- `EXCERPT:` - 1-2 sentence summary (max 150 chars)
+- `META_DESCRIPTION:` - SEO description (150-160 chars)
+- `IMAGE_PROMPT:` - Detailed image generation prompt (80-120 words)
+- `TAGS:` - 3-5 relevant tags (comma-separated)
+
+**Process:**
+1. AI outputs metadata at the top of generated content
+2. Regex patterns extract each field
+3. Metadata is removed from final post content
+4. Values are saved to respective database fields
+
+### Automated Checks
+- **Word count target**: 1500-2500 words (currently generating 400-900, see Known Issues)
+- **Code examples**: Appropriate for content type
+- **SEO validation**: Title <60 chars, description 150-160 chars
+- **Tag extraction**: Fallback to predefined tags if AI doesn't provide
+
+### Manual Review
 - Content accuracy
 - Code examples work correctly
 - Personal voice and experience
@@ -249,6 +295,26 @@ docs/
 ├── IMAGE_PROVIDERS.md            # Image provider guide
 └── PROGRESS.md                   # Development progress
 ```
+
+---
+
+## Known Issues & Limitations
+
+### ⚠️ Word Count Below Target
+**Issue:** AI generates 400-900 words instead of target 1500-2500 words
+**Impact:** Posts may lack depth, SEO impact reduced
+**Status:** Investigating
+**Workarounds:**
+- Use Claude 3.5 Sonnet or GPT-4 (better at long-form, but more expensive)
+- Add post-generation validation with regeneration if < 1400 words
+- Split generation into sections (outline → intro → body → conclusion)
+- Accept shorter posts (800-1200 may be better for engagement anyway)
+
+### ✅ Fixed Issues
+- ~~Metadata appearing in content~~ - Fixed with improved regex patterns
+- ~~Tags not saving to database~~ - Fixed with proper array filtering
+- ~~Navigation order confusing~~ - Fixed: Posts first, Topics second
+- ~~Generic icons~~ - Fixed: Newspaper (posts), Lightbulb (topics)
 
 ---
 

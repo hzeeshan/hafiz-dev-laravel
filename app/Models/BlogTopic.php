@@ -18,6 +18,7 @@ class BlogTopic extends Model
         'target_audience',
         'priority',
         'generation_mode',
+        'content_type',
         'source_url',
         'source_content',
         'source_metadata',
@@ -127,5 +128,20 @@ class BlogTopic extends Model
     public function hasSourceContent(): bool
     {
         return !empty($this->source_content);
+    }
+
+    public function isTechnical(): bool
+    {
+        return $this->content_type === 'technical';
+    }
+
+    public function isOpinion(): bool
+    {
+        return $this->content_type === 'opinion';
+    }
+
+    public function isNews(): bool
+    {
+        return $this->content_type === 'news';
     }
 }

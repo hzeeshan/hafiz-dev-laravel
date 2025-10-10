@@ -58,6 +58,11 @@ class BlogTopicsTable
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
+                TextColumn::make('content_type')
+                    ->badge(),
+
+
+
                 TextColumn::make('category')
                     ->searchable()
                     ->sortable()

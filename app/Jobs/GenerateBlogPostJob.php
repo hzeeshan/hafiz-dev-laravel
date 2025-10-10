@@ -106,9 +106,10 @@ class GenerateBlogPostJob implements ShouldQueue
                 'blog_topic_id' => $this->topic->id,
                 'title' => $content['title'],
                 'slug' => Str::slug($content['title']),
-                'content' => $content['content'], // Store markdown, not HTML
-                'excerpt' => $content['excerpt'], // Plain text excerpt
+                'content' => $content['content'],
+                'excerpt' => $content['excerpt'],
                 'featured_image' => $featuredImageUrl,
+                'tags' => $content['tags'] ?? [],
                 'seo_title' => $content['meta_title'],
                 'seo_description' => $content['meta_description'],
                 'reading_time' => $content['reading_time'] ?? 5,
@@ -176,7 +177,6 @@ class GenerateBlogPostJob implements ShouldQueue
                 'cost' => $totalCost,
                 'quality_score' => $content['quality_score'] ?? 'N/A',
             ]);
-
         } catch (Exception $e) {
             // Update topic back to pending
             $this->topic->update(['status' => 'pending']);

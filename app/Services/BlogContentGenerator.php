@@ -323,6 +323,8 @@ class BlogContentGenerator
 
         IMAGE_PROMPT: [Detailed image prompt, 80-120 words, NO text on image]
 
+        TAGS: [3-5 relevant tags, comma-separated]
+
         [Your blog post content with proper headers starts here...]
 
         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -336,6 +338,8 @@ class BlogContentGenerator
         META_DESCRIPTION: Complete guide to building real-time chat with Laravel Reverb. Includes working code, WebSocket setup, and Vue.js integration for developers.
 
         IMAGE_PROMPT: Abstract visualization of real-time data flow: glowing cyan data packets streaming through dark fiber-optic channels from multiple users, converging at a central Laravel Reverb server node (pulsing geometric hub with orange/red accents), broadcasting outward to Vue.js clients (translucent green devices). Dark navy background, neon highlights, modern tech aesthetic, 3D isometric perspective. NO text.
+
+        TAGS: Laravel, WebSockets, Real-time, Vue.js, Laravel Reverb
 
         Real-time features used to require complex infrastructure like Pusher or Socket.io. [link to: Comparing WebSocket Solutions] With Laravel Reverb's release in 2024, you can build production-ready applications without third-party services.
 
@@ -353,13 +357,16 @@ class BlogContentGenerator
         Line 6: Blank
         Line 7: IMAGE_PROMPT: [detailed description]
         Line 8: Blank
-        Line 9+: Blog content with H2/H3 headers
+        Line 9: TAGS: [3-5 tags, comma-separated, specific to content]
+        Line 10: Blank
+        Line 11+: Blog content with H2/H3 headers
 
-        DO NOT skip EXCERPT, META_DESCRIPTION, or IMAGE_PROMPT - all are mandatory.
+        DO NOT skip EXCERPT, META_DESCRIPTION, IMAGE_PROMPT, or TAGS - all are mandatory.
         DO NOT keyword stuff - keep it natural and reader-focused.
         DO include [link to: Topic] suggestions (2-3 throughout content).
         DO use primary keyword in first 100 words of content.
-        DO structure one section for featured snippet targeting.";
+        DO structure one section for featured snippet targeting.
+        DO generate 3-5 specific, relevant tags (e.g., 'Laravel', 'Multi-tenancy', 'SaaS', 'Docker', 'API Development').";
 
         return $prompt;
     }
@@ -403,6 +410,19 @@ class BlogContentGenerator
         - Format: Markdown with proper headings
 
         TARGET TITLE: {$topic->title}
+
+        OUTPUT FORMAT:
+        # [Title]
+
+        EXCERPT: [1-2 sentence summary, max 150 chars]
+
+        META_DESCRIPTION: [150-160 chars with keyword]
+
+        IMAGE_PROMPT: [Detailed image prompt, 80-120 words, NO text]
+
+        TAGS: [3-5 relevant tags, comma-separated]
+
+        [Blog content starts here...]
         PROMPT;
 
         if ($topic->custom_prompt) {
@@ -452,6 +472,19 @@ class BlogContentGenerator
         - Format: Markdown
 
         YOUR POST TITLE: {$topic->title}
+
+        OUTPUT FORMAT:
+        # [Title]
+
+        EXCERPT: [1-2 sentence summary, max 150 chars]
+
+        META_DESCRIPTION: [150-160 chars with keyword]
+
+        IMAGE_PROMPT: [Detailed image prompt, 80-120 words, NO text]
+
+        TAGS: [3-5 relevant tags, comma-separated]
+
+        [Blog content starts here...]
         PROMPT;
 
         if ($topic->custom_prompt) {
@@ -496,6 +529,19 @@ class BlogContentGenerator
         - Format: Markdown
 
         POST TITLE: {$topic->title}
+
+        OUTPUT FORMAT:
+        # [Title]
+
+        EXCERPT: [1-2 sentence summary, max 150 chars]
+
+        META_DESCRIPTION: [150-160 chars with keyword]
+
+        IMAGE_PROMPT: [Detailed image prompt, 80-120 words, NO text]
+
+        TAGS: [3-5 relevant tags, comma-separated]
+
+        [Blog content starts here...]
         PROMPT;
 
         return $prompt;
@@ -544,12 +590,24 @@ class BlogContentGenerator
             $aiGeneratedImagePrompt = $this->generateImagePromptFallback($title, $content);
         }
 
+        // Extract tags if provided by AI (format: "TAGS: tag1, tag2, tag3")
+        $tags = [];
+        if (preg_match('/^TAGS:\s*(.+)$/m', $content, $tagsMatch)) {
+            $tagsString = trim($tagsMatch[1]);
+            // Split by comma and clean up
+            $tags = array_map('trim', explode(',', $tagsString));
+            // Remove the TAGS line from content
+            $content = preg_replace('/^TAGS:\s*.+$/m', '', $content);
+            Log::info('Extracted AI-generated tags', ['tags' => $tags, 'count' => count($tags)]);
+        } else {
+            // Fallback: AI didn't provide tags, use extraction method
+            Log::info('AI did not provide TAGS, using fallback extraction');
+            $tags = $this->extractTags($content);
+        }
+
         // Remove title from content
         $content = preg_replace('/^#\s+.+$/m', '', $content, 1);
         $content = trim($content);
-
-        // Extract tags from content
-        $tags = $this->extractTags($content);
 
         // Calculate reading time
         $wordCount = str_word_count(strip_tags($content));

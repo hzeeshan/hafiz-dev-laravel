@@ -39,6 +39,8 @@ class BlogPromptBuilder
         PRIMARY KEYWORDS: {$topic->keywords}
         CONTEXT: {$topic->description}
 
+        {$this->buildOutputFormat()}
+
         {$this->buildWordCountRequirement()}
 
         {$this->buildSeoOptimization()}
@@ -100,8 +102,6 @@ class BlogPromptBuilder
             $prompt .= "\n\nADDITIONAL INSTRUCTIONS:\n{$topic->custom_prompt}";
         }
 
-        $prompt .= "\n\n{$this->buildOutputFormat()}";
-
         return $prompt;
     }
 
@@ -120,6 +120,8 @@ class BlogPromptBuilder
         AUDIENCE: {$topic->target_audience}
         PRIMARY KEYWORDS: {$topic->keywords}
         CONTEXT: {$topic->description}
+
+        {$this->buildOutputFormat()}
 
         {$this->buildWordCountRequirement()}
 
@@ -183,8 +185,6 @@ class BlogPromptBuilder
             $prompt .= "\n\nADDITIONAL INSTRUCTIONS:\n{$topic->custom_prompt}";
         }
 
-        $prompt .= "\n\n{$this->buildOutputFormat()}";
-
         return $prompt;
     }
 
@@ -203,6 +203,8 @@ class BlogPromptBuilder
         AUDIENCE: {$topic->target_audience}
         PRIMARY KEYWORDS: {$topic->keywords}
         CONTEXT: {$topic->description}
+
+        {$this->buildOutputFormat()}
 
         {$this->buildWordCountRequirement()}
 
@@ -260,8 +262,6 @@ class BlogPromptBuilder
             $prompt .= "\n\nADDITIONAL INSTRUCTIONS:\n{$topic->custom_prompt}";
         }
 
-        $prompt .= "\n\n{$this->buildOutputFormat()}";
-
         return $prompt;
     }
 
@@ -280,6 +280,8 @@ class BlogPromptBuilder
 
         TASK: Write a blog post analyzing this video with YOUR perspective and additional insights.
 
+        {$this->buildOutputFormat()}
+
         {$this->buildWordCountRequirement()}
 
         STRUCTURE:
@@ -296,8 +298,6 @@ class BlogPromptBuilder
         if ($topic->custom_prompt) {
             $prompt .= "\n\nADDITIONAL INSTRUCTIONS:\n{$topic->custom_prompt}";
         }
-
-        $prompt .= "\n\n{$this->buildOutputFormat()}";
 
         return $prompt;
     }
@@ -317,6 +317,8 @@ class BlogPromptBuilder
 
         TASK: Write a thoughtful response or alternative approach to the original article.
 
+        {$this->buildOutputFormat()}
+
         {$this->buildWordCountRequirement()}
 
         STRUCTURE:
@@ -334,8 +336,6 @@ class BlogPromptBuilder
         if ($topic->custom_prompt) {
             $prompt .= "\n\nADDITIONAL INSTRUCTIONS:\n{$topic->custom_prompt}";
         }
-
-        $prompt .= "\n\n{$this->buildOutputFormat()}";
 
         return $prompt;
     }
@@ -355,6 +355,8 @@ class BlogPromptBuilder
 
         TASK: Expand this Twitter thread into a comprehensive blog post with code examples and detailed explanations.
 
+        {$this->buildOutputFormat()}
+
         {$this->buildWordCountRequirement()}
 
         STRUCTURE:
@@ -372,8 +374,6 @@ class BlogPromptBuilder
         if ($topic->custom_prompt) {
             $prompt .= "\n\nADDITIONAL INSTRUCTIONS:\n{$topic->custom_prompt}";
         }
-
-        $prompt .= "\n\n{$this->buildOutputFormat()}";
 
         return $prompt;
     }

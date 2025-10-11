@@ -24,8 +24,6 @@ class OpenRouterService
         array $options = []
     ): array {
         $model = $model ?? config('blog.models.primary');
-        $maxTokens = $maxTokens ?? 4000;
-
         $startTime = microtime(true);
 
         try {
@@ -37,7 +35,6 @@ class OpenRouterService
             // Use Prism's native OpenRouter provider
             $response = Prism::text()
                 ->using(Provider::OpenRouter, $model)
-                ->withMaxTokens($maxTokens)
                 ->withClientOptions([
                     'timeout' => 120, // 2 minutes for long blog posts
                 ])

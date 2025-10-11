@@ -111,6 +111,7 @@ class BlogContentGenerator
             default => $this->promptBuilder->buildTechnicalPrompt($topic),
         };
 
+        // Use generateWithFallback for automatic retry with Claude if Deepseek fails
         $response = $this->ai->generateWithFallback($prompt);
 
         $result = $this->parseGeneratedContent($response['content'], $response);
@@ -190,7 +191,8 @@ class BlogContentGenerator
         // Extract excerpt if provided by AI (format: "EXCERPT: text" or "**EXCERPT:** text")
         $aiGeneratedExcerpt = null;
         if (preg_match('/\*\*EXCERPT:\*\*\s*(.+)|^EXCERPT:\s*(.+)/m', $content, $excerptMatch)) {
-            $aiGeneratedExcerpt = trim($excerptMatch[1] ?? $excerptMatch[2]);
+            // Use the non-empty match (match[1] for bold format, match[2] for plain format)
+            $aiGeneratedExcerpt = trim(!empty($excerptMatch[1]) ? $excerptMatch[1] : $excerptMatch[2]);
             // Remove the entire line including markdown formatting
             $content = preg_replace('/^\*\*EXCERPT:\*\*.*$|^EXCERPT:.*$/m', '', $content, 1);
             Log::info('Extracted and removed EXCERPT from content', ['excerpt_length' => mb_strlen($aiGeneratedExcerpt)]);
@@ -199,7 +201,8 @@ class BlogContentGenerator
         // Extract meta description if provided by AI (format: "META_DESCRIPTION: text" or "**META_DESCRIPTION:** text")
         $aiGeneratedMetaDescription = null;
         if (preg_match('/\*\*META_DESCRIPTION:\*\*\s*(.+)|^META_DESCRIPTION:\s*(.+)/m', $content, $metaMatch)) {
-            $aiGeneratedMetaDescription = trim($metaMatch[1] ?? $metaMatch[2]);
+            // Use the non-empty match (match[1] for bold format, match[2] for plain format)
+            $aiGeneratedMetaDescription = trim(!empty($metaMatch[1]) ? $metaMatch[1] : $metaMatch[2]);
             // Remove the entire line including markdown formatting
             $content = preg_replace('/^\*\*META_DESCRIPTION:\*\*.*$|^META_DESCRIPTION:.*$/m', '', $content, 1);
             Log::info('Extracted AI-generated meta description', ['length' => mb_strlen($aiGeneratedMetaDescription)]);
@@ -208,7 +211,8 @@ class BlogContentGenerator
         // Extract image prompt if provided by AI (format: "IMAGE_PROMPT: text" or "**IMAGE_PROMPT:** text" - can be multi-line)
         $aiGeneratedImagePrompt = null;
         if (preg_match('/\*\*IMAGE_PROMPT:\*\*\s*(.+?)(?=\n\n|\*\*TAGS:)|^IMAGE_PROMPT:\s*(.+?)(?=\n\n|^TAGS:)/ms', $content, $imagePromptMatch)) {
-            $aiGeneratedImagePrompt = trim($imagePromptMatch[1] ?? $imagePromptMatch[2]);
+            // Use the non-empty match (match[1] for bold format, match[2] for plain format)
+            $aiGeneratedImagePrompt = trim(!empty($imagePromptMatch[1]) ? $imagePromptMatch[1] : $imagePromptMatch[2]);
             // Remove the IMAGE_PROMPT section including markdown formatting
             $content = preg_replace('/^\*\*IMAGE_PROMPT:\*\*.*?(?=\n\n|\*\*TAGS:)|^IMAGE_PROMPT:.*?(?=\n\n|^TAGS:)/ms', '', $content, 1);
             Log::info('Extracted AI-generated image prompt from content');
@@ -221,7 +225,8 @@ class BlogContentGenerator
         // Extract tags if provided by AI (format: "TAGS: tag1, tag2, tag3" or "**TAGS:** tag1, tag2, tag3")
         $tags = [];
         if (preg_match('/\*\*TAGS:\*\*\s*(.+)|^TAGS:\s*(.+)/m', $content, $tagsMatch)) {
-            $tagsString = trim($tagsMatch[1] ?? $tagsMatch[2]);
+            // Use the non-empty match (match[1] for bold format, match[2] for plain format)
+            $tagsString = trim(!empty($tagsMatch[1]) ? $tagsMatch[1] : $tagsMatch[2]);
             // Remove the entire line including markdown formatting
             $content = preg_replace('/^\*\*TAGS:\*\*.*$|^TAGS:.*$/m', '', $content, 1);
 
@@ -292,6 +297,7 @@ class BlogContentGenerator
     protected function generateMetadata(string $title, string $content, BlogTopic $topic, ?string $aiGeneratedExcerpt = null, ?string $aiGeneratedMetaDescription = null): array
     {
         // If AI generated a good excerpt, use it (preferred)
+        Log::info("Summery/Excerpt:", ['aiGeneratedExcerpt' => $aiGeneratedExcerpt]);
         if ($aiGeneratedExcerpt && mb_strlen($aiGeneratedExcerpt) > 20) {
             $excerpt = $aiGeneratedExcerpt;
             // Ensure it's not too long
@@ -344,13 +350,16 @@ class BlogContentGenerator
         // Strip ALL markdown formatting
         $plainText = $content;
 
-        // Remove code blocks first (including content inside)
+        // Remove horizontal rules FIRST (--- or ___ or ***) with optional trailing spaces
+        $plainText = preg_replace('/^(-{3,}|_{3,}|\*{3,})\s*$/m', '', $plainText);
+
+        // Remove code blocks (including content inside)
         $plainText = preg_replace('/```[\s\S]*?```/m', '', $plainText);
 
         // Remove inline code
         $plainText = preg_replace('/`([^`]+)`/', '$1', $plainText);
 
-        // Remove headers (##, ###, etc.)
+        // Remove headers (##, ###, etc.) but KEEP the header text
         $plainText = preg_replace('/^#{1,6}\s+(.*)$/m', '$1', $plainText);
 
         // Remove links but keep text [text](url) -> text
@@ -365,9 +374,6 @@ class BlogContentGenerator
         // Remove blockquotes (> text)
         $plainText = preg_replace('/^>\s+(.*)$/m', '$1', $plainText);
 
-        // Remove horizontal rules
-        $plainText = preg_replace('/^(-{3,}|_{3,}|\*{3,})$/m', '', $plainText);
-
         // Remove list markers (-, *, +, 1., 2., etc.)
         $plainText = preg_replace('/^[\s]*[-*+]\s+/m', '', $plainText);
         $plainText = preg_replace('/^[\s]*\d+\.\s+/m', '', $plainText);
@@ -378,10 +384,10 @@ class BlogContentGenerator
         // Trim and clean up
         $plainText = trim($plainText);
 
-        // Generate excerpt (200 chars without "...")
-        $excerpt = mb_substr($plainText, 0, 200);
-        if (mb_strlen($plainText) > 200) {
-            // Find last complete word within 200 chars
+        // Generate excerpt (150 chars max - better for UI display)
+        $excerpt = mb_substr($plainText, 0, 150);
+        if (mb_strlen($plainText) > 150) {
+            // Find last complete word within 150 chars
             $lastSpace = mb_strrpos($excerpt, ' ');
             if ($lastSpace !== false) {
                 $excerpt = mb_substr($excerpt, 0, $lastSpace);

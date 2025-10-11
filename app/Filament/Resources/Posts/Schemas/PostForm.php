@@ -9,6 +9,8 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Str;
@@ -141,6 +143,41 @@ class PostForm
                     ])
                     ->columnSpanFull()
                     ->collapsed(true), // Collapsed by default - reduces overwhelm
+
+                // Multi-Platform Distribution Settings
+                Section::make('Multi-Platform Distribution')
+                    ->description('Choose which platforms to publish this post to after reviewing')
+                    ->schema([
+                        Grid::make(2)
+                            ->schema([
+                                Toggle::make('publish_to_devto')
+                                    ->label('Dev.to')
+                                    ->helperText('Publish to Dev.to (+48h delay)')
+                                    ->default(true)
+                                    ->inline(false),
+
+                                Toggle::make('publish_to_hashnode')
+                                    ->label('Hashnode')
+                                    ->helperText('Publish to Hashnode (+48h delay)')
+                                    ->default(true)
+                                    ->inline(false),
+
+                                Toggle::make('publish_to_linkedin')
+                                    ->label('LinkedIn')
+                                    ->helperText('Share excerpt on LinkedIn')
+                                    ->default(true)
+                                    ->inline(false),
+
+                                Toggle::make('publish_to_medium')
+                                    ->label('Medium')
+                                    ->helperText('Publish to Medium (optional)')
+                                    ->default(false)
+                                    ->inline(false),
+                            ]),
+                    ])
+                    ->columnSpanFull()
+                    ->collapsed(true)
+                    ->visible(fn ($record) => $record && $record->auto_generated), // Only show for auto-generated posts
             ]);
     }
 }

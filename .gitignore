@@ -34,3 +34,4 @@ resources/views/vendor/pagination/*.blade.php
 
 # Auto-generated files (regenerate with commands)
 /public/sitemap.xml
+CLAUDE.md

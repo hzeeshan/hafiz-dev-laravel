@@ -21,7 +21,7 @@ class PostsTable
                 TextColumn::make('title')
                     ->searchable()
                     ->sortable()
-                    ->limit(50),
+                    ->limit(40),
 
                 BadgeColumn::make('status')
                     ->colors([
@@ -40,10 +40,12 @@ class PostsTable
 
                 TextColumn::make('reading_time')
                     ->suffix(' min')
-                    ->alignCenter(),
+                    ->alignCenter()
+                    ->toggleable(isToggledHiddenByDefault: true),
 
                 TagsColumn::make('tags')
-                    ->limit(3),
+                    ->limit(3)
+                    ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('created_at')
                     ->dateTime()

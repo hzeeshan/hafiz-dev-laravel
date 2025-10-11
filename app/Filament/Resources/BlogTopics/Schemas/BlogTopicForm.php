@@ -138,7 +138,7 @@ class BlogTopicForm
                         DateTimePicker::make('scheduled_for')
                             ->native(false)
                             ->helperText('When should this post be auto-generated? Leave empty for manual generation.')
-                            ->timezone('UTC')
+                            ->displayFormat('M j, Y g:i A')
                             ->columnSpanFull(),
                     ])
                     ->collapsible()

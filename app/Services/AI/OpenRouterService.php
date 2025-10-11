@@ -106,7 +106,127 @@ class OpenRouterService
     }
 
     /**
-     * Generate structured JSON output
+     * Generate structured JSON output with validation
+     *
+     * @param string $prompt
+     * @param string|null $model
+     * @return array ['title' => string, 'excerpt' => string, 'meta_description' => string, 'tags' => array, 'image_prompt' => string, 'content' => string, 'metadata' => array]
+     * @throws \Exception if JSON is invalid or missing required fields
+     */
+    public function generateStructured(string $prompt, ?string $model = null): array
+    {
+        $model = $model ?? config('blog.models.primary');
+        $startTime = microtime(true);
+
+        try {
+            Log::info('Structured JSON generation started', [
+                'model' => $model,
+                'prompt_length' => strlen($prompt),
+            ]);
+
+            // Add explicit JSON formatting instructions
+            $jsonPrompt = $prompt . "\n\n" . <<<'JSON_INSTRUCTION'
+
+**CRITICAL: Return your response as valid JSON ONLY. No markdown, no code fences, no explanation.**
+
+Required JSON format:
+{
+  "title": "SEO-optimized title (50-60 chars)",
+  "excerpt": "Compelling 1-2 sentence summary (max 150 chars)",
+  "meta_description": "SEO meta description (150-160 chars)",
+  "tags": ["tag1", "tag2", "tag3", "tag4", "tag5"],
+  "image_prompt": "Detailed image generation prompt (80-120 words, describe scene/style/colors)",
+  "content": "Full markdown blog post content without any metadata headers"
+}
+
+Rules:
+- Return ONLY the JSON object (no ```json fences, no extra text)
+- All fields are required and must be non-empty
+- Tags must be an array with 3-5 items
+- Content must be clean markdown (no EXCERPT:, META:, etc. headers)
+- Image prompt should be detailed for AI image generation
+JSON_INSTRUCTION;
+
+            $response = Prism::text()
+                ->using(Provider::OpenRouter, $model)
+                ->withClientOptions([
+                    'timeout' => 120, // 2 minutes for long content
+                ])
+                ->withPrompt($jsonPrompt)
+                ->generate();
+
+            $generationTime = round((microtime(true) - $startTime), 2);
+            $content = trim($response->text);
+            $usage = $response->usage ?? null;
+
+            // Clean potential markdown code fences
+            $content = preg_replace('/^```json\s*|\s*```$/m', '', $content);
+            $content = trim($content);
+
+            // Parse JSON
+            $data = json_decode($content, true);
+
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                throw new \Exception('Invalid JSON: ' . json_last_error_msg() . "\nContent preview: " . substr($content, 0, 200));
+            }
+
+            // Validate required fields
+            $required = ['title', 'excerpt', 'meta_description', 'tags', 'image_prompt', 'content'];
+            $missing = [];
+            foreach ($required as $field) {
+                if (!isset($data[$field]) || (is_string($data[$field]) && trim($data[$field]) === '') || (is_array($data[$field]) && empty($data[$field]))) {
+                    $missing[] = $field;
+                }
+            }
+
+            if (!empty($missing)) {
+                throw new \Exception("Missing or empty required fields: " . implode(', ', $missing));
+            }
+
+            // Validate tags is an array
+            if (!is_array($data['tags'])) {
+                throw new \Exception("Tags must be an array, got: " . gettype($data['tags']));
+            }
+
+            // Get token counts
+            $inputTokens = $usage?->promptTokens ?? 0;
+            $outputTokens = $usage?->completionTokens ?? 0;
+            $totalTokens = $inputTokens + $outputTokens;
+
+            Log::info('Structured JSON generation completed', [
+                'model' => $model,
+                'generation_time' => $generationTime,
+                'tokens' => $totalTokens,
+                'content_length' => strlen($data['content']),
+                'word_count' => str_word_count($data['content']),
+            ]);
+
+            // Add metadata to response
+            $data['metadata'] = [
+                'model' => $model,
+                'generation_time' => $generationTime,
+                'tokens' => $totalTokens,
+                'input_tokens' => $inputTokens,
+                'output_tokens' => $outputTokens,
+                'cost' => $this->estimateCost($model, $inputTokens, $outputTokens),
+                'format' => 'json',
+            ];
+
+            return $data;
+
+        } catch (\Exception $e) {
+            Log::error('Structured JSON generation failed', [
+                'model' => $model,
+                'error' => $e->getMessage(),
+                'generation_time' => round((microtime(true) - $startTime), 2),
+            ]);
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Generate structured JSON output (legacy method, kept for compatibility)
      *
      * @param string $prompt
      * @param string|null $model

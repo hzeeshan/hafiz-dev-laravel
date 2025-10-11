@@ -48,11 +48,8 @@ class BlogContentGenerator
         };
 
         // Generate metadata (SEO, excerpt, etc.)
-        // Pass AI-generated excerpt and meta description if available
         $metadata = $this->generateMetadata(
             $content['title'],
-            $content['content'],
-            $topic,
             $content['ai_generated_excerpt'] ?? null,
             $content['ai_generated_meta_description'] ?? null
         );
@@ -76,7 +73,7 @@ class BlogContentGenerator
             'meta_description' => $metadata['seo_description'],
             'excerpt' => $metadata['excerpt'],
 
-            // AI-generated image prompt (for FalImageService)
+            // AI-generated image prompt
             'ai_generated_image_prompt' => $content['ai_generated_image_prompt'] ?? null,
 
             // Quality & code review
@@ -97,25 +94,35 @@ class BlogContentGenerator
     }
 
     /**
-     * Generate from topic mode (original StudyLab approach)
+     * Generate from topic mode using JSON structured output
      *
      * @param BlogTopic $topic
      * @return array
      */
     protected function generateFromTopic(BlogTopic $topic): array
     {
-        // Choose prompt based on content type using BlogPromptBuilder
+        // Choose prompt based on content type
         $prompt = match ($topic->content_type ?? 'technical') {
             'opinion' => $this->promptBuilder->buildOpinionPrompt($topic),
             'news' => $this->promptBuilder->buildNewsPrompt($topic),
             default => $this->promptBuilder->buildTechnicalPrompt($topic),
         };
 
-        // Use generateWithFallback for automatic retry with Claude if Deepseek fails
-        $response = $this->ai->generateWithFallback($prompt);
+        Log::info('BlogContentGenerator: Starting JSON generation', [
+            'topic_id' => $topic->id,
+            'content_type' => $topic->content_type,
+        ]);
 
-        $result = $this->parseGeneratedContent($response['content'], $response);
-        $result['prompt_used'] = $prompt; // Store the prompt for logging
+        $jsonData = $this->ai->generateStructured($prompt);
+
+        // Transform JSON response to standard format
+        $result = $this->parseJsonContent($jsonData);
+        $result['prompt_used'] = $prompt;
+
+        Log::info('BlogContentGenerator: JSON generation successful', [
+            'topic_id' => $topic->id,
+            'word_count' => $result['generation_metadata']['word_count'],
+        ]);
 
         return $result;
     }
@@ -130,10 +137,14 @@ class BlogContentGenerator
     {
         $prompt = $this->promptBuilder->buildYouTubePrompt($topic);
 
-        $response = $this->ai->generateWithFallback($prompt);
+        Log::info('BlogContentGenerator: Starting JSON generation (YouTube mode)', [
+            'topic_id' => $topic->id,
+        ]);
 
-        $result = $this->parseGeneratedContent($response['content'], $response);
-        $result['prompt_used'] = $prompt; // Store the prompt for logging
+        $jsonData = $this->ai->generateStructured($prompt);
+
+        $result = $this->parseJsonContent($jsonData);
+        $result['prompt_used'] = $prompt;
 
         return $result;
     }
@@ -148,10 +159,14 @@ class BlogContentGenerator
     {
         $prompt = $this->promptBuilder->buildBlogRemixPrompt($topic);
 
-        $response = $this->ai->generateWithFallback($prompt);
+        Log::info('BlogContentGenerator: Starting JSON generation (Blog remix mode)', [
+            'topic_id' => $topic->id,
+        ]);
 
-        $result = $this->parseGeneratedContent($response['content'], $response);
-        $result['prompt_used'] = $prompt; // Store the prompt for logging
+        $jsonData = $this->ai->generateStructured($prompt);
+
+        $result = $this->parseJsonContent($jsonData);
+        $result['prompt_used'] = $prompt;
 
         return $result;
     }
@@ -166,95 +181,28 @@ class BlogContentGenerator
     {
         $prompt = $this->promptBuilder->buildTwitterPrompt($topic);
 
-        $response = $this->ai->generateWithFallback($prompt);
+        Log::info('BlogContentGenerator: Starting JSON generation (Twitter mode)', [
+            'topic_id' => $topic->id,
+        ]);
 
-        $result = $this->parseGeneratedContent($response['content'], $response);
-        $result['prompt_used'] = $prompt; // Store the prompt for logging
+        $jsonData = $this->ai->generateStructured($prompt);
+
+        $result = $this->parseJsonContent($jsonData);
+        $result['prompt_used'] = $prompt;
 
         return $result;
     }
 
-
     /**
-     * Parse generated content and extract components
+     * Parse JSON structured content
      *
-     * @param string $content
-     * @param array $generationData
+     * @param array $jsonData
      * @return array
      */
-    protected function parseGeneratedContent(string $content, array $generationData): array
+    protected function parseJsonContent(array $jsonData): array
     {
-        // Extract title (first # heading)
-        preg_match('/^#\s+(.+)$/m', $content, $titleMatch);
-        $title = $titleMatch[1] ?? 'Untitled Post';
-
-        // Extract excerpt if provided by AI (format: "EXCERPT: text" or "**EXCERPT:** text")
-        $aiGeneratedExcerpt = null;
-        if (preg_match('/\*\*EXCERPT:\*\*\s*(.+)|^EXCERPT:\s*(.+)/m', $content, $excerptMatch)) {
-            // Use the non-empty match (match[1] for bold format, match[2] for plain format)
-            $aiGeneratedExcerpt = trim(!empty($excerptMatch[1]) ? $excerptMatch[1] : $excerptMatch[2]);
-            // Remove the entire line including markdown formatting
-            $content = preg_replace('/^\*\*EXCERPT:\*\*.*$|^EXCERPT:.*$/m', '', $content, 1);
-            Log::info('Extracted and removed EXCERPT from content', ['excerpt_length' => mb_strlen($aiGeneratedExcerpt)]);
-        }
-
-        // Extract meta description if provided by AI (format: "META_DESCRIPTION: text" or "**META_DESCRIPTION:** text")
-        $aiGeneratedMetaDescription = null;
-        if (preg_match('/\*\*META_DESCRIPTION:\*\*\s*(.+)|^META_DESCRIPTION:\s*(.+)/m', $content, $metaMatch)) {
-            // Use the non-empty match (match[1] for bold format, match[2] for plain format)
-            $aiGeneratedMetaDescription = trim(!empty($metaMatch[1]) ? $metaMatch[1] : $metaMatch[2]);
-            // Remove the entire line including markdown formatting
-            $content = preg_replace('/^\*\*META_DESCRIPTION:\*\*.*$|^META_DESCRIPTION:.*$/m', '', $content, 1);
-            Log::info('Extracted AI-generated meta description', ['length' => mb_strlen($aiGeneratedMetaDescription)]);
-        }
-
-        // Extract image prompt if provided by AI (format: "IMAGE_PROMPT: text" or "**IMAGE_PROMPT:** text" - can be multi-line)
-        $aiGeneratedImagePrompt = null;
-        if (preg_match('/\*\*IMAGE_PROMPT:\*\*\s*(.+?)(?=\n\n|\*\*TAGS:)|^IMAGE_PROMPT:\s*(.+?)(?=\n\n|^TAGS:)/ms', $content, $imagePromptMatch)) {
-            // Use the non-empty match (match[1] for bold format, match[2] for plain format)
-            $aiGeneratedImagePrompt = trim(!empty($imagePromptMatch[1]) ? $imagePromptMatch[1] : $imagePromptMatch[2]);
-            // Remove the IMAGE_PROMPT section including markdown formatting
-            $content = preg_replace('/^\*\*IMAGE_PROMPT:\*\*.*?(?=\n\n|\*\*TAGS:)|^IMAGE_PROMPT:.*?(?=\n\n|^TAGS:)/ms', '', $content, 1);
-            Log::info('Extracted AI-generated image prompt from content');
-        } else {
-            // Fallback: AI didn't provide image prompt, generate one using AI
-            Log::info('AI did not provide IMAGE_PROMPT, generating fallback');
-            $aiGeneratedImagePrompt = $this->generateImagePromptFallback($title, $content);
-        }
-
-        // Extract tags if provided by AI (format: "TAGS: tag1, tag2, tag3" or "**TAGS:** tag1, tag2, tag3")
-        $tags = [];
-        if (preg_match('/\*\*TAGS:\*\*\s*(.+)|^TAGS:\s*(.+)/m', $content, $tagsMatch)) {
-            // Use the non-empty match (match[1] for bold format, match[2] for plain format)
-            $tagsString = trim(!empty($tagsMatch[1]) ? $tagsMatch[1] : $tagsMatch[2]);
-            // Remove the entire line including markdown formatting
-            $content = preg_replace('/^\*\*TAGS:\*\*.*$|^TAGS:.*$/m', '', $content, 1);
-
-            // Only process if we have actual tag content
-            if (!empty($tagsString)) {
-                // Split by comma and clean up
-                $tags = array_map('trim', explode(',', $tagsString));
-                // Remove any empty tags
-                $tags = array_filter($tags, fn($tag) => !empty($tag));
-                Log::info('Extracted AI-generated tags', ['tags' => $tags, 'count' => count($tags)]);
-            } else {
-                // TAGS label found but no content, use fallback
-                Log::info('TAGS label found but empty, using fallback extraction');
-                $tags = $this->extractTags($content);
-            }
-        } else {
-            // Fallback: AI didn't provide tags, use extraction method
-            Log::info('AI did not provide TAGS, using fallback extraction');
-            $tags = $this->extractTags($content);
-        }
-
-        // Remove title from content
-        $content = preg_replace('/^#\s+.+$/m', '', $content, 1);
-
-        // Clean up multiple blank lines left after extraction (replace 3+ newlines with 2)
-        $content = preg_replace('/\n{3,}/', "\n\n", $content);
-
-        $content = trim($content);
+        $content = $jsonData['content'];
+        $metadata = $jsonData['metadata'];
 
         // Calculate reading time
         $wordCount = str_word_count(strip_tags($content));
@@ -265,21 +213,22 @@ class BlogContentGenerator
         $requiresCodeReview = $this->requiresCodeReview($content);
 
         return [
-            'title' => $title,
+            'title' => $jsonData['title'],
             'content' => $content,
-            'tags' => $tags,
+            'tags' => $jsonData['tags'],
             'reading_time' => $readingTime,
-            'ai_generated_excerpt' => $aiGeneratedExcerpt, // Pass this to generateMetadata
-            'ai_generated_meta_description' => $aiGeneratedMetaDescription, // Pass to generateMetadata
-            'ai_generated_image_prompt' => $aiGeneratedImagePrompt, // Pass to image generation
+            'ai_generated_excerpt' => $jsonData['excerpt'],
+            'ai_generated_meta_description' => $jsonData['meta_description'],
+            'ai_generated_image_prompt' => $jsonData['image_prompt'],
             'generation_metadata' => [
                 'word_count' => $wordCount,
                 'quality_score' => $qualityScore,
                 'requires_code_review' => $requiresCodeReview,
-                'model' => $generationData['model'],
-                'tokens' => $generationData['tokens'],
-                'cost' => $generationData['cost'],
-                'generation_time' => $generationData['generation_time'],
+                'model' => $metadata['model'],
+                'tokens' => $metadata['tokens'],
+                'cost' => $metadata['cost'],
+                'generation_time' => $metadata['generation_time'],
+                'format' => 'json',
             ],
         ];
     }
@@ -288,25 +237,19 @@ class BlogContentGenerator
      * Generate SEO metadata
      *
      * @param string $title
-     * @param string $content
-     * @param BlogTopic $topic
      * @param string|null $aiGeneratedExcerpt
      * @param string|null $aiGeneratedMetaDescription
      * @return array
      */
-    protected function generateMetadata(string $title, string $content, BlogTopic $topic, ?string $aiGeneratedExcerpt = null, ?string $aiGeneratedMetaDescription = null): array
+    protected function generateMetadata(string $title, ?string $aiGeneratedExcerpt = null, ?string $aiGeneratedMetaDescription = null): array
     {
-        // If AI generated a good excerpt, use it (preferred)
+        // Use AI-generated excerpt (always provided by JSON)
         Log::info("Summery/Excerpt:", ['aiGeneratedExcerpt' => $aiGeneratedExcerpt]);
-        if ($aiGeneratedExcerpt && mb_strlen($aiGeneratedExcerpt) > 20) {
-            $excerpt = $aiGeneratedExcerpt;
-            // Ensure it's not too long
-            if (mb_strlen($excerpt) > 200) {
-                $excerpt = mb_substr($excerpt, 0, 197) . '...';
-            }
-        } else {
-            // Fallback: Generate excerpt by stripping markdown
-            $excerpt = $this->generateExcerptFromContent($content);
+
+        $excerpt = $aiGeneratedExcerpt;
+        // Ensure it's not too long
+        if (mb_strlen($excerpt) > 200) {
+            $excerpt = mb_substr($excerpt, 0, 197) . '...';
         }
 
         // Generate SEO title (max 60 chars, truncate cleanly)
@@ -315,21 +258,11 @@ class BlogContentGenerator
             $seoTitle = mb_substr($seoTitle, 0, 57) . '...';
         }
 
-        // Use AI-generated meta description if available (preferred for SEO)
-        if ($aiGeneratedMetaDescription && mb_strlen($aiGeneratedMetaDescription) >= 120) {
-            $seoDescription = $aiGeneratedMetaDescription;
-            // Ensure it's exactly 160 chars or less
-            if (mb_strlen($seoDescription) > 160) {
-                $seoDescription = mb_substr($seoDescription, 0, 157) . '...';
-            }
-        } else {
-            // Fallback: Use excerpt as meta description
-            $seoDescription = $excerpt;
-            if (mb_strlen($seoDescription) > 160) {
-                $truncated = mb_substr($seoDescription, 0, 157);
-                $truncated = rtrim($truncated, '.');
-                $seoDescription = $truncated . '...';
-            }
+        // Use AI-generated meta description (always provided by JSON)
+        $seoDescription = $aiGeneratedMetaDescription;
+        // Ensure it's exactly 160 chars or less
+        if (mb_strlen($seoDescription) > 160) {
+            $seoDescription = mb_substr($seoDescription, 0, 157) . '...';
         }
 
         return [
@@ -337,88 +270,6 @@ class BlogContentGenerator
             'seo_title' => $seoTitle,
             'seo_description' => $seoDescription,
         ];
-    }
-
-    /**
-     * Generate excerpt from content by stripping markdown (fallback method)
-     *
-     * @param string $content
-     * @return string
-     */
-    protected function generateExcerptFromContent(string $content): string
-    {
-        // Strip ALL markdown formatting
-        $plainText = $content;
-
-        // Remove horizontal rules FIRST (--- or ___ or ***) with optional trailing spaces
-        $plainText = preg_replace('/^(-{3,}|_{3,}|\*{3,})\s*$/m', '', $plainText);
-
-        // Remove code blocks (including content inside)
-        $plainText = preg_replace('/```[\s\S]*?```/m', '', $plainText);
-
-        // Remove inline code
-        $plainText = preg_replace('/`([^`]+)`/', '$1', $plainText);
-
-        // Remove headers (##, ###, etc.) but KEEP the header text
-        $plainText = preg_replace('/^#{1,6}\s+(.*)$/m', '$1', $plainText);
-
-        // Remove links but keep text [text](url) -> text
-        $plainText = preg_replace('/\[([^\]]+)\]\([^\)]+\)/', '$1', $plainText);
-
-        // Remove images
-        $plainText = preg_replace('/!\[([^\]]*)\]\([^\)]+\)/', '', $plainText);
-
-        // Remove bold/italic (**text** or *text* or __text__ or _text_)
-        $plainText = preg_replace('/[*_]{1,2}([^*_]+)[*_]{1,2}/', '$1', $plainText);
-
-        // Remove blockquotes (> text)
-        $plainText = preg_replace('/^>\s+(.*)$/m', '$1', $plainText);
-
-        // Remove list markers (-, *, +, 1., 2., etc.)
-        $plainText = preg_replace('/^[\s]*[-*+]\s+/m', '', $plainText);
-        $plainText = preg_replace('/^[\s]*\d+\.\s+/m', '', $plainText);
-
-        // Normalize whitespace (multiple spaces/newlines to single space)
-        $plainText = preg_replace('/\s+/', ' ', $plainText);
-
-        // Trim and clean up
-        $plainText = trim($plainText);
-
-        // Generate excerpt (150 chars max - better for UI display)
-        $excerpt = mb_substr($plainText, 0, 150);
-        if (mb_strlen($plainText) > 150) {
-            // Find last complete word within 150 chars
-            $lastSpace = mb_strrpos($excerpt, ' ');
-            if ($lastSpace !== false) {
-                $excerpt = mb_substr($excerpt, 0, $lastSpace);
-            }
-            $excerpt .= '...';
-        }
-
-        return $excerpt;
-    }
-
-    /**
-     * Extract tags from content based on keywords
-     *
-     * @param string $content
-     * @return array
-     */
-    protected function extractTags(string $content): array
-    {
-        $commonTags = ['Laravel', 'PHP', 'JavaScript', 'Vue.js', 'React', 'Docker', 'MySQL', 'Redis', 'API', 'SaaS', 'Automation'];
-
-        $foundTags = [];
-        foreach ($commonTags as $tag) {
-            if (stripos($content, $tag) !== false) {
-                $foundTags[] = $tag;
-            }
-        }
-
-        $tags = array_slice($foundTags, 0, 5); // Max 5 tags
-
-        // Always return proper array, never array with empty string
-        return !empty($tags) ? $tags : [];
     }
 
     /**
@@ -525,52 +376,5 @@ class BlogContentGenerator
         $html = '<p>' . preg_replace('/\n\n/', '</p><p>', $html) . '</p>';
 
         return $html;
-    }
-
-    /**
-     * Generate image prompt using AI as fallback when main generation doesn't provide one
-     *
-     * @param string $title
-     * @param string $content
-     * @return string|null
-     */
-    protected function generateImagePromptFallback(string $title, string $content): ?string
-    {
-        try {
-            // Extract first 500 words for context
-            $words = str_word_count($content, 2);
-            $first500Words = implode(' ', array_slice($words, 0, 500));
-
-            $prompt = <<<PROMPT
-            You are an expert at creating detailed image generation prompts for FLUX/DALL-E.
-
-            BLOG POST TITLE: {$title}
-
-            CONTENT PREVIEW: {$first500Words}
-
-            TASK: Generate a single, detailed image prompt (80-120 words) for a professional blog header image that visually represents the key concepts from this technical article.
-
-            REQUIREMENTS:
-            - Be specific about visual metaphors, colors, composition, and mood
-            - Focus on abstract representations of technical concepts
-            - Use modern tech aesthetic with dark backgrounds and vibrant accents
-            - NO text or words should appear in the image
-            - Make it visually compelling and relevant to the content
-
-            OUTPUT: Just the image prompt, nothing else.
-
-            EXAMPLE: "Abstract visualization of database optimization: flowing data streams transforming from chaotic red tangles into organized blue pipelines, with cache layers shown as transparent accelerator rings, against dark gradient background transitioning from warm orange to cool cyan, modern 3D abstract style, energetic and dynamic composition. NO text on image."
-            PROMPT;
-
-            // Use primary model for fallback image prompt (reliable and cheap)
-            $response = $this->ai->generate($prompt, config('blog.models.primary'));
-
-            return trim($response['content']);
-        } catch (\Exception $e) {
-            Log::warning('Failed to generate fallback image prompt', [
-                'error' => $e->getMessage(),
-            ]);
-            return null; // Will fall back to static template in FalImageService
-        }
     }
 }

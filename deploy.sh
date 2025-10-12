@@ -5,10 +5,10 @@
 
 set -e  # Exit on any error
 
-# Configuration - UPDATE THESE FOR YOUR SERVER
-SERVER_USER="root"  # TODO: Update with your server username
-SERVER_HOST="hafiz-server-2025"  # TODO: Update with your server hostname/IP
-SERVER_PATH="/var/www/hafiz.dev"  # TODO: Update with your server path
+# Configuration
+SERVER_USER="root"  
+SERVER_HOST="hafiz-server-2025"  
+SERVER_PATH="/var/www/hafiz.dev"
 BACKUP_COUNT=3
 
 # Colors for output
@@ -169,6 +169,9 @@ run_server_commands() {
         # Rebuild all caches
         php artisan optimize
         php artisan filament:optimize
+
+        # Regenerate sitemap with production URLs
+        php artisan sitemap:generate
 
         # Restart queue workers if any
         php artisan queue:restart

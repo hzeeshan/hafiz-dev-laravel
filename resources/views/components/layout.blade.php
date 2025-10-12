@@ -30,7 +30,7 @@
     <meta property="og:title" content="{{ $ogTitle ?? ($title ?? 'Hafiz Riaz | Laravel & Vue.js Developer') }}">
     <meta property="og:description"
         content="{{ $ogDescription ?? ($description ?? 'Expert Laravel & Vue.js developer specializing in process automation, SaaS development, and custom web applications. Available for freelance projects.') }}">
-    <meta property="og:image" content="{{ $ogImage ?? asset('profile-photo.png') }}">
+    <meta property="og:image" content="{{ $ogImage ?? url('/profile-photo.png') }}">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:site_name" content="Hafiz Riaz - Laravel Developer">
@@ -42,7 +42,7 @@
     <meta name="twitter:title" content="{{ $ogTitle ?? ($title ?? 'Hafiz Riaz | Laravel & Vue.js Developer') }}">
     <meta name="twitter:description"
         content="{{ $ogDescription ?? ($description ?? 'Expert Laravel & Vue.js developer specializing in process automation and SaaS development.') }}">
-    <meta name="twitter:image" content="{{ $ogImage ?? asset('profile-photo.png') }}">
+    <meta name="twitter:image" content="{{ $ogImage ?? url('/profile-photo.png') }}">
     <meta name="twitter:site" content="@hafizzeeshan619">
     <meta name="twitter:creator" content="@hafizzeeshan619">
 

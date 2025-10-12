@@ -47,6 +47,9 @@ tailwind.config.js
 postcss.config.js
 public/hot
 
+# SEO files - Generated on production, don't sync from local
+public/sitemap.xml
+
 # Development scripts
 scripts/
 deploy.sh

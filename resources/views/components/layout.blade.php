@@ -151,7 +151,8 @@
                     <span>hafiz.dev</span>
                 </a>
 
-                <div class="flex items-center gap-8">
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center gap-8">
                     <a href="/"
                         class="text-light-muted hover:text-light font-medium transition-colors duration-300">Home</a>
                     <a href="/#services"
@@ -165,9 +166,49 @@
                         Contact
                     </a>
                 </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" class="md:hidden text-light hover:text-gold transition-colors p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation Menu -->
+            <div id="mobile-menu" class="hidden md:hidden pb-4">
+                <div class="flex flex-col space-y-3">
+                    <a href="/"
+                        class="text-light-muted hover:text-light font-medium transition-colors duration-300 py-2 border-b border-gold/10">Home</a>
+                    <a href="/#services"
+                        class="text-light-muted hover:text-light font-medium transition-colors duration-300 py-2 border-b border-gold/10">Services</a>
+                    <a href="/#portfolio"
+                        class="text-light-muted hover:text-light font-medium transition-colors duration-300 py-2 border-b border-gold/10">Portfolio</a>
+                    <a href="/blog"
+                        class="text-light-muted hover:text-light font-medium transition-colors duration-300 py-2 border-b border-gold/10">Blog</a>
+                    <a href="/#contact"
+                        class="px-5 py-2.5 bg-gold text-darkBg rounded-lg hover:bg-gold-light font-semibold transition-all duration-300 text-center">
+                        Contact
+                    </a>
+                </div>
             </div>
         </div>
     </nav>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+    </script>
 
     <!-- Main Content -->
     <main class="flex-1 pt-16">

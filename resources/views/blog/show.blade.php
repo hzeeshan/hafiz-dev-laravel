@@ -37,8 +37,8 @@
             "logo": {
               "@@type": "ImageObject",
               "url": "https://hafiz.dev/profile-photo.png",
-              "width": 600,
-              "height": 600
+              "width": "600",
+              "height": "600"
             }
           },
           "mainEntityOfPage": {
@@ -46,7 +46,7 @@
             "@@id": {{ Js::from(route('blog.show', $post->slug)) }}
           },
           "keywords": {{ Js::from($post->tags ? implode(', ', $post->tags) : '') }},
-          "wordCount": {{ str_word_count(strip_tags($post->content)) }},
+          "wordCount": "{{ str_word_count(strip_tags($post->content)) }}",
           "timeRequired": "PT{{ $post->reading_time }}M",
           "articleBody": {{ Js::from(strip_tags($post->content)) }},
           "url": {{ Js::from(route('blog.show', $post->slug)) }},

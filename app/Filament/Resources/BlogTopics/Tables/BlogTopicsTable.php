@@ -205,6 +205,6 @@ class BlogTopicsTable
                     DeleteBulkAction::make(),
                 ]),
             ])
-            ->defaultSort('priority', 'desc');
+            ->defaultSort('created_at', 'desc');
     }
 }

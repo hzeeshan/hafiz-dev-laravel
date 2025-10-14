@@ -19,7 +19,7 @@ class TrendingTopicSourceResource extends Resource
 {
     protected static ?string $model = TrendingTopicSource::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedFire;
 
     protected static ?string $navigationLabel = 'Trending Topics';
 

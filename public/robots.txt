@@ -5,6 +5,11 @@ User-agent: *
 Disallow: /admin
 Disallow: /admin/
 Disallow: /livewire/
+
+# Allow blog images for social media previews (Twitter, Facebook, etc.)
+Allow: /storage/blog-images/
+
+# Disallow other storage areas
 Disallow: /storage/
 
 # Allow all other pages

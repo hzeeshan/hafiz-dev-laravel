@@ -6,11 +6,11 @@ Disallow: /admin
 Disallow: /admin/
 Disallow: /livewire/
 
-# Allow blog images for social media previews (Twitter, Facebook, etc.)
+# Disallow storage but ALLOW blog images (order matters - specific before general)
 Allow: /storage/blog-images/
-
-# Disallow other storage areas
-Disallow: /storage/
+Disallow: /storage/app/
+Disallow: /storage/framework/
+Disallow: /storage/logs/
 
 # Allow all other pages
 Allow: /

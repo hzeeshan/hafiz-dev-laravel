@@ -268,6 +268,11 @@ class DevToService
     /**
      * Prepare tags for Dev.to (max 4 tags)
      *
+     * Dev.to tag requirements:
+     * - Lowercase letters only
+     * - No special characters (dots, dashes, underscores, spaces)
+     * - Single words or compound words (e.g., "javascript", "webdev", "machinelearning")
+     *
      * @param array $tags
      * @return array
      */
@@ -276,9 +281,16 @@ class DevToService
         // Dev.to allows max 4 tags
         $tags = array_slice($tags, 0, 4);
 
-        // Dev.to tags should be lowercase and without spaces
+        // Normalize tags for Dev.to format
         return array_map(function ($tag) {
-            return strtolower(str_replace(' ', '', $tag));
+            // Convert to lowercase
+            $tag = strtolower($tag);
+
+            // Remove all special characters (dots, dashes, underscores, spaces, etc.)
+            // Keep only alphanumeric characters
+            $tag = preg_replace('/[^a-z0-9]/', '', $tag);
+
+            return $tag;
         }, $tags);
     }
 

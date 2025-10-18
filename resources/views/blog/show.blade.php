@@ -9,7 +9,7 @@
     <x-slot:ogType>article</x-slot:ogType>
     <x-slot:ogTitle>{{ $post->title }}</x-slot:ogTitle>
     <x-slot:ogDescription>{{ $post->excerpt }}</x-slot:ogDescription>
-    <x-slot:ogImage>{{ $post->featured_image ? asset('storage/' . $post->featured_image) : asset('profile-photo.png') }}</x-slot:ogImage>
+    <x-slot:ogImage>{{ $post->featured_image ? asset('storage/' . $post->featured_image) . '?v=' . $post->updated_at->timestamp : asset('profile-photo.png') }}</x-slot:ogImage>
     <x-slot:ogUrl>{{ route('blog.show', $post->slug) }}</x-slot:ogUrl>
 
     {{-- Article-Specific Structured Data --}}
@@ -21,7 +21,7 @@
           "@@type": "BlogPosting",
           "headline": {{ Js::from($post->title) }},
           "description": {{ Js::from($post->excerpt) }},
-          "image": {{ Js::from($post->featured_image ? asset('storage/' . $post->featured_image) : asset('profile-photo.png')) }},
+          "image": {{ Js::from($post->featured_image ? asset('storage/' . $post->featured_image) . '?v=' . $post->updated_at->timestamp : asset('profile-photo.png')) }},
           "datePublished": {{ Js::from($post->published_at->toIso8601String()) }},
           "dateModified": {{ Js::from($post->updated_at->toIso8601String()) }},
           "author": {

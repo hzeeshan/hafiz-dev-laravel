@@ -71,12 +71,14 @@ return [
     'devto' => [
         'api_key' => env('DEVTO_API_KEY'),
         'base_url' => 'https://dev.to/api',
+        'canonical_base_url' => env('DEVTO_CANONICAL_BASE_URL', 'https://hafiz.dev'),
     ],
 
     'hashnode' => [
         'api_token' => env('HASHNODE_API_TOKEN'),
         'publication_id' => env('HASHNODE_PUBLICATION_ID'),
         'base_url' => 'https://gql.hashnode.com',
+        'canonical_base_url' => env('HASHNODE_CANONICAL_BASE_URL', 'https://hafiz.dev'),
     ],
 
     'linkedin' => [

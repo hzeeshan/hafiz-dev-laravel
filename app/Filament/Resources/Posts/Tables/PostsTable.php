@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Posts\Tables;
 
 use App\Jobs\PublishToDevToJob;
+use App\Jobs\PublishToHashnodeJob;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
@@ -66,6 +67,20 @@ class PostsTable
                     ->tooltip(fn ($record) => self::getDevToTooltip($record))
                     ->alignCenter(),
 
+                IconColumn::make('hashnode_published')
+                    ->label('Hashnode')
+                    ->boolean()
+                    ->trueIcon('heroicon-o-check-circle')
+                    ->falseIcon('heroicon-o-x-circle')
+                    ->trueColor('success')
+                    ->falseColor('gray')
+                    ->getStateUsing(fn ($record) => $record->publications()
+                        ->where('platform', 'hashnode')
+                        ->where('status', 'published')
+                        ->exists())
+                    ->tooltip(fn ($record) => self::getHashnodeTooltip($record))
+                    ->alignCenter(),
+
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -98,6 +113,26 @@ class PostsTable
                         Notification::make()
                             ->title('Dev.to Publishing Queued')
                             ->body('Your post is being published to Dev.to. Check the publications table for status.')
+                            ->success()
+                            ->send();
+                    }),
+
+                Action::make('publish_to_hashnode')
+                    ->label('Hashnode')
+                    ->icon('heroicon-o-rocket-launch')
+                    ->color('warning')
+                    ->visible(fn ($record) => $record->status === 'published')
+                    ->tooltip(fn ($record) => self::getHashnodePublishActionTooltip($record))
+                    ->requiresConfirmation()
+                    ->modalHeading(fn ($record) => self::getHashnodePublishActionHeading($record))
+                    ->modalDescription(fn ($record) => self::getHashnodePublishActionDescription($record))
+                    ->modalSubmitActionLabel(fn ($record) => self::getHashnodePublishActionLabel($record))
+                    ->action(function ($record) {
+                        PublishToHashnodeJob::dispatch($record);
+
+                        Notification::make()
+                            ->title('Hashnode Publishing Queued')
+                            ->body('Your post is being published to Hashnode. Check the publications table for status.')
                             ->success()
                             ->send();
                     }),
@@ -172,6 +207,74 @@ class PostsTable
     {
         $publication = $record->publications()
             ->where('platform', 'devto')
+            ->where('status', 'published')
+            ->first();
+
+        return $publication ? 'Update' : 'Publish';
+    }
+
+    // Hashnode Helper Methods
+
+    private static function getHashnodeTooltip($record): string
+    {
+        $publication = $record->publications()
+            ->where('platform', 'hashnode')
+            ->latest()
+            ->first();
+
+        if (!$publication) {
+            return 'Not published to Hashnode';
+        }
+
+        if ($publication->status === 'published') {
+            return 'Published to Hashnode';
+        }
+
+        if ($publication->status === 'failed') {
+            return 'Failed: ' . ($publication->error_message ?? 'Unknown error');
+        }
+
+        return 'Pending publication';
+    }
+
+    private static function getHashnodePublishActionTooltip($record): string
+    {
+        $publication = $record->publications()
+            ->where('platform', 'hashnode')
+            ->where('status', 'published')
+            ->first();
+
+        return $publication ? 'Update on Hashnode' : 'Publish to Hashnode';
+    }
+
+    private static function getHashnodePublishActionHeading($record): string
+    {
+        $publication = $record->publications()
+            ->where('platform', 'hashnode')
+            ->where('status', 'published')
+            ->first();
+
+        return $publication ? 'Update Hashnode Post?' : 'Publish to Hashnode?';
+    }
+
+    private static function getHashnodePublishActionDescription($record): string
+    {
+        $publication = $record->publications()
+            ->where('platform', 'hashnode')
+            ->where('status', 'published')
+            ->first();
+
+        if ($publication) {
+            return 'This will update the existing post on Hashnode with the latest content.';
+        }
+
+        return 'This will publish your post to Hashnode with a canonical URL pointing back to your blog.';
+    }
+
+    private static function getHashnodePublishActionLabel($record): string
+    {
+        $publication = $record->publications()
+            ->where('platform', 'hashnode')
             ->where('status', 'published')
             ->first();
 

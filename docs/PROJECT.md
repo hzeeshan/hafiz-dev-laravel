@@ -538,10 +538,10 @@ php artisan test --filter=BlogTest
 
 ## Contact / Maintenance
 
-**Developer:** Hafiz Riaz  
-**Email:** contact@hafiz.dev  
-**Project Start Date:** January 2025  
-**Last Major Update:** January 2025
+**Developer:** Hafiz Riaz
+**Email:** contact@hafiz.dev
+**Project Start Date:** January 2025
+**Last Major Update:** October 2025
 
 ---
 
@@ -557,13 +557,20 @@ php artisan test --filter=BlogTest
 -   View tracking
 -   Related posts
 
-### Next Release (v0.2.0 - Planned)
+### v0.2.0 (October 2025)
 
--   Dev.to integration
--   Hashnode integration
+-   ✅ Dev.to integration with one-click publishing
+-   ✅ Hashnode integration with GraphQL API
+-   ✅ Custom domain setup (blog.hafiz.dev)
+-   ✅ Cross-platform publication tracking
+-   ✅ Canonical URL support for SEO
+
+### Next Release (v0.3.0 - Planned)
+
 -   LinkedIn integration
--   AI content generation
+-   Medium integration (if API token available)
 -   Email subscriptions
+-   Analytics sync across platforms
 
 ---
 

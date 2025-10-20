@@ -7,8 +7,13 @@ use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        // Redirect /blog?page=1 to /blog to avoid duplicate content
+        if ($request->has('page') && $request->get('page') == 1) {
+            return redirect()->route('blog.index', [], 301);
+        }
+
         $posts = Post::published()
             ->orderBy('published_at', 'desc')
             ->paginate(12);

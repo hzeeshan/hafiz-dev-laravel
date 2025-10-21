@@ -276,8 +276,9 @@
                     <div
                         class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 overflow-hidden group">
                         <div class="relative overflow-hidden h-48">
-                            <img src="/screenshots/replygenius.io-screenshot.png" alt="ReplyGenius.io"
-                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <img src="/screenshots/replygenius.io-screenshot.webp" alt="ReplyGenius.io"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                loading="lazy" width="1200" height="900">
                             <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-darkBg/50 to-transparent">
                             </div>
                         </div>
@@ -306,8 +307,9 @@
                     <div
                         class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 overflow-hidden group">
                         <div class="relative overflow-hidden h-48">
-                            <img src="/screenshots/studylab-screenshot.png" alt="StudyLab.app"
-                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <img src="/screenshots/studylab-screenshot.webp" alt="StudyLab.app"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                loading="lazy" width="1200" height="900">
                             <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-darkBg/50 to-transparent">
                             </div>
                         </div>
@@ -335,8 +337,9 @@
                     <div
                         class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 overflow-hidden group">
                         <div class="relative overflow-hidden h-48">
-                            <img src="/screenshots/claude-chat-manager-screenshot.png" alt="Claude Chat Manager"
-                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <img src="/screenshots/claude-chat-manager-screenshot.webp" alt="Claude Chat Manager"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                loading="lazy" width="1200" height="900">
                             <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-darkBg/50 to-transparent">
                             </div>
                         </div>
@@ -364,8 +367,9 @@
                     <div
                         class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 overflow-hidden group">
                         <div class="relative overflow-hidden h-48">
-                            <img src="/screenshots/robobook-ai-screenshot.png" alt="Robobook.ai"
-                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <img src="/screenshots/robobook-ai-screenshot.webp" alt="Robobook.ai"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                loading="lazy" width="1200" height="900">
                             <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-darkBg/50 to-transparent">
                             </div>
                         </div>
@@ -393,8 +397,9 @@
                     <div
                         class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 overflow-hidden group">
                         <div class="relative overflow-hidden h-48">
-                            <img src="/screenshots/quantico-screenshot.png" alt="Quantico Business"
-                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <img src="/screenshots/quantico-screenshot.webp" alt="Quantico Business"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                loading="lazy" width="1200" height="900">
                             <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-darkBg/50 to-transparent">
                             </div>
                         </div>
@@ -422,8 +427,9 @@
                     <div
                         class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 overflow-hidden group">
                         <div class="relative overflow-hidden h-48">
-                            <img src="/screenshots/getimpressed-screenshot.png" alt="Get Impressed"
-                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <img src="/screenshots/getimpressed-screenshot.webp" alt="Get Impressed"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                loading="lazy" width="1200" height="900">
                             <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-darkBg/50 to-transparent">
                             </div>
                         </div>
@@ -451,8 +457,9 @@
                     <div
                         class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 overflow-hidden group">
                         <div class="relative overflow-hidden h-48">
-                            <img src="/screenshots/promptoptimizer-screenshot.png" alt="Prompt Optimizer"
-                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <img src="/screenshots/promptoptimizer-screenshot.webp" alt="Prompt Optimizer"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                loading="lazy" width="1200" height="900">
                             <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-darkBg/50 to-transparent">
                             </div>
                         </div>
@@ -480,8 +487,9 @@
                     <div
                         class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 overflow-hidden group">
                         <div class="relative overflow-hidden h-48">
-                            <img src="/screenshots/ghibliaiart-screenshot.png" alt="GhibliAIart.com"
-                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <img src="/screenshots/ghibliaiart-screenshot.webp" alt="GhibliAIart.com"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                loading="lazy" width="1200" height="900">
                             <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-darkBg/50 to-transparent">
                             </div>
                         </div>
@@ -509,8 +517,9 @@
                     <div
                         class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 overflow-hidden group">
                         <div class="relative overflow-hidden h-48">
-                            <img src="/screenshots/aitoolsuniverse-screenshot.png" alt="AI Tools Universe"
-                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <img src="/screenshots/aitoolsuniverse-screenshot.webp" alt="AI Tools Universe"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                loading="lazy" width="1200" height="900">
                             <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-darkBg/50 to-transparent">
                             </div>
                         </div>
@@ -538,8 +547,9 @@
                     <div
                         class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 overflow-hidden group">
                         <div class="relative overflow-hidden h-48">
-                            <img src="/screenshots/pianetagaia-screenshot.png" alt="PianetaGaia"
-                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <img src="/screenshots/pianetagaia-screenshot.webp" alt="PianetaGaia"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                loading="lazy" width="1200" height="900">
                             <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-darkBg/50 to-transparent">
                             </div>
                         </div>
@@ -567,8 +577,9 @@
                     <div
                         class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 overflow-hidden group">
                         <div class="relative overflow-hidden h-48">
-                            <img src="/screenshots/soluzione-tasse-screenshot.png" alt="Soluzione Tasse"
-                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            <img src="/screenshots/soluzione-tasse-screenshot.webp" alt="Soluzione Tasse"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                loading="lazy" width="1200" height="900">
                             <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-darkBg/50 to-transparent">
                             </div>
                         </div>

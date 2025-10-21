@@ -52,9 +52,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    {{-- Google Fonts --}}
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    {{-- Preload critical hero image (homepage only) --}}
+    @if(request()->is('/'))
+        <link rel="preload" as="image" href="{{ asset('profile-photo.webp') }}" type="image/webp">
+    @endif
+
+    {{-- Google Fonts - Optimized with preload for critical font --}}
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
 
     {{-- Structured Data - Organization/Person Schema --}}
     <script type="application/ld+json">

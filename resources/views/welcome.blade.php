@@ -91,8 +91,12 @@
             <div class="max-w-4xl mx-auto text-center">
                 <!-- Smaller Profile Image -->
                 <div class="mb-2 mt-3">
-                    <img src="/profile-photo.png" alt="Hafiz Riaz"
-                        class="w-20 h-20 mx-auto rounded-full border-3 border-gold shadow-gold">
+                    <picture>
+                        <source srcset="/profile-photo.webp" type="image/webp">
+                        <img src="/profile-photo.png" alt="Hafiz Riaz"
+                            class="w-20 h-20 mx-auto rounded-full border-3 border-gold shadow-gold"
+                            width="80" height="80" loading="eager" fetchpriority="high">
+                    </picture>
                 </div>
 
                 <p class="text-lg md:text-xl text-gold mb-2 font-medium">

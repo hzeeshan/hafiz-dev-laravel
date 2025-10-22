@@ -1,6 +1,7 @@
 import './bootstrap';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/tokyo-night-dark.css';
+import { initReadingProgress } from './readingProgress';
 
 // Initialize syntax highlighting when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
@@ -11,6 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Add copy button to code blocks
         addCopyButton(block.parentElement);
     });
+
+    // Initialize reading progress bar (blog posts only)
+    initReadingProgress();
 });
 
 // Add copy button functionality to code blocks

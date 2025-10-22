@@ -108,7 +108,7 @@
         }
     </style>
 
-    <article class="max-w-4xl mx-auto px-4 py-8 relative z-10">
+    <article class="max-w-4xl mx-auto px-4 py-8 relative z-10 blog-post-content">
         <!-- Breadcrumb -->
         <nav class="text-sm text-light-muted mb-6">
             <a href="/" class="hover:text-gold transition-colors">Home</a>

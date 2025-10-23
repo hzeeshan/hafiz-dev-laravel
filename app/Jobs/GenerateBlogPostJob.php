@@ -206,4 +206,22 @@ class GenerateBlogPostJob implements ShouldQueue
             throw $e;
         }
     }
+
+    /**
+     * Handle a job failure (after all retry attempts exhausted)
+     */
+    public function failed(\Throwable $exception): void
+    {
+        // Update topic status to 'failed' since all retries are exhausted
+        $this->topic->update(['status' => 'failed']);
+
+        Log::error("Blog post generation job failed permanently", [
+            'topic_id' => $this->topic->id,
+            'topic_title' => $this->topic->title,
+            'error' => $exception->getMessage(),
+        ]);
+
+        // Note: Notification already sent in handle() catch block
+        // This is just to update the status to 'failed' for UI clarity
+    }
 }

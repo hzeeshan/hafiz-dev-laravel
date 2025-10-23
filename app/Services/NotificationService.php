@@ -59,6 +59,45 @@ class NotificationService
     }
 
     /**
+     * Send notification when retrying a failed job
+     */
+    public function sendJobRetry(string $jobClass, ?BlogTopic $topic = null): void
+    {
+        if (!$this->enabled || !$this->botToken || !$this->chatId) {
+            return;
+        }
+
+        $message = $this->formatJobRetryMessage($jobClass, $topic);
+        $this->sendMessage($message);
+    }
+
+    /**
+     * Send notification when job retry succeeds
+     */
+    public function sendJobRetrySuccess(string $jobClass, ?BlogTopic $topic = null): void
+    {
+        if (!$this->enabled || !$this->botToken || !$this->chatId) {
+            return;
+        }
+
+        $message = $this->formatJobRetrySuccessMessage($jobClass, $topic);
+        $this->sendMessage($message);
+    }
+
+    /**
+     * Send notification when job retry fails again
+     */
+    public function sendJobRetryFailed(string $jobClass, string $error, ?BlogTopic $topic = null): void
+    {
+        if (!$this->enabled || !$this->botToken || !$this->chatId) {
+            return;
+        }
+
+        $message = $this->formatJobRetryFailedMessage($jobClass, $error, $topic);
+        $this->sendMessage($message);
+    }
+
+    /**
      * Format success message with HTML
      */
     protected function formatSuccessMessage(BlogTopic $topic, Post $post, array $metadata): string
@@ -116,6 +155,95 @@ class NotificationService
 
 💡 The topic status has been reset to 'pending'. You can retry generation manually.
 ";
+    }
+
+    /**
+     * Format job retry message with HTML
+     */
+    protected function formatJobRetryMessage(string $jobClass, ?BlogTopic $topic): string
+    {
+        $jobName = class_basename($jobClass);
+        $adminUrl = config('app.url') . '/admin/failed-jobs';
+
+        $message = "
+🔄 <b>Retrying Failed Job</b>
+
+⚙️ <b>Job:</b> {$jobName}
+";
+
+        if ($topic) {
+            $topicUrl = config('app.url') . '/admin/blog-topics/' . $topic->id . '/edit';
+            $message .= "
+📝 <b>Topic:</b> {$topic->title}
+🔗 <a href=\"{$topicUrl}\">View Topic</a>
+";
+        }
+
+        $message .= "
+🔗 <a href=\"{$adminUrl}\">View Failed Jobs</a>
+
+⏳ Job has been re-queued and will process shortly...
+";
+
+        return $message;
+    }
+
+    /**
+     * Format job retry success message with HTML
+     */
+    protected function formatJobRetrySuccessMessage(string $jobClass, ?BlogTopic $topic): string
+    {
+        $jobName = class_basename($jobClass);
+
+        $message = "
+✅ <b>Job Retry Successful</b>
+
+⚙️ <b>Job:</b> {$jobName}
+";
+
+        if ($topic) {
+            $topicUrl = config('app.url') . '/admin/blog-topics/' . $topic->id . '/edit';
+            $message .= "
+📝 <b>Topic:</b> {$topic->title}
+🔗 <a href=\"{$topicUrl}\">View Topic</a>
+";
+        }
+
+        return $message;
+    }
+
+    /**
+     * Format job retry failed message with HTML
+     */
+    protected function formatJobRetryFailedMessage(string $jobClass, string $error, ?BlogTopic $topic): string
+    {
+        $jobName = class_basename($jobClass);
+        $adminUrl = config('app.url') . '/admin/failed-jobs';
+
+        $message = "
+❌ <b>Job Retry Failed Again</b>
+
+⚙️ <b>Job:</b> {$jobName}
+
+⚠️ <b>Error:</b>
+<code>{$error}</code>
+";
+
+        if ($topic) {
+            $topicUrl = config('app.url') . '/admin/blog-topics/' . $topic->id . '/edit';
+            $message .= "
+📝 <b>Topic:</b> {$topic->title}
+🔗 <a href=\"{$topicUrl}\">View Topic</a>
+";
+        }
+
+        $message .= "
+🔗 <a href=\"{$adminUrl}\">View Failed Jobs</a>
+
+💡 Please review the error and try manual debugging.
+";
+
+        return $message;
     }
 
     /**

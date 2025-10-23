@@ -71,6 +71,11 @@ class BlogTopic extends Model
         return $this->hasOne(BlogGenerationLog::class, 'topic_id')->latestOfMany();
     }
 
+    public function failedJobs(): HasMany
+    {
+        return $this->hasMany(FailedJob::class, 'topic_id');
+    }
+
     // Scopes
     public function scopePending($query)
     {
@@ -143,5 +148,20 @@ class BlogTopic extends Model
     public function isNews(): bool
     {
         return $this->content_type === 'news';
+    }
+
+    public function isFailed(): bool
+    {
+        return $this->status === 'failed';
+    }
+
+    public function hasFailedJobs(): bool
+    {
+        // Note: This won't work with standard DB relationship
+        // We'll check in the FailedJob model by parsing payloads
+        return FailedJob::query()
+            ->get()
+            ->filter(fn($job) => $job->getBlogTopicId() === $this->id)
+            ->isNotEmpty();
     }
 }

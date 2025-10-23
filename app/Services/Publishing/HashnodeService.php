@@ -388,9 +388,17 @@ GRAPHQL;
         // Or as array of tag IDs if you know them
         // For simplicity, we'll send tag names and let Hashnode match/create them
         return array_map(function ($tag) {
+            // Sanitize slug to match Hashnode requirements: ^[a-z0-9-]{1,250}(?<!--deleted)$
+            // Remove dots, special characters, convert to lowercase
+            $slug = strtolower($tag);
+            $slug = str_replace(['.', '_', ' '], '-', $slug); // Replace dots, underscores, spaces with hyphens
+            $slug = preg_replace('/[^a-z0-9-]/', '', $slug); // Remove all other special characters
+            $slug = preg_replace('/-+/', '-', $slug); // Replace multiple hyphens with single hyphen
+            $slug = trim($slug, '-'); // Remove leading/trailing hyphens
+
             return [
                 'name' => $tag,
-                'slug' => strtolower(str_replace(' ', '-', $tag)),
+                'slug' => $slug ?: 'tag', // Fallback to 'tag' if slug is empty
             ];
         }, array_slice($tags, 0, 5)); // Hashnode allows up to 5 tags
     }

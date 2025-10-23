@@ -17,6 +17,7 @@ class PublishToDevToJob implements ShouldQueue
 
     public int $timeout = 120; // 2 minutes timeout
     public int $tries = 3; // Retry up to 3 times
+    public int $backoff = 60; // Wait 60 seconds before retrying (for rate limiting)
 
     /**
      * Create a new job instance.
@@ -25,6 +26,20 @@ class PublishToDevToJob implements ShouldQueue
         public Post $post
     ) {
         //
+    }
+
+    /**
+     * Calculate exponential backoff delay for retries
+     * For rate limiting (429 errors), we need to wait longer
+     *
+     * @return array
+     */
+    public function backoff(): array
+    {
+        // First retry: 60 seconds
+        // Second retry: 120 seconds
+        // Third retry: 180 seconds
+        return [60, 120, 180];
     }
 
     /**

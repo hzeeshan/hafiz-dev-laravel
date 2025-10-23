@@ -28,6 +28,20 @@ class PublishToHashnodeJob implements ShouldQueue
     }
 
     /**
+     * Calculate exponential backoff delay for retries
+     * For rate limiting or API errors, we need to wait longer
+     *
+     * @return array
+     */
+    public function backoff(): array
+    {
+        // First retry: 30 seconds
+        // Second retry: 60 seconds
+        // Third retry: 120 seconds
+        return [30, 60, 120];
+    }
+
+    /**
      * Execute the job.
      */
     public function handle(HashnodeService $hashnodeService): void

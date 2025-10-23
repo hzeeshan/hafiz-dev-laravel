@@ -154,6 +154,7 @@ run_server_commands() {
         sudo chmod -R 775 storage bootstrap/cache
         sudo chmod 775 database/
         sudo chmod 664 database/*.sqlite 2>/dev/null || true
+        sudo chmod 664 storage/logs/*.log 2>/dev/null || true
         sudo chmod -R 755 .
 
         # Create storage symlink (force recreate to ensure it's correct)

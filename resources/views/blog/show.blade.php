@@ -102,9 +102,16 @@
 
     <!-- Override background pattern for blog posts -->
     <style>
-        body>div:first-of-type {
+        /* Remove the decorative background pattern for better readability */
+        body > div:first-of-type,
+        .fixed.top-0.left-0 {
             background-image: none !important;
-            background: #1e1e28;
+            background: transparent !important;
+        }
+
+        /* Ensure consistent dark background throughout */
+        body {
+            background: #1e1e28 !important;
         }
     </style>
 
@@ -126,10 +133,11 @@
                 </time>
                 <span class="hidden sm:inline">•</span>
                 <span>{{ $post->reading_time }} min read</span>
-                @if ($post->views >= 100)
+                {{-- TODO: Enable views count display in future --}}
+                {{-- @if ($post->views >= 100)
                     <span class="hidden sm:inline">•</span>
                     <span>{{ number_format($post->views) }} views</span>
-                @endif
+                @endif --}}
             </div>
 
             <h1 class="text-4xl md:text-5xl font-bold text-light mb-6 leading-tight">

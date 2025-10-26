@@ -281,15 +281,15 @@ class BlogPromptBuilder
         $prompt = <<<PROMPT
         {$this->authorIdentity}
 
-        SOURCE VIDEO: {$topic->source_url}
-        VIDEO TRANSCRIPT/NOTES:
-        {$topic->source_content}
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        YOUR TASK
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-        TITLE INSTRUCTION: {$titleInstruction}
-
-        TASK: Write a blog post based on this YouTube video using the "{$remixStyle->label()}" style.
+        Write a blog post based on the YouTube video below using the "{$remixStyle->label()}" style.
 
         {$basePrompt}
+
+        TITLE INSTRUCTION: {$titleInstruction}
 
         {$this->buildOutputFormat()}
 
@@ -297,7 +297,10 @@ class BlogPromptBuilder
 
         {$this->getRemixStyleGuidelines($remixStyle)}
 
-        STRUCTURE:
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        CONTENT STRUCTURE
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
         1. Introduction: Why this video caught your attention, what you'll cover
         2. Video Summary: Brief overview of video's main points
         3. Main Content: Transform video content using {$remixStyle->value} approach
@@ -313,6 +316,19 @@ class BlogPromptBuilder
         - Don't just transcribe - transform and expand
 
         {$this->buildHumanizationDetailed()}
+
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        SOURCE VIDEO (Analyze this content using the guidelines above)
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+        VIDEO URL: {$topic->source_url}
+
+        VIDEO TRANSCRIPT/NOTES:
+        {$topic->source_content}
+
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        NOW BEGIN WRITING (Remember: Follow all guidelines above, {$this->minWordCount}-{$this->maxWordCount} words)
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         PROMPT;
 
         if ($topic->custom_prompt) {
@@ -348,15 +364,15 @@ class BlogPromptBuilder
         $prompt = <<<PROMPT
         {$this->authorIdentity}
 
-        SOURCE ARTICLE: {$topic->source_url}
-        ARTICLE CONTENT:
-        {$topic->source_content}
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        YOUR TASK
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-        TITLE INSTRUCTION: {$titleInstruction}
-
-        TASK: Write a blog post based on this article using the "{$remixStyle->label()}" style.
+        Write a blog post based on the article below using the "{$remixStyle->label()}" style.
 
         {$basePrompt}
+
+        TITLE INSTRUCTION: {$titleInstruction}
 
         {$this->buildOutputFormat()}
 
@@ -364,7 +380,10 @@ class BlogPromptBuilder
 
         {$this->getRemixStyleGuidelines($remixStyle)}
 
-        STRUCTURE:
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        CONTENT STRUCTURE
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
         1. Introduction: Reference the original article, your angle
         2. Article Summary: Brief overview of original's main points
         3. Main Content: Transform article content using {$remixStyle->value} approach
@@ -381,6 +400,19 @@ class BlogPromptBuilder
         - Transform through your Laravel/AI expertise
 
         {$this->buildHumanizationDetailed()}
+
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        SOURCE ARTICLE (Analyze this content using the guidelines above)
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+        ARTICLE URL: {$topic->source_url}
+
+        ARTICLE CONTENT:
+        {$topic->source_content}
+
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        NOW BEGIN WRITING (Remember: Follow all guidelines above, {$this->minWordCount}-{$this->maxWordCount} words)
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         PROMPT;
 
         if ($topic->custom_prompt) {
@@ -406,15 +438,15 @@ class BlogPromptBuilder
         $prompt = <<<PROMPT
         {$this->authorIdentity}
 
-        SOURCE THREAD: {$topic->source_url}
-        THREAD CONTENT:
-        {$topic->source_content}
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        YOUR TASK
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-        TITLE INSTRUCTION: {$titleInstruction}
-
-        TASK: Expand this Twitter thread into a comprehensive blog post using the "{$remixStyle->label()}" style.
+        Expand the Twitter thread below into a comprehensive blog post using the "{$remixStyle->label()}" style.
 
         {$basePrompt}
+
+        TITLE INSTRUCTION: {$titleInstruction}
 
         {$this->buildOutputFormat()}
 
@@ -422,7 +454,10 @@ class BlogPromptBuilder
 
         {$this->getRemixStyleGuidelines($remixStyle)}
 
-        STRUCTURE:
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        CONTENT STRUCTURE
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
         1. Introduction: Why this thread caught your attention
         2. Thread Summary: Core points from the thread
         3. Main Content: Expand thread using {$remixStyle->value} approach
@@ -438,6 +473,19 @@ class BlogPromptBuilder
         - Share your implementation experience
 
         {$this->buildHumanizationDetailed()}
+
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        SOURCE THREAD (Analyze this content using the guidelines above)
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+        THREAD URL: {$topic->source_url}
+
+        THREAD CONTENT:
+        {$topic->source_content}
+
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        NOW BEGIN WRITING (Remember: Follow all guidelines above, {$this->minWordCount}-{$this->maxWordCount} words)
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         PROMPT;
 
         if ($topic->custom_prompt) {
@@ -714,6 +762,7 @@ SEO_SECTION;
         // Determine if code examples are needed based on content type
         $codeInstruction = $this->getCodeExampleInstruction($topic->content_type);
 
+        // Note: $sourceTypeLabel is kept for future extensibility (e.g., different instructions per source type)
         return match ($remixStyle) {
             \App\Enums\RemixStyle::COMMENTARY => "Add YOUR perspective and personal examples from your projects (StudyLab, ReplyGenius, Robobook, Chrome extensions). Don't just summarize - share what you think, what you've experienced, and how this applies to your work. {$codeInstruction}",
 

@@ -4,7 +4,7 @@
 **Branch**: `feature/automated-blog-generation`
 **Started**: October 8, 2025
 **Completed**: October 9, 2025
-**Updated**: October 10, 2025 (Content Type System)
+**Updated**: October 26, 2025 (Content Remix Feature)
 
 ---
 
@@ -16,6 +16,8 @@ AI-powered blog generation system that creates high-quality technical content wi
 
 **Key Features:**
 - ✅ AI content generation (3 content types: technical, opinion, news)
+- ✅ Content remix (YouTube, blogs, articles → blog posts)
+- ✅ 4 remix styles (commentary, deep_dive, summary, response)
 - ✅ Automatic image generation (environment-based providers)
 - ✅ Mandatory review workflow
 - ✅ Telegram notifications
@@ -101,21 +103,46 @@ BlogTopic::create([
 ]);
 ```
 
-### 2. YouTube Analysis (Future)
-Analyze video transcript and create blog post with your perspective.
+### 2. Content Remix (Active) ✅
+Transform YouTube transcripts, blog posts, and articles into blog posts with your unique perspective.
 
-### 3. Blog Remix (Future)
-Respond to external blog posts with alternative approaches.
+**Remix Styles:**
+- **Commentary** - Add your experience & opinions (best for: self-help, opinions)
+- **Deep Dive** - Expand with step-by-step details (best for: technical tutorials)
+- **Summary** - Distill to 3-5 key insights (best for: long articles, news)
+- **Response** - Alternative approach or rebuttal (best for: debates, disagreements)
+
+**Usage:**
+```php
+BlogTopic::create([
+    'title' => null,  // AI generates from source
+    'generation_mode' => 'context_youtube',  // or 'context_blog'
+    'source_content' => '[paste transcript/article]',
+    'remix_style' => 'deep_dive',
+    'source_type' => 'youtube',
+    'content_type' => 'technical',  // Controls code examples
+]);
+```
+
+**Smart Code Examples:**
+- `technical` → Full code examples
+- `opinion` → Code only if relevant
+- `news` → Minimal code (install commands only)
+
+**Quick Reference**: See [CONTENT_REMIX_GUIDE.md](CONTENT_REMIX_GUIDE.md) for decision matrix and examples.
 
 ---
 
 ## Database Schema
 
 ### BlogTopic
-- Title, keywords, description, category
-- **Content type** (technical/opinion/news) - determines AI prompt style
-- Generation mode (topic/youtube/blog/twitter)
-- Source URL/content for context modes
+- Title (nullable for remix mode - AI generates)
+- Keywords, description, category
+- **Content type** (technical/opinion/news) - controls code examples
+- **Generation mode** (topic/context_youtube/context_blog/context_twitter)
+- **Remix style** (commentary/deep_dive/summary/response)
+- **Source type** (youtube/blog_post/medium/article)
+- Source URL/content for remix modes
 - Status (pending/generating/review/published)
 - Priority (1-10)
 

@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\BlogTopics\Schemas;
 
+use App\Enums\RemixStyle;
+use App\Services\BlogRemixService;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -9,6 +11,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 
 class BlogTopicForm
@@ -20,10 +23,19 @@ class BlogTopicForm
                 Section::make('Basic Information')
                     ->schema([
                         TextInput::make('title')
-                            ->required()
+                            ->required(fn (Get $get) => $get('generation_mode') === 'topic')
                             ->maxLength(255)
                             ->columnSpanFull()
-                            ->helperText('Main topic or article title'),
+                            ->helperText(fn (Get $get) =>
+                                $get('generation_mode') === 'topic'
+                                    ? 'Main topic or article title'
+                                    : '✨ Optional: Leave empty and AI will generate title from source content'
+                            )
+                            ->placeholder(fn (Get $get) =>
+                                $get('generation_mode') === 'topic'
+                                    ? 'Enter blog post title...'
+                                    : 'AI will generate title automatically (or enter custom title)'
+                            ),
 
                         TextInput::make('category')
                             ->maxLength(100)
@@ -120,9 +132,26 @@ class BlogTopicForm
                         Textarea::make('source_content')
                             ->rows(5)
                             ->columnSpanFull()
-                            ->visible(fn ($get) => $get('generation_mode') !== 'topic')
+                            ->visible(fn (Get $get) => $get('generation_mode') !== 'topic')
                             ->placeholder('Paste transcript, article content, or thread text here...')
                             ->helperText('Optional: Pre-fetched content. Leave empty to auto-fetch from URL.'),
+
+                        Select::make('remix_style')
+                            ->label('Remix Style')
+                            ->options(RemixStyle::options())
+                            ->visible(fn (Get $get) => $get('generation_mode') !== 'topic')
+                            ->required(fn (Get $get) => $get('generation_mode') !== 'topic')
+                            ->columnSpanFull()
+                            ->helperText('How should the source content be transformed into your blog post?')
+                            ->native(false),
+
+                        Select::make('source_type')
+                            ->label('Source Type')
+                            ->options(BlogRemixService::getSourceTypes())
+                            ->visible(fn (Get $get) => $get('generation_mode') !== 'topic')
+                            ->default('blog_post')
+                            ->columnSpanFull()
+                            ->helperText('Optional: Categorize the source for analytics'),
 
                         Textarea::make('custom_prompt')
                             ->rows(4)

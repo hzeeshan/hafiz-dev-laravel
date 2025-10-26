@@ -22,7 +22,41 @@ class BlogTopicsTable
                 TextColumn::make('title')
                     ->searchable()
                     ->sortable()
-                    ->limit(40),
+                    ->limit(40)
+                    ->getStateUsing(function ($record) {
+                        // If title exists, return it
+                        if (!empty($record->title)) {
+                            return $record->title;
+                        }
+
+                        // For remix modes, show source type with icon
+                        if ($record->generation_mode !== 'topic') {
+                            $sourceType = $record->source_type ?? 'unknown';
+                            $icon = match ($sourceType) {
+                                'youtube' => '🎥',
+                                'blog_post', 'medium', 'article' => '📝',
+                                'twitter' => '🐦',
+                                default => '📄',
+                            };
+                            $label = match ($sourceType) {
+                                'youtube' => 'YouTube Remix',
+                                'blog_post' => 'Blog Remix',
+                                'medium' => 'Medium Remix',
+                                'article' => 'Article Remix',
+                                'twitter' => 'Twitter Remix',
+                                default => 'Content Remix',
+                            };
+                            return "{$icon} {$label}";
+                        }
+
+                        // Fallback for edge cases
+                        return '[Untitled Topic]';
+                    })
+                    ->description(fn($record) => empty($record->title) && $record->generation_mode !== 'topic'
+                        ? 'AI will generate title from source'
+                        : null
+                    )
+                    ->color(fn($record) => empty($record->title) ? 'gray' : null),
 
                 TextColumn::make('status')
                     ->badge()

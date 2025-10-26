@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\BlogTopic;
 use App\Services\AI\OpenRouterService;
 use App\Services\AI\BlogPromptBuilder;
+use App\Services\BlogRemixService;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
@@ -12,15 +13,18 @@ class BlogContentGenerator
 {
     protected OpenRouterService $ai;
     protected BlogPromptBuilder $promptBuilder;
+    protected BlogRemixService $remixService;
     protected int $minWordCount;
     protected int $maxWordCount;
 
     public function __construct(
         OpenRouterService $ai,
-        BlogPromptBuilder $promptBuilder
+        BlogPromptBuilder $promptBuilder,
+        BlogRemixService $remixService
     ) {
         $this->ai = $ai;
         $this->promptBuilder = $promptBuilder;
+        $this->remixService = $remixService;
         $this->minWordCount = config('blog.min_word_count', 1500);
         $this->maxWordCount = config('blog.max_word_count', 2500);
     }
@@ -36,16 +40,27 @@ class BlogContentGenerator
         Log::info('BlogContentGenerator: Starting generation', [
             'topic_id' => $topic->id,
             'mode' => $topic->generation_mode,
+            'is_remix' => $topic->isRemixMode(),
+            'remix_style' => $topic->remix_style,
         ]);
 
-        // Generate based on mode
-        $content = match ($topic->generation_mode) {
-            'topic' => $this->generateFromTopic($topic),
-            'context_youtube' => $this->generateFromYouTube($topic),
-            'context_blog' => $this->generateFromBlog($topic),
-            'context_twitter' => $this->generateFromTwitter($topic),
-            default => throw new \Exception('Invalid generation mode: ' . $topic->generation_mode),
-        };
+        // Check if this is remix mode (context-based with remix_style set)
+        if ($topic->isRemixMode()) {
+            Log::info('BlogContentGenerator: Using remix mode', [
+                'topic_id' => $topic->id,
+                'remix_style' => $topic->remix_style,
+            ]);
+            $content = $this->remixService->remix($topic);
+        } else {
+            // Generate based on mode (original topic-based or legacy context modes)
+            $content = match ($topic->generation_mode) {
+                'topic' => $this->generateFromTopic($topic),
+                'context_youtube' => $this->generateFromYouTube($topic),
+                'context_blog' => $this->generateFromBlog($topic),
+                'context_twitter' => $this->generateFromTwitter($topic),
+                default => throw new \Exception('Invalid generation mode: ' . $topic->generation_mode),
+            };
+        }
 
         // Generate metadata (SEO, excerpt, etc.)
         $metadata = $this->generateMetadata(

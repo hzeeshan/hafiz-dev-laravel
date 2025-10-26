@@ -266,71 +266,121 @@ class BlogPromptBuilder
     }
 
     /**
-     * Build prompt for YouTube video analysis
+     * Build prompt for YouTube video analysis (with remix style)
+     */
+    public function buildYouTubeRemixPrompt(BlogTopic $topic, \App\Enums\RemixStyle $remixStyle): string
+    {
+        $hireCta = config('blog.templates.hire_me_cta');
+        $basePrompt = $this->buildRemixBasePrompt($topic, 'YouTube video', $remixStyle);
+
+        // Check if user provided a title or we need to generate one
+        $titleInstruction = empty($topic->title)
+            ? "Generate an SEO-optimized title based on the video content (50-60 chars, include primary keyword)"
+            : "Use this title as inspiration but feel free to improve it for SEO: \"{$topic->title}\"";
+
+        $prompt = <<<PROMPT
+        {$this->authorIdentity}
+
+        SOURCE VIDEO: {$topic->source_url}
+        VIDEO TRANSCRIPT/NOTES:
+        {$topic->source_content}
+
+        TITLE INSTRUCTION: {$titleInstruction}
+
+        TASK: Write a blog post based on this YouTube video using the "{$remixStyle->label()}" style.
+
+        {$basePrompt}
+
+        {$this->buildOutputFormat()}
+
+        {$this->buildWordCountRequirement()}
+
+        {$this->getRemixStyleGuidelines($remixStyle)}
+
+        STRUCTURE:
+        1. Introduction: Why this video caught your attention, what you'll cover
+        2. Video Summary: Brief overview of video's main points
+        3. Main Content: Transform video content using {$remixStyle->value} approach
+        4. Your Additions: Insights, examples, or perspectives not in video
+        5. Practical Application: How to implement these ideas
+        6. Conclusion: Your final take and recommendation
+        7. CTA: {$hireCta}
+
+        IMPORTANT:
+        - Credit the original video creator
+        - Add substantial value beyond the video
+        - Include specific examples from your experience
+        - Don't just transcribe - transform and expand
+
+        {$this->buildHumanizationDetailed()}
+        PROMPT;
+
+        if ($topic->custom_prompt) {
+            $prompt .= "\n\nADDITIONAL INSTRUCTIONS:\n{$topic->custom_prompt}";
+        }
+
+        return $prompt;
+    }
+
+    /**
+     * Legacy method for backwards compatibility (delegates to new method)
      */
     public function buildYouTubePrompt(BlogTopic $topic): string
     {
-        $hireCta = config('blog.templates.hire_me_cta');
-
-        $prompt = <<<PROMPT
-        You are Hafiz Riaz, a full-stack developer specializing in Laravel, Vue.js, and AI automation. You watched a YouTube video and want to write a blog post about it.
-
-        VIDEO: {$topic->source_url}
-        TRANSCRIPT/NOTES: {$topic->source_content}
-
-        TASK: Write a blog post analyzing this video with YOUR perspective and additional insights.
-
-        {$this->buildOutputFormat()}
-
-        {$this->buildWordCountRequirement()}
-
-        STRUCTURE:
-        1. Introduction: Why you watched this, what caught your attention
-        2. Video Summary: Key points from the video
-        3. Your Analysis: Your take, additional insights, disagreements
-        4. Practical Application: How you'd implement this
-        5. Conclusion: Your recommendation
-        6. CTA: {$hireCta}
-
-        IMPORTANT: Add substantial value - don't just summarize. Include your experience and additional context.
-        PROMPT;
-
-        if ($topic->custom_prompt) {
-            $prompt .= "\n\nADDITIONAL INSTRUCTIONS:\n{$topic->custom_prompt}";
-        }
-
-        return $prompt;
+        // Default to commentary style if no remix_style specified
+        $remixStyle = $topic->getRemixStyle() ?? \App\Enums\RemixStyle::COMMENTARY;
+        return $this->buildYouTubeRemixPrompt($topic, $remixStyle);
     }
 
     /**
-     * Build prompt for blog post remix/response
+     * Build prompt for blog post remix/response (with remix style)
      */
-    public function buildBlogRemixPrompt(BlogTopic $topic): string
+    public function buildBlogRemixPrompt(BlogTopic $topic, \App\Enums\RemixStyle $remixStyle): string
     {
         $hireCta = config('blog.templates.hire_me_cta');
+        $basePrompt = $this->buildRemixBasePrompt($topic, 'blog post/article', $remixStyle);
+
+        // Check if user provided a title or we need to generate one
+        $titleInstruction = empty($topic->title)
+            ? "Generate an SEO-optimized title based on the article content (50-60 chars, include primary keyword)"
+            : "Use this title as inspiration but feel free to improve it for SEO: \"{$topic->title}\"";
 
         $prompt = <<<PROMPT
-        You are Hafiz Riaz, a full-stack developer specializing in Laravel, Vue.js, and AI automation. You read an interesting article and want to write a response/alternative approach.
+        {$this->authorIdentity}
 
-        ORIGINAL ARTICLE: {$topic->source_url}
-        KEY POINTS: {$topic->source_content}
+        SOURCE ARTICLE: {$topic->source_url}
+        ARTICLE CONTENT:
+        {$topic->source_content}
 
-        TASK: Write a thoughtful response or alternative approach to the original article.
+        TITLE INSTRUCTION: {$titleInstruction}
+
+        TASK: Write a blog post based on this article using the "{$remixStyle->label()}" style.
+
+        {$basePrompt}
 
         {$this->buildOutputFormat()}
 
         {$this->buildWordCountRequirement()}
 
+        {$this->getRemixStyleGuidelines($remixStyle)}
+
         STRUCTURE:
-        1. Introduction: Reference the original article, what you agreed/disagreed with
-        2. Summary: Brief summary of original article's main points
-        3. Your Perspective: Your alternative approach or additions
-        4. Comparison: When to use their approach vs yours
-        5. Code Examples: Show your implementation
-        6. Conclusion: Synthesis of both approaches
+        1. Introduction: Reference the original article, your angle
+        2. Article Summary: Brief overview of original's main points
+        3. Main Content: Transform article content using {$remixStyle->value} approach
+        4. Your Additions: Unique insights, code examples, or alternative approaches
+        5. Comparison (if relevant): When to use original approach vs yours
+        6. Conclusion: Synthesis and key takeaways
         7. CTA: {$hireCta}
 
-        IMPORTANT: Be respectful, add value, don't just criticize. Give credit where due.
+        IMPORTANT:
+        - Credit the original author and article
+        - Be respectful even when disagreeing
+        - Add substantial value (don't just paraphrase)
+        - Include specific examples from your projects
+        - Transform through your Laravel/AI expertise
+
+        {$this->buildHumanizationDetailed()}
         PROMPT;
 
         if ($topic->custom_prompt) {
@@ -341,34 +391,53 @@ class BlogPromptBuilder
     }
 
     /**
-     * Build prompt for Twitter thread expansion
+     * Build prompt for Twitter thread expansion (with remix style)
      */
-    public function buildTwitterPrompt(BlogTopic $topic): string
+    public function buildTwitterRemixPrompt(BlogTopic $topic, \App\Enums\RemixStyle $remixStyle): string
     {
         $hireCta = config('blog.templates.hire_me_cta');
+        $basePrompt = $this->buildRemixBasePrompt($topic, 'Twitter thread', $remixStyle);
+
+        // Check if user provided a title or we need to generate one
+        $titleInstruction = empty($topic->title)
+            ? "Generate an SEO-optimized title based on the thread content (50-60 chars, include primary keyword)"
+            : "Use this title as inspiration but feel free to improve it for SEO: \"{$topic->title}\"";
 
         $prompt = <<<PROMPT
-        You are Hafiz Riaz, a full-stack developer specializing in Laravel, Vue.js, and AI automation. You saw an interesting Twitter thread and want to expand it into a full blog post.
+        {$this->authorIdentity}
 
-        THREAD: {$topic->source_url}
-        CONTENT: {$topic->source_content}
+        SOURCE THREAD: {$topic->source_url}
+        THREAD CONTENT:
+        {$topic->source_content}
 
-        TASK: Expand this Twitter thread into a comprehensive blog post with code examples and detailed explanations.
+        TITLE INSTRUCTION: {$titleInstruction}
+
+        TASK: Expand this Twitter thread into a comprehensive blog post using the "{$remixStyle->label()}" style.
+
+        {$basePrompt}
 
         {$this->buildOutputFormat()}
 
         {$this->buildWordCountRequirement()}
 
+        {$this->getRemixStyleGuidelines($remixStyle)}
+
         STRUCTURE:
-        1. Introduction: Why this thread resonated, context
+        1. Introduction: Why this thread caught your attention
         2. Thread Summary: Core points from the thread
-        3. Deep Dive: Expand each point with examples and code
-        4. Additional Insights: What the thread didn't cover
-        5. Practical Guide: How to implement
+        3. Main Content: Expand thread using {$remixStyle->value} approach
+        4. Your Additions: Code examples, insights, or perspectives not in thread
+        5. Practical Guide: How to implement these ideas
         6. Conclusion: Synthesis and takeaways
         7. CTA: {$hireCta}
 
-        IMPORTANT: Credit the original thread, but add 5-10x more value with code, examples, and explanations.
+        IMPORTANT:
+        - Credit the original thread author
+        - Add 5-10x more value than the thread
+        - Include working code examples and detailed explanations
+        - Share your implementation experience
+
+        {$this->buildHumanizationDetailed()}
         PROMPT;
 
         if ($topic->custom_prompt) {
@@ -376,6 +445,16 @@ class BlogPromptBuilder
         }
 
         return $prompt;
+    }
+
+    /**
+     * Legacy method for backwards compatibility (delegates to new method)
+     */
+    public function buildTwitterPrompt(BlogTopic $topic): string
+    {
+        // Default to deep_dive style if no remix_style specified
+        $remixStyle = $topic->getRemixStyle() ?? \App\Enums\RemixStyle::DEEP_DIVE;
+        return $this->buildTwitterRemixPrompt($topic, $remixStyle);
     }
 
     // ========================================================================
@@ -471,10 +550,17 @@ SEO_SECTION;
         - Replace "In order to" with "To"
         - Avoid AI phrases like: "delve into", "it's worth noting", "in conclusion", "realm", "landscape"
 
+        PUNCTUATION (Write Like a Human):
+        - NEVER use em dashes (—) - they're a telltale AI sign
+        - Use commas for natural pauses: "The key is practice, not perfection"
+        - Use parentheses for side thoughts: "This technique (my favorite) works great"
+        - Break longer thoughts into separate sentences with periods
+        - Use semicolons sparingly when connecting related ideas
+        - Prefer simple, clear punctuation over formal constructions
+
         RHYTHM & FLOW:
         - Don't start consecutive sentences the same way
         - Mix up paragraph structures (question → answer, statement → example, problem → solution)
-        - Use em dashes for emphasis — like this — when it adds punch
         - Include occasional one-sentence paragraphs for impact
 
         TECHNICAL AUTHENTICITY:
@@ -507,14 +593,16 @@ SEO_SECTION;
         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
         ✓ Vary sentence length dramatically (3 words. Then 25 words explaining something.)
-        ✓ Use em dashes — like this — for emphasis
         ✓ Include one-sentence paragraphs for impact.
         ✓ Start sentences with "And", "But", "So"
         ✓ Use "I" and "you" liberally
         ✓ Share personal stories with specific details
         ✓ Contractions everywhere (I'm, you're, don't, can't)
         ✓ Rhetorical questions ("What if I told you...?")
+        ✓ Use parentheses for asides: "This method (my favorite) works well"
+        ✓ Use commas for natural pauses, not em dashes
 
+        ❌ AVOID: Em dashes (—) - they scream AI writing
         ❌ AVOID: "delve", "landscape", "realm", "game-changer", "revolutionary"
         ❌ AVOID: Perfect grammar (be casual!)
         ❌ AVOID: Corporate speak
@@ -540,8 +628,9 @@ SEO_SECTION;
         ✓ Short paragraphs (2-4 sentences)
         ✓ Specific dates/versions: "Released March 2024"
         ✓ Developer perspective: "This means you can..."
+        ✓ Use commas and periods, avoid em dashes (AI red flag)
 
-        ❌ AVOID: "game-changer", "revolutionary", "delve", "landscape"
+        ❌ AVOID: Em dashes (—), "game-changer", "revolutionary", "delve", "landscape"
 
         EXAMPLES:
         - "Laravel 11 was released on March 12, 2024, bringing slimmed-down application structure..."
@@ -611,5 +700,103 @@ SEO_SECTION;
         DO structure one section for featured snippet targeting.
         DO generate 3-5 specific, relevant tags (e.g., 'Laravel', 'Multi-tenancy', 'SaaS', 'Docker', 'API Development').
         OUTPUT_FORMAT;
+    }
+
+    // ========================================================================
+    // CONTENT REMIX HELPERS (New)
+    // ========================================================================
+
+    /**
+     * Build base remix prompt context
+     */
+    protected function buildRemixBasePrompt(BlogTopic $topic, string $sourceTypeLabel, \App\Enums\RemixStyle $remixStyle): string
+    {
+        // Determine if code examples are needed based on content type
+        $codeInstruction = $this->getCodeExampleInstruction($topic->content_type);
+
+        return match ($remixStyle) {
+            \App\Enums\RemixStyle::COMMENTARY => "Add YOUR perspective and personal examples from your projects (StudyLab, ReplyGenius, Robobook, Chrome extensions). Don't just summarize - share what you think, what you've experienced, and how this applies to your work. {$codeInstruction}",
+
+            \App\Enums\RemixStyle::DEEP_DIVE => "Expand on the concepts with detailed explanations, step-by-step guides, and practical examples. Take high-level ideas and make them concrete and actionable. {$codeInstruction}",
+
+            \App\Enums\RemixStyle::SUMMARY => "Condense the key takeaways (3-5 main points) and add your insights on each. Focus on what matters most and why your audience should care. {$codeInstruction}",
+
+            \App\Enums\RemixStyle::RESPONSE => "Provide your alternative approach or respectful agreement/disagreement. Show how you would handle things differently based on your expertise. {$codeInstruction}",
+        };
+    }
+
+    /**
+     * Get code example instruction based on content type
+     */
+    protected function getCodeExampleInstruction(string $contentType): string
+    {
+        return match ($contentType) {
+            'technical' => "Include working code examples, commands, and step-by-step implementation details.",
+            'opinion' => "Only include code examples if they naturally support your argument. Focus on concepts and experiences.",
+            'news' => "Include only essential code snippets like installation commands or basic usage. Keep it minimal.",
+            default => "Include code examples only if relevant to the topic.",
+        };
+    }
+
+    /**
+     * Get detailed guidelines for each remix style
+     */
+    protected function getRemixStyleGuidelines(\App\Enums\RemixStyle $remixStyle): string
+    {
+        $guidelines = [
+            'commentary' => "
+COMMENTARY STYLE GUIDELINES
+
+✓ PERSONAL VOICE: Use 'I', 'my projects', 'in my experience'
+✓ SPECIFIC EXAMPLES: Reference StudyLab, ReplyGenius, Robobook with real details
+✓ OPINIONS: Share what you agree/disagree with and why
+✓ ANECDOTES: 'I spent 3 hours debugging...', 'After building 5+ extensions...'
+✓ ADDITIONS: Include insights not in the source
+✓ BALANCED: Acknowledge source's strengths while adding your perspective
+✓ CODE: Only include if it naturally illustrates your point (not forced)
+
+✗ AVOID: Generic summaries, neutral tone, missing personal examples, forcing code examples
+",
+            'deep_dive' => "
+DEEP DIVE STYLE GUIDELINES
+
+✓ EXPAND CONCEPTS: Take high-level ideas and make them concrete
+✓ STEP-BY-STEP: Break down into clear numbered steps
+✓ EXPLAIN WHY: Don't just show how - explain the reasoning
+✓ PRACTICAL: Make it actionable with real examples
+✓ EDGE CASES: Cover common pitfalls and solutions
+✓ BEST PRACTICES: Share production-ready patterns
+✓ CODE: Include ONLY if content is technical (check content type instruction)
+
+✗ AVOID: Shallow overviews, theoretical-only, forcing code into non-technical topics
+",
+            'summary' => "
+SUMMARY STYLE GUIDELINES
+
+✓ KEY TAKEAWAYS: Extract 3-5 most important points
+✓ YOUR INSIGHTS: Add your perspective on each takeaway
+✓ CONCISE: Clear, direct, actionable
+✓ FILTER: Only include what's relevant to your audience
+✓ PRACTICAL: Focus on what readers can actually use
+✓ CONTEXT: Add brief examples when they clarify
+✓ CODE: Minimal or none (only if essential to understanding)
+
+✗ AVOID: Verbatim copying, including every detail, missing your take, unnecessary code
+",
+            'response' => "
+RESPONSE STYLE GUIDELINES
+
+✓ RESPECTFUL: Professional even when disagreeing, credit original
+✓ ALTERNATIVE: Show how you'd handle it differently
+✓ COMPARE: Explain when to use their approach vs yours
+✓ NUANCED: Acknowledge tradeoffs of each approach
+✓ SPECIFIC: Use concrete examples from your projects
+✓ CODE: Include ONLY if comparing technical implementations
+
+✗ AVOID: Dismissive tone, straw-man arguments, vague criticisms, forced code examples
+",
+        ];
+
+        return $guidelines[$remixStyle->value] ?? '';
     }
 }

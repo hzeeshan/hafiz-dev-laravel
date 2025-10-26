@@ -22,6 +22,8 @@ class BlogTopic extends Model
         'source_url',
         'source_content',
         'source_metadata',
+        'remix_style',
+        'source_type',
         'custom_prompt',
         'status',
         'scheduled_for',
@@ -50,7 +52,13 @@ class BlogTopic extends Model
     {
         static::creating(function (BlogTopic $topic) {
             if (empty($topic->slug)) {
-                $topic->slug = Str::slug($topic->title);
+                // If title is empty (remix mode), generate slug from source type + timestamp
+                if (empty($topic->title)) {
+                    $prefix = $topic->source_type ?? 'remix';
+                    $topic->slug = Str::slug($prefix . '-' . now()->format('Y-m-d-His'));
+                } else {
+                    $topic->slug = Str::slug($topic->title);
+                }
             }
         });
     }
@@ -163,5 +171,53 @@ class BlogTopic extends Model
             ->get()
             ->filter(fn($job) => $job->getBlogTopicId() === $this->id)
             ->isNotEmpty();
+    }
+
+    // ========================================================================
+    // Content Remix Helpers
+    // ========================================================================
+
+    /**
+     * Check if this topic uses remix mode (context-based generation)
+     */
+    public function isRemixMode(): bool
+    {
+        return $this->isContextMode() && !empty($this->remix_style);
+    }
+
+    /**
+     * Get the remix style enum
+     */
+    public function getRemixStyle(): ?\App\Enums\RemixStyle
+    {
+        if (empty($this->remix_style)) {
+            return null;
+        }
+
+        return \App\Enums\RemixStyle::tryFrom($this->remix_style);
+    }
+
+    /**
+     * Check if topic has valid source content for remixing
+     */
+    public function hasValidRemixSource(): bool
+    {
+        return $this->isContextMode()
+            && !empty($this->source_content)
+            && !empty($this->remix_style);
+    }
+
+    /**
+     * Get source type label
+     */
+    public function getSourceTypeLabel(): string
+    {
+        return match ($this->source_type) {
+            'youtube' => '📹 YouTube',
+            'blog_post' => '📄 Blog Post',
+            'medium' => '📰 Medium',
+            'article' => '🔗 Article',
+            default => '📋 Other',
+        };
     }
 }

@@ -93,8 +93,8 @@
         <meta property="article:modified_time" content="{{ $post->updated_at->toIso8601String() }}">
         <meta property="article:author" content="Hafiz Riaz">
         <meta property="article:section" content="Technology">
-        @if($post->tags)
-            @foreach($post->tags as $tag)
+        @if ($post->tags)
+            @foreach ($post->tags as $tag)
                 <meta property="article:tag" content="{{ $tag }}">
             @endforeach
         @endif
@@ -102,13 +102,6 @@
 
     <!-- Override background pattern for blog posts -->
     <style>
-        /* Remove the decorative background pattern for better readability */
-        body > div:first-of-type,
-        .fixed.top-0.left-0 {
-            background-image: none !important;
-            background: transparent !important;
-        }
-
         /* Ensure consistent dark background throughout */
         body {
             background: #1e1e28 !important;
@@ -230,9 +223,8 @@
                             class="block bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 hover:-translate-y-1 group overflow-hidden">
                             @if ($related->featured_image)
                                 <img src="{{ asset('storage/' . $related->featured_image) }}"
-                                     alt="{{ $related->title }}"
-                                     class="w-full h-48 object-cover"
-                                     onerror="this.src='{{ asset('blog-placeholder.svg') }}'">
+                                    alt="{{ $related->title }}" class="w-full h-48 object-cover"
+                                    onerror="this.src='{{ asset('blog-placeholder.svg') }}'">
                             @endif
                             <div class="p-6">
                                 <h4 class="text-light font-semibold mb-2 group-hover:text-gold transition-colors">

@@ -89,7 +89,9 @@ return [
 
     'medium' => [
         'integration_token' => env('MEDIUM_INTEGRATION_TOKEN'),
+        'user_id' => env('MEDIUM_USER_ID'), // Optional: Cache user ID to avoid API calls
         'base_url' => 'https://api.medium.com/v1',
+        'canonical_base_url' => env('MEDIUM_CANONICAL_BASE_URL', 'https://hafiz.dev'),
     ],
 
 ];

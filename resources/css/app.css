@@ -264,11 +264,11 @@
 }
 
 /* Better spacing for first paragraph */
-.blog-content > p:first-child {
+/* .blog-content > p:first-child {
     font-size: 1.25rem;
     line-height: 1.8;
     color: var(--color-light);
-}
+} */
 
 /* Mobile responsive adjustments */
 @media (max-width: 768px) {

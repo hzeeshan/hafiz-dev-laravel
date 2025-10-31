@@ -230,6 +230,9 @@
             </div>
         </div>
     </footer>
+
+    {{-- Page-specific scripts --}}
+    @stack('scripts')
 </body>
 
 </html>

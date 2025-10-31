@@ -94,4 +94,16 @@ return [
         'canonical_base_url' => env('MEDIUM_CANONICAL_BASE_URL', 'https://hafiz.dev'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Newsletter Services
+    |--------------------------------------------------------------------------
+    */
+
+    'convertkit' => [
+        'api_key' => env('CONVERTKIT_API_KEY'),
+        'form_id' => env('CONVERTKIT_FORM_ID'),
+        'base_url' => 'https://api.convertkit.com/v3',
+    ],
+
 ];

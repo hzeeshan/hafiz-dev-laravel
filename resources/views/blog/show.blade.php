@@ -210,6 +210,9 @@
             </div>
         </div>
 
+        <!-- Newsletter Signup -->
+        <x-newsletter-signup />
+
         <!-- Related Posts -->
         @if ($relatedPosts->count() > 0)
             <!-- Visual Separator -->

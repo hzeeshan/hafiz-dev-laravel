@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\NewsletterController;
 use Illuminate\Support\Facades\Route;
 
 // Homepage
@@ -14,3 +15,7 @@ Route::get('/blog/{post:slug}', [BlogController::class, 'show'])->name('blog.sho
 
 // Optional: Track views
 Route::post('/blog/{post:slug}/view', [BlogController::class, 'trackView'])->name('blog.track-view');
+
+// Newsletter routes
+Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
+Route::get('/newsletter/count', [NewsletterController::class, 'count'])->name('newsletter.count');

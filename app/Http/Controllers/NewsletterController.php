@@ -89,7 +89,7 @@ class NewsletterController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Thanks for subscribing! Check your email to confirm.',
+                'message' => "You're subscribed! You'll receive updates when new content is published.",
             ]);
         } catch (\Exception $e) {
             Log::error('Newsletter subscription failed', [

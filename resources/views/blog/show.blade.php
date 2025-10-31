@@ -147,9 +147,10 @@
             @if ($post->tags)
                 <div class="flex flex-wrap gap-2 mt-6">
                     @foreach ($post->tags as $tag)
-                        <span class="px-3 py-1 bg-gold/20 text-gold rounded-full text-sm border border-gold/30">
+                        <a href="{{ route('blog.index', ['tag' => $tag]) }}"
+                           class="px-3 py-1 bg-gold/20 text-gold rounded-full text-sm border border-gold/30 hover:bg-gold/30 hover:scale-105 transition-all duration-200">
                             {{ $tag }}
-                        </span>
+                        </a>
                     @endforeach
                 </div>
             @endif

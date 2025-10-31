@@ -9,17 +9,27 @@ class BlogController extends Controller
 {
     public function index(Request $request)
     {
+        // Get tag filter if present
+        $tag = $request->get('tag');
+
         // Redirect /blog?page=1 to /blog to avoid duplicate content
         if ($request->has('page') && $request->get('page') == 1) {
-            return redirect()->route('blog.index', [], 301);
+            return redirect()->route('blog.index', $request->except('page'), 301);
         }
 
-        $posts = Post::published()
-            ->orderBy('published_at', 'desc')
-            ->paginate(12);
+        // Build query
+        $query = Post::published()->orderBy('published_at', 'desc');
+
+        // Filter by tag if provided
+        if ($tag) {
+            $query->whereJsonContains('tags', $tag);
+        }
+
+        $posts = $query->paginate(12);
 
         return view('blog.index', [
             'posts' => $posts,
+            'activeTag' => $tag,
         ]);
     }
 

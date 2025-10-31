@@ -1,6 +1,6 @@
 <x-layout>
-    <x-slot:title>Laravel & SaaS Development Blog | Hafiz Riaz</x-slot:title>
-    <x-slot:description>Expert insights on Laravel development, process automation, SaaS building, Vue.js, Chrome extensions, and AI integration. Practical tutorials and lessons from building real products.</x-slot:description>
+    <x-slot:title>{{ $activeTag ? ucfirst($activeTag) . ' Articles | Blog | Hafiz Riaz' : 'Laravel & SaaS Development Blog | Hafiz Riaz' }}</x-slot:title>
+    <x-slot:description>{{ $activeTag ? 'Browse all articles about ' . $activeTag . ' - Expert insights, tutorials, and practical guides.' : 'Expert insights on Laravel development, process automation, SaaS building, Vue.js, Chrome extensions, and AI integration. Practical tutorials and lessons from building real products.' }}</x-slot:description>
     <x-slot:keywords>Laravel blog, SaaS development tutorials, Process automation guides, Vue.js tutorials, PHP development, Web development blog, Laravel tips, Chrome extension development</x-slot:keywords>
     <x-slot:canonical>{{ route('blog.index') }}</x-slot:canonical>
 
@@ -58,10 +58,28 @@
         <!-- Header -->
         <div class="text-center mb-16">
             <h1 class="text-5xl font-bold text-light mb-4">Blog</h1>
-            <p class="text-xl text-light-muted max-w-2xl mx-auto">
+            <p class="text-xl text-light-muted max-w-2xl mx-auto mb-6">
                 Insights on Laravel development, process automation, SaaS building,
                 and lessons learned from building products.
             </p>
+
+            <!-- Active Filter - Inline Style -->
+            @if($activeTag)
+                <div class="flex items-center justify-center gap-2 text-sm text-light-muted mt-6">
+                    <span>Showing</span>
+                    <span class="inline-flex items-center gap-2 px-3 py-1.5 bg-gold/10 border border-gold/30 rounded-full">
+                        <span class="text-gold font-medium">{{ $activeTag }}</span>
+                        <a href="{{ route('blog.index') }}"
+                           class="text-gold/70 hover:text-gold transition-colors"
+                           title="Clear filter">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </a>
+                    </span>
+                    <span>({{ $posts->total() }} {{ Str::plural('post', $posts->total()) }})</span>
+                </div>
+            @endif
         </div>
 
         <!-- Posts Grid -->
@@ -83,9 +101,10 @@
                             @if($post->tags)
                                 <div class="flex flex-wrap gap-2 mb-3">
                                     @foreach($post->tags as $tag)
-                                        <span class="text-xs px-2.5 py-1 bg-gold/20 text-gold rounded-md font-medium border border-gold/30">
+                                        <a href="{{ route('blog.index', ['tag' => $tag]) }}"
+                                           class="text-xs px-2.5 py-1 bg-gold/20 text-gold rounded-md font-medium border border-gold/30 hover:bg-gold/30 hover:scale-105 transition-all duration-200 {{ $activeTag === $tag ? 'ring-2 ring-gold' : '' }}">
                                             {{ $tag }}
-                                        </span>
+                                        </a>
                                     @endforeach
                                 </div>
                             @endif

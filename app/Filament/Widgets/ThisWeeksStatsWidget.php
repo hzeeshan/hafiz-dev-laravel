@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class ThisWeeksStatsWidget extends BaseWidget
 {
-    protected static ?int $sort = 3;
+    protected static ?int $sort = 1;
 
     protected function getStats(): array
     {

@@ -9,9 +9,9 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
 
-class PendingTopicsWidget extends BaseWidget
+class ScheduledTopicsWidget extends BaseWidget
 {
-    protected static ?int $sort = 3;
+    protected static ?int $sort = 2;
 
     protected int | string | array $columnSpan = 'full';
 
@@ -21,12 +21,12 @@ class PendingTopicsWidget extends BaseWidget
             ->query(
                 BlogTopic::query()
                     ->where('status', 'pending')
-                    ->orderBy('priority', 'desc')
-                    ->orderBy('created_at', 'asc')
+                    ->whereNotNull('scheduled_for')
+                    ->orderBy('scheduled_for', 'asc')
                     ->limit(5)
             )
-            ->heading('💡 Pending Topics Ready to Generate')
-            ->description('Topics waiting to be generated into blog posts')
+            ->heading('📅 Next Scheduled Topics')
+            ->description('Topics scheduled for generation this week')
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->searchable()
@@ -55,11 +55,17 @@ class PendingTopicsWidget extends BaseWidget
                         default => 'gray',
                     }),
 
-                Tables\Columns\TextColumn::make('created_at')
-                    ->label('Added')
-                    ->since()
+                Tables\Columns\TextColumn::make('scheduled_for')
+                    ->label('Scheduled')
+                    ->dateTime('M j, Y - g:i A')
                     ->sortable()
-                    ->color('gray'),
+                    ->badge()
+                    ->color(fn (BlogTopic $record): string =>
+                        $record->scheduled_for && $record->scheduled_for->isPast() ? 'warning' : 'info'
+                    )
+                    ->description(fn (BlogTopic $record): string =>
+                        $record->scheduled_for ? $record->scheduled_for->diffForHumans() : ''
+                    ),
             ])
             ->actions([
                 Action::make('generate_now')
@@ -96,9 +102,9 @@ class PendingTopicsWidget extends BaseWidget
                     )
                     ->openUrlInNewTab(false),
             ])
-            ->emptyStateHeading('No pending topics')
-            ->emptyStateDescription('Create a blog topic to see it here')
-            ->emptyStateIcon('heroicon-o-light-bulb')
+            ->emptyStateHeading('No scheduled topics')
+            ->emptyStateDescription('Schedule topics for this week to see them here')
+            ->emptyStateIcon('heroicon-o-calendar')
             ->emptyStateActions([
                 Action::make('create_topic')
                     ->label('Create Blog Topic')

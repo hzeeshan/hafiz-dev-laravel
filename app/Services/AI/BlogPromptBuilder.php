@@ -564,11 +564,13 @@ SEO_SECTION;
         HUMANIZATION (CRITICAL - Avoid AI Detection)
         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-        SENTENCE VARIETY (Burstiness):
-        - Mix short punchy sentences (5-8 words) with longer ones (20-25 words)
-        - Vary paragraph length (some 2 sentences, some 5 sentences)
-        - Break patterns - don't make every paragraph the same length
+        SENTENCE VARIETY (Burstiness - CRITICAL):
+        - MANDATORY: Include at least 3-5 very short sentences (3-6 words). Example: "This changes everything." or "Here's why."
+        - Mix these ultra-short sentences with medium (12-18 words) and longer ones (20-30 words)
+        - Vary paragraph length dramatically: some 1 sentence, some 2, some 5-6
+        - Break patterns - NEVER make consecutive paragraphs the same length
         - Example: "Laravel makes this easy. You can set up multi-tenancy in under an hour, and once you understand the core concepts, you'll wonder how you ever built SaaS without it."
+        - More examples: "Not convinced? Let me explain." or "The results were surprising. Performance improved by 300%, and database queries dropped from 45 to just 3 per page load."
 
         CONVERSATIONAL ELEMENTS:
         - Use contractions naturally (I'm, you're, don't, can't, won't, it's)
@@ -577,12 +579,14 @@ SEO_SECTION;
         - Use conversational phrases: "Here's the thing...", "Truth is...", "Let me show you...", "You might wonder..."
         - Address reader directly with "you" and "your"
 
-        PERSONAL AUTHENTICITY:
+        PERSONAL AUTHENTICITY (MANDATORY - This is Your Secret Weapon):
         - Share SPECIFIC details from your experience (not generic "I worked on a project")
-        - Include actual numbers/timeframes: "Last month in a SaaS project..." or "After building 5+ Chrome extensions..."
-        - Mention real obstacles you faced: "I spent 3 hours debugging this before realizing..."
+        - REQUIRED: Mention at least ONE of your actual products: StudyLab, ReplyGenius, Robobook, or specific Chrome extensions
+        - Include actual numbers/timeframes: "Last month in StudyLab..." or "When building ReplyGenius, I spent 3 days..."
+        - Mention real obstacles you faced: "I spent 3 hours debugging this before realizing..." or "My first attempt failed because..."
         - Add opinions: "I'm not a fan of X, but I use it because..." or "This is my preferred approach..."
         - Share what you'd do differently: "If I could go back..." or "Next time I'd..."
+        - IMPORTANT: Make these details SPECIFIC and UNIQUE to your experience (years, client reactions, performance metrics)
 
         IMPERFECT HUMANITY (Makes it real):
         - Occasional minor tangents that add value
@@ -617,14 +621,36 @@ SEO_SECTION;
         - Include small gotchas you discovered ("Watch out for X if you're using Y...")
         - Share performance numbers when relevant ("This reduced response time from 800ms to 200ms")
 
-        ⚠️ AVOID THESE AI RED FLAGS:
+        ⚠️ AVOID THESE AI RED FLAGS (DETECTION KILLERS):
         ❌ Perfect grammar in every sentence (occasional casual writing is human)
-        ❌ Consistent sentence length (humans vary naturally)
-        ❌ Overuse of words like: "delve", "realm", "landscape", "tapestry", "embark"
-        ❌ Generic examples without specifics
-        ❌ Formulaic structure that's too perfect
+        ❌ Consistent sentence length (humans vary naturally - include very short sentences!)
+        ❌ Overuse of words like: "delve", "realm", "landscape", "tapestry", "embark", "game-changer", "revolutionary"
+        ❌ Generic examples without specifics ("in a recent project" vs "when building StudyLab in 2023")
+        ❌ Formulaic structure that's too perfect (break the pattern occasionally)
         ❌ Lack of contractions (sounds robotic)
         ❌ No personality or opinions (sounds corporate)
+        ❌ Starting every paragraph with a topic sentence (humans don't do this)
+        ❌ Lists with perfect parallel structure (make them slightly asymmetrical)
+        ❌ Never using "just", "really", "actually" (humans use these fillers naturally)
+
+        WRITING TEXTURE (The Secret Sauce):
+        - Include occasional "thinking out loud" moments: "Wait, let me clarify that..." or "Actually, scratch that..."
+        - Use natural qualifiers: "probably", "usually", "might", "tends to", "generally" (AI often writes in absolutes)
+        - Add small asides that show personality: "(trust me on this)" or "(learned this the hard way)"
+        - Reference time naturally: "Back in 2023..." or "Just last week..." or "These days..."
+        - Show evolution of thought: "I used to think X, but after building Y, I realized Z"
+        - Use informal conjunctions: "Plus", "Anyway", "Meanwhile", "Honestly"
+        - Include natural emphasis: "really", "super", "pretty much", "kind of" (sparingly, but humans use them)
+
+        EXAMPLES OF HUMAN TEXTURE:
+        ❌ AI: "Laravel provides several methods for handling authentication."
+        ✅ Human: "Laravel's got you covered for auth. There are actually several ways to handle it, and honestly, I've tried most of them."
+
+        ❌ AI: "This approach offers significant performance improvements."
+        ✅ Human: "This approach is faster. Like, noticeably faster. We're talking 300ms down to 80ms in production."
+
+        ❌ AI: "Consider implementing caching for optimal results."
+        ✅ Human: "Cache this. Trust me. I spent three hours debugging before I realized the DB was getting hammered."
 
         GOAL: Write like you're explaining this to a fellow developer over coffee, not presenting to executives.
         HUMANIZATION_DETAILED;
@@ -642,13 +668,15 @@ SEO_SECTION;
 
         ✓ Vary sentence length dramatically (3 words. Then 25 words explaining something.)
         ✓ Include one-sentence paragraphs for impact.
-        ✓ Start sentences with "And", "But", "So"
+        ✓ Start sentences with "And", "But", "So", "Plus", "Anyway"
         ✓ Use "I" and "you" liberally
-        ✓ Share personal stories with specific details
-        ✓ Contractions everywhere (I'm, you're, don't, can't)
+        ✓ Share personal stories with specific details (StudyLab, ReplyGenius, Robobook)
+        ✓ Contractions everywhere (I'm, you're, don't, can't, won't)
         ✓ Rhetorical questions ("What if I told you...?")
         ✓ Use parentheses for asides: "This method (my favorite) works well"
         ✓ Use commas for natural pauses, not em dashes
+        ✓ Natural qualifiers: "probably", "usually", "might", "pretty much"
+        ✓ Conversational fillers: "really", "actually", "just", "honestly"
 
         ❌ AVOID: Em dashes (—) - they scream AI writing
         ❌ AVOID: "delve", "landscape", "realm", "game-changer", "revolutionary"

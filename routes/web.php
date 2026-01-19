@@ -28,3 +28,7 @@ Route::get('/tools', function () {
 Route::get('/tools/json-formatter', function () {
     return view('tools.json-formatter');
 })->name('tools.json-formatter');
+
+Route::get('/tools/base64-encoder', function () {
+    return view('tools.base64-encoder');
+})->name('tools.base64-encoder');

@@ -19,3 +19,12 @@ Route::post('/blog/{post:slug}/view', [BlogController::class, 'trackView'])->nam
 // Newsletter routes
 Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 Route::get('/newsletter/count', [NewsletterController::class, 'count'])->name('newsletter.count');
+
+// Tools routes
+Route::get('/tools', function () {
+    return view('tools.index');
+})->name('tools.index');
+
+Route::get('/tools/json-formatter', function () {
+    return view('tools.json-formatter');
+})->name('tools.json-formatter');

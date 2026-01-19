@@ -166,6 +166,8 @@
                         class="text-light-muted hover:text-light font-medium transition-colors duration-300">Portfolio</a>
                     <a href="/blog"
                         class="text-light-muted hover:text-light font-medium transition-colors duration-300">Blog</a>
+                    <a href="/tools"
+                        class="text-light-muted hover:text-light font-medium transition-colors duration-300">Tools</a>
                     <a href="/#contact"
                         class="px-5 py-2.5 bg-gold text-darkBg rounded-lg hover:bg-gold-light font-semibold transition-all duration-300 hover:shadow-gold-glow hover:-translate-y-0.5">
                         Contact
@@ -191,6 +193,8 @@
                         class="text-light-muted hover:text-light font-medium transition-colors duration-300 py-2 border-b border-gold/10">Portfolio</a>
                     <a href="/blog"
                         class="text-light-muted hover:text-light font-medium transition-colors duration-300 py-2 border-b border-gold/10">Blog</a>
+                    <a href="/tools"
+                        class="text-light-muted hover:text-light font-medium transition-colors duration-300 py-2 border-b border-gold/10">Tools</a>
                     <a href="/#contact"
                         class="px-5 py-2.5 bg-gold text-darkBg rounded-lg hover:bg-gold-light font-semibold transition-all duration-300 text-center">
                         Contact
@@ -221,7 +225,7 @@
     </main>
 
     <!-- Dark Footer -->
-    <footer class="bg-darkCard/60 border-t border-gold/10 mt-20 relative z-10">
+    <footer class="bg-darkCard/60 border-t border-gold/10 relative z-10">
         <div class="max-w-7xl mx-auto px-4 py-5">
             <div class="text-center">
                 <p class="text-light-muted mb-2">

@@ -9,6 +9,7 @@
     <x-slot:ogDescription>Free online developer tools: JSON formatter, Base64 encoder, UUID generator and more. 100% client-side, no signup required.</x-slot:ogDescription>
     <x-slot:ogType>website</x-slot:ogType>
     <x-slot:ogUrl>{{ url('/tools') }}</x-slot:ogUrl>
+    <x-slot:ogImage>{{ url('/images/og/tools.png') }}</x-slot:ogImage>
 
     @push('schemas')
         {{-- ItemList Schema --}}

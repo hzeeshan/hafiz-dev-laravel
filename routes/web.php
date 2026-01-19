@@ -32,3 +32,7 @@ Route::get('/tools/json-formatter', function () {
 Route::get('/tools/base64-encoder', function () {
     return view('tools.base64-encoder');
 })->name('tools.base64-encoder');
+
+Route::get('/tools/cron-expression-builder', function () {
+    return view('tools.cron-expression-builder');
+})->name('tools.cron-expression-builder');

@@ -35,6 +35,20 @@ All tools run 100% client-side (no server processing) for privacy and speed.
 - **Status**: ✅ Live
 - **Features**: Visual cron builder, Laravel schedule syntax, human-readable preview
 
+### 4. UUID/ULID Generator
+- **URL**: `/tools/uuid-generator`
+- **Target Keywords**: uuid generator, ulid generator, guid generator
+- **Monthly Search Volume**: ~150K+
+- **Status**: ✅ Live
+- **Features**: Generate UUID v1/v4/v7, ULID, bulk generation, copy to clipboard
+
+### 5. Regex Tester
+- **URL**: `/tools/regex-tester`
+- **Target Keywords**: regex tester, regular expression tester, regex debugger, regex101 alternative
+- **Monthly Search Volume**: ~200K+
+- **Status**: ✅ Live
+- **Features**: Real-time matching, match highlighting, flags (g/i/m/s), capture groups, common pattern examples
+
 ---
 
 ## Planned Tools (Priority Order)
@@ -44,8 +58,6 @@ Based on SEO research (search volume + competition analysis):
 ### High Priority
 | Tool | Target Keywords | Est. Monthly Volume | Difficulty |
 |------|-----------------|---------------------|------------|
-| UUID/ULID Generator | uuid generator, ulid generator | 150K+ | Low |
-| Regex Tester | regex tester, regex101 alternative | 200K+ | Medium |
 | JWT Decoder | jwt decoder, jwt debugger | 80K+ | Low |
 
 ### Medium Priority
@@ -141,6 +153,8 @@ Track these events:
 - ✅ Base64 Encoder launched
 - ✅ Cron Expression Builder launched
 - ✅ Tools Index page created
+- ✅ UUID/ULID Generator launched
+- ✅ Regex Tester launched
 
 ---
 

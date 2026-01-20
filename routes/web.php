@@ -40,3 +40,7 @@ Route::get('/tools/cron-expression-builder', function () {
 Route::get('/tools/uuid-generator', function () {
     return view('tools.uuid-generator');
 })->name('tools.uuid-generator');
+
+Route::get('/tools/regex-tester', function () {
+    return view('tools.regex-tester');
+})->name('tools.regex-tester');

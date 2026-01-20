@@ -77,7 +77,13 @@
                         "@@type": "SoftwareApplication",
                         "name": "UUID/ULID Generator",
                         "description": "Generate unique identifiers instantly",
-                        "applicationCategory": "DeveloperApplication"
+                        "url": "https://hafiz.dev/tools/uuid-generator",
+                        "applicationCategory": "DeveloperApplication",
+                        "offers": {
+                            "@@type": "Offer",
+                            "price": "0",
+                            "priceCurrency": "USD"
+                        }
                     }
                 },
                 {
@@ -207,18 +213,21 @@
                     </div>
                 </a>
 
-                {{-- UUID Generator - Coming Soon --}}
-                <div class="group block cursor-not-allowed">
-                    <div class="bg-gradient-card p-6 rounded-xl border border-gold/10 shadow-dark-card opacity-60 h-full">
+                {{-- UUID Generator - Available --}}
+                <a href="/tools/uuid-generator" class="group block">
+                    <div class="bg-gradient-card p-6 rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 hover:-translate-y-1 h-full">
                         <div class="flex items-start justify-between mb-4">
                             <div class="text-3xl">🆔</div>
-                            <span class="text-xs px-2 py-1 bg-light-muted/20 text-light-muted rounded">Coming Soon</span>
+                            <span class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">Generators</span>
                         </div>
-                        <h3 class="text-lg font-bold text-light/70 mb-2">UUID/ULID Generator</h3>
-                        <p class="text-light-muted/70 text-sm mb-4">Generate unique identifiers instantly</p>
-                        <span class="text-xs px-2 py-1 bg-light-muted/10 text-light-muted rounded border border-light-muted/20">Generators</span>
+                        <h3 class="text-lg font-bold text-light mb-2 group-hover:text-gold transition-colors">UUID/ULID Generator</h3>
+                        <p class="text-light-muted text-sm mb-4">Generate unique identifiers instantly</p>
+                        <div class="flex items-center text-gold text-sm font-semibold group-hover:gap-2 transition-all">
+                            <span>Use Tool</span>
+                            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </div>
                     </div>
-                </div>
+                </a>
 
                 {{-- Regex Tester - Coming Soon --}}
                 <div class="group block cursor-not-allowed">

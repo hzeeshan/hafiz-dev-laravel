@@ -36,3 +36,7 @@ Route::get('/tools/base64-encoder', function () {
 Route::get('/tools/cron-expression-builder', function () {
     return view('tools.cron-expression-builder');
 })->name('tools.cron-expression-builder');
+
+Route::get('/tools/uuid-generator', function () {
+    return view('tools.uuid-generator');
+})->name('tools.uuid-generator');

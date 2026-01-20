@@ -44,3 +44,7 @@ Route::get('/tools/uuid-generator', function () {
 Route::get('/tools/regex-tester', function () {
     return view('tools.regex-tester');
 })->name('tools.regex-tester');
+
+Route::get('/tools/jwt-decoder', function () {
+    return view('tools.jwt-decoder');
+})->name('tools.jwt-decoder');

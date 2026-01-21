@@ -12,10 +12,8 @@
     <x-slot:ogImage>{{ asset('profile-photo.png') }}</x-slot:ogImage>
 
     @push('head')
-        {{-- Hreflang Tags --}}
-        <link rel="alternate" hreflang="en" href="https://hafiz.dev/" />
+        {{-- Hreflang Tags (self-referencing only - no English equivalent page) --}}
         <link rel="alternate" hreflang="it" href="https://hafiz.dev/it/automazione-processi-aziendali" />
-        <link rel="alternate" hreflang="x-default" href="https://hafiz.dev/" />
 
         {{-- Open Graph Locale --}}
         <meta property="og:locale" content="it_IT" />

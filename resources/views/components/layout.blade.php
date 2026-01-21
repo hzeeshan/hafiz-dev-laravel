@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-US" class="scroll-smooth scroll-pt-20 h-full">
+<html lang="{{ request()->is('it/*') ? 'it' : 'en' }}" class="scroll-smooth scroll-pt-20 h-full">
 
 <head>
     <meta charset="UTF-8">

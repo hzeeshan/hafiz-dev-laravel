@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ItalianPagesController;
 use App\Http\Controllers\NewsletterController;
 use Illuminate\Support\Facades\Route;
 
@@ -48,3 +49,10 @@ Route::get('/tools/regex-tester', function () {
 Route::get('/tools/jwt-decoder', function () {
     return view('tools.jwt-decoder');
 })->name('tools.jwt-decoder');
+
+// Italian SEO landing pages
+Route::prefix('it')->name('it.')->group(function () {
+    Route::get('/sviluppatore-web-torino', [ItalianPagesController::class, 'webDeveloperTorino'])->name('web-developer-torino');
+    Route::get('/sviluppatore-laravel-italia', [ItalianPagesController::class, 'laravelDeveloper'])->name('laravel-developer');
+    Route::get('/automazione-processi-aziendali', [ItalianPagesController::class, 'processAutomation'])->name('process-automation');
+});

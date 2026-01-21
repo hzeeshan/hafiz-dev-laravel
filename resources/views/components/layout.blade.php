@@ -20,6 +20,13 @@
     {{-- Canonical URL --}}
     <link rel="canonical" href="{{ $canonical ?? url()->current() }}">
 
+    {{-- Hreflang Tags for English pages (Italian pages add their own) --}}
+    @unless(request()->is('it/*'))
+    <link rel="alternate" hreflang="en" href="https://hafiz.dev{{ request()->getPathInfo() === '/' ? '' : request()->getPathInfo() }}" />
+    <link rel="alternate" hreflang="it" href="https://hafiz.dev/it/sviluppatore-web-torino" />
+    <link rel="alternate" hreflang="x-default" href="https://hafiz.dev{{ request()->getPathInfo() === '/' ? '' : request()->getPathInfo() }}" />
+    @endunless
+
     {{-- Favicon --}}
     <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('profile-photo.png') }}">
@@ -227,10 +234,23 @@
     <!-- Dark Footer -->
     <footer class="bg-darkCard/60 border-t border-gold/10 relative z-10">
         <div class="max-w-7xl mx-auto px-4 py-5">
-            <div class="text-center">
-                <p class="text-light-muted mb-2">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
+                <p class="text-light-muted text-sm">
                     © {{ date('Y') }} Hafiz Riaz. All rights reserved.
                 </p>
+                <!-- Language Switcher -->
+                <div class="flex items-center gap-2 text-sm">
+                    <span class="text-light-muted">🌐</span>
+                    @if(request()->is('it/*'))
+                        <a href="/" class="text-light-muted hover:text-gold transition-colors">English</a>
+                        <span class="text-gold/40">|</span>
+                        <span class="text-gold font-medium">Italiano</span>
+                    @else
+                        <span class="text-gold font-medium">English</span>
+                        <span class="text-gold/40">|</span>
+                        <a href="/it/sviluppatore-web-torino" class="text-light-muted hover:text-gold transition-colors">Italiano</a>
+                    @endif
+                </div>
             </div>
         </div>
     </footer>

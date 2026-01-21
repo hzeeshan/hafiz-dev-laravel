@@ -57,6 +57,22 @@ class GenerateSitemap extends Command
                 ->setPriority(0.8)
         );
 
+        // Italian SEO landing pages
+        $italianPages = [
+            '/it/sviluppatore-web-torino',
+            '/it/sviluppatore-laravel-italia',
+            '/it/automazione-processi-aziendali',
+        ];
+
+        foreach ($italianPages as $page) {
+            $sitemap->add(
+                Url::create($page)
+                    ->setLastModificationDate(now())
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
+                    ->setPriority(0.8)
+            );
+        }
+
         // Auto-discover tool pages from routes (excludes /tools index)
         $toolRoutes = collect(Route::getRoutes())
             ->filter(fn ($route) => str_starts_with($route->uri(), 'tools/'))
@@ -89,13 +105,15 @@ class GenerateSitemap extends Command
 
         $postCount = Post::published()->count();
         $toolCount = $toolRoutes->count();
+        $italianCount = count($italianPages);
         $this->info("✓ Sitemap generated successfully!");
         $this->info("  - Homepage: 1");
         $this->info("  - Blog index: 1");
         $this->info("  - Tools index: 1");
         $this->info("  - Tool pages: {$toolCount}");
+        $this->info("  - Italian pages: {$italianCount}");
         $this->info("  - Blog posts: {$postCount}");
-        $this->info("  - Total URLs: " . (3 + $toolCount + $postCount));
+        $this->info("  - Total URLs: " . (3 + $toolCount + $italianCount + $postCount));
         $this->info("  - File: public/sitemap.xml");
     }
 }

@@ -66,6 +66,10 @@ Route::get('/tools/lorem-ipsum-generator', function () {
     return view('tools.lorem-ipsum-generator');
 })->name('tools.lorem-ipsum-generator');
 
+Route::get('/tools/timestamp-converter', function () {
+    return view('tools.timestamp-converter');
+})->name('tools.timestamp-converter');
+
 // Italian SEO landing pages
 Route::prefix('it')->name('it.')->group(function () {
     Route::get('/sviluppatore-web-torino', [ItalianPagesController::class, 'webDeveloperTorino'])->name('web-developer-torino');

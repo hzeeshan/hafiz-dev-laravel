@@ -58,6 +58,10 @@ Route::get('/tools/hash-generator', function () {
     return view('tools.hash-generator');
 })->name('tools.hash-generator');
 
+Route::get('/tools/url-encoder', function () {
+    return view('tools.url-encoder');
+})->name('tools.url-encoder');
+
 // Italian SEO landing pages
 Route::prefix('it')->name('it.')->group(function () {
     Route::get('/sviluppatore-web-torino', [ItalianPagesController::class, 'webDeveloperTorino'])->name('web-developer-torino');

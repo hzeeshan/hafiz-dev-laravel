@@ -62,6 +62,10 @@ Route::get('/tools/url-encoder', function () {
     return view('tools.url-encoder');
 })->name('tools.url-encoder');
 
+Route::get('/tools/lorem-ipsum-generator', function () {
+    return view('tools.lorem-ipsum-generator');
+})->name('tools.lorem-ipsum-generator');
+
 // Italian SEO landing pages
 Route::prefix('it')->name('it.')->group(function () {
     Route::get('/sviluppatore-web-torino', [ItalianPagesController::class, 'webDeveloperTorino'])->name('web-developer-torino');

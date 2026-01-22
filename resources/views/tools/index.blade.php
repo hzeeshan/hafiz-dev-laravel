@@ -20,7 +20,7 @@
             "name": "Free Developer Tools",
             "description": "Collection of free online developer tools by hafiz.dev",
             "url": "https://hafiz.dev/tools",
-            "numberOfItems": 9,
+            "numberOfItems": 10,
             "itemListElement": [
                 {
                     "@@type": "ListItem",
@@ -158,6 +158,22 @@
                         "name": "URL Encoder/Decoder",
                         "description": "Encode and decode URLs and query strings",
                         "url": "https://hafiz.dev/tools/url-encoder",
+                        "applicationCategory": "DeveloperApplication",
+                        "offers": {
+                            "@@type": "Offer",
+                            "price": "0",
+                            "priceCurrency": "USD"
+                        }
+                    }
+                },
+                {
+                    "@@type": "ListItem",
+                    "position": 10,
+                    "item": {
+                        "@@type": "SoftwareApplication",
+                        "name": "Lorem Ipsum Generator",
+                        "description": "Generate placeholder text for designs",
+                        "url": "https://hafiz.dev/tools/lorem-ipsum-generator",
                         "applicationCategory": "DeveloperApplication",
                         "offers": {
                             "@@type": "Offer",
@@ -362,6 +378,22 @@
                         </div>
                         <h3 class="text-lg font-bold text-light mb-2 group-hover:text-gold transition-colors">URL Encoder/Decoder</h3>
                         <p class="text-light-muted text-sm mb-4">Encode and decode URLs and query strings</p>
+                        <div class="flex items-center text-gold text-sm font-semibold group-hover:gap-2 transition-all">
+                            <span>Use Tool</span>
+                            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </div>
+                    </div>
+                </a>
+
+                {{-- Lorem Ipsum Generator - Available --}}
+                <a href="/tools/lorem-ipsum-generator" class="group block">
+                    <div class="bg-gradient-card p-6 rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 hover:-translate-y-1 h-full">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="text-3xl">📝</div>
+                            <span class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">Text</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-light mb-2 group-hover:text-gold transition-colors">Lorem Ipsum Generator</h3>
+                        <p class="text-light-muted text-sm mb-4">Generate placeholder text for designs</p>
                         <div class="flex items-center text-gold text-sm font-semibold group-hover:gap-2 transition-all">
                             <span>Use Tool</span>
                             <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>

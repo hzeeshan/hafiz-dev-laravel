@@ -50,6 +50,10 @@ Route::get('/tools/jwt-decoder', function () {
     return view('tools.jwt-decoder');
 })->name('tools.jwt-decoder');
 
+Route::get('/tools/password-generator', function () {
+    return view('tools.password-generator');
+})->name('tools.password-generator');
+
 // Italian SEO landing pages
 Route::prefix('it')->name('it.')->group(function () {
     Route::get('/sviluppatore-web-torino', [ItalianPagesController::class, 'webDeveloperTorino'])->name('web-developer-torino');

@@ -20,7 +20,7 @@
             "name": "Free Developer Tools",
             "description": "Collection of free online developer tools by hafiz.dev",
             "url": "https://hafiz.dev/tools",
-            "numberOfItems": 6,
+            "numberOfItems": 7,
             "itemListElement": [
                 {
                     "@@type": "ListItem",
@@ -110,6 +110,22 @@
                         "name": "JWT Decoder",
                         "description": "Decode and inspect JSON Web Tokens",
                         "url": "https://hafiz.dev/tools/jwt-decoder",
+                        "applicationCategory": "DeveloperApplication",
+                        "offers": {
+                            "@@type": "Offer",
+                            "price": "0",
+                            "priceCurrency": "USD"
+                        }
+                    }
+                },
+                {
+                    "@@type": "ListItem",
+                    "position": 7,
+                    "item": {
+                        "@@type": "SoftwareApplication",
+                        "name": "Password Generator",
+                        "description": "Generate secure random passwords",
+                        "url": "https://hafiz.dev/tools/password-generator",
                         "applicationCategory": "DeveloperApplication",
                         "offers": {
                             "@@type": "Offer",
@@ -266,6 +282,22 @@
                         </div>
                         <h3 class="text-lg font-bold text-light mb-2 group-hover:text-gold transition-colors">JWT Decoder</h3>
                         <p class="text-light-muted text-sm mb-4">Decode and inspect JSON Web Tokens</p>
+                        <div class="flex items-center text-gold text-sm font-semibold group-hover:gap-2 transition-all">
+                            <span>Use Tool</span>
+                            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </div>
+                    </div>
+                </a>
+
+                {{-- Password Generator - Available --}}
+                <a href="/tools/password-generator" class="group block">
+                    <div class="bg-gradient-card p-6 rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 hover:-translate-y-1 h-full">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="text-3xl">🔐</div>
+                            <span class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">Security</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-light mb-2 group-hover:text-gold transition-colors">Password Generator</h3>
+                        <p class="text-light-muted text-sm mb-4">Generate secure random passwords</p>
                         <div class="flex items-center text-gold text-sm font-semibold group-hover:gap-2 transition-all">
                             <span>Use Tool</span>
                             <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>

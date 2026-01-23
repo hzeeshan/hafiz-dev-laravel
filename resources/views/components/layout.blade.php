@@ -257,6 +257,26 @@
 
     {{-- Page-specific scripts --}}
     @stack('scripts')
+
+    {{-- Tool View Tracking --}}
+    @if(request()->is('tools/*') && !request()->is('tools'))
+    <script>
+        (function() {
+            const path = window.location.pathname;
+            const toolSlug = path.replace('/tools/', '');
+            if (toolSlug && toolSlug !== 'index') {
+                fetch('/tools/' + toolSlug + '/view', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                }).catch(function() {});
+            }
+        })();
+    </script>
+    @endif
 </body>
 
 </html>

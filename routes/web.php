@@ -70,6 +70,13 @@ Route::get('/tools/timestamp-converter', function () {
     return view('tools.timestamp-converter');
 })->name('tools.timestamp-converter');
 
+// Tool view tracking
+Route::post('/tools/{toolSlug}/view', function (string $toolSlug) {
+    \App\Models\ToolView::incrementView($toolSlug);
+
+    return response()->json(['success' => true]);
+})->name('tools.track-view');
+
 // Italian SEO landing pages
 Route::prefix('it')->name('it.')->group(function () {
     Route::get('/sviluppatore-web-torino', [ItalianPagesController::class, 'webDeveloperTorino'])->name('web-developer-torino');

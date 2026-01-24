@@ -33,6 +33,8 @@ class ToolView extends Model
         'url-encoder' => 'URL Encoder',
         'lorem-ipsum-generator' => 'Lorem Ipsum Generator',
         'timestamp-converter' => 'Timestamp Converter',
+        'color-converter' => 'Color Converter',
+        'word-counter' => 'Word Counter',
     ];
 
     /**

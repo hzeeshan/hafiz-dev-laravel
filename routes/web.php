@@ -70,6 +70,10 @@ Route::get('/tools/timestamp-converter', function () {
     return view('tools.timestamp-converter');
 })->name('tools.timestamp-converter');
 
+Route::get('/tools/color-converter', function () {
+    return view('tools.color-converter');
+})->name('tools.color-converter');
+
 // Tool view tracking
 Route::post('/tools/{toolSlug}/view', function (string $toolSlug) {
     \App\Models\ToolView::incrementView($toolSlug);

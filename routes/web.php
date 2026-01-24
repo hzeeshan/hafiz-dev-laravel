@@ -74,6 +74,10 @@ Route::get('/tools/color-converter', function () {
     return view('tools.color-converter');
 })->name('tools.color-converter');
 
+Route::get('/tools/word-counter', function () {
+    return view('tools.word-counter');
+})->name('tools.word-counter');
+
 // Tool view tracking
 Route::post('/tools/{toolSlug}/view', function (string $toolSlug) {
     \App\Models\ToolView::incrementView($toolSlug);

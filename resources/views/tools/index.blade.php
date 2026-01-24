@@ -20,7 +20,7 @@
             "name": "Free Developer Tools",
             "description": "Collection of free online developer tools by hafiz.dev",
             "url": "https://hafiz.dev/tools",
-            "numberOfItems": 12,
+            "numberOfItems": 13,
             "itemListElement": [
                 {
                     "@@type": "ListItem",
@@ -206,6 +206,22 @@
                         "name": "Color Converter",
                         "description": "Convert between HEX, RGB, HSL color formats",
                         "url": "https://hafiz.dev/tools/color-converter",
+                        "applicationCategory": "DeveloperApplication",
+                        "offers": {
+                            "@@type": "Offer",
+                            "price": "0",
+                            "priceCurrency": "USD"
+                        }
+                    }
+                },
+                {
+                    "@@type": "ListItem",
+                    "position": 13,
+                    "item": {
+                        "@@type": "SoftwareApplication",
+                        "name": "Word Counter",
+                        "description": "Count words, characters, sentences, and paragraphs",
+                        "url": "https://hafiz.dev/tools/word-counter",
                         "applicationCategory": "DeveloperApplication",
                         "offers": {
                             "@@type": "Offer",
@@ -458,6 +474,22 @@
                         </div>
                         <h3 class="text-lg font-bold text-light mb-2 group-hover:text-gold transition-colors">Color Converter</h3>
                         <p class="text-light-muted text-sm mb-4">Convert between HEX, RGB, HSL formats</p>
+                        <div class="flex items-center text-gold text-sm font-semibold group-hover:gap-2 transition-all">
+                            <span>Use Tool</span>
+                            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </div>
+                    </div>
+                </a>
+
+                {{-- Word Counter - Available --}}
+                <a href="/tools/word-counter" class="group block">
+                    <div class="bg-gradient-card p-6 rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 hover:-translate-y-1 h-full">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="text-3xl">📝</div>
+                            <span class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">Text</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-light mb-2 group-hover:text-gold transition-colors">Word Counter</h3>
+                        <p class="text-light-muted text-sm mb-4">Count words, characters, and sentences</p>
                         <div class="flex items-center text-gold text-sm font-semibold group-hover:gap-2 transition-all">
                             <span>Use Tool</span>
                             <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>

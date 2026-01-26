@@ -20,16 +20,17 @@
             "name": "Free Developer Tools",
             "description": "Collection of free online developer tools by hafiz.dev",
             "url": "https://hafiz.dev/tools",
-            "numberOfItems": 14,
+            "numberOfItems": {{ $tools->count() }},
             "itemListElement": [
+                @foreach($tools as $index => $tool)
                 {
                     "@@type": "ListItem",
-                    "position": 1,
+                    "position": {{ $index + 1 }},
                     "item": {
                         "@@type": "SoftwareApplication",
-                        "name": "JSON Formatter & Validator",
-                        "description": "Format, validate, and minify JSON instantly",
-                        "url": "https://hafiz.dev/tools/json-formatter",
+                        "name": "{{ $tool->name }}",
+                        "description": "{{ $tool->description }}",
+                        "url": "https://hafiz.dev/tools/{{ $tool->slug }}",
                         "applicationCategory": "DeveloperApplication",
                         "offers": {
                             "@@type": "Offer",
@@ -37,215 +38,8 @@
                             "priceCurrency": "USD"
                         }
                     }
-                },
-                {
-                    "@@type": "ListItem",
-                    "position": 2,
-                    "item": {
-                        "@@type": "SoftwareApplication",
-                        "name": "Base64 Encoder/Decoder",
-                        "description": "Encode and decode Base64 strings",
-                        "url": "https://hafiz.dev/tools/base64-encoder",
-                        "applicationCategory": "DeveloperApplication",
-                        "offers": {
-                            "@@type": "Offer",
-                            "price": "0",
-                            "priceCurrency": "USD"
-                        }
-                    }
-                },
-                {
-                    "@@type": "ListItem",
-                    "position": 3,
-                    "item": {
-                        "@@type": "SoftwareApplication",
-                        "name": "Cron Expression Builder",
-                        "description": "Build and validate cron schedule expressions",
-                        "url": "https://hafiz.dev/tools/cron-expression-builder",
-                        "applicationCategory": "DeveloperApplication",
-                        "offers": {
-                            "@@type": "Offer",
-                            "price": "0",
-                            "priceCurrency": "USD"
-                        }
-                    }
-                },
-                {
-                    "@@type": "ListItem",
-                    "position": 4,
-                    "item": {
-                        "@@type": "SoftwareApplication",
-                        "name": "UUID/ULID Generator",
-                        "description": "Generate unique identifiers instantly",
-                        "url": "https://hafiz.dev/tools/uuid-generator",
-                        "applicationCategory": "DeveloperApplication",
-                        "offers": {
-                            "@@type": "Offer",
-                            "price": "0",
-                            "priceCurrency": "USD"
-                        }
-                    }
-                },
-                {
-                    "@@type": "ListItem",
-                    "position": 5,
-                    "item": {
-                        "@@type": "SoftwareApplication",
-                        "name": "Regex Tester",
-                        "description": "Test and debug regular expressions",
-                        "url": "https://hafiz.dev/tools/regex-tester",
-                        "applicationCategory": "DeveloperApplication",
-                        "offers": {
-                            "@@type": "Offer",
-                            "price": "0",
-                            "priceCurrency": "USD"
-                        }
-                    }
-                },
-                {
-                    "@@type": "ListItem",
-                    "position": 6,
-                    "item": {
-                        "@@type": "SoftwareApplication",
-                        "name": "JWT Decoder",
-                        "description": "Decode and inspect JSON Web Tokens",
-                        "url": "https://hafiz.dev/tools/jwt-decoder",
-                        "applicationCategory": "DeveloperApplication",
-                        "offers": {
-                            "@@type": "Offer",
-                            "price": "0",
-                            "priceCurrency": "USD"
-                        }
-                    }
-                },
-                {
-                    "@@type": "ListItem",
-                    "position": 7,
-                    "item": {
-                        "@@type": "SoftwareApplication",
-                        "name": "Password Generator",
-                        "description": "Generate secure random passwords",
-                        "url": "https://hafiz.dev/tools/password-generator",
-                        "applicationCategory": "DeveloperApplication",
-                        "offers": {
-                            "@@type": "Offer",
-                            "price": "0",
-                            "priceCurrency": "USD"
-                        }
-                    }
-                },
-                {
-                    "@@type": "ListItem",
-                    "position": 8,
-                    "item": {
-                        "@@type": "SoftwareApplication",
-                        "name": "Hash Generator",
-                        "description": "Generate MD5, SHA-256, SHA-512 hashes",
-                        "url": "https://hafiz.dev/tools/hash-generator",
-                        "applicationCategory": "DeveloperApplication",
-                        "offers": {
-                            "@@type": "Offer",
-                            "price": "0",
-                            "priceCurrency": "USD"
-                        }
-                    }
-                },
-                {
-                    "@@type": "ListItem",
-                    "position": 9,
-                    "item": {
-                        "@@type": "SoftwareApplication",
-                        "name": "URL Encoder/Decoder",
-                        "description": "Encode and decode URLs and query strings",
-                        "url": "https://hafiz.dev/tools/url-encoder",
-                        "applicationCategory": "DeveloperApplication",
-                        "offers": {
-                            "@@type": "Offer",
-                            "price": "0",
-                            "priceCurrency": "USD"
-                        }
-                    }
-                },
-                {
-                    "@@type": "ListItem",
-                    "position": 10,
-                    "item": {
-                        "@@type": "SoftwareApplication",
-                        "name": "Lorem Ipsum Generator",
-                        "description": "Generate placeholder text for designs",
-                        "url": "https://hafiz.dev/tools/lorem-ipsum-generator",
-                        "applicationCategory": "DeveloperApplication",
-                        "offers": {
-                            "@@type": "Offer",
-                            "price": "0",
-                            "priceCurrency": "USD"
-                        }
-                    }
-                },
-                {
-                    "@@type": "ListItem",
-                    "position": 11,
-                    "item": {
-                        "@@type": "SoftwareApplication",
-                        "name": "Timestamp Converter",
-                        "description": "Convert Unix timestamps to dates and vice versa",
-                        "url": "https://hafiz.dev/tools/timestamp-converter",
-                        "applicationCategory": "DeveloperApplication",
-                        "offers": {
-                            "@@type": "Offer",
-                            "price": "0",
-                            "priceCurrency": "USD"
-                        }
-                    }
-                },
-                {
-                    "@@type": "ListItem",
-                    "position": 12,
-                    "item": {
-                        "@@type": "SoftwareApplication",
-                        "name": "Color Converter",
-                        "description": "Convert between HEX, RGB, HSL color formats",
-                        "url": "https://hafiz.dev/tools/color-converter",
-                        "applicationCategory": "DeveloperApplication",
-                        "offers": {
-                            "@@type": "Offer",
-                            "price": "0",
-                            "priceCurrency": "USD"
-                        }
-                    }
-                },
-                {
-                    "@@type": "ListItem",
-                    "position": 13,
-                    "item": {
-                        "@@type": "SoftwareApplication",
-                        "name": "Word Counter",
-                        "description": "Count words, characters, sentences, and paragraphs",
-                        "url": "https://hafiz.dev/tools/word-counter",
-                        "applicationCategory": "DeveloperApplication",
-                        "offers": {
-                            "@@type": "Offer",
-                            "price": "0",
-                            "priceCurrency": "USD"
-                        }
-                    }
-                },
-                {
-                    "@@type": "ListItem",
-                    "position": 14,
-                    "item": {
-                        "@@type": "SoftwareApplication",
-                        "name": "Image Compressor",
-                        "description": "Compress JPEG, PNG, WebP images up to 90% smaller",
-                        "url": "https://hafiz.dev/tools/image-compressor",
-                        "applicationCategory": "DeveloperApplication",
-                        "offers": {
-                            "@@type": "Offer",
-                            "price": "0",
-                            "priceCurrency": "USD"
-                        }
-                    }
-                }
+                }@if(!$loop->last),@endif
+                @endforeach
             ]
         }
         </script>
@@ -304,231 +98,22 @@
 
             {{-- Tools Grid --}}
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-                {{-- JSON Formatter - Available --}}
-                <a href="/tools/json-formatter" class="group block">
+                @foreach($tools as $tool)
+                <a href="/tools/{{ $tool->slug }}" class="group block">
                     <div class="bg-gradient-card p-6 rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 hover:-translate-y-1 h-full">
                         <div class="flex items-start justify-between mb-4">
-                            <div class="text-3xl text-gold font-mono">{ }</div>
-                            <span class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">JSON</span>
+                            <div class="text-3xl {{ $tool->slug === 'json-formatter' || $tool->slug === 'regex-tester' ? 'text-gold font-mono' : '' }}">{{ $tool->icon }}</div>
+                            <span class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">{{ $tool->category }}</span>
                         </div>
-                        <h3 class="text-lg font-bold text-light mb-2 group-hover:text-gold transition-colors">JSON Formatter & Validator</h3>
-                        <p class="text-light-muted text-sm mb-4">Format, validate, and minify JSON instantly</p>
+                        <h3 class="text-lg font-bold text-light mb-2 group-hover:text-gold transition-colors">{{ $tool->name }}</h3>
+                        <p class="text-light-muted text-sm mb-4">{{ $tool->description }}</p>
                         <div class="flex items-center text-gold text-sm font-semibold group-hover:gap-2 transition-all">
                             <span>Use Tool</span>
                             <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                         </div>
                     </div>
                 </a>
-
-                {{-- Base64 Encoder - Available --}}
-                <a href="/tools/base64-encoder" class="group block">
-                    <div class="bg-gradient-card p-6 rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 hover:-translate-y-1 h-full">
-                        <div class="flex items-start justify-between mb-4">
-                            <div class="text-3xl">🔐</div>
-                            <span class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">Encoding</span>
-                        </div>
-                        <h3 class="text-lg font-bold text-light mb-2 group-hover:text-gold transition-colors">Base64 Encoder/Decoder</h3>
-                        <p class="text-light-muted text-sm mb-4">Encode and decode Base64 strings</p>
-                        <div class="flex items-center text-gold text-sm font-semibold group-hover:gap-2 transition-all">
-                            <span>Use Tool</span>
-                            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                        </div>
-                    </div>
-                </a>
-
-                {{-- Cron Builder - Available --}}
-                <a href="/tools/cron-expression-builder" class="group block">
-                    <div class="bg-gradient-card p-6 rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 hover:-translate-y-1 h-full">
-                        <div class="flex items-start justify-between mb-4">
-                            <div class="text-3xl">⏰</div>
-                            <span class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">Scheduling</span>
-                        </div>
-                        <h3 class="text-lg font-bold text-light mb-2 group-hover:text-gold transition-colors">Cron Expression Builder</h3>
-                        <p class="text-light-muted text-sm mb-4">Build and validate cron schedule expressions</p>
-                        <div class="flex items-center text-gold text-sm font-semibold group-hover:gap-2 transition-all">
-                            <span>Use Tool</span>
-                            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                        </div>
-                    </div>
-                </a>
-
-                {{-- UUID Generator - Available --}}
-                <a href="/tools/uuid-generator" class="group block">
-                    <div class="bg-gradient-card p-6 rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 hover:-translate-y-1 h-full">
-                        <div class="flex items-start justify-between mb-4">
-                            <div class="text-3xl">🆔</div>
-                            <span class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">Generators</span>
-                        </div>
-                        <h3 class="text-lg font-bold text-light mb-2 group-hover:text-gold transition-colors">UUID/ULID Generator</h3>
-                        <p class="text-light-muted text-sm mb-4">Generate unique identifiers instantly</p>
-                        <div class="flex items-center text-gold text-sm font-semibold group-hover:gap-2 transition-all">
-                            <span>Use Tool</span>
-                            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                        </div>
-                    </div>
-                </a>
-
-                {{-- Regex Tester - Available --}}
-                <a href="/tools/regex-tester" class="group block">
-                    <div class="bg-gradient-card p-6 rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 hover:-translate-y-1 h-full">
-                        <div class="flex items-start justify-between mb-4">
-                            <div class="text-3xl font-mono text-gold">.*</div>
-                            <span class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">Testing</span>
-                        </div>
-                        <h3 class="text-lg font-bold text-light mb-2 group-hover:text-gold transition-colors">Regex Tester</h3>
-                        <p class="text-light-muted text-sm mb-4">Test and debug regular expressions</p>
-                        <div class="flex items-center text-gold text-sm font-semibold group-hover:gap-2 transition-all">
-                            <span>Use Tool</span>
-                            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                        </div>
-                    </div>
-                </a>
-
-                {{-- JWT Decoder - Available --}}
-                <a href="/tools/jwt-decoder" class="group block">
-                    <div class="bg-gradient-card p-6 rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 hover:-translate-y-1 h-full">
-                        <div class="flex items-start justify-between mb-4">
-                            <div class="text-3xl">🔑</div>
-                            <span class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">Security</span>
-                        </div>
-                        <h3 class="text-lg font-bold text-light mb-2 group-hover:text-gold transition-colors">JWT Decoder</h3>
-                        <p class="text-light-muted text-sm mb-4">Decode and inspect JSON Web Tokens</p>
-                        <div class="flex items-center text-gold text-sm font-semibold group-hover:gap-2 transition-all">
-                            <span>Use Tool</span>
-                            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                        </div>
-                    </div>
-                </a>
-
-                {{-- Password Generator - Available --}}
-                <a href="/tools/password-generator" class="group block">
-                    <div class="bg-gradient-card p-6 rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 hover:-translate-y-1 h-full">
-                        <div class="flex items-start justify-between mb-4">
-                            <div class="text-3xl">🔐</div>
-                            <span class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">Security</span>
-                        </div>
-                        <h3 class="text-lg font-bold text-light mb-2 group-hover:text-gold transition-colors">Password Generator</h3>
-                        <p class="text-light-muted text-sm mb-4">Generate secure random passwords</p>
-                        <div class="flex items-center text-gold text-sm font-semibold group-hover:gap-2 transition-all">
-                            <span>Use Tool</span>
-                            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                        </div>
-                    </div>
-                </a>
-
-                {{-- Hash Generator - Available --}}
-                <a href="/tools/hash-generator" class="group block">
-                    <div class="bg-gradient-card p-6 rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 hover:-translate-y-1 h-full">
-                        <div class="flex items-start justify-between mb-4">
-                            <div class="text-3xl">#️⃣</div>
-                            <span class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">Security</span>
-                        </div>
-                        <h3 class="text-lg font-bold text-light mb-2 group-hover:text-gold transition-colors">Hash Generator</h3>
-                        <p class="text-light-muted text-sm mb-4">Generate MD5, SHA-256, SHA-512 hashes</p>
-                        <div class="flex items-center text-gold text-sm font-semibold group-hover:gap-2 transition-all">
-                            <span>Use Tool</span>
-                            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                        </div>
-                    </div>
-                </a>
-
-                {{-- URL Encoder/Decoder - Available --}}
-                <a href="/tools/url-encoder" class="group block">
-                    <div class="bg-gradient-card p-6 rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 hover:-translate-y-1 h-full">
-                        <div class="flex items-start justify-between mb-4">
-                            <div class="text-3xl">🔗</div>
-                            <span class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">Encoding</span>
-                        </div>
-                        <h3 class="text-lg font-bold text-light mb-2 group-hover:text-gold transition-colors">URL Encoder/Decoder</h3>
-                        <p class="text-light-muted text-sm mb-4">Encode and decode URLs and query strings</p>
-                        <div class="flex items-center text-gold text-sm font-semibold group-hover:gap-2 transition-all">
-                            <span>Use Tool</span>
-                            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                        </div>
-                    </div>
-                </a>
-
-                {{-- Lorem Ipsum Generator - Available --}}
-                <a href="/tools/lorem-ipsum-generator" class="group block">
-                    <div class="bg-gradient-card p-6 rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 hover:-translate-y-1 h-full">
-                        <div class="flex items-start justify-between mb-4">
-                            <div class="text-3xl">📝</div>
-                            <span class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">Text</span>
-                        </div>
-                        <h3 class="text-lg font-bold text-light mb-2 group-hover:text-gold transition-colors">Lorem Ipsum Generator</h3>
-                        <p class="text-light-muted text-sm mb-4">Generate placeholder text for designs</p>
-                        <div class="flex items-center text-gold text-sm font-semibold group-hover:gap-2 transition-all">
-                            <span>Use Tool</span>
-                            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                        </div>
-                    </div>
-                </a>
-
-                {{-- Timestamp Converter - Available --}}
-                <a href="/tools/timestamp-converter" class="group block">
-                    <div class="bg-gradient-card p-6 rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 hover:-translate-y-1 h-full">
-                        <div class="flex items-start justify-between mb-4">
-                            <div class="text-3xl">🕐</div>
-                            <span class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">Date/Time</span>
-                        </div>
-                        <h3 class="text-lg font-bold text-light mb-2 group-hover:text-gold transition-colors">Timestamp Converter</h3>
-                        <p class="text-light-muted text-sm mb-4">Convert Unix timestamps to dates</p>
-                        <div class="flex items-center text-gold text-sm font-semibold group-hover:gap-2 transition-all">
-                            <span>Use Tool</span>
-                            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                        </div>
-                    </div>
-                </a>
-
-                {{-- Color Converter - Available --}}
-                <a href="/tools/color-converter" class="group block">
-                    <div class="bg-gradient-card p-6 rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 hover:-translate-y-1 h-full">
-                        <div class="flex items-start justify-between mb-4">
-                            <div class="text-3xl">🎨</div>
-                            <span class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">Design</span>
-                        </div>
-                        <h3 class="text-lg font-bold text-light mb-2 group-hover:text-gold transition-colors">Color Converter</h3>
-                        <p class="text-light-muted text-sm mb-4">Convert between HEX, RGB, HSL formats</p>
-                        <div class="flex items-center text-gold text-sm font-semibold group-hover:gap-2 transition-all">
-                            <span>Use Tool</span>
-                            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                        </div>
-                    </div>
-                </a>
-
-                {{-- Word Counter - Available --}}
-                <a href="/tools/word-counter" class="group block">
-                    <div class="bg-gradient-card p-6 rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 hover:-translate-y-1 h-full">
-                        <div class="flex items-start justify-between mb-4">
-                            <div class="text-3xl">📝</div>
-                            <span class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">Text</span>
-                        </div>
-                        <h3 class="text-lg font-bold text-light mb-2 group-hover:text-gold transition-colors">Word Counter</h3>
-                        <p class="text-light-muted text-sm mb-4">Count words, characters, and sentences</p>
-                        <div class="flex items-center text-gold text-sm font-semibold group-hover:gap-2 transition-all">
-                            <span>Use Tool</span>
-                            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                        </div>
-                    </div>
-                </a>
-
-                {{-- Image Compressor - Available --}}
-                <a href="/tools/image-compressor" class="group block">
-                    <div class="bg-gradient-card p-6 rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 hover:-translate-y-1 h-full">
-                        <div class="flex items-start justify-between mb-4">
-                            <div class="text-3xl">🖼️</div>
-                            <span class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">Images</span>
-                        </div>
-                        <h3 class="text-lg font-bold text-light mb-2 group-hover:text-gold transition-colors">Image Compressor</h3>
-                        <p class="text-light-muted text-sm mb-4">Compress JPEG, PNG, WebP images</p>
-                        <div class="flex items-center text-gold text-sm font-semibold group-hover:gap-2 transition-all">
-                            <span>Use Tool</span>
-                            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                        </div>
-                    </div>
-                </a>
-
+                @endforeach
             </div>
 
             {{-- Request Tool Section --}}

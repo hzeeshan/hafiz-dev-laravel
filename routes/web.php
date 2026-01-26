@@ -23,64 +23,29 @@ Route::get('/newsletter/count', [NewsletterController::class, 'count'])->name('n
 
 // Tools routes
 Route::get('/tools', function () {
-    return view('tools.index');
+    $orderBy = \App\Models\Setting::getToolsOrderBy();
+    $tools = \App\Models\Tool::getForDisplay($orderBy);
+
+    return view('tools.index', compact('tools'));
 })->name('tools.index');
 
-Route::get('/tools/json-formatter', function () {
-    return view('tools.json-formatter');
-})->name('tools.json-formatter');
+// Dynamic tool route - automatically works for any tool in the database
+Route::get('/tools/{slug}', function (string $slug) {
+    // Check if tool exists in database and is active
+    $tool = \App\Models\Tool::where('slug', $slug)->where('is_active', true)->first();
 
-Route::get('/tools/base64-encoder', function () {
-    return view('tools.base64-encoder');
-})->name('tools.base64-encoder');
+    if (! $tool) {
+        abort(404);
+    }
 
-Route::get('/tools/cron-expression-builder', function () {
-    return view('tools.cron-expression-builder');
-})->name('tools.cron-expression-builder');
+    // Check if the blade view exists
+    $viewName = 'tools.' . $slug;
+    if (! view()->exists($viewName)) {
+        abort(404);
+    }
 
-Route::get('/tools/uuid-generator', function () {
-    return view('tools.uuid-generator');
-})->name('tools.uuid-generator');
-
-Route::get('/tools/regex-tester', function () {
-    return view('tools.regex-tester');
-})->name('tools.regex-tester');
-
-Route::get('/tools/jwt-decoder', function () {
-    return view('tools.jwt-decoder');
-})->name('tools.jwt-decoder');
-
-Route::get('/tools/password-generator', function () {
-    return view('tools.password-generator');
-})->name('tools.password-generator');
-
-Route::get('/tools/hash-generator', function () {
-    return view('tools.hash-generator');
-})->name('tools.hash-generator');
-
-Route::get('/tools/url-encoder', function () {
-    return view('tools.url-encoder');
-})->name('tools.url-encoder');
-
-Route::get('/tools/lorem-ipsum-generator', function () {
-    return view('tools.lorem-ipsum-generator');
-})->name('tools.lorem-ipsum-generator');
-
-Route::get('/tools/timestamp-converter', function () {
-    return view('tools.timestamp-converter');
-})->name('tools.timestamp-converter');
-
-Route::get('/tools/color-converter', function () {
-    return view('tools.color-converter');
-})->name('tools.color-converter');
-
-Route::get('/tools/word-counter', function () {
-    return view('tools.word-counter');
-})->name('tools.word-counter');
-
-Route::get('/tools/image-compressor', function () {
-    return view('tools.image-compressor');
-})->name('tools.image-compressor');
+    return view($viewName, compact('tool'));
+})->name('tools.show');
 
 // Tool view tracking
 Route::post('/tools/{toolSlug}/view', function (string $toolSlug) {

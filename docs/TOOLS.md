@@ -216,7 +216,7 @@ These attract developers who are more likely to need consulting services.
 
 ```
 resources/views/tools/
-├── index.blade.php              # Tools listing page
+├── index.blade.php              # Tools listing page (dynamic from DB)
 ├── json-formatter.blade.php
 ├── base64-encoder.blade.php
 ├── cron-expression-builder.blade.php
@@ -233,6 +233,39 @@ resources/views/tools/
 ├── image-compressor.blade.php
 └── [future-tools].blade.php
 ```
+
+### Admin Management
+
+Tools are managed via the Filament admin panel at `/admin/tools`.
+
+**Features:**
+
+- **Drag-drop reordering** - Reorder tools by dragging rows in the table
+- **Active/Inactive toggle** - Hide tools from public page without deleting
+- **Ordering mode** - Switch between "Manual" (by position) or "Popularity" (by view count)
+- **View statistics** - See total views per tool in the admin table
+
+**Adding a New Tool:**
+
+1. Create the Blade view: `resources/views/tools/my-new-tool.blade.php`
+2. Add tool in admin panel (`/admin/tools`) with:
+   - Name, Slug (must match blade filename), Description
+   - Icon (emoji), Category, Position
+   - Active toggle
+
+Routes are automatically generated from the database - no need to edit `routes/web.php`.
+
+**Database Tables:**
+
+- `tools` - Tool metadata (name, slug, description, icon, category, position, is_active)
+- `settings` - App settings including `tools_order_by` (manual/popularity)
+- `tool_views` - View tracking per tool per day
+
+**Models:**
+
+- `App\Models\Tool` - Tool model with scopes for ordering
+- `App\Models\Setting` - Generic settings with cache support
+- `App\Models\ToolView` - View tracking (existing)
 
 ### SEO Requirements
 
@@ -308,6 +341,13 @@ Monitor weekly:
 
 - ✅ Image Compressor launched (client-side compression, batch processing, quality presets, ZIP download, format conversion, clipboard paste)
 - ✅ 14 tools now live!
+- ✅ **Admin Tool Management System** added:
+  - Filament resource at `/admin/tools` for managing tools
+  - Drag-drop reordering of tools
+  - Active/inactive toggle per tool
+  - Manual vs Popularity ordering mode switch
+  - Dynamic routing (no need to edit web.php for new tools)
+  - Database-driven tools index page
 
 ### January 24, 2026
 

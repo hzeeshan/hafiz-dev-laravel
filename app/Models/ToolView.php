@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Carbon;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ToolView extends Model
 {
@@ -19,31 +19,20 @@ class ToolView extends Model
     ];
 
     /**
-     * Available tools with their display names.
+     * Get the tool that owns this view record.
      */
-    public static array $tools = [
-        'json-formatter' => 'JSON Formatter',
-        'base64-encoder' => 'Base64 Encoder',
-        'cron-expression-builder' => 'Cron Expression Builder',
-        'uuid-generator' => 'UUID Generator',
-        'regex-tester' => 'Regex Tester',
-        'jwt-decoder' => 'JWT Decoder',
-        'password-generator' => 'Password Generator',
-        'hash-generator' => 'Hash Generator',
-        'url-encoder' => 'URL Encoder',
-        'lorem-ipsum-generator' => 'Lorem Ipsum Generator',
-        'timestamp-converter' => 'Timestamp Converter',
-        'color-converter' => 'Color Converter',
-        'word-counter' => 'Word Counter',
-        'image-compressor' => 'Image Compressor',
-    ];
+    public function tool(): BelongsTo
+    {
+        return $this->belongsTo(Tool::class, 'tool_slug', 'slug');
+    }
 
     /**
      * Increment view count for a tool.
      */
     public static function incrementView(string $toolSlug): void
     {
-        if (! array_key_exists($toolSlug, self::$tools)) {
+        // Check if tool exists in database
+        if (! Tool::where('slug', $toolSlug)->exists()) {
             return;
         }
 
@@ -96,16 +85,17 @@ class ToolView extends Model
      */
     public static function getAllToolStats(): array
     {
+        $tools = Tool::active()->get();
         $stats = [];
 
-        foreach (self::$tools as $slug => $name) {
+        foreach ($tools as $tool) {
             $stats[] = [
-                'slug' => $slug,
-                'name' => $name,
-                'today' => self::getTodayViews($slug),
-                'last_7_days' => self::getViewsForPeriod($slug, 7),
-                'last_30_days' => self::getViewsForPeriod($slug, 30),
-                'total' => self::getTotalViews($slug),
+                'slug' => $tool->slug,
+                'name' => $tool->name,
+                'today' => self::getTodayViews($tool->slug),
+                'last_7_days' => self::getViewsForPeriod($tool->slug, 7),
+                'last_30_days' => self::getViewsForPeriod($tool->slug, 30),
+                'total' => self::getTotalViews($tool->slug),
             ];
         }
 
@@ -133,6 +123,8 @@ class ToolView extends Model
      */
     public function getToolNameAttribute(): string
     {
-        return self::$tools[$this->tool_slug] ?? ucwords(str_replace('-', ' ', $this->tool_slug));
+        $tool = Tool::where('slug', $this->tool_slug)->first();
+
+        return $tool ? $tool->name : ucwords(str_replace('-', ' ', $this->tool_slug));
     }
 }

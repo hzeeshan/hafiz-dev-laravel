@@ -25,12 +25,13 @@ All tools run 100% client-side (no server processing) for privacy and speed.
 | Color Converter       | ~150K                 | ✅ Live |
 | UUID Generator        | ~150K                 | ✅ Live |
 | Hash Generator        | ~150K                 | ✅ Live |
+| Image Compressor      | ~135K                 | ✅ Live |
 | URL Encoder/Decoder   | ~100K                 | ✅ Live |
 | Lorem Ipsum Generator | ~100K                 | ✅ Live |
 | JWT Decoder           | ~80K                  | ✅ Live |
 | Timestamp Converter   | ~80K                  | ✅ Live |
 | Cron Builder          | ~50K                  | ✅ Live |
-| **Total Potential**   | **~2.1M/month**       |         |
+| **Total Potential**   | **~2.26M/month**      |         |
 
 Even capturing 0.1-1% of this volume = 1,800-18,000 visits/month from tools alone.
 
@@ -142,6 +143,14 @@ Even capturing 0.1-1% of this volume = 1,800-18,000 visits/month from tools alon
 - **Status**: ✅ Live
 - **Features**: Real-time word/character/sentence/paragraph counting, reading time, speaking time, character limit checker
 
+### 14. Image Compressor
+
+- **URL**: `/tools/image-compressor`
+- **Target Keywords**: image compressor, compress images online, reduce image size, jpeg compressor, png compressor, webp compressor
+- **Monthly Search Volume**: ~135K
+- **Status**: ✅ Live
+- **Features**: Client-side compression (100% private), JPEG/PNG/WebP/GIF support, quality presets, batch processing, ZIP download, format conversion, dimension resizing, auto-compress option, clipboard paste support
+
 ---
 
 ## Future Tools Roadmap
@@ -221,6 +230,7 @@ resources/views/tools/
 ├── timestamp-converter.blade.php
 ├── color-converter.blade.php
 ├── word-counter.blade.php
+├── image-compressor.blade.php
 └── [future-tools].blade.php
 ```
 
@@ -285,7 +295,7 @@ Monitor weekly:
 
 | Metric                                | Target (3 months) |
 | ------------------------------------- | ----------------- |
-| Tools indexed in Google               | All 13            |
+| Tools indexed in Google               | All 14            |
 | Monthly organic visits to /tools      | 1,000+            |
 | Average position for primary keywords | Top 50            |
 | Time on page                          | > 2 minutes       |
@@ -293,6 +303,11 @@ Monitor weekly:
 ---
 
 ## Changelog
+
+### January 26, 2026
+
+- ✅ Image Compressor launched (client-side compression, batch processing, quality presets, ZIP download, format conversion, clipboard paste)
+- ✅ 14 tools now live!
 
 ### January 24, 2026
 

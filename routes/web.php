@@ -78,6 +78,10 @@ Route::get('/tools/word-counter', function () {
     return view('tools.word-counter');
 })->name('tools.word-counter');
 
+Route::get('/tools/image-compressor', function () {
+    return view('tools.image-compressor');
+})->name('tools.image-compressor');
+
 // Tool view tracking
 Route::post('/tools/{toolSlug}/view', function (string $toolSlug) {
     \App\Models\ToolView::incrementView($toolSlug);

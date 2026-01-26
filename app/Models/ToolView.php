@@ -35,6 +35,7 @@ class ToolView extends Model
         'timestamp-converter' => 'Timestamp Converter',
         'color-converter' => 'Color Converter',
         'word-counter' => 'Word Counter',
+        'image-compressor' => 'Image Compressor',
     ];
 
     /**

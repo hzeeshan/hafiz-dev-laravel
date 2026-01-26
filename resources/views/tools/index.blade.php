@@ -20,7 +20,7 @@
             "name": "Free Developer Tools",
             "description": "Collection of free online developer tools by hafiz.dev",
             "url": "https://hafiz.dev/tools",
-            "numberOfItems": 13,
+            "numberOfItems": 14,
             "itemListElement": [
                 {
                     "@@type": "ListItem",
@@ -222,6 +222,22 @@
                         "name": "Word Counter",
                         "description": "Count words, characters, sentences, and paragraphs",
                         "url": "https://hafiz.dev/tools/word-counter",
+                        "applicationCategory": "DeveloperApplication",
+                        "offers": {
+                            "@@type": "Offer",
+                            "price": "0",
+                            "priceCurrency": "USD"
+                        }
+                    }
+                },
+                {
+                    "@@type": "ListItem",
+                    "position": 14,
+                    "item": {
+                        "@@type": "SoftwareApplication",
+                        "name": "Image Compressor",
+                        "description": "Compress JPEG, PNG, WebP images up to 90% smaller",
+                        "url": "https://hafiz.dev/tools/image-compressor",
                         "applicationCategory": "DeveloperApplication",
                         "offers": {
                             "@@type": "Offer",
@@ -490,6 +506,22 @@
                         </div>
                         <h3 class="text-lg font-bold text-light mb-2 group-hover:text-gold transition-colors">Word Counter</h3>
                         <p class="text-light-muted text-sm mb-4">Count words, characters, and sentences</p>
+                        <div class="flex items-center text-gold text-sm font-semibold group-hover:gap-2 transition-all">
+                            <span>Use Tool</span>
+                            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </div>
+                    </div>
+                </a>
+
+                {{-- Image Compressor - Available --}}
+                <a href="/tools/image-compressor" class="group block">
+                    <div class="bg-gradient-card p-6 rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 hover:-translate-y-1 h-full">
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="text-3xl">🖼️</div>
+                            <span class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">Images</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-light mb-2 group-hover:text-gold transition-colors">Image Compressor</h3>
+                        <p class="text-light-muted text-sm mb-4">Compress JPEG, PNG, WebP images</p>
                         <div class="flex items-center text-gold text-sm font-semibold group-hover:gap-2 transition-all">
                             <span>Use Tool</span>
                             <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>

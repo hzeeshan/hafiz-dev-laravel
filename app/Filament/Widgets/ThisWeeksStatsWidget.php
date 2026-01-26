@@ -2,11 +2,9 @@
 
 namespace App\Filament\Widgets;
 
-use App\Models\BlogGenerationLog;
 use App\Models\Post;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
-use Illuminate\Support\Facades\DB;
 
 class ThisWeeksStatsWidget extends BaseWidget
 {
@@ -14,19 +12,16 @@ class ThisWeeksStatsWidget extends BaseWidget
 
     protected function getStats(): array
     {
-        $weekStart = now()->startOfWeek();
-        $weekEnd = now()->endOfWeek();
-
-        // Posts published this week
-        $publishedThisWeek = Post::query()
+        // Posts published in last 7 days
+        $publishedLast7Days = Post::query()
             ->where('status', 'published')
-            ->whereBetween('published_at', [$weekStart, $weekEnd])
+            ->where('published_at', '>=', now()->subDays(7))
             ->count();
 
-        // Total views this week
-        $viewsThisWeek = Post::query()
+        // Total views in last 7 days
+        $viewsLast7Days = Post::query()
             ->where('status', 'published')
-            ->whereBetween('published_at', [$weekStart, $weekEnd])
+            ->where('published_at', '>=', now()->subDays(7))
             ->sum('views');
 
         // Posts awaiting review
@@ -34,46 +29,36 @@ class ThisWeeksStatsWidget extends BaseWidget
             ->where('status', 'review')
             ->count();
 
-        // Cost spent this week
-        $costThisWeek = BlogGenerationLog::query()
-            ->whereBetween('created_at', [$weekStart, $weekEnd])
-            ->where('status', 'completed')
-            ->get()
-            ->sum(fn($log) => $log->getTotalCost());
-
-        // Get trend data (compare with last week)
-        $lastWeekStart = now()->subWeek()->startOfWeek();
-        $lastWeekEnd = now()->subWeek()->endOfWeek();
-
-        $publishedLastWeek = Post::query()
+        // Get trend data (compare with previous 7 days)
+        $publishedPrevious7Days = Post::query()
             ->where('status', 'published')
-            ->whereBetween('published_at', [$lastWeekStart, $lastWeekEnd])
+            ->whereBetween('published_at', [now()->subDays(14), now()->subDays(7)])
             ->count();
 
-        $viewsLastWeek = Post::query()
+        $viewsPrevious7Days = Post::query()
             ->where('status', 'published')
-            ->whereBetween('published_at', [$lastWeekStart, $lastWeekEnd])
+            ->whereBetween('published_at', [now()->subDays(14), now()->subDays(7)])
             ->sum('views');
 
         // Calculate trends
-        $publishedTrend = $publishedLastWeek > 0
-            ? (($publishedThisWeek - $publishedLastWeek) / $publishedLastWeek) * 100
+        $publishedTrend = $publishedPrevious7Days > 0
+            ? (($publishedLast7Days - $publishedPrevious7Days) / $publishedPrevious7Days) * 100
             : 0;
 
-        $viewsTrend = $viewsLastWeek > 0
-            ? (($viewsThisWeek - $viewsLastWeek) / $viewsLastWeek) * 100
+        $viewsTrend = $viewsPrevious7Days > 0
+            ? (($viewsLast7Days - $viewsPrevious7Days) / $viewsPrevious7Days) * 100
             : 0;
 
         return [
-            Stat::make('Posts Published This Week', $publishedThisWeek)
-                ->description($this->getTrendDescription($publishedTrend, 'from last week'))
+            Stat::make('Posts Published (Last 7 Days)', $publishedLast7Days)
+                ->description($this->getTrendDescription($publishedTrend, 'vs previous 7 days'))
                 ->descriptionIcon($publishedTrend >= 0 ? 'heroicon-m-arrow-trending-up' : 'heroicon-m-arrow-trending-down')
                 ->color($publishedTrend >= 0 ? 'success' : 'danger')
                 ->chart($this->getPublishedChart())
                 ->icon('heroicon-o-newspaper'),
 
-            Stat::make('Total Views This Week', number_format($viewsThisWeek))
-                ->description($this->getTrendDescription($viewsTrend, 'from last week'))
+            Stat::make('Total Views (Last 7 Days)', number_format($viewsLast7Days))
+                ->description($this->getTrendDescription($viewsTrend, 'vs previous 7 days'))
                 ->descriptionIcon($viewsTrend >= 0 ? 'heroicon-m-arrow-trending-up' : 'heroicon-m-arrow-trending-down')
                 ->color($viewsTrend >= 0 ? 'success' : 'danger')
                 ->icon('heroicon-o-eye'),
@@ -84,12 +69,6 @@ class ThisWeeksStatsWidget extends BaseWidget
                 ->color($postsInReview > 0 ? 'warning' : 'success')
                 ->url(route('filament.admin.resources.posts.index', ['tableFilters' => ['status' => ['value' => 'review']]]))
                 ->icon('heroicon-o-document-magnifying-glass'),
-
-            Stat::make('AI Cost This Week', '$' . number_format($costThisWeek, 4))
-                ->description('Content + Images')
-                ->descriptionIcon('heroicon-m-currency-dollar')
-                ->color('info')
-                ->icon('heroicon-o-sparkles'),
         ];
     }
 

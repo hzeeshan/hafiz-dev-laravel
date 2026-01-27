@@ -12,45 +12,45 @@
 
     @push('schemas')
         {{-- ItemList Schema for all errors --}}
-        <script type="application/ld+json">
-        {
-          "@@context": "https://schema.org",
-          "@@type": "ItemList",
-          "name": "Laravel Error Solutions",
-          "description": "Comprehensive solutions for common Laravel errors",
-          "numberOfItems": {{ $totalErrors }},
-          "itemListElement": [
-            @foreach($groupedErrors->flatten(1)->take(20) as $index => $error)
-            {
-              "@@type": "ListItem",
-              "position": {{ $index + 1 }},
-              "name": {{ Js::from($error['title']) }},
-              "url": {{ Js::from(route('errors.show', $error['slug'])) }}
-            }@if(!$loop->last),@endif
-            @endforeach
-          ]
-        }
-        </script>
+        @php
+            $itemListSchema = [
+                '@context' => 'https://schema.org',
+                '@type' => 'ItemList',
+                'name' => 'Laravel Error Solutions',
+                'description' => 'Comprehensive solutions for common Laravel errors',
+                'numberOfItems' => $totalErrors,
+                'itemListElement' => $groupedErrors->flatten(1)->take(20)->map(function ($error, $index) {
+                    return [
+                        '@type' => 'ListItem',
+                        'position' => $index + 1,
+                        'name' => $error['title'],
+                        'url' => route('errors.show', $error['slug']),
+                    ];
+                })->values()->toArray(),
+            ];
+        @endphp
+        <script type="application/ld+json">{!! json_encode($itemListSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
 
         {{-- CollectionPage Schema --}}
-        <script type="application/ld+json">
-        {
-          "@@context": "https://schema.org",
-          "@@type": "CollectionPage",
-          "name": "Laravel Error Solutions",
-          "description": "Comprehensive solutions for common Laravel errors with code examples",
-          "url": {{ Js::from(route('errors.index')) }},
-          "author": {
-            "@@type": "Person",
-            "@@id": "https://hafiz.dev/#person",
-            "name": "Hafiz Riaz"
-          },
-          "mainEntity": {
-            "@@type": "ItemList",
-            "numberOfItems": {{ $totalErrors }}
-          }
-        }
-        </script>
+        @php
+            $collectionPageSchema = [
+                '@context' => 'https://schema.org',
+                '@type' => 'CollectionPage',
+                'name' => 'Laravel Error Solutions',
+                'description' => 'Comprehensive solutions for common Laravel errors with code examples',
+                'url' => route('errors.index'),
+                'author' => [
+                    '@type' => 'Person',
+                    '@id' => 'https://hafiz.dev/#person',
+                    'name' => 'Hafiz Riaz',
+                ],
+                'mainEntity' => [
+                    '@type' => 'ItemList',
+                    'numberOfItems' => $totalErrors,
+                ],
+            ];
+        @endphp
+        <script type="application/ld+json">{!! json_encode($collectionPageSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
     @endpush
 
     @php

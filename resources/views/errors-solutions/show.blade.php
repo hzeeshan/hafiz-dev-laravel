@@ -54,122 +54,118 @@
 
     {{-- Structured Data Schemas --}}
     @push('schemas')
-        {{-- HowTo Schema --}}
-        <script type="application/ld+json">
-        {
-          "@@context": "https://schema.org",
-          "@@type": "HowTo",
-          "name": {{ Js::from("How to fix " . $error['error_message']) }},
-          "description": {{ Js::from($error['description']) }},
-          "step": [
-            @foreach($error['solutions'] as $index => $solution)
-            {
-              "@@type": "HowToStep",
-              "position": {{ $index + 1 }},
-              "name": {{ Js::from($solution['title']) }},
-              "text": {{ Js::from($solution['title'] . ': ' . $solution['code']) }},
-              "itemListElement": {
-                "@@type": "HowToDirection",
-                "text": {{ Js::from($solution['code']) }}
-              }
-            }@if(!$loop->last),@endif
-            @endforeach
-          ],
-          "totalTime": "PT5M"
-        }
-        </script>
+        @php
+            // HowTo Schema
+            $howToSchema = [
+                '@context' => 'https://schema.org',
+                '@type' => 'HowTo',
+                'name' => 'How to fix ' . $error['error_message'],
+                'description' => $error['description'],
+                'step' => collect($error['solutions'])->map(function ($solution, $index) {
+                    return [
+                        '@type' => 'HowToStep',
+                        'position' => $index + 1,
+                        'name' => $solution['title'],
+                        'text' => $solution['title'] . ': ' . $solution['code'],
+                        'itemListElement' => [
+                            '@type' => 'HowToDirection',
+                            'text' => $solution['code'],
+                        ],
+                    ];
+                })->values()->toArray(),
+                'totalTime' => 'PT5M',
+            ];
 
-        {{-- TechArticle Schema --}}
-        <script type="application/ld+json">
-        {
-          "@@context": "https://schema.org",
-          "@@type": "TechArticle",
-          "headline": {{ Js::from($error['title']) }},
-          "description": {{ Js::from($error['meta_description']) }},
-          "proficiencyLevel": "Beginner",
-          "author": {
-            "@@type": "Person",
-            "@@id": "https://hafiz.dev/#person",
-            "name": "Hafiz Riaz",
-            "url": "https://hafiz.dev"
-          },
-          "publisher": {
-            "@@type": "Person",
-            "@@id": "https://hafiz.dev/#person",
-            "name": "Hafiz Riaz"
-          },
-          "mainEntityOfPage": {
-            "@@type": "WebPage",
-            "@@id": {{ Js::from(route('errors.show', $error['slug'])) }}
-          },
-          "keywords": {{ Js::from($error['error_message'] . ', Laravel, PHP, ' . $error['category']) }},
-          "articleSection": {{ Js::from(ucfirst($error['category'])) }},
-          "url": {{ Js::from(route('errors.show', $error['slug'])) }},
-          "inLanguage": "en-US"
-        }
-        </script>
+            // TechArticle Schema
+            $techArticleSchema = [
+                '@context' => 'https://schema.org',
+                '@type' => 'TechArticle',
+                'headline' => $error['title'],
+                'description' => $error['meta_description'],
+                'proficiencyLevel' => 'Beginner',
+                'author' => [
+                    '@type' => 'Person',
+                    '@id' => 'https://hafiz.dev/#person',
+                    'name' => 'Hafiz Riaz',
+                    'url' => 'https://hafiz.dev',
+                ],
+                'publisher' => [
+                    '@type' => 'Person',
+                    '@id' => 'https://hafiz.dev/#person',
+                    'name' => 'Hafiz Riaz',
+                ],
+                'mainEntityOfPage' => [
+                    '@type' => 'WebPage',
+                    '@id' => route('errors.show', $error['slug']),
+                ],
+                'keywords' => $error['error_message'] . ', Laravel, PHP, ' . $error['category'],
+                'articleSection' => ucfirst($error['category']),
+                'url' => route('errors.show', $error['slug']),
+                'inLanguage' => 'en-US',
+            ];
 
-        {{-- FAQPage Schema --}}
-        <script type="application/ld+json">
-        {
-          "@@context": "https://schema.org",
-          "@@type": "FAQPage",
-          "mainEntity": [
-            {
-              "@@type": "Question",
-              "name": {{ Js::from("What causes the " . $error['error_message'] . " error in Laravel?") }},
-              "acceptedAnswer": {
-                "@@type": "Answer",
-                "text": {{ Js::from("The " . $error['error_message'] . " error is commonly caused by: " . implode(', ', array_slice($error['causes'], 0, 3)) . ".") }}
-              }
-            },
-            {
-              "@@type": "Question",
-              "name": {{ Js::from("How do I fix the " . $error['error_message'] . " error?") }},
-              "acceptedAnswer": {
-                "@@type": "Answer",
-                "text": {{ Js::from($error['solutions'][0]['title'] . ". " . $error['description']) }}
-              }
-            },
-            {
-              "@@type": "Question",
-              "name": "Which Laravel versions does this affect?",
-              "acceptedAnswer": {
-                "@@type": "Answer",
-                "text": {{ Js::from("This error can occur in Laravel versions " . implode(', ', $error['laravel_versions']) . ".") }}
-              }
-            }
-          ]
-        }
-        </script>
+            // FAQPage Schema
+            $faqSchema = [
+                '@context' => 'https://schema.org',
+                '@type' => 'FAQPage',
+                'mainEntity' => [
+                    [
+                        '@type' => 'Question',
+                        'name' => 'What causes the ' . $error['error_message'] . ' error in Laravel?',
+                        'acceptedAnswer' => [
+                            '@type' => 'Answer',
+                            'text' => 'The ' . $error['error_message'] . ' error is commonly caused by: ' . implode(', ', array_slice($error['causes'], 0, 3)) . '.',
+                        ],
+                    ],
+                    [
+                        '@type' => 'Question',
+                        'name' => 'How do I fix the ' . $error['error_message'] . ' error?',
+                        'acceptedAnswer' => [
+                            '@type' => 'Answer',
+                            'text' => $error['solutions'][0]['title'] . '. ' . $error['description'],
+                        ],
+                    ],
+                    [
+                        '@type' => 'Question',
+                        'name' => 'Which Laravel versions does this affect?',
+                        'acceptedAnswer' => [
+                            '@type' => 'Answer',
+                            'text' => 'This error can occur in Laravel versions ' . implode(', ', $error['laravel_versions']) . '.',
+                        ],
+                    ],
+                ],
+            ];
 
-        {{-- Breadcrumb Schema --}}
-        <script type="application/ld+json">
-        {
-          "@@context": "https://schema.org",
-          "@@type": "BreadcrumbList",
-          "itemListElement": [
-            {
-              "@@type": "ListItem",
-              "position": 1,
-              "name": "Home",
-              "item": "https://hafiz.dev"
-            },
-            {
-              "@@type": "ListItem",
-              "position": 2,
-              "name": "Laravel Errors",
-              "item": "https://hafiz.dev/errors"
-            },
-            {
-              "@@type": "ListItem",
-              "position": 3,
-              "name": {{ Js::from($error['title']) }},
-              "item": {{ Js::from(route('errors.show', $error['slug'])) }}
-            }
-          ]
-        }
-        </script>
+            // Breadcrumb Schema
+            $breadcrumbSchema = [
+                '@context' => 'https://schema.org',
+                '@type' => 'BreadcrumbList',
+                'itemListElement' => [
+                    [
+                        '@type' => 'ListItem',
+                        'position' => 1,
+                        'name' => 'Home',
+                        'item' => 'https://hafiz.dev',
+                    ],
+                    [
+                        '@type' => 'ListItem',
+                        'position' => 2,
+                        'name' => 'Laravel Errors',
+                        'item' => 'https://hafiz.dev/errors',
+                    ],
+                    [
+                        '@type' => 'ListItem',
+                        'position' => 3,
+                        'name' => $error['title'],
+                        'item' => route('errors.show', $error['slug']),
+                    ],
+                ],
+            ];
+        @endphp
+        <script type="application/ld+json">{!! json_encode($howToSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+        <script type="application/ld+json">{!! json_encode($techArticleSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+        <script type="application/ld+json">{!! json_encode($faqSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+        <script type="application/ld+json">{!! json_encode($breadcrumbSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
     @endpush
 
     <!-- Override background pattern -->

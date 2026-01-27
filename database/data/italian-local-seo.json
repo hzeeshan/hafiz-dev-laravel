@@ -1,0 +1,598 @@
+{
+  "meta": {
+    "description": "Italian local SEO pSEO data for hafiz.dev",
+    "created": "2026-01-27",
+    "total_pages": 48,
+    "note": "Excludes 3 existing custom pages: sviluppatore-web-torino, sviluppatore-laravel-italia, automazione-processi-aziendali"
+  },
+  "services": {
+    "web-developer": {
+      "name_it": "Sviluppatore Web",
+      "slug_prefix": "sviluppatore-web",
+      "hero_subtitle": "Sviluppatore Web Freelance",
+      "description": "Realizzo siti web professionali, veloci e ottimizzati per i motori di ricerca. Dal sito vetrina al portale aziendale complesso.",
+      "services_offered": [
+        {
+          "icon": "🌐",
+          "title": "Creazione Siti Web",
+          "description": "Siti web moderni, responsive e ottimizzati SEO per far crescere la tua visibilità online."
+        },
+        {
+          "icon": "🛒",
+          "title": "Sviluppo E-commerce",
+          "description": "Negozi online completi con gestione prodotti, pagamenti sicuri e integrazione corrieri."
+        },
+        {
+          "icon": "💻",
+          "title": "Applicazioni Web",
+          "description": "Software personalizzato per gestire prenotazioni, CRM, dashboard e processi aziendali."
+        },
+        {
+          "icon": "🔧",
+          "title": "Manutenzione e Supporto",
+          "description": "Assistenza continua, aggiornamenti di sicurezza e ottimizzazione performance."
+        }
+      ],
+      "technologies": ["Laravel", "Vue.js", "PHP", "MySQL", "Tailwind CSS"],
+      "schema_service_type": "WebDevelopment"
+    },
+    "laravel-developer": {
+      "name_it": "Sviluppatore Laravel",
+      "slug_prefix": "sviluppatore-laravel",
+      "hero_subtitle": "Esperto Laravel Freelance",
+      "description": "Sviluppo applicazioni web robuste e scalabili con Laravel, il framework PHP più popolare al mondo.",
+      "services_offered": [
+        {
+          "icon": "⚡",
+          "title": "Sviluppo Laravel",
+          "description": "Applicazioni web complete con autenticazione, API RESTful e pannelli di amministrazione."
+        },
+        {
+          "icon": "🔄",
+          "title": "Migrazione a Laravel",
+          "description": "Modernizza il tuo software legacy migrando a Laravel per maggiore sicurezza e manutenibilità."
+        },
+        {
+          "icon": "🛠️",
+          "title": "Ottimizzazione Performance",
+          "description": "Audit e ottimizzazione di applicazioni Laravel esistenti per velocità e scalabilità."
+        },
+        {
+          "icon": "📦",
+          "title": "Integrazione API",
+          "description": "Collegamento con servizi esterni, pagamenti, CRM e piattaforme di terze parti."
+        }
+      ],
+      "technologies": ["Laravel", "Livewire", "Inertia.js", "Filament", "Redis", "PostgreSQL"],
+      "schema_service_type": "SoftwareDevelopment"
+    },
+    "vuejs-developer": {
+      "name_it": "Sviluppatore Vue.js",
+      "slug_prefix": "sviluppatore-vuejs",
+      "hero_subtitle": "Esperto Vue.js Freelance",
+      "description": "Creo interfacce utente moderne e reattive con Vue.js per applicazioni web veloci e intuitive.",
+      "services_offered": [
+        {
+          "icon": "🎨",
+          "title": "Interfacce Moderne",
+          "description": "UI/UX reattive e intuitive che migliorano l'esperienza utente e aumentano le conversioni."
+        },
+        {
+          "icon": "📱",
+          "title": "Single Page Applications",
+          "description": "Applicazioni web veloci che si comportano come app native senza ricaricare la pagina."
+        },
+        {
+          "icon": "🔗",
+          "title": "Integrazione Backend",
+          "description": "Collegamento perfetto tra frontend Vue.js e backend Laravel o API esistenti."
+        },
+        {
+          "icon": "🧩",
+          "title": "Componenti Riutilizzabili",
+          "description": "Librerie di componenti Vue.js personalizzati per accelerare lo sviluppo futuro."
+        }
+      ],
+      "technologies": ["Vue.js", "Nuxt.js", "Pinia", "TypeScript", "Tailwind CSS"],
+      "schema_service_type": "SoftwareDevelopment"
+    },
+    "ecommerce": {
+      "name_it": "Sviluppo E-commerce",
+      "slug_prefix": "sviluppo-ecommerce",
+      "hero_subtitle": "Esperto E-commerce Freelance",
+      "description": "Realizzo negozi online completi e performanti per vendere i tuoi prodotti in Italia e all'estero.",
+      "services_offered": [
+        {
+          "icon": "🛍️",
+          "title": "Negozi Online Custom",
+          "description": "E-commerce su misura con gestione catalogo, varianti prodotto e promozioni avanzate."
+        },
+        {
+          "icon": "💳",
+          "title": "Pagamenti Sicuri",
+          "description": "Integrazione con Stripe, PayPal, Satispay e i principali metodi di pagamento italiani."
+        },
+        {
+          "icon": "🚚",
+          "title": "Gestione Spedizioni",
+          "description": "Collegamento con GLS, BRT, Poste Italiane e calcolo automatico costi di spedizione."
+        },
+        {
+          "icon": "📊",
+          "title": "Analytics e Report",
+          "description": "Dashboard per monitorare vendite, conversioni e comportamento dei clienti."
+        }
+      ],
+      "technologies": ["Laravel", "Stripe", "Vue.js", "Livewire"],
+      "schema_service_type": "ECommerceDevelopment"
+    },
+    "web-app": {
+      "name_it": "Sviluppo App Web",
+      "slug_prefix": "sviluppo-app-web",
+      "hero_subtitle": "Sviluppatore App Web Freelance",
+      "description": "Creo applicazioni web personalizzate per digitalizzare e ottimizzare i processi della tua azienda.",
+      "services_offered": [
+        {
+          "icon": "📋",
+          "title": "Gestionali Personalizzati",
+          "description": "Software su misura per gestire clienti, ordini, inventario e processi specifici del tuo business."
+        },
+        {
+          "icon": "📅",
+          "title": "Sistemi di Prenotazione",
+          "description": "Piattaforme per gestire appuntamenti, prenotazioni e disponibilità in tempo reale."
+        },
+        {
+          "icon": "👥",
+          "title": "Portali Clienti",
+          "description": "Aree riservate dove i tuoi clienti possono accedere a documenti, fatture e servizi."
+        },
+        {
+          "icon": "📈",
+          "title": "Dashboard e BI",
+          "description": "Pannelli di controllo per visualizzare KPI, metriche e dati aziendali in tempo reale."
+        }
+      ],
+      "technologies": ["Laravel", "Vue.js", "Livewire", "Filament", "Charts.js"],
+      "schema_service_type": "SoftwareApplication"
+    },
+    "automation": {
+      "name_it": "Automazione Processi",
+      "slug_prefix": "automazione-processi",
+      "hero_subtitle": "Esperto Automazione Aziendale",
+      "description": "Automatizzo i processi ripetitivi della tua azienda per risparmiare tempo e ridurre gli errori.",
+      "services_offered": [
+        {
+          "icon": "🤖",
+          "title": "Automazione Workflow",
+          "description": "Automatizza attività ripetitive come invio email, aggiornamento dati e notifiche."
+        },
+        {
+          "icon": "🔄",
+          "title": "Integrazione Sistemi",
+          "description": "Collega i tuoi software esistenti per far fluire i dati automaticamente tra loro."
+        },
+        {
+          "icon": "📧",
+          "title": "Email Automation",
+          "description": "Sequenze email automatiche per onboarding clienti, follow-up e marketing."
+        },
+        {
+          "icon": "📊",
+          "title": "Report Automatici",
+          "description": "Genera e invia report periodici senza intervento manuale."
+        }
+      ],
+      "technologies": ["Make.com", "n8n", "Laravel", "API Integration", "Webhooks"],
+      "schema_service_type": "BusinessProcessAutomation"
+    },
+    "software-gestionale": {
+      "name_it": "Software Gestionale",
+      "slug_prefix": "software-gestionale",
+      "hero_subtitle": "Sviluppatore Software Gestionale",
+      "description": "Sviluppo software gestionali personalizzati per ottimizzare le operazioni della tua azienda.",
+      "services_offered": [
+        {
+          "icon": "🏢",
+          "title": "ERP Personalizzati",
+          "description": "Sistemi integrati per gestire tutte le aree aziendali: vendite, acquisti, magazzino, contabilità."
+        },
+        {
+          "icon": "📦",
+          "title": "Gestione Magazzino",
+          "description": "Software per tracciare inventario, movimenti, riordini automatici e giacenze."
+        },
+        {
+          "icon": "🧾",
+          "title": "Fatturazione Elettronica",
+          "description": "Integrazione con SDI per emissione e ricezione fatture elettroniche automatizzate."
+        },
+        {
+          "icon": "👔",
+          "title": "CRM Aziendale",
+          "description": "Gestione clienti, trattative, pipeline commerciale e storico interazioni."
+        }
+      ],
+      "technologies": ["Laravel", "Filament", "Vue.js", "MySQL", "API SDI"],
+      "schema_service_type": "BusinessSoftware"
+    },
+    "consulenza-it": {
+      "name_it": "Consulenza IT",
+      "slug_prefix": "consulenza-it",
+      "hero_subtitle": "Consulente IT Freelance",
+      "description": "Offro consulenza tecnica per aiutarti a scegliere le soluzioni digitali migliori per la tua azienda.",
+      "services_offered": [
+        {
+          "icon": "🎯",
+          "title": "Analisi Requisiti",
+          "description": "Studio approfondito delle tue esigenze per definire la soluzione tecnica più adatta."
+        },
+        {
+          "icon": "📐",
+          "title": "Architettura Software",
+          "description": "Progettazione di sistemi scalabili, sicuri e manutenibili nel tempo."
+        },
+        {
+          "icon": "🔍",
+          "title": "Audit Tecnico",
+          "description": "Valutazione del tuo software esistente con raccomandazioni per miglioramenti."
+        },
+        {
+          "icon": "🎓",
+          "title": "Formazione Team",
+          "description": "Training per il tuo team su tecnologie, best practice e strumenti di sviluppo."
+        }
+      ],
+      "technologies": ["Laravel", "Vue.js", "AWS", "DevOps", "CI/CD"],
+      "schema_service_type": "ITConsulting"
+    }
+  },
+  "cities": {
+    "milano": {
+      "name": "Milano",
+      "region": "Lombardia",
+      "lat": "45.4642",
+      "lng": "9.1900",
+      "area_served_extra": ["Monza", "Bergamo", "Brescia"],
+      "business_context": "capitale economica d'Italia e hub tecnologico",
+      "commute_note": "Disponibile per incontri a Milano e in Lombardia"
+    },
+    "roma": {
+      "name": "Roma",
+      "region": "Lazio",
+      "lat": "41.9028",
+      "lng": "12.4964",
+      "area_served_extra": ["Latina", "Viterbo", "Frosinone"],
+      "business_context": "capitale e centro di istituzioni e grandi aziende",
+      "commute_note": "Disponibile per incontri a Roma e nel Lazio"
+    },
+    "bologna": {
+      "name": "Bologna",
+      "region": "Emilia-Romagna",
+      "lat": "44.4949",
+      "lng": "11.3426",
+      "area_served_extra": ["Modena", "Parma", "Reggio Emilia"],
+      "business_context": "polo universitario e distretto industriale",
+      "commute_note": "Disponibile per incontri a Bologna e in Emilia-Romagna"
+    },
+    "firenze": {
+      "name": "Firenze",
+      "region": "Toscana",
+      "lat": "43.7696",
+      "lng": "11.2558",
+      "area_served_extra": ["Prato", "Pisa", "Livorno"],
+      "business_context": "centro di moda, turismo e artigianato di qualità",
+      "commute_note": "Disponibile per incontri a Firenze e in Toscana"
+    },
+    "napoli": {
+      "name": "Napoli",
+      "region": "Campania",
+      "lat": "40.8518",
+      "lng": "14.2681",
+      "area_served_extra": ["Salerno", "Caserta", "Avellino"],
+      "business_context": "centro economico del Sud Italia in forte crescita tech",
+      "commute_note": "Disponibile per incontri a Napoli e in Campania"
+    },
+    "genova": {
+      "name": "Genova",
+      "region": "Liguria",
+      "lat": "44.4056",
+      "lng": "8.9463",
+      "area_served_extra": ["La Spezia", "Savona", "Imperia"],
+      "business_context": "porto principale d'Italia e polo logistico",
+      "commute_note": "Facilmente raggiungibile da Torino, disponibile per incontri"
+    }
+  },
+  "pages": [
+    {
+      "slug": "sviluppatore-web-milano",
+      "service_key": "web-developer",
+      "city_key": "milano"
+    },
+    {
+      "slug": "sviluppatore-web-roma",
+      "service_key": "web-developer",
+      "city_key": "roma"
+    },
+    {
+      "slug": "sviluppatore-web-bologna",
+      "service_key": "web-developer",
+      "city_key": "bologna"
+    },
+    {
+      "slug": "sviluppatore-web-firenze",
+      "service_key": "web-developer",
+      "city_key": "firenze"
+    },
+    {
+      "slug": "sviluppatore-web-napoli",
+      "service_key": "web-developer",
+      "city_key": "napoli"
+    },
+    {
+      "slug": "sviluppatore-web-genova",
+      "service_key": "web-developer",
+      "city_key": "genova"
+    },
+    {
+      "slug": "sviluppatore-laravel-milano",
+      "service_key": "laravel-developer",
+      "city_key": "milano"
+    },
+    {
+      "slug": "sviluppatore-laravel-roma",
+      "service_key": "laravel-developer",
+      "city_key": "roma"
+    },
+    {
+      "slug": "sviluppatore-laravel-bologna",
+      "service_key": "laravel-developer",
+      "city_key": "bologna"
+    },
+    {
+      "slug": "sviluppatore-laravel-firenze",
+      "service_key": "laravel-developer",
+      "city_key": "firenze"
+    },
+    {
+      "slug": "sviluppatore-laravel-napoli",
+      "service_key": "laravel-developer",
+      "city_key": "napoli"
+    },
+    {
+      "slug": "sviluppatore-laravel-genova",
+      "service_key": "laravel-developer",
+      "city_key": "genova"
+    },
+    {
+      "slug": "sviluppatore-vuejs-milano",
+      "service_key": "vuejs-developer",
+      "city_key": "milano"
+    },
+    {
+      "slug": "sviluppatore-vuejs-roma",
+      "service_key": "vuejs-developer",
+      "city_key": "roma"
+    },
+    {
+      "slug": "sviluppatore-vuejs-bologna",
+      "service_key": "vuejs-developer",
+      "city_key": "bologna"
+    },
+    {
+      "slug": "sviluppatore-vuejs-firenze",
+      "service_key": "vuejs-developer",
+      "city_key": "firenze"
+    },
+    {
+      "slug": "sviluppatore-vuejs-napoli",
+      "service_key": "vuejs-developer",
+      "city_key": "napoli"
+    },
+    {
+      "slug": "sviluppatore-vuejs-genova",
+      "service_key": "vuejs-developer",
+      "city_key": "genova"
+    },
+    {
+      "slug": "sviluppo-ecommerce-milano",
+      "service_key": "ecommerce",
+      "city_key": "milano"
+    },
+    {
+      "slug": "sviluppo-ecommerce-roma",
+      "service_key": "ecommerce",
+      "city_key": "roma"
+    },
+    {
+      "slug": "sviluppo-ecommerce-bologna",
+      "service_key": "ecommerce",
+      "city_key": "bologna"
+    },
+    {
+      "slug": "sviluppo-ecommerce-firenze",
+      "service_key": "ecommerce",
+      "city_key": "firenze"
+    },
+    {
+      "slug": "sviluppo-ecommerce-napoli",
+      "service_key": "ecommerce",
+      "city_key": "napoli"
+    },
+    {
+      "slug": "sviluppo-ecommerce-genova",
+      "service_key": "ecommerce",
+      "city_key": "genova"
+    },
+    {
+      "slug": "sviluppo-app-web-milano",
+      "service_key": "web-app",
+      "city_key": "milano"
+    },
+    {
+      "slug": "sviluppo-app-web-roma",
+      "service_key": "web-app",
+      "city_key": "roma"
+    },
+    {
+      "slug": "sviluppo-app-web-bologna",
+      "service_key": "web-app",
+      "city_key": "bologna"
+    },
+    {
+      "slug": "sviluppo-app-web-firenze",
+      "service_key": "web-app",
+      "city_key": "firenze"
+    },
+    {
+      "slug": "sviluppo-app-web-napoli",
+      "service_key": "web-app",
+      "city_key": "napoli"
+    },
+    {
+      "slug": "sviluppo-app-web-genova",
+      "service_key": "web-app",
+      "city_key": "genova"
+    },
+    {
+      "slug": "automazione-processi-milano",
+      "service_key": "automation",
+      "city_key": "milano"
+    },
+    {
+      "slug": "automazione-processi-roma",
+      "service_key": "automation",
+      "city_key": "roma"
+    },
+    {
+      "slug": "automazione-processi-bologna",
+      "service_key": "automation",
+      "city_key": "bologna"
+    },
+    {
+      "slug": "automazione-processi-firenze",
+      "service_key": "automation",
+      "city_key": "firenze"
+    },
+    {
+      "slug": "automazione-processi-napoli",
+      "service_key": "automation",
+      "city_key": "napoli"
+    },
+    {
+      "slug": "automazione-processi-genova",
+      "service_key": "automation",
+      "city_key": "genova"
+    },
+    {
+      "slug": "software-gestionale-milano",
+      "service_key": "software-gestionale",
+      "city_key": "milano"
+    },
+    {
+      "slug": "software-gestionale-roma",
+      "service_key": "software-gestionale",
+      "city_key": "roma"
+    },
+    {
+      "slug": "software-gestionale-bologna",
+      "service_key": "software-gestionale",
+      "city_key": "bologna"
+    },
+    {
+      "slug": "software-gestionale-firenze",
+      "service_key": "software-gestionale",
+      "city_key": "firenze"
+    },
+    {
+      "slug": "software-gestionale-napoli",
+      "service_key": "software-gestionale",
+      "city_key": "napoli"
+    },
+    {
+      "slug": "software-gestionale-genova",
+      "service_key": "software-gestionale",
+      "city_key": "genova"
+    },
+    {
+      "slug": "consulenza-it-milano",
+      "service_key": "consulenza-it",
+      "city_key": "milano"
+    },
+    {
+      "slug": "consulenza-it-roma",
+      "service_key": "consulenza-it",
+      "city_key": "roma"
+    },
+    {
+      "slug": "consulenza-it-bologna",
+      "service_key": "consulenza-it",
+      "city_key": "bologna"
+    },
+    {
+      "slug": "consulenza-it-firenze",
+      "service_key": "consulenza-it",
+      "city_key": "firenze"
+    },
+    {
+      "slug": "consulenza-it-napoli",
+      "service_key": "consulenza-it",
+      "city_key": "napoli"
+    },
+    {
+      "slug": "consulenza-it-genova",
+      "service_key": "consulenza-it",
+      "city_key": "genova"
+    }
+  ],
+  "shared_content": {
+    "experience_years": "9+",
+    "base_location": "Torino",
+    "phone": "+393888255329",
+    "email": "contact@hafiz.dev",
+    "price_range": "$$",
+    "working_hours": {
+      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "09:00",
+      "closes": "18:00"
+    },
+    "faq": [
+      {
+        "question": "Quanto costa {service_name}?",
+        "answer": "Il costo dipende dalla complessità del progetto. Contattami per un preventivo personalizzato gratuito e senza impegno."
+      },
+      {
+        "question": "Quanto tempo serve per completare un progetto?",
+        "answer": "I tempi variano in base alla complessità. Un progetto semplice richiede 2-4 settimane, mentre progetti più complessi richiedono 4-8 settimane."
+      },
+      {
+        "question": "Lavori solo a {city_name}?",
+        "answer": "Sono basato a Torino ma lavoro con clienti in tutta Italia. La maggior parte della comunicazione avviene online, ma sono disponibile per incontri di persona a {city_name} e in {region_name}."
+      },
+      {
+        "question": "Offri assistenza dopo la consegna?",
+        "answer": "Sì, offro pacchetti di manutenzione che includono aggiornamenti, supporto tecnico e assistenza continua."
+      }
+    ],
+    "projects": [
+      {
+        "name": "StudyLab",
+        "description": "Piattaforma SaaS per quiz con AI, usata da 500+ scuole",
+        "image": "/screenshots/studylab-screenshot.webp",
+        "tags": ["Laravel", "Vue.js", "AI"]
+      },
+      {
+        "name": "ReplyGenius",
+        "description": "Estensione Chrome per email intelligenti, migliaia di utenti",
+        "image": "/screenshots/replygenius.io-screenshot.webp",
+        "tags": ["Chrome", "AI", "Laravel"]
+      },
+      {
+        "name": "Siti Aziendali",
+        "description": "Siti web per aziende in diversi settori",
+        "image": "/screenshots/robobook-ai-screenshot.webp",
+        "tags": ["PHP", "Laravel", "Vue.js"]
+      }
+    ]
+  }
+}

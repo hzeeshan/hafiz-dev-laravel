@@ -1,0 +1,218 @@
+{
+  "meta": {
+    "description": "Specification for Italian services index page at /it/servizi",
+    "created": "2026-01-27",
+    "reference_design": "resources/views/errors-solutions/index.blade.php"
+  },
+  "page": {
+    "url": "/it/servizi",
+    "route_name": "it.servizi",
+    "title": "Servizi di Sviluppo Web in Italia | Hafiz Riaz",
+    "meta_title": "Sviluppatore Web Freelance in Italia | Servizi di Sviluppo Software",
+    "meta_description": "Servizi professionali di sviluppo web, Laravel, Vue.js, e-commerce e automazione per aziende in tutta Italia. Milano, Roma, Bologna, Firenze, Napoli, Genova e Torino.",
+    "meta_keywords": "sviluppatore web italia, sviluppatore laravel italia, sviluppo software italia, freelance sviluppatore, consulenza IT italia, sviluppo ecommerce italia",
+    "canonical": "https://hafiz.dev/it/servizi",
+    "og_locale": "it_IT"
+  },
+  "sections": {
+    "hero": {
+      "subtitle": "Sviluppatore Freelance",
+      "title": "Servizi di Sviluppo Web in Italia",
+      "description": "Offro servizi professionali di sviluppo web, software e automazione per aziende di ogni dimensione. Basato a Torino, lavoro con clienti in tutta Italia.",
+      "stats": [
+        { "value": "9+", "label": "Anni di Esperienza" },
+        { "value": "8", "label": "Servizi Offerti" },
+        { "value": "7", "label": "Città Servite" }
+      ]
+    },
+    "services_grid": {
+      "title": "I Miei Servizi",
+      "description": "Soluzioni digitali complete per far crescere la tua attività online.",
+      "services": [
+        {
+          "key": "web-developer",
+          "icon": "🌐",
+          "title": "Sviluppo Web",
+          "short_description": "Siti web professionali, veloci e ottimizzati per i motori di ricerca.",
+          "cities_count": 7
+        },
+        {
+          "key": "laravel-developer",
+          "icon": "⚡",
+          "title": "Sviluppo Laravel",
+          "short_description": "Applicazioni web robuste e scalabili con il framework PHP più popolare.",
+          "cities_count": 6
+        },
+        {
+          "key": "vuejs-developer",
+          "icon": "🎨",
+          "title": "Sviluppo Vue.js",
+          "short_description": "Interfacce utente moderne e reattive per applicazioni web veloci.",
+          "cities_count": 6
+        },
+        {
+          "key": "ecommerce",
+          "icon": "🛒",
+          "title": "E-commerce",
+          "short_description": "Negozi online completi con pagamenti sicuri e gestione spedizioni.",
+          "cities_count": 6
+        },
+        {
+          "key": "web-app",
+          "icon": "💻",
+          "title": "Applicazioni Web",
+          "short_description": "Software personalizzato per digitalizzare i processi aziendali.",
+          "cities_count": 6
+        },
+        {
+          "key": "automation",
+          "icon": "🤖",
+          "title": "Automazione",
+          "short_description": "Automatizza attività ripetitive per risparmiare tempo e ridurre errori.",
+          "cities_count": 6
+        },
+        {
+          "key": "software-gestionale",
+          "icon": "🏢",
+          "title": "Software Gestionale",
+          "short_description": "ERP, CRM e gestionali personalizzati per la tua azienda.",
+          "cities_count": 6
+        },
+        {
+          "key": "consulenza-it",
+          "icon": "🎯",
+          "title": "Consulenza IT",
+          "short_description": "Analisi, architettura e consulenza tecnica per i tuoi progetti.",
+          "cities_count": 6
+        }
+      ]
+    },
+    "cities_section": {
+      "title": "Dove Lavoro",
+      "description": "Basato a Torino, offro i miei servizi in tutta Italia. Lavoro principalmente da remoto ma sono disponibile per incontri di persona.",
+      "cities": [
+        {
+          "key": "torino",
+          "name": "Torino",
+          "region": "Piemonte",
+          "is_base": true,
+          "custom_page": "/it/sviluppatore-web-torino",
+          "note": "Sede principale"
+        },
+        {
+          "key": "milano",
+          "name": "Milano",
+          "region": "Lombardia",
+          "is_base": false,
+          "services_count": 8
+        },
+        {
+          "key": "roma",
+          "name": "Roma",
+          "region": "Lazio",
+          "is_base": false,
+          "services_count": 8
+        },
+        {
+          "key": "bologna",
+          "name": "Bologna",
+          "region": "Emilia-Romagna",
+          "is_base": false,
+          "services_count": 8
+        },
+        {
+          "key": "firenze",
+          "name": "Firenze",
+          "region": "Toscana",
+          "is_base": false,
+          "services_count": 8
+        },
+        {
+          "key": "napoli",
+          "name": "Napoli",
+          "region": "Campania",
+          "is_base": false,
+          "services_count": 8
+        },
+        {
+          "key": "genova",
+          "name": "Genova",
+          "region": "Liguria",
+          "is_base": false,
+          "services_count": 8
+        }
+      ]
+    },
+    "matrix_section": {
+      "title": "Tutti i Servizi per Città",
+      "description": "Trova il servizio specifico per la tua zona. Clicca per maggiori dettagli.",
+      "note": "This section displays a matrix/grid of all service×city combinations with links to each pSEO page"
+    },
+    "cta_section": {
+      "title": "Parliamo del Tuo Progetto",
+      "description": "Hai un'idea o un progetto da realizzare? Contattami per una consulenza gratuita. Rispondo entro 24 ore.",
+      "email": "contact@hafiz.dev",
+      "phone": "+39 388 825 5329",
+      "availability_text": "Disponibile per nuovi progetti"
+    },
+    "custom_pages_links": {
+      "title": "Pagine Principali",
+      "pages": [
+        {
+          "url": "/it/sviluppatore-web-torino",
+          "title": "Sviluppatore Web Torino"
+        },
+        {
+          "url": "/it/sviluppatore-laravel-italia",
+          "title": "Sviluppatore Laravel Italia"
+        },
+        {
+          "url": "/it/automazione-processi-aziendali",
+          "title": "Automazione Processi Aziendali"
+        }
+      ]
+    }
+  },
+  "schemas": {
+    "note": "Include these JSON-LD schemas",
+    "types": [
+      {
+        "type": "ItemList",
+        "description": "List of all services offered"
+      },
+      {
+        "type": "CollectionPage",
+        "description": "Collection page for Italian services"
+      },
+      {
+        "type": "LocalBusiness",
+        "description": "Professional service info with areas served"
+      }
+    ]
+  },
+  "internal_linking": {
+    "from_this_page": [
+      "All 48 pSEO pages (service×city)",
+      "3 custom Italian pages",
+      "Home page",
+      "Contact section"
+    ],
+    "to_this_page": [
+      "Should be linked from footer",
+      "Should be linked from all Italian pSEO pages",
+      "Should be linked from 3 custom Italian pages"
+    ]
+  },
+  "design_notes": {
+    "reference": "Use errors-solutions/index.blade.php as design reference",
+    "style": "Same dark theme with gold accents as existing Italian pages",
+    "features": [
+      "Category navigation (like errors page has category pills)",
+      "Service cards with hover effects",
+      "City cards with region info",
+      "Matrix/table showing all combinations",
+      "Responsive grid layout",
+      "Smooth scroll to sections"
+    ]
+  }
+}

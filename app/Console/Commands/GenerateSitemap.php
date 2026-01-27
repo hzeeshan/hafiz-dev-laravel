@@ -80,20 +80,42 @@ class GenerateSitemap extends Command
                 ->setPriority(0.8)
         );
 
-        // Italian SEO landing pages
-        $italianPages = [
+        // Italian services index page
+        $sitemap->add(
+            Url::create('/it/servizi')
+                ->setLastModificationDate(now())
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
+                ->setPriority(0.8)
+        );
+
+        // Italian SEO landing pages (static custom pages)
+        $italianStaticPages = [
             '/it/sviluppatore-web-torino',
             '/it/sviluppatore-laravel-italia',
             '/it/automazione-processi-aziendali',
         ];
 
-        foreach ($italianPages as $page) {
+        foreach ($italianStaticPages as $page) {
             $sitemap->add(
                 Url::create($page)
                     ->setLastModificationDate(now())
                     ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
                     ->setPriority(0.8)
             );
+        }
+
+        // Italian Local SEO pSEO pages (from JSON data)
+        $italianPseoSlugs = $this->getItalianLocalSeoSlugs();
+        $italianPseoCount = 0;
+
+        foreach ($italianPseoSlugs as $slug) {
+            $sitemap->add(
+                Url::create('/it/' . $slug)
+                    ->setLastModificationDate(now())
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
+                    ->setPriority(0.7)
+            );
+            $italianPseoCount++;
         }
 
         // Auto-discover tool pages from routes (excludes /tools index)
@@ -128,17 +150,19 @@ class GenerateSitemap extends Command
 
         $postCount = Post::published()->count();
         $toolCount = $toolRoutes->count();
-        $italianCount = count($italianPages);
+        $italianStaticCount = count($italianStaticPages);
         $this->info("✓ Sitemap generated successfully!");
         $this->info("  - Homepage: 1");
         $this->info("  - Blog index: 1");
         $this->info("  - Tools index: 1");
         $this->info("  - Tool pages: {$toolCount}");
-        $this->info("  - Italian pages: {$italianCount}");
+        $this->info("  - Italian services index: 1");
+        $this->info("  - Italian static pages: {$italianStaticCount}");
+        $this->info("  - Italian pSEO pages: {$italianPseoCount}");
         $this->info("  - Blog posts: {$postCount}");
         $this->info("  - Errors index: 1");
         $this->info("  - Error pages: {$errorCount}");
-        $this->info("  - Total URLs: " . (4 + $toolCount + $italianCount + $postCount + $errorCount));
+        $this->info("  - Total URLs: " . (5 + $toolCount + $italianStaticCount + $italianPseoCount + $postCount + $errorCount));
         $this->info("  - File: public/sitemap.xml");
     }
 
@@ -151,5 +175,22 @@ class GenerateSitemap extends Command
         $content = file_get_contents($jsonPath);
 
         return json_decode($content, true);
+    }
+
+    /**
+     * Get all Italian local SEO page slugs from JSON file.
+     */
+    private function getItalianLocalSeoSlugs(): array
+    {
+        $jsonPath = database_path('data/italian-local-seo.json');
+
+        if (! file_exists($jsonPath)) {
+            return [];
+        }
+
+        $content = file_get_contents($jsonPath);
+        $data = json_decode($content, true);
+
+        return array_column($data['pages'] ?? [], 'slug');
     }
 }

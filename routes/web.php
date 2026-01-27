@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ErrorSolutionController;
+use App\Http\Controllers\ItalianLocalSeoController;
 use App\Http\Controllers\ItalianPagesController;
 use App\Http\Controllers\NewsletterController;
 use Illuminate\Support\Facades\Route;
@@ -57,9 +58,16 @@ Route::post('/tools/{toolSlug}/view', function (string $toolSlug) {
 
 // Italian SEO landing pages
 Route::prefix('it')->name('it.')->group(function () {
+    // Services index page
+    Route::get('/servizi', [ItalianLocalSeoController::class, 'index'])->name('servizi');
+
+    // Custom static pages (manually created, higher quality)
     Route::get('/sviluppatore-web-torino', [ItalianPagesController::class, 'webDeveloperTorino'])->name('web-developer-torino');
     Route::get('/sviluppatore-laravel-italia', [ItalianPagesController::class, 'laravelDeveloper'])->name('laravel-developer');
     Route::get('/automazione-processi-aziendali', [ItalianPagesController::class, 'processAutomation'])->name('process-automation');
+
+    // Dynamic pSEO pages (generated from JSON data)
+    Route::get('/{slug}', [ItalianLocalSeoController::class, 'show'])->name('local-seo');
 });
 
 // Laravel Error Solutions (pSEO)

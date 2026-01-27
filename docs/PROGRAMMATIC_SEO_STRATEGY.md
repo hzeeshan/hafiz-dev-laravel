@@ -92,7 +92,7 @@
 | Controller | `app/Http/Controllers/ErrorSolutionController.php` |
 | Index View | `resources/views/errors-solutions/index.blade.php` |
 | Show View | `resources/views/errors-solutions/show.blade.php` |
-| Data File | `docs/data/laravel-errors.json` |
+| Data File | `database/data/laravel-errors.json` |
 | Routes | `routes/web.php` (errors.index, errors.show) |
 
 **Features Implemented:**

@@ -62,7 +62,7 @@ class ErrorSolutionController extends Controller
     private function getErrorsData(): array
     {
         return Cache::remember('laravel_errors_data', self::CACHE_DURATION, function () {
-            $jsonPath = base_path('docs/data/laravel-errors.json');
+            $jsonPath = database_path('data/laravel-errors.json');
             $content = file_get_contents($jsonPath);
 
             return json_decode($content, true);

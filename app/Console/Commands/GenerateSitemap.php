@@ -147,7 +147,7 @@ class GenerateSitemap extends Command
      */
     private function getErrorsData(): array
     {
-        $jsonPath = base_path('docs/data/laravel-errors.json');
+        $jsonPath = database_path('data/laravel-errors.json');
         $content = file_get_contents($jsonPath);
 
         return json_decode($content, true);

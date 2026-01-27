@@ -99,13 +99,13 @@
                     'closes' => $shared['working_hours']['closes'],
                 ],
                 'areaServed' => array_merge(
-                    array_map(fn($city) => ['@type' => 'City', 'name' => $city['name']], $cities),
+                    array_values(array_map(fn($city) => ['@type' => 'City', 'name' => $city['name']], $cities)),
                     [['@type' => 'Country', 'name' => 'Italia']]
                 ),
                 'hasOfferCatalog' => [
                     '@type' => 'OfferCatalog',
                     'name' => 'Servizi di Sviluppo Web',
-                    'itemListElement' => collect($services)->map(fn($s) => [
+                    'itemListElement' => collect($services)->values()->map(fn($s) => [
                         '@type' => 'Offer',
                         'itemOffered' => [
                             '@type' => 'Service',

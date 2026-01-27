@@ -1,0 +1,1725 @@
+{
+  "errors": [
+    {
+      "slug": "target-class-does-not-exist",
+      "error_message": "Target class [Controller] does not exist",
+      "title": "Target Class Does Not Exist in Laravel - How to Fix",
+      "category": "routing",
+      "search_volume": "high",
+      "description": "This error occurs when Laravel cannot find the controller class being referenced in your routes, usually due to namespace issues or missing imports.",
+      "causes": [
+        "Controller namespace not imported in routes file",
+        "Incorrect namespace declaration in controller",
+        "Typo in controller class name",
+        "Autoload cache is outdated",
+        "Using old Laravel 7 routing syntax in Laravel 8+"
+      ],
+      "solutions": [
+        {
+          "title": "Import the controller in your routes file",
+          "code": "use App\\Http\\Controllers\\PostController;\n\nRoute::get('/posts', [PostController::class, 'index']);",
+          "language": "php"
+        },
+        {
+          "title": "Use full namespace in route definition",
+          "code": "Route::get('/posts', [App\\Http\\Controllers\\PostController::class, 'index']);",
+          "language": "php"
+        },
+        {
+          "title": "Refresh autoload cache",
+          "code": "composer dump-autoload",
+          "language": "bash"
+        }
+      ],
+      "related_errors": ["class-not-found-exception", "controller-not-found"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix Target Class Does Not Exist Error in Laravel",
+      "meta_description": "Learn how to fix the 'Target class does not exist' error in Laravel. Common causes include missing namespace imports and outdated autoload cache."
+    },
+    {
+      "slug": "419-page-expired",
+      "error_message": "419 Page Expired",
+      "title": "419 Page Expired Error in Laravel - CSRF Token Fix",
+      "category": "security",
+      "search_volume": "very_high",
+      "description": "The 419 Page Expired error occurs when Laravel's CSRF token is missing, expired, or invalid during form submission.",
+      "causes": [
+        "Missing @csrf directive in form",
+        "Session expired while form was open",
+        "CSRF token not included in AJAX request headers",
+        "Mismatched session domain configuration",
+        "Cookie/session configuration issues"
+      ],
+      "solutions": [
+        {
+          "title": "Add @csrf directive to your form",
+          "code": "<form method=\"POST\" action=\"/submit\">\n    @csrf\n    <!-- form fields -->\n</form>",
+          "language": "blade"
+        },
+        {
+          "title": "Add CSRF token to AJAX requests",
+          "code": "$.ajaxSetup({\n    headers: {\n        'X-CSRF-TOKEN': $('meta[name=\"csrf-token\"]').attr('content')\n    }\n});",
+          "language": "javascript"
+        },
+        {
+          "title": "Add meta tag for CSRF token",
+          "code": "<meta name=\"csrf-token\" content=\"{{ csrf_token() }}\">",
+          "language": "blade"
+        },
+        {
+          "title": "Exclude route from CSRF verification (use cautiously)",
+          "code": "// In VerifyCsrfToken.php\nprotected $except = [\n    '/webhook/*',\n];",
+          "language": "php"
+        }
+      ],
+      "related_errors": ["csrf-token-mismatch", "session-expired"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix 419 Page Expired Error in Laravel - CSRF Token Solution",
+      "meta_description": "Solve the Laravel 419 Page Expired error. Learn why CSRF tokens fail and how to fix missing tokens in forms and AJAX requests."
+    },
+    {
+      "slug": "csrf-token-mismatch",
+      "error_message": "CSRF token mismatch",
+      "title": "CSRF Token Mismatch Error in Laravel - Complete Fix",
+      "category": "security",
+      "search_volume": "very_high",
+      "description": "The CSRF token mismatch error occurs when the token submitted with a request doesn't match the one stored in the session.",
+      "causes": [
+        "Token expired due to session timeout",
+        "Multiple browser tabs with different tokens",
+        "Token not sent with AJAX request",
+        "Session driver misconfiguration",
+        "Load balancer not sharing sessions"
+      ],
+      "solutions": [
+        {
+          "title": "Ensure CSRF token is in all forms",
+          "code": "<form method=\"POST\">\n    @csrf\n    <!-- or -->\n    <input type=\"hidden\" name=\"_token\" value=\"{{ csrf_token() }}\">\n</form>",
+          "language": "blade"
+        },
+        {
+          "title": "Configure Axios to send CSRF token",
+          "code": "axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name=\"csrf-token\"]').getAttribute('content');",
+          "language": "javascript"
+        },
+        {
+          "title": "Check session configuration",
+          "code": "// config/session.php\n'lifetime' => 120,\n'expire_on_close' => false,\n'same_site' => 'lax',",
+          "language": "php"
+        }
+      ],
+      "related_errors": ["419-page-expired", "session-expired"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix CSRF Token Mismatch in Laravel - Complete Guide",
+      "meta_description": "Resolve Laravel CSRF token mismatch errors. Learn about session configuration, AJAX token handling, and proper form setup."
+    },
+    {
+      "slug": "sqlstate-42s02-table-not-found",
+      "error_message": "SQLSTATE[42S02]: Base table or view not found",
+      "title": "SQLSTATE 42S02 Table Not Found in Laravel - Fix",
+      "category": "database",
+      "search_volume": "high",
+      "description": "This database error occurs when Laravel tries to query a table that doesn't exist in the database.",
+      "causes": [
+        "Migrations not run",
+        "Table name misspelled in model or query",
+        "Wrong database connection",
+        "Model using wrong table name",
+        "Database not properly configured"
+      ],
+      "solutions": [
+        {
+          "title": "Run pending migrations",
+          "code": "php artisan migrate",
+          "language": "bash"
+        },
+        {
+          "title": "Check if table exists and migrate fresh",
+          "code": "php artisan migrate:fresh",
+          "language": "bash"
+        },
+        {
+          "title": "Specify correct table name in model",
+          "code": "class Post extends Model\n{\n    protected $table = 'posts';\n}",
+          "language": "php"
+        },
+        {
+          "title": "Verify database connection",
+          "code": "php artisan tinker\n>>> DB::connection()->getDatabaseName()",
+          "language": "bash"
+        }
+      ],
+      "related_errors": ["migration-failed", "sqlstate-hy000-2002-connection-refused"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix SQLSTATE 42S02 Table Not Found Error in Laravel",
+      "meta_description": "Solve the Laravel SQLSTATE[42S02] table not found error. Learn to check migrations, table names, and database configuration."
+    },
+    {
+      "slug": "sqlstate-hy000-2002-connection-refused",
+      "error_message": "SQLSTATE[HY000] [2002] Connection refused",
+      "title": "Laravel Database Connection Refused Error - Fix",
+      "category": "database",
+      "search_volume": "high",
+      "description": "This error occurs when Laravel cannot establish a connection to the database server.",
+      "causes": [
+        "Database server not running",
+        "Incorrect database host in .env",
+        "Wrong port number",
+        "Firewall blocking connection",
+        "Docker networking issues"
+      ],
+      "solutions": [
+        {
+          "title": "Check if database service is running",
+          "code": "# For MySQL\nsudo systemctl status mysql\n\n# For PostgreSQL\nsudo systemctl status postgresql",
+          "language": "bash"
+        },
+        {
+          "title": "Verify .env database configuration",
+          "code": "DB_CONNECTION=mysql\nDB_HOST=127.0.0.1\nDB_PORT=3306\nDB_DATABASE=your_database\nDB_USERNAME=your_username\nDB_PASSWORD=your_password",
+          "language": "env"
+        },
+        {
+          "title": "Clear configuration cache",
+          "code": "php artisan config:clear\nphp artisan cache:clear",
+          "language": "bash"
+        },
+        {
+          "title": "For Docker, use container name as host",
+          "code": "DB_HOST=mysql\n# or\nDB_HOST=host.docker.internal",
+          "language": "env"
+        }
+      ],
+      "related_errors": ["sqlstate-hy000-1045-access-denied", "mysql-gone-away"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix Laravel Database Connection Refused Error",
+      "meta_description": "Resolve SQLSTATE[HY000] [2002] Connection refused in Laravel. Check database server status, configuration, and network settings."
+    },
+    {
+      "slug": "sqlstate-hy000-1045-access-denied",
+      "error_message": "SQLSTATE[HY000] [1045] Access denied for user",
+      "title": "Laravel Access Denied for Database User - Fix",
+      "category": "database",
+      "search_volume": "high",
+      "description": "This error occurs when the database credentials in your Laravel configuration are incorrect or the user lacks proper permissions.",
+      "causes": [
+        "Incorrect database password",
+        "Wrong database username",
+        "User doesn't have required privileges",
+        "Cached old credentials",
+        "Special characters in password not escaped"
+      ],
+      "solutions": [
+        {
+          "title": "Verify credentials in .env file",
+          "code": "DB_USERNAME=your_username\nDB_PASSWORD=your_password",
+          "language": "env"
+        },
+        {
+          "title": "Clear config cache after changing .env",
+          "code": "php artisan config:clear",
+          "language": "bash"
+        },
+        {
+          "title": "Quote password with special characters",
+          "code": "DB_PASSWORD=\"your@complex#password\"",
+          "language": "env"
+        },
+        {
+          "title": "Grant user privileges in MySQL",
+          "code": "GRANT ALL PRIVILEGES ON database_name.* TO 'username'@'localhost';\nFLUSH PRIVILEGES;",
+          "language": "sql"
+        }
+      ],
+      "related_errors": ["sqlstate-hy000-2002-connection-refused", "authentication-failed"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix Laravel Access Denied for Database User Error",
+      "meta_description": "Solve SQLSTATE[HY000] [1045] Access denied error in Laravel. Check database credentials, user privileges, and configuration cache."
+    },
+    {
+      "slug": "no-application-encryption-key",
+      "error_message": "No application encryption key has been specified",
+      "title": "Laravel No Application Encryption Key - How to Fix",
+      "category": "configuration",
+      "search_volume": "high",
+      "description": "This error occurs when Laravel's APP_KEY is not set in your .env file, which is required for encryption services.",
+      "causes": [
+        "APP_KEY not set in .env file",
+        "Fresh Laravel installation without key generation",
+        ".env file missing or not loaded",
+        "Cached config with old/empty key"
+      ],
+      "solutions": [
+        {
+          "title": "Generate application key",
+          "code": "php artisan key:generate",
+          "language": "bash"
+        },
+        {
+          "title": "Copy .env.example if .env is missing",
+          "code": "cp .env.example .env\nphp artisan key:generate",
+          "language": "bash"
+        },
+        {
+          "title": "Clear config cache",
+          "code": "php artisan config:clear",
+          "language": "bash"
+        }
+      ],
+      "related_errors": ["env-file-not-loading", "encryption-error"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix No Application Encryption Key Error in Laravel",
+      "meta_description": "Solve the Laravel 'No application encryption key' error by generating an APP_KEY with php artisan key:generate."
+    },
+    {
+      "slug": "class-not-found-exception",
+      "error_message": "Class 'ClassName' not found",
+      "title": "Class Not Found Exception in Laravel - Solutions",
+      "category": "autoloading",
+      "search_volume": "high",
+      "description": "This error occurs when PHP cannot find a class that's being used, usually due to namespace issues or autoloading problems.",
+      "causes": [
+        "Class namespace doesn't match directory structure",
+        "Missing use statement at top of file",
+        "Composer autoload not updated",
+        "Typo in class name",
+        "File not in correct directory"
+      ],
+      "solutions": [
+        {
+          "title": "Add proper use statement",
+          "code": "use App\\Models\\Post;\nuse App\\Services\\PaymentService;",
+          "language": "php"
+        },
+        {
+          "title": "Regenerate autoload files",
+          "code": "composer dump-autoload -o",
+          "language": "bash"
+        },
+        {
+          "title": "Ensure namespace matches directory",
+          "code": "// File: app/Services/PaymentService.php\nnamespace App\\Services;\n\nclass PaymentService\n{\n    // ...\n}",
+          "language": "php"
+        }
+      ],
+      "related_errors": ["target-class-does-not-exist", "autoload-error"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix Class Not Found Exception in Laravel",
+      "meta_description": "Resolve Laravel Class Not Found errors. Check namespaces, use statements, and run composer dump-autoload."
+    },
+    {
+      "slug": "method-not-allowed-405",
+      "error_message": "405 Method Not Allowed",
+      "title": "405 Method Not Allowed in Laravel - Route Fix",
+      "category": "routing",
+      "search_volume": "high",
+      "description": "This error occurs when you try to access a route with an HTTP method that the route doesn't support.",
+      "causes": [
+        "Submitting form with wrong method",
+        "Route defined as GET but accessed via POST",
+        "Missing method spoofing for PUT/PATCH/DELETE",
+        "AJAX request using wrong HTTP verb"
+      ],
+      "solutions": [
+        {
+          "title": "Match form method to route definition",
+          "code": "// Route\nRoute::post('/posts', [PostController::class, 'store']);\n\n// Form\n<form method=\"POST\" action=\"/posts\">",
+          "language": "php"
+        },
+        {
+          "title": "Use method spoofing for PUT/PATCH/DELETE",
+          "code": "<form method=\"POST\" action=\"/posts/1\">\n    @csrf\n    @method('PUT')\n    <!-- or -->\n    <input type=\"hidden\" name=\"_method\" value=\"PUT\">\n</form>",
+          "language": "blade"
+        },
+        {
+          "title": "Check your routes",
+          "code": "php artisan route:list",
+          "language": "bash"
+        }
+      ],
+      "related_errors": ["route-not-found-404", "404-not-found"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix 405 Method Not Allowed Error in Laravel",
+      "meta_description": "Solve the Laravel 405 Method Not Allowed error. Learn about route methods, form submissions, and method spoofing."
+    },
+    {
+      "slug": "route-not-found-404",
+      "error_message": "404 Not Found - Route not found",
+      "title": "Route Not Found 404 Error in Laravel - Fix",
+      "category": "routing",
+      "search_volume": "high",
+      "description": "The 404 error occurs when Laravel cannot find a matching route for the requested URL.",
+      "causes": [
+        "Route not defined in routes file",
+        "Typo in URL or route path",
+        "Route cache contains old routes",
+        "Route parameters not matching",
+        "Missing route prefix or middleware"
+      ],
+      "solutions": [
+        {
+          "title": "Check if route exists",
+          "code": "php artisan route:list | grep 'your-route'",
+          "language": "bash"
+        },
+        {
+          "title": "Clear route cache",
+          "code": "php artisan route:clear",
+          "language": "bash"
+        },
+        {
+          "title": "Define the missing route",
+          "code": "// routes/web.php\nRoute::get('/your-path', [YourController::class, 'method']);",
+          "language": "php"
+        },
+        {
+          "title": "Check route parameter constraints",
+          "code": "Route::get('/posts/{post}', [PostController::class, 'show'])\n    ->where('post', '[0-9]+');",
+          "language": "php"
+        }
+      ],
+      "related_errors": ["method-not-allowed-405", "target-class-does-not-exist"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix Route Not Found 404 Error in Laravel",
+      "meta_description": "Resolve Laravel 404 Route Not Found errors. Check route definitions, clear route cache, and verify URL patterns."
+    },
+    {
+      "slug": "storage-permission-denied",
+      "error_message": "Permission denied - Unable to write to storage",
+      "title": "Laravel Storage Permission Denied - Fix Permissions",
+      "category": "filesystem",
+      "search_volume": "high",
+      "description": "This error occurs when Laravel cannot write to the storage or bootstrap/cache directories due to insufficient file permissions.",
+      "causes": [
+        "Incorrect directory permissions",
+        "Web server user doesn't own directories",
+        "SELinux or AppArmor restrictions",
+        "Deployment created files with wrong owner"
+      ],
+      "solutions": [
+        {
+          "title": "Set correct permissions on storage and cache",
+          "code": "sudo chmod -R 775 storage bootstrap/cache\nsudo chown -R $USER:www-data storage bootstrap/cache",
+          "language": "bash"
+        },
+        {
+          "title": "For production environments",
+          "code": "sudo chown -R www-data:www-data storage bootstrap/cache\nsudo chmod -R 775 storage bootstrap/cache",
+          "language": "bash"
+        },
+        {
+          "title": "Create storage link",
+          "code": "php artisan storage:link",
+          "language": "bash"
+        }
+      ],
+      "related_errors": ["log-permission-error", "symlink-error-storage-link"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix Laravel Storage Permission Denied Error",
+      "meta_description": "Solve Laravel storage permission errors. Set correct ownership and permissions on storage and bootstrap/cache directories."
+    },
+    {
+      "slug": "view-not-found",
+      "error_message": "View [viewname] not found",
+      "title": "View Not Found Error in Laravel - How to Fix",
+      "category": "views",
+      "search_volume": "medium",
+      "description": "This error occurs when Laravel cannot locate the Blade view file you're trying to render.",
+      "causes": [
+        "View file doesn't exist",
+        "Typo in view name",
+        "View in wrong directory",
+        "View cache contains old references",
+        "Incorrect dot notation for subdirectories"
+      ],
+      "solutions": [
+        {
+          "title": "Check view file exists",
+          "code": "# View name: posts.index\n# File should be at: resources/views/posts/index.blade.php",
+          "language": "bash"
+        },
+        {
+          "title": "Clear view cache",
+          "code": "php artisan view:clear",
+          "language": "bash"
+        },
+        {
+          "title": "Use correct dot notation",
+          "code": "// For resources/views/admin/posts/create.blade.php\nreturn view('admin.posts.create');",
+          "language": "php"
+        }
+      ],
+      "related_errors": ["undefined-variable-in-view", "blade-compilation-error"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix View Not Found Error in Laravel",
+      "meta_description": "Resolve Laravel View not found errors. Check file paths, naming conventions, and clear view cache."
+    },
+    {
+      "slug": "model-not-found-exception",
+      "error_message": "ModelNotFoundException - No query results for model",
+      "title": "Model Not Found Exception in Laravel - Solutions",
+      "category": "eloquent",
+      "search_volume": "high",
+      "description": "This exception is thrown when using findOrFail() or firstOrFail() and no matching record exists in the database.",
+      "causes": [
+        "Record with given ID doesn't exist",
+        "Using findOrFail with non-existent ID",
+        "Route model binding with invalid parameter",
+        "Soft deleted record being accessed"
+      ],
+      "solutions": [
+        {
+          "title": "Use find() instead of findOrFail() for optional records",
+          "code": "$post = Post::find($id);\n\nif (!$post) {\n    return redirect()->back()->with('error', 'Post not found');\n}",
+          "language": "php"
+        },
+        {
+          "title": "Handle the exception gracefully",
+          "code": "try {\n    $post = Post::findOrFail($id);\n} catch (ModelNotFoundException $e) {\n    abort(404, 'Post not found');\n}",
+          "language": "php"
+        },
+        {
+          "title": "Include soft deleted records if needed",
+          "code": "$post = Post::withTrashed()->findOrFail($id);",
+          "language": "php"
+        }
+      ],
+      "related_errors": ["route-not-found-404", "query-exception"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix Model Not Found Exception in Laravel",
+      "meta_description": "Handle Laravel ModelNotFoundException properly. Learn when to use find() vs findOrFail() and graceful error handling."
+    },
+    {
+      "slug": "mass-assignment-exception",
+      "error_message": "MassAssignmentException - Add [field] to fillable property",
+      "title": "Mass Assignment Exception in Laravel - Fix",
+      "category": "eloquent",
+      "search_volume": "high",
+      "description": "This error occurs when trying to mass assign attributes that aren't in the model's $fillable array.",
+      "causes": [
+        "Field not listed in $fillable array",
+        "Using create() or update() with unguarded fields",
+        "$guarded array blocking the field"
+      ],
+      "solutions": [
+        {
+          "title": "Add field to $fillable array",
+          "code": "class Post extends Model\n{\n    protected $fillable = [\n        'title',\n        'body',\n        'author_id',\n    ];\n}",
+          "language": "php"
+        },
+        {
+          "title": "Use $guarded instead for fewer restrictions",
+          "code": "class Post extends Model\n{\n    protected $guarded = ['id'];\n}",
+          "language": "php"
+        },
+        {
+          "title": "Set attributes individually if needed",
+          "code": "$post = new Post();\n$post->title = $request->title;\n$post->body = $request->body;\n$post->save();",
+          "language": "php"
+        }
+      ],
+      "related_errors": ["integrity-constraint-violation-1048", "validation-exception"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix Mass Assignment Exception in Laravel",
+      "meta_description": "Solve Laravel MassAssignmentException by configuring the $fillable or $guarded properties on your Eloquent models."
+    },
+    {
+      "slug": "integrity-constraint-violation-1062",
+      "error_message": "SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry",
+      "title": "Duplicate Entry Error in Laravel - How to Fix",
+      "category": "database",
+      "search_volume": "high",
+      "description": "This error occurs when trying to insert a duplicate value into a column with a unique constraint.",
+      "causes": [
+        "Inserting duplicate value in unique column",
+        "Primary key conflict",
+        "Unique index violation",
+        "Race condition in concurrent requests"
+      ],
+      "solutions": [
+        {
+          "title": "Use firstOrCreate to avoid duplicates",
+          "code": "$user = User::firstOrCreate(\n    ['email' => $email],\n    ['name' => $name, 'password' => $password]\n);",
+          "language": "php"
+        },
+        {
+          "title": "Use updateOrCreate for upsert behavior",
+          "code": "$user = User::updateOrCreate(\n    ['email' => $email],\n    ['name' => $name]\n);",
+          "language": "php"
+        },
+        {
+          "title": "Add validation for unique fields",
+          "code": "$request->validate([\n    'email' => 'required|email|unique:users,email',\n]);",
+          "language": "php"
+        }
+      ],
+      "related_errors": ["integrity-constraint-violation-1048", "validation-exception"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix Duplicate Entry Error in Laravel",
+      "meta_description": "Resolve SQLSTATE[23000] Duplicate entry errors in Laravel using firstOrCreate, updateOrCreate, or proper validation."
+    },
+    {
+      "slug": "integrity-constraint-violation-1048",
+      "error_message": "SQLSTATE[23000]: Integrity constraint violation: 1048 Column cannot be null",
+      "title": "Column Cannot Be Null Error in Laravel - Fix",
+      "category": "database",
+      "search_volume": "medium",
+      "description": "This error occurs when trying to insert or update a NULL value into a column that doesn't allow NULL.",
+      "causes": [
+        "Required field not provided in request",
+        "Form field name doesn't match database column",
+        "Column not set as nullable in migration",
+        "Missing default value in migration"
+      ],
+      "solutions": [
+        {
+          "title": "Provide all required values",
+          "code": "Post::create([\n    'title' => $request->title,\n    'body' => $request->body,\n    'user_id' => auth()->id(),\n]);",
+          "language": "php"
+        },
+        {
+          "title": "Make column nullable in migration",
+          "code": "Schema::table('posts', function (Blueprint $table) {\n    $table->string('subtitle')->nullable();\n});",
+          "language": "php"
+        },
+        {
+          "title": "Add validation for required fields",
+          "code": "$request->validate([\n    'title' => 'required|string|max:255',\n    'body' => 'required|string',\n]);",
+          "language": "php"
+        },
+        {
+          "title": "Set default value in migration",
+          "code": "$table->string('status')->default('draft');",
+          "language": "php"
+        }
+      ],
+      "related_errors": ["integrity-constraint-violation-1062", "validation-exception"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix Column Cannot Be Null Error in Laravel",
+      "meta_description": "Solve the Laravel 'Column cannot be null' error by providing required values, making columns nullable, or adding validation."
+    },
+    {
+      "slug": "integrity-constraint-violation-1452",
+      "error_message": "SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row",
+      "title": "Foreign Key Constraint Violation in Laravel - Fix",
+      "category": "database",
+      "search_volume": "medium",
+      "description": "This error occurs when trying to insert a foreign key value that doesn't exist in the parent table.",
+      "causes": [
+        "Referenced parent record doesn't exist",
+        "Wrong foreign key value provided",
+        "Parent record deleted before child insertion",
+        "Migration order issues creating tables"
+      ],
+      "solutions": [
+        {
+          "title": "Ensure parent record exists first",
+          "code": "$user = User::findOrFail($userId);\n\nPost::create([\n    'title' => 'My Post',\n    'user_id' => $user->id,\n]);",
+          "language": "php"
+        },
+        {
+          "title": "Add validation for foreign key",
+          "code": "$request->validate([\n    'user_id' => 'required|exists:users,id',\n    'category_id' => 'required|exists:categories,id',\n]);",
+          "language": "php"
+        },
+        {
+          "title": "Use cascade on delete in migration",
+          "code": "$table->foreignId('user_id')\n    ->constrained()\n    ->onDelete('cascade');",
+          "language": "php"
+        },
+        {
+          "title": "Set null on delete for optional relationships",
+          "code": "$table->foreignId('category_id')\n    ->nullable()\n    ->constrained()\n    ->nullOnDelete();",
+          "language": "php"
+        }
+      ],
+      "related_errors": ["integrity-constraint-violation-1062", "migration-foreign-key-error"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix Foreign Key Constraint Violation in Laravel",
+      "meta_description": "Resolve foreign key constraint errors in Laravel. Ensure parent records exist and configure proper cascade behavior."
+    },
+    {
+      "slug": "unknown-column-1054",
+      "error_message": "SQLSTATE[42S22]: Column not found: 1054 Unknown column",
+      "title": "Unknown Column Error in Laravel - How to Fix",
+      "category": "database",
+      "search_volume": "medium",
+      "description": "This error occurs when querying or inserting data with a column name that doesn't exist in the database table.",
+      "causes": [
+        "Column doesn't exist in table",
+        "Typo in column name",
+        "Migration not run after adding column",
+        "Model $fillable referencing non-existent column",
+        "Using wrong table alias in query"
+      ],
+      "solutions": [
+        {
+          "title": "Run pending migrations",
+          "code": "php artisan migrate",
+          "language": "bash"
+        },
+        {
+          "title": "Check which columns exist",
+          "code": "php artisan tinker\n>>> Schema::getColumnListing('posts')",
+          "language": "bash"
+        },
+        {
+          "title": "Create migration to add missing column",
+          "code": "php artisan make:migration add_status_to_posts_table --table=posts\n\n// In migration up() method\n$table->string('status')->default('draft');",
+          "language": "bash"
+        },
+        {
+          "title": "Check for typos in your query",
+          "code": "// Wrong\nPost::where('staus', 'published')->get();\n\n// Correct\nPost::where('status', 'published')->get();",
+          "language": "php"
+        }
+      ],
+      "related_errors": ["sqlstate-42s02-table-not-found", "migration-failed"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix Unknown Column Error in Laravel",
+      "meta_description": "Solve Laravel 'Unknown column' errors. Check migrations, verify column names, and ensure database schema is up to date."
+    },
+    {
+      "slug": "cors-error-blocked",
+      "error_message": "CORS error / Access-Control-Allow-Origin blocked",
+      "title": "CORS Error in Laravel - How to Fix Cross-Origin Issues",
+      "category": "api",
+      "search_volume": "high",
+      "description": "CORS errors occur when a frontend application tries to access a Laravel API from a different origin (domain, port, or protocol).",
+      "causes": [
+        "CORS middleware not configured",
+        "Missing Access-Control-Allow-Origin header",
+        "Preflight OPTIONS request not handled",
+        "Credentials not allowed in CORS config"
+      ],
+      "solutions": [
+        {
+          "title": "Configure CORS in config/cors.php",
+          "code": "return [\n    'paths' => ['api/*', 'sanctum/csrf-cookie'],\n    'allowed_methods' => ['*'],\n    'allowed_origins' => ['http://localhost:3000', 'https://yourfrontend.com'],\n    'allowed_origins_patterns' => [],\n    'allowed_headers' => ['*'],\n    'exposed_headers' => [],\n    'max_age' => 0,\n    'supports_credentials' => true,\n];",
+          "language": "php"
+        },
+        {
+          "title": "For Laravel 11+ with Sanctum SPA",
+          "code": "// In .env\nSANCTUM_STATEFUL_DOMAINS=localhost:3000,yourfrontend.com\nSESSION_DOMAIN=.yourdomain.com",
+          "language": "env"
+        },
+        {
+          "title": "Frontend request with credentials",
+          "code": "axios.defaults.withCredentials = true;\n\nfetch('/api/user', {\n    credentials: 'include'\n});",
+          "language": "javascript"
+        }
+      ],
+      "related_errors": ["authentication-error-unauthenticated", "api-error"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix CORS Error in Laravel API",
+      "meta_description": "Resolve Laravel CORS cross-origin errors. Configure allowed origins, headers, and credentials for API access."
+    },
+    {
+      "slug": "n-plus-one-query-problem",
+      "error_message": "N+1 Query Detected (performance warning)",
+      "title": "N+1 Query Problem in Laravel - How to Fix",
+      "category": "performance",
+      "search_volume": "medium",
+      "description": "The N+1 query problem occurs when your code executes one query to fetch records, then N additional queries to fetch related data.",
+      "causes": [
+        "Accessing relationships in loops without eager loading",
+        "Not using with() for relationships",
+        "Lazy loading in large datasets",
+        "Blade views accessing relationships"
+      ],
+      "solutions": [
+        {
+          "title": "Use eager loading with with()",
+          "code": "// Instead of (N+1 problem)\n$posts = Post::all();\nforeach ($posts as $post) {\n    echo $post->author->name;\n}\n\n// Use eager loading\n$posts = Post::with('author')->get();",
+          "language": "php"
+        },
+        {
+          "title": "Enable strict mode to catch N+1",
+          "code": "// In AppServiceProvider boot()\nuse Illuminate\\Database\\Eloquent\\Model;\n\nModel::preventLazyLoading(!app()->isProduction());",
+          "language": "php"
+        },
+        {
+          "title": "Eager load multiple relationships",
+          "code": "$posts = Post::with(['author', 'comments', 'tags'])->get();\n\n// Nested eager loading\n$posts = Post::with('comments.user')->get();",
+          "language": "php"
+        },
+        {
+          "title": "Use load() for already retrieved models",
+          "code": "$posts = Post::all();\n$posts->load('author', 'tags');",
+          "language": "php"
+        }
+      ],
+      "related_errors": ["slow-query", "memory-limit-exhausted"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix N+1 Query Problem in Laravel",
+      "meta_description": "Solve Laravel N+1 query performance issues using eager loading with the with() method on Eloquent relationships."
+    },
+    {
+      "slug": "undefined-variable-in-view",
+      "error_message": "Undefined variable $variable",
+      "title": "Undefined Variable in Blade View - Laravel Fix",
+      "category": "views",
+      "search_volume": "high",
+      "description": "This error occurs when a Blade view references a variable that wasn't passed from the controller.",
+      "causes": [
+        "Variable not passed to view",
+        "Typo in variable name",
+        "Variable name mismatch between controller and view",
+        "Using compact() incorrectly"
+      ],
+      "solutions": [
+        {
+          "title": "Pass variable to view",
+          "code": "return view('posts.index', [\n    'posts' => Post::all(),\n]);",
+          "language": "php"
+        },
+        {
+          "title": "Use compact() correctly",
+          "code": "$posts = Post::all();\n$categories = Category::all();\n\nreturn view('posts.index', compact('posts', 'categories'));",
+          "language": "php"
+        },
+        {
+          "title": "Use null coalescing in view",
+          "code": "{{ $variable ?? 'Default value' }}\n\n@isset($variable)\n    {{ $variable }}\n@endisset",
+          "language": "blade"
+        },
+        {
+          "title": "Share data globally with View::share",
+          "code": "// In AppServiceProvider boot()\nView::share('appName', config('app.name'));",
+          "language": "php"
+        }
+      ],
+      "related_errors": ["view-not-found", "blade-compilation-error"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix Undefined Variable in Laravel Blade Views",
+      "meta_description": "Solve undefined variable errors in Laravel Blade templates. Learn to pass variables correctly from controllers to views."
+    },
+    {
+      "slug": "authentication-error-unauthenticated",
+      "error_message": "Unauthenticated / 401 Unauthorized",
+      "title": "Unauthenticated Error in Laravel - Solutions",
+      "category": "authentication",
+      "search_volume": "high",
+      "description": "This error occurs when trying to access a protected route without proper authentication.",
+      "causes": [
+        "User not logged in",
+        "Session expired",
+        "API token missing or invalid",
+        "Auth middleware applied incorrectly",
+        "Sanctum/Passport misconfiguration"
+      ],
+      "solutions": [
+        {
+          "title": "Check if user is authenticated in Blade",
+          "code": "@auth\n    <p>Welcome, {{ auth()->user()->name }}</p>\n@else\n    <a href=\"/login\">Please login</a>\n@endauth",
+          "language": "blade"
+        },
+        {
+          "title": "For API requests, include Bearer token",
+          "code": "fetch('/api/user', {\n    headers: {\n        'Authorization': `Bearer ${token}`,\n        'Accept': 'application/json'\n    }\n});",
+          "language": "javascript"
+        },
+        {
+          "title": "Configure Sanctum for SPA authentication",
+          "code": "// In .env\nSANCTUM_STATEFUL_DOMAINS=localhost:3000\nSESSION_DOMAIN=localhost",
+          "language": "env"
+        },
+        {
+          "title": "Handle unauthenticated redirect",
+          "code": "// In app/Http/Middleware/Authenticate.php\nprotected function redirectTo($request)\n{\n    if (!$request->expectsJson()) {\n        return route('login');\n    }\n}",
+          "language": "php"
+        }
+      ],
+      "related_errors": ["authorization-error-403", "csrf-token-mismatch"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix Unauthenticated Error in Laravel",
+      "meta_description": "Resolve Laravel authentication errors. Handle session expiry, API tokens, and proper middleware configuration."
+    },
+    {
+      "slug": "authorization-error-403",
+      "error_message": "403 Forbidden / This action is unauthorized",
+      "title": "403 Forbidden Unauthorized Action in Laravel - Fix",
+      "category": "authorization",
+      "search_volume": "medium",
+      "description": "This error occurs when an authenticated user tries to perform an action they don't have permission for.",
+      "causes": [
+        "Policy denying access",
+        "Gate returning false",
+        "Missing permission or role",
+        "authorize() check failing in controller"
+      ],
+      "solutions": [
+        {
+          "title": "Define policy correctly",
+          "code": "// app/Policies/PostPolicy.php\npublic function update(User $user, Post $post)\n{\n    return $user->id === $post->user_id;\n}",
+          "language": "php"
+        },
+        {
+          "title": "Use authorization in controller",
+          "code": "public function update(Request $request, Post $post)\n{\n    $this->authorize('update', $post);\n    \n    // or\n    if ($request->user()->cannot('update', $post)) {\n        abort(403);\n    }\n}",
+          "language": "php"
+        },
+        {
+          "title": "Check permissions in Blade",
+          "code": "@can('update', $post)\n    <a href=\"{{ route('posts.edit', $post) }}\">Edit</a>\n@endcan\n\n@cannot('delete', $post)\n    <p>You cannot delete this post</p>\n@endcannot",
+          "language": "blade"
+        },
+        {
+          "title": "Register policy in AuthServiceProvider",
+          "code": "protected $policies = [\n    Post::class => PostPolicy::class,\n];",
+          "language": "php"
+        }
+      ],
+      "related_errors": ["authentication-error-unauthenticated", "policy-error"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix 403 Forbidden Authorization Error in Laravel",
+      "meta_description": "Resolve Laravel 403 forbidden errors. Configure policies, gates, and permission checks correctly."
+    },
+    {
+      "slug": "env-file-not-loading",
+      "error_message": "Environment variables not loading / .env values null",
+      "title": "Laravel .env File Not Loading - How to Fix",
+      "category": "configuration",
+      "search_volume": "medium",
+      "description": "This issue occurs when Laravel doesn't read values from the .env file, returning null for environment variables.",
+      "causes": [
+        "Configuration cached with old values",
+        ".env file not in project root",
+        "Syntax error in .env file",
+        "Spaces around = in .env values",
+        "Using env() in config files after caching"
+      ],
+      "solutions": [
+        {
+          "title": "Clear all caches",
+          "code": "php artisan config:clear\nphp artisan cache:clear\nphp artisan route:clear\nphp artisan view:clear",
+          "language": "bash"
+        },
+        {
+          "title": "Check .env syntax - no spaces around =",
+          "code": "# Correct\nAPP_NAME=\"My App\"\nDB_PASSWORD=secret123\n\n# Wrong (has spaces)\nAPP_NAME = My App\nDB_PASSWORD = secret123",
+          "language": "env"
+        },
+        {
+          "title": "Use config() instead of env() in code",
+          "code": "// Wrong - env() returns null after config:cache\n$name = env('APP_NAME');\n\n// Correct - use config helper\n$name = config('app.name');",
+          "language": "php"
+        },
+        {
+          "title": "Quote values with special characters",
+          "code": "APP_NAME=\"My App's Name\"\nDB_PASSWORD=\"pass#word!123\"\nMAIL_FROM_NAME=\"${APP_NAME}\"",
+          "language": "env"
+        }
+      ],
+      "related_errors": ["no-application-encryption-key", "configuration-cached-error"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix Laravel .env File Not Loading",
+      "meta_description": "Resolve Laravel environment variable issues. Clear config cache, check syntax, and use config() helper correctly."
+    },
+    {
+      "slug": "validation-exception",
+      "error_message": "The given data was invalid - ValidationException",
+      "title": "ValidationException in Laravel - Handling Validation Errors",
+      "category": "validation",
+      "search_volume": "medium",
+      "description": "This exception is thrown when form validation fails, typically when using the validate() method or Form Requests.",
+      "causes": [
+        "Form data doesn't meet validation rules",
+        "Required fields missing from request",
+        "Invalid data format or type",
+        "API not handling validation response properly"
+      ],
+      "solutions": [
+        {
+          "title": "Display validation errors in Blade",
+          "code": "@if ($errors->any())\n    <div class=\"alert alert-danger\">\n        <ul>\n            @foreach ($errors->all() as $error)\n                <li>{{ $error }}</li>\n            @endforeach\n        </ul>\n    </div>\n@endif",
+          "language": "blade"
+        },
+        {
+          "title": "Show field-specific errors",
+          "code": "<input type=\"text\" name=\"email\" value=\"{{ old('email') }}\">\n@error('email')\n    <span class=\"text-red-500\">{{ $message }}</span>\n@enderror",
+          "language": "blade"
+        },
+        {
+          "title": "Handle validation in API responses",
+          "code": "// Laravel automatically returns 422 with errors for API requests\n// In your frontend:\naxios.post('/api/users', data)\n    .catch(error => {\n        if (error.response.status === 422) {\n            console.log(error.response.data.errors);\n        }\n    });",
+          "language": "javascript"
+        },
+        {
+          "title": "Customize validation messages",
+          "code": "$request->validate([\n    'email' => 'required|email|unique:users',\n], [\n    'email.required' => 'We need your email address.',\n    'email.unique' => 'This email is already registered.',\n]);",
+          "language": "php"
+        }
+      ],
+      "related_errors": ["form-request-error", "422-unprocessable-entity"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Handle ValidationException in Laravel",
+      "meta_description": "Learn to handle Laravel validation errors properly. Display errors in Blade templates and handle API validation responses."
+    },
+    {
+      "slug": "memory-limit-exhausted",
+      "error_message": "Allowed memory size exhausted",
+      "title": "Memory Limit Exhausted in Laravel - How to Fix",
+      "category": "performance",
+      "search_volume": "medium",
+      "description": "This error occurs when a PHP script tries to use more memory than allowed by the memory_limit setting.",
+      "causes": [
+        "Loading too many Eloquent models into memory",
+        "Processing large files without streaming",
+        "Memory leaks in loops",
+        "Not using lazy collections or chunking",
+        "Debug tools enabled in production"
+      ],
+      "solutions": [
+        {
+          "title": "Use chunking for large datasets",
+          "code": "// Instead of loading all records\n$users = User::all(); // Bad for large datasets\n\n// Use chunk to process in batches\nUser::chunk(1000, function ($users) {\n    foreach ($users as $user) {\n        // Process each user\n    }\n});",
+          "language": "php"
+        },
+        {
+          "title": "Use lazy collections",
+          "code": "// Memory efficient iteration\nUser::lazy()->each(function ($user) {\n    // Process one at a time\n});\n\n// Or use cursor\nforeach (User::cursor() as $user) {\n    // Hydrates one model at a time\n}",
+          "language": "php"
+        },
+        {
+          "title": "Increase memory limit if needed",
+          "code": "// In your script\nini_set('memory_limit', '512M');\n\n// Or in php.ini\nmemory_limit = 512M",
+          "language": "php"
+        },
+        {
+          "title": "Stream large file downloads",
+          "code": "return response()->streamDownload(function () {\n    $handle = fopen('large-file.csv', 'r');\n    while (!feof($handle)) {\n        echo fgets($handle);\n    }\n    fclose($handle);\n}, 'download.csv');",
+          "language": "php"
+        }
+      ],
+      "related_errors": ["max-execution-time-exceeded", "n-plus-one-query-problem"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix Memory Limit Exhausted in Laravel",
+      "meta_description": "Solve Laravel memory errors using lazy collections, cursor(), chunking, or by increasing memory limits appropriately."
+    },
+    {
+      "slug": "max-execution-time-exceeded",
+      "error_message": "Maximum execution time exceeded",
+      "title": "Maximum Execution Time Exceeded in Laravel - Fix",
+      "category": "performance",
+      "search_volume": "medium",
+      "description": "This error occurs when a PHP script takes longer than the allowed execution time limit to complete.",
+      "causes": [
+        "Long-running database queries",
+        "Processing large files synchronously",
+        "External API calls timing out",
+        "Inefficient loops or algorithms",
+        "Not using queues for heavy tasks"
+      ],
+      "solutions": [
+        {
+          "title": "Increase timeout for specific operations",
+          "code": "// Temporarily increase for this script\nset_time_limit(300); // 5 minutes\n\n// Or use ini_set\nini_set('max_execution_time', 300);",
+          "language": "php"
+        },
+        {
+          "title": "Use queues for long-running tasks",
+          "code": "// Instead of processing synchronously\nProcessLargeFile::dispatch($file);\n\n// Create a job\nclass ProcessLargeFile implements ShouldQueue\n{\n    public function handle()\n    {\n        // Long-running task here\n    }\n}",
+          "language": "php"
+        },
+        {
+          "title": "Optimize database queries",
+          "code": "// Add indexes to frequently queried columns\n$table->index('status');\n$table->index(['user_id', 'created_at']);\n\n// Use select to limit columns\nUser::select('id', 'name', 'email')->get();",
+          "language": "php"
+        },
+        {
+          "title": "Set HTTP client timeout",
+          "code": "// Set timeout for external API calls\nHttp::timeout(30)->get('https://api.example.com/data');\n\n// With retry logic\nHttp::retry(3, 100)->get('https://api.example.com/data');",
+          "language": "php"
+        }
+      ],
+      "related_errors": ["memory-limit-exhausted", "queue-timeout"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix Maximum Execution Time Exceeded in Laravel",
+      "meta_description": "Solve Laravel timeout errors by using queues, optimizing queries, or increasing time limits for specific operations."
+    },
+    {
+      "slug": "redis-connection-refused",
+      "error_message": "Connection refused [tcp://127.0.0.1:6379]",
+      "title": "Redis Connection Refused in Laravel - How to Fix",
+      "category": "cache",
+      "search_volume": "medium",
+      "description": "This error occurs when Laravel cannot connect to the Redis server for caching, sessions, or queues.",
+      "causes": [
+        "Redis server not running",
+        "Wrong Redis host or port in configuration",
+        "Redis password not set or incorrect",
+        "Firewall blocking Redis port",
+        "PHP Redis extension not installed"
+      ],
+      "solutions": [
+        {
+          "title": "Check if Redis is running",
+          "code": "# Check Redis status\nredis-cli ping\n# Should return: PONG\n\n# Start Redis if not running\nsudo systemctl start redis\nsudo systemctl enable redis",
+          "language": "bash"
+        },
+        {
+          "title": "Configure Redis in .env",
+          "code": "REDIS_HOST=127.0.0.1\nREDIS_PASSWORD=null\nREDIS_PORT=6379\n\n# If using Redis for cache/session\nCACHE_DRIVER=redis\nSESSION_DRIVER=redis",
+          "language": "env"
+        },
+        {
+          "title": "Install predis package if phpredis not available",
+          "code": "composer require predis/predis\n\n# Then in config/database.php set:\n'client' => env('REDIS_CLIENT', 'predis'),",
+          "language": "bash"
+        },
+        {
+          "title": "Fall back to file-based cache temporarily",
+          "code": "# In .env while debugging Redis\nCACHE_DRIVER=file\nSESSION_DRIVER=file\nQUEUE_CONNECTION=database",
+          "language": "env"
+        }
+      ],
+      "related_errors": ["cache-store-not-found", "session-store-error"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix Redis Connection Refused in Laravel",
+      "meta_description": "Resolve Laravel Redis connection errors. Check server status, configure credentials, and install required packages."
+    },
+    {
+      "slug": "queue-job-failed",
+      "error_message": "Job has been attempted too many times",
+      "title": "Queue Job Failed in Laravel - How to Debug and Fix",
+      "category": "queues",
+      "search_volume": "medium",
+      "description": "This error occurs when a queued job fails repeatedly and exceeds the maximum retry attempts.",
+      "causes": [
+        "Exception thrown inside job handle() method",
+        "Database connection lost during job execution",
+        "External API failures",
+        "Memory or timeout limits exceeded",
+        "Missing dependencies or configuration"
+      ],
+      "solutions": [
+        {
+          "title": "Check failed jobs table",
+          "code": "# Create failed jobs table if not exists\nphp artisan queue:failed-table\nphp artisan migrate\n\n# View failed jobs\nphp artisan queue:failed\n\n# Retry a specific failed job\nphp artisan queue:retry <job-id>\n\n# Retry all failed jobs\nphp artisan queue:retry all",
+          "language": "bash"
+        },
+        {
+          "title": "Handle exceptions in job",
+          "code": "class ProcessOrder implements ShouldQueue\n{\n    public $tries = 3;\n    public $backoff = [30, 60, 120];\n    \n    public function handle()\n    {\n        try {\n            // Your job logic\n        } catch (\\Exception $e) {\n            Log::error('Job failed: ' . $e->getMessage());\n            $this->fail($e);\n        }\n    }\n    \n    public function failed(\\Throwable $exception)\n    {\n        // Notify admin or log failure\n    }\n}",
+          "language": "php"
+        },
+        {
+          "title": "Set job timeout and memory",
+          "code": "class ProcessLargeFile implements ShouldQueue\n{\n    public $timeout = 300; // 5 minutes\n    public $memory = 512; // MB\n    \n    public function retryUntil()\n    {\n        return now()->addHours(1);\n    }\n}",
+          "language": "php"
+        },
+        {
+          "title": "Run queue worker with proper settings",
+          "code": "php artisan queue:work --tries=3 --timeout=120 --memory=256\n\n# For production, use supervisor or systemd",
+          "language": "bash"
+        }
+      ],
+      "related_errors": ["queue-connection-not-defined", "max-execution-time-exceeded"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix Queue Job Failed in Laravel",
+      "meta_description": "Debug and fix Laravel queue job failures. Handle exceptions properly, configure retries, and monitor failed jobs."
+    },
+    {
+      "slug": "mail-send-failed",
+      "error_message": "Failed to send email / Swift_TransportException",
+      "title": "Laravel Email Sending Failed - How to Fix",
+      "category": "mail",
+      "search_volume": "medium",
+      "description": "This error occurs when Laravel cannot send emails due to SMTP configuration issues or server problems.",
+      "causes": [
+        "Incorrect SMTP credentials",
+        "SMTP server not reachable",
+        "SSL/TLS configuration mismatch",
+        "Mail driver not properly configured",
+        "Firewall blocking outbound SMTP"
+      ],
+      "solutions": [
+        {
+          "title": "Configure SMTP in .env",
+          "code": "MAIL_MAILER=smtp\nMAIL_HOST=smtp.gmail.com\nMAIL_PORT=587\nMAIL_USERNAME=your@gmail.com\nMAIL_PASSWORD=your-app-password\nMAIL_ENCRYPTION=tls\nMAIL_FROM_ADDRESS=your@gmail.com\nMAIL_FROM_NAME=\"${APP_NAME}\"",
+          "language": "env"
+        },
+        {
+          "title": "Use Mailtrap for testing",
+          "code": "MAIL_MAILER=smtp\nMAIL_HOST=sandbox.smtp.mailtrap.io\nMAIL_PORT=2525\nMAIL_USERNAME=your-mailtrap-username\nMAIL_PASSWORD=your-mailtrap-password\nMAIL_ENCRYPTION=tls",
+          "language": "env"
+        },
+        {
+          "title": "Use log driver for local development",
+          "code": "MAIL_MAILER=log\n\n# Emails will be written to storage/logs/laravel.log\n# Great for development without sending real emails",
+          "language": "env"
+        },
+        {
+          "title": "Clear config cache after changes",
+          "code": "php artisan config:clear\nphp artisan cache:clear\n\n# Test mail sending\nphp artisan tinker\n>>> Mail::raw('Test', fn($m) => $m->to('test@example.com'));",
+          "language": "bash"
+        }
+      ],
+      "related_errors": ["smtp-connection-error", "queue-job-failed"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix Laravel Email Sending Failed",
+      "meta_description": "Resolve Laravel mail sending errors. Configure SMTP correctly, use Mailtrap for testing, and debug connection issues."
+    },
+    {
+      "slug": "symlink-error-storage-link",
+      "error_message": "symlink(): Permission denied / The public/storage link already exists",
+      "title": "Storage Link Error in Laravel - How to Fix",
+      "category": "filesystem",
+      "search_volume": "medium",
+      "description": "This error occurs when creating the symbolic link between public/storage and storage/app/public fails.",
+      "causes": [
+        "Symbolic link already exists",
+        "Permission denied (especially on Windows)",
+        "Shared hosting doesn't support symlinks",
+        "Wrong file permissions on directories"
+      ],
+      "solutions": [
+        {
+          "title": "Remove existing link and recreate",
+          "code": "# Remove existing symbolic link\nrm public/storage\n\n# Or on Windows\ndel public\\storage\n\n# Create new link\nphp artisan storage:link",
+          "language": "bash"
+        },
+        {
+          "title": "On Windows, run as Administrator",
+          "code": "# Open Command Prompt as Administrator\n# Navigate to project directory\nphp artisan storage:link\n\n# Or create manually\nmklink /D public\\storage storage\\app\\public",
+          "language": "bash"
+        },
+        {
+          "title": "Manual symlink for shared hosting",
+          "code": "// Add temporary route in routes/web.php\nRoute::get('/create-symlink', function () {\n    $target = storage_path('app/public');\n    $link = public_path('storage');\n    symlink($target, $link);\n    return 'Symlink created!';\n});\n\n// Visit /create-symlink then remove the route",
+          "language": "php"
+        },
+        {
+          "title": "Alternative: Use public disk directly",
+          "code": "// In config/filesystems.php, add custom disk\n'public_uploads' => [\n    'driver' => 'local',\n    'root' => public_path('uploads'),\n    'url' => env('APP_URL').'/uploads',\n    'visibility' => 'public',\n],\n\n// Use in code\nStorage::disk('public_uploads')->put('file.jpg', $content);",
+          "language": "php"
+        }
+      ],
+      "related_errors": ["storage-permission-denied", "file-not-found"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix Storage Link Error in Laravel",
+      "meta_description": "Resolve Laravel storage:link errors. Handle permission issues on Windows, Linux, and shared hosting environments."
+    },
+    {
+      "slug": "middleware-not-found",
+      "error_message": "Target class [middleware] does not exist",
+      "title": "Middleware Not Found Error in Laravel - Fix",
+      "category": "middleware",
+      "search_volume": "low",
+      "description": "This error occurs when Laravel cannot find a middleware class that's being referenced in routes or kernel.",
+      "causes": [
+        "Middleware not registered in Kernel",
+        "Typo in middleware alias",
+        "Middleware class file missing",
+        "Wrong namespace in middleware class",
+        "Using middleware alias that doesn't exist"
+      ],
+      "solutions": [
+        {
+          "title": "Register middleware in Kernel.php",
+          "code": "// app/Http/Kernel.php\nprotected $middlewareAliases = [\n    'auth' => \\App\\Http\\Middleware\\Authenticate::class,\n    'admin' => \\App\\Http\\Middleware\\AdminMiddleware::class,\n    'verified' => \\Illuminate\\Auth\\Middleware\\EnsureEmailIsVerified::class,\n];",
+          "language": "php"
+        },
+        {
+          "title": "Create middleware if it doesn't exist",
+          "code": "php artisan make:middleware AdminMiddleware\n\n# Then implement the handle method\npublic function handle($request, Closure $next)\n{\n    if (!auth()->user()?->is_admin) {\n        abort(403);\n    }\n    return $next($request);\n}",
+          "language": "bash"
+        },
+        {
+          "title": "Use full class path if not registered",
+          "code": "Route::middleware([\\App\\Http\\Middleware\\AdminMiddleware::class])\n    ->group(function () {\n        Route::get('/admin', [AdminController::class, 'index']);\n    });",
+          "language": "php"
+        },
+        {
+          "title": "Laravel 11+ middleware registration",
+          "code": "// In bootstrap/app.php\nreturn Application::configure(basePath: dirname(__DIR__))\n    ->withMiddleware(function (Middleware $middleware) {\n        $middleware->alias([\n            'admin' => \\App\\Http\\Middleware\\AdminMiddleware::class,\n        ]);\n    })",
+          "language": "php"
+        }
+      ],
+      "related_errors": ["target-class-does-not-exist", "route-not-found-404"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix Middleware Not Found Error in Laravel",
+      "meta_description": "Resolve Laravel middleware errors. Register middleware correctly in Kernel.php or bootstrap/app.php for Laravel 11+."
+    },
+    {
+      "slug": "blade-compilation-error",
+      "error_message": "Blade compilation error / Unexpected token",
+      "title": "Blade Compilation Error in Laravel - How to Fix",
+      "category": "views",
+      "search_volume": "medium",
+      "description": "This error occurs when there's a syntax error in a Blade template file that prevents it from compiling.",
+      "causes": [
+        "Unclosed Blade directive",
+        "Missing @end directive",
+        "Invalid PHP syntax inside Blade",
+        "Mismatched curly braces",
+        "Using reserved PHP keywords incorrectly"
+      ],
+      "solutions": [
+        {
+          "title": "Check for unclosed directives",
+          "code": "{{-- Correct --}}\n@if($condition)\n    <p>Content</p>\n@endif\n\n{{-- Wrong - missing @endif --}}\n@if($condition)\n    <p>Content</p>\n\n{{-- Wrong - wrong closing directive --}}\n@if($condition)\n    <p>Content</p>\n@endforeach",
+          "language": "blade"
+        },
+        {
+          "title": "Clear compiled views",
+          "code": "php artisan view:clear\nphp artisan cache:clear\n\n# Also clear the compiled views directory\nrm -rf storage/framework/views/*",
+          "language": "bash"
+        },
+        {
+          "title": "Escape @ symbol when needed",
+          "code": "{{-- If you need literal @ symbol --}}\n@@if - This outputs: @if\n\n{{-- For email addresses in JavaScript --}}\nemail: 'user@@example.com'",
+          "language": "blade"
+        },
+        {
+          "title": "Check PHP syntax in Blade",
+          "code": "{{-- Correct PHP in Blade --}}\n@php\n    $items = ['a', 'b', 'c'];\n@endphp\n\n{{-- Or single line --}}\n{{ $items = ['a', 'b', 'c'] }}\n\n{{-- For echoing --}}\n{{ $variable }}\n{!! $unescapedHtml !!}",
+          "language": "blade"
+        }
+      ],
+      "related_errors": ["view-not-found", "undefined-variable-in-view"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix Blade Compilation Error in Laravel",
+      "meta_description": "Resolve Laravel Blade template syntax errors. Check for unclosed directives, clear view cache, and fix PHP syntax issues."
+    },
+    {
+      "slug": "migration-failed",
+      "error_message": "Migration table not found / Migration failed",
+      "title": "Migration Failed in Laravel - How to Debug and Fix",
+      "category": "database",
+      "search_volume": "medium",
+      "description": "This error occurs when running migrations fails due to various database or migration file issues.",
+      "causes": [
+        "Database connection issues",
+        "Migration syntax errors",
+        "Table already exists",
+        "Foreign key constraint issues",
+        "Migration run in wrong order"
+      ],
+      "solutions": [
+        {
+          "title": "Check migration status",
+          "code": "# See which migrations have run\nphp artisan migrate:status\n\n# Rollback last batch\nphp artisan migrate:rollback\n\n# Rollback specific steps\nphp artisan migrate:rollback --step=2",
+          "language": "bash"
+        },
+        {
+          "title": "Reset and re-run all migrations (dev only)",
+          "code": "# WARNING: This drops all tables!\nphp artisan migrate:fresh\n\n# With seeders\nphp artisan migrate:fresh --seed",
+          "language": "bash"
+        },
+        {
+          "title": "Fix foreign key order issues",
+          "code": "// Rename migration files to control order\n// 2024_01_01_000001_create_users_table.php\n// 2024_01_01_000002_create_posts_table.php\n\n// Or disable foreign key checks temporarily\nSchema::disableForeignKeyConstraints();\nSchema::dropIfExists('posts');\nSchema::enableForeignKeyConstraints();",
+          "language": "php"
+        },
+        {
+          "title": "Add existence check in migration",
+          "code": "public function up()\n{\n    if (!Schema::hasTable('posts')) {\n        Schema::create('posts', function (Blueprint $table) {\n            $table->id();\n            $table->string('title');\n            $table->timestamps();\n        });\n    }\n}",
+          "language": "php"
+        }
+      ],
+      "related_errors": ["sqlstate-42s02-table-not-found", "integrity-constraint-violation-1452"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix Migration Failed Error in Laravel",
+      "meta_description": "Debug and fix Laravel migration errors. Check migration status, handle foreign keys, and resolve table conflicts."
+    },
+    {
+      "slug": "scheduler-not-running",
+      "error_message": "Scheduled commands not running",
+      "title": "Laravel Scheduler Not Running - How to Fix",
+      "category": "scheduling",
+      "search_volume": "medium",
+      "description": "This issue occurs when Laravel's scheduled tasks don't execute, usually due to missing cron job configuration.",
+      "causes": [
+        "Cron job not configured on server",
+        "Wrong cron syntax or path",
+        "Cron user permission issues",
+        "Schedule not defined in Console Kernel",
+        "Task throwing exceptions silently"
+      ],
+      "solutions": [
+        {
+          "title": "Add Laravel scheduler to crontab",
+          "code": "# Edit crontab\ncrontab -e\n\n# Add this line (adjust path to your project)\n* * * * * cd /var/www/your-project && php artisan schedule:run >> /dev/null 2>&1",
+          "language": "bash"
+        },
+        {
+          "title": "Define schedule in Console Kernel",
+          "code": "// app/Console/Kernel.php\nprotected function schedule(Schedule $schedule)\n{\n    $schedule->command('inspire')->hourly();\n    $schedule->command('backup:clean')->daily()->at('01:00');\n    $schedule->command('telescope:prune')->daily();\n    \n    // Custom closure\n    $schedule->call(function () {\n        // Your code\n    })->everyMinute();\n}",
+          "language": "php"
+        },
+        {
+          "title": "Test scheduler locally",
+          "code": "# Run scheduler once (for testing)\nphp artisan schedule:run\n\n# List all scheduled tasks\nphp artisan schedule:list\n\n# Run scheduler continuously (local dev)\nphp artisan schedule:work",
+          "language": "bash"
+        },
+        {
+          "title": "Debug scheduled tasks",
+          "code": "// Add output and error logging\n$schedule->command('your:command')\n    ->daily()\n    ->appendOutputTo(storage_path('logs/scheduler.log'))\n    ->emailOutputOnFailure('admin@example.com');",
+          "language": "php"
+        }
+      ],
+      "related_errors": ["queue-job-failed", "artisan-command-not-found"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix Laravel Scheduler Not Running",
+      "meta_description": "Resolve Laravel scheduler issues. Configure cron jobs correctly, define schedules in Kernel, and debug task execution."
+    },
+    {
+      "slug": "broadcasting-connection-failed",
+      "error_message": "Pusher error / Broadcasting connection failed",
+      "title": "Laravel Broadcasting Connection Failed - How to Fix",
+      "category": "broadcasting",
+      "search_volume": "low",
+      "description": "This error occurs when Laravel cannot establish a connection to the broadcasting service like Pusher or Laravel Reverb.",
+      "causes": [
+        "Incorrect Pusher/broadcasting credentials",
+        "Broadcasting driver not configured",
+        "WebSocket server not running",
+        "Laravel Echo not initialized properly",
+        "CORS issues with WebSocket connection"
+      ],
+      "solutions": [
+        {
+          "title": "Configure Pusher in .env",
+          "code": "BROADCAST_DRIVER=pusher\n\nPUSHER_APP_ID=your-app-id\nPUSHER_APP_KEY=your-app-key\nPUSHER_APP_SECRET=your-app-secret\nPUSHER_APP_CLUSTER=mt1\n\n# Also add for frontend\nVITE_PUSHER_APP_KEY=\"${PUSHER_APP_KEY}\"\nVITE_PUSHER_APP_CLUSTER=\"${PUSHER_APP_CLUSTER}\"",
+          "language": "env"
+        },
+        {
+          "title": "Initialize Laravel Echo in frontend",
+          "code": "// resources/js/bootstrap.js\nimport Echo from 'laravel-echo';\nimport Pusher from 'pusher-js';\n\nwindow.Pusher = Pusher;\n\nwindow.Echo = new Echo({\n    broadcaster: 'pusher',\n    key: import.meta.env.VITE_PUSHER_APP_KEY,\n    cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,\n    forceTLS: true\n});",
+          "language": "javascript"
+        },
+        {
+          "title": "Enable BroadcastServiceProvider",
+          "code": "// In config/app.php, uncomment:\nApp\\Providers\\BroadcastServiceProvider::class,\n\n// Or in Laravel 11, it's auto-registered\n// Just make sure routes/channels.php exists",
+          "language": "php"
+        },
+        {
+          "title": "Configure broadcasting channels",
+          "code": "// routes/channels.php\nBroadcast::channel('orders.{orderId}', function ($user, $orderId) {\n    return $user->id === Order::find($orderId)?->user_id;\n});\n\n// Private channel\nBroadcast::channel('user.{id}', function ($user, $id) {\n    return (int) $user->id === (int) $id;\n});",
+          "language": "php"
+        }
+      ],
+      "related_errors": ["websocket-error", "authentication-error-unauthenticated"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix Laravel Broadcasting Connection Failed",
+      "meta_description": "Resolve Laravel broadcasting errors with Pusher or Reverb. Configure credentials, initialize Echo, and set up channels."
+    },
+    {
+      "slug": "file-upload-failed",
+      "error_message": "The file failed to upload / File too large",
+      "title": "File Upload Failed in Laravel - How to Fix",
+      "category": "filesystem",
+      "search_volume": "medium",
+      "description": "This error occurs when file uploads fail due to size limits, permissions, or configuration issues.",
+      "causes": [
+        "File exceeds PHP upload_max_filesize",
+        "File exceeds post_max_size",
+        "Storage directory not writable",
+        "Nginx/Apache client body size limit",
+        "Invalid file type or extension"
+      ],
+      "solutions": [
+        {
+          "title": "Increase PHP limits",
+          "code": "; In php.ini\nupload_max_filesize = 64M\npost_max_size = 64M\nmax_execution_time = 300\nmax_input_time = 300\nmemory_limit = 256M",
+          "language": "ini"
+        },
+        {
+          "title": "Increase Nginx client body size",
+          "code": "# In nginx.conf or site config\nhttp {\n    client_max_body_size 64M;\n}\n\n# Or in server/location block\nserver {\n    client_max_body_size 64M;\n}",
+          "language": "nginx"
+        },
+        {
+          "title": "Validate file uploads in Laravel",
+          "code": "$request->validate([\n    'file' => 'required|file|max:51200', // 50MB in KB\n    'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',\n    'document' => 'required|mimes:pdf,doc,docx|max:10240',\n]);\n\n// Store the file\n$path = $request->file('document')->store('documents', 'public');",
+          "language": "php"
+        },
+        {
+          "title": "Check storage permissions",
+          "code": "# Ensure storage is writable\nchmod -R 775 storage\nchown -R www-data:www-data storage\n\n# Create storage link\nphp artisan storage:link",
+          "language": "bash"
+        }
+      ],
+      "related_errors": ["storage-permission-denied", "validation-exception"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix File Upload Failed in Laravel",
+      "meta_description": "Resolve Laravel file upload errors. Configure PHP limits, Nginx settings, and validate uploads properly."
+    },
+    {
+      "slug": "json-parse-error",
+      "error_message": "JSON parse error / Unexpected token",
+      "title": "JSON Parse Error in Laravel API - How to Fix",
+      "category": "api",
+      "search_volume": "medium",
+      "description": "This error occurs when Laravel receives invalid JSON in a request body or returns malformed JSON responses.",
+      "causes": [
+        "Invalid JSON syntax in request body",
+        "PHP errors/warnings output before JSON response",
+        "Debug output breaking JSON",
+        "Missing Content-Type header",
+        "BOM characters in JSON files"
+      ],
+      "solutions": [
+        {
+          "title": "Ensure proper JSON request format",
+          "code": "// Frontend request with correct headers\nfetch('/api/data', {\n    method: 'POST',\n    headers: {\n        'Content-Type': 'application/json',\n        'Accept': 'application/json',\n    },\n    body: JSON.stringify({ name: 'John' })\n});",
+          "language": "javascript"
+        },
+        {
+          "title": "Disable debug in production",
+          "code": "# In .env for production\nAPP_DEBUG=false\nAPP_ENV=production",
+          "language": "env"
+        },
+        {
+          "title": "Return proper JSON responses",
+          "code": "// Always return JSON from API routes\nreturn response()->json([\n    'success' => true,\n    'data' => $data,\n    'message' => 'Operation successful'\n], 200);\n\n// For errors\nreturn response()->json([\n    'success' => false,\n    'message' => 'Something went wrong'\n], 500);",
+          "language": "php"
+        },
+        {
+          "title": "Validate incoming JSON",
+          "code": "// In middleware or controller\n$content = $request->getContent();\n$data = json_decode($content, true);\n\nif (json_last_error() !== JSON_ERROR_NONE) {\n    return response()->json([\n        'error' => 'Invalid JSON: ' . json_last_error_msg()\n    ], 400);\n}",
+          "language": "php"
+        }
+      ],
+      "related_errors": ["cors-error-blocked", "validation-exception"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix JSON Parse Error in Laravel API",
+      "meta_description": "Resolve Laravel JSON parsing errors. Ensure proper request format, disable debug output, and return valid JSON responses."
+    },
+    {
+      "slug": "eloquent-relationship-not-found",
+      "error_message": "Call to undefined relationship",
+      "title": "Undefined Relationship Error in Laravel - How to Fix",
+      "category": "eloquent",
+      "search_volume": "medium",
+      "description": "This error occurs when accessing an Eloquent relationship that doesn't exist or is misspelled on the model.",
+      "causes": [
+        "Relationship method doesn't exist on model",
+        "Typo in relationship name",
+        "Wrong case (camelCase vs snake_case)",
+        "Relationship method returning wrong type"
+      ],
+      "solutions": [
+        {
+          "title": "Define relationship correctly on model",
+          "code": "class Post extends Model\n{\n    // Has Many\n    public function comments()\n    {\n        return $this->hasMany(Comment::class);\n    }\n    \n    // Belongs To\n    public function author()\n    {\n        return $this->belongsTo(User::class, 'user_id');\n    }\n    \n    // Many to Many\n    public function tags()\n    {\n        return $this->belongsToMany(Tag::class);\n    }\n}",
+          "language": "php"
+        },
+        {
+          "title": "Use correct case when accessing",
+          "code": "// If method is: public function authorProfile()\n// Access as camelCase:\n$post->authorProfile;\n\n// With eager loading:\nPost::with('authorProfile')->get();\n\n// NOT snake_case:\n$post->author_profile; // Wrong!",
+          "language": "php"
+        },
+        {
+          "title": "Check inverse relationships",
+          "code": "// In Comment model\nclass Comment extends Model\n{\n    public function post()\n    {\n        return $this->belongsTo(Post::class);\n    }\n    \n    public function user()\n    {\n        return $this->belongsTo(User::class);\n    }\n}",
+          "language": "php"
+        },
+        {
+          "title": "Debug relationship issues",
+          "code": "// Check if relationship method exists\ndd(method_exists($post, 'comments'));\n\n// Check relationship query\ndd($post->comments()->toSql());\n\n// Check what's returned\ndd($post->comments);",
+          "language": "php"
+        }
+      ],
+      "related_errors": ["n-plus-one-query-problem", "model-not-found-exception"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix Undefined Relationship Error in Laravel",
+      "meta_description": "Resolve Laravel Eloquent relationship errors. Define relationships correctly and use proper naming conventions."
+    },
+    {
+      "slug": "session-store-not-set",
+      "error_message": "Session store not set on request",
+      "title": "Session Store Not Set on Request in Laravel - Fix",
+      "category": "session",
+      "search_volume": "low",
+      "description": "This error occurs when trying to access session data before the session middleware has initialized.",
+      "causes": [
+        "Route not using web middleware group",
+        "Accessing session in service provider boot",
+        "API route trying to use session",
+        "Custom middleware running before session starts"
+      ],
+      "solutions": [
+        {
+          "title": "Ensure route uses web middleware",
+          "code": "// In routes/web.php (has web middleware by default)\nRoute::get('/dashboard', [DashboardController::class, 'index']);\n\n// Or explicitly add middleware\nRoute::middleware(['web'])->group(function () {\n    Route::get('/profile', [ProfileController::class, 'show']);\n});",
+          "language": "php"
+        },
+        {
+          "title": "For API routes needing sessions",
+          "code": "// If you need sessions in API routes\n// In app/Http/Kernel.php, add to 'api' middleware group:\n'api' => [\n    \\Illuminate\\Session\\Middleware\\StartSession::class,\n    // ... other middleware\n],",
+          "language": "php"
+        },
+        {
+          "title": "Don't access session in service providers",
+          "code": "// Wrong - session not available in boot()\npublic function boot()\n{\n    $user = session('user'); // Error!\n}\n\n// Right - use middleware or controller instead\n// Or defer using a callback\n$this->app->booted(function () {\n    // Session available here after full boot\n});",
+          "language": "php"
+        },
+        {
+          "title": "Check middleware order",
+          "code": "// In Kernel.php, ensure StartSession is early\nprotected $middlewareGroups = [\n    'web' => [\n        \\Illuminate\\Cookie\\Middleware\\EncryptCookies::class,\n        \\Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse::class,\n        \\Illuminate\\Session\\Middleware\\StartSession::class, // Must be before auth\n        \\Illuminate\\View\\Middleware\\ShareErrorsFromSession::class,\n        // ...\n    ],\n];",
+          "language": "php"
+        }
+      ],
+      "related_errors": ["419-page-expired", "authentication-error-unauthenticated"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix Session Store Not Set on Request in Laravel",
+      "meta_description": "Resolve Laravel session errors. Ensure proper middleware configuration and avoid accessing sessions before initialization."
+    },
+    {
+      "slug": "too-many-requests-429",
+      "error_message": "429 Too Many Requests / Rate limit exceeded",
+      "title": "429 Too Many Requests in Laravel - Rate Limiting Fix",
+      "category": "api",
+      "search_volume": "medium",
+      "description": "This error occurs when a client exceeds the rate limit configured for API routes or specific endpoints.",
+      "causes": [
+        "Too many requests in short time period",
+        "Rate limiter configured too strictly",
+        "Bot or script making excessive requests",
+        "Shared IP affecting multiple users",
+        "Forgot to configure rate limiter for high-traffic endpoints"
+      ],
+      "solutions": [
+        {
+          "title": "Configure rate limiting in RouteServiceProvider",
+          "code": "// In App\\Providers\\RouteServiceProvider\nuse Illuminate\\Cache\\RateLimiting\\Limit;\nuse Illuminate\\Support\\Facades\\RateLimiter;\n\nprotected function configureRateLimiting()\n{\n    RateLimiter::for('api', function (Request $request) {\n        return Limit::perMinute(60)->by(\n            $request->user()?->id ?: $request->ip()\n        );\n    });\n}",
+          "language": "php"
+        },
+        {
+          "title": "Create custom rate limiters",
+          "code": "// Different limits for different endpoints\nRateLimiter::for('uploads', function (Request $request) {\n    return Limit::perMinute(10)->by($request->user()->id);\n});\n\nRateLimiter::for('search', function (Request $request) {\n    return Limit::perMinute(30)->by($request->ip());\n});\n\n// Apply to routes\nRoute::middleware(['throttle:uploads'])->post('/upload', ...);\nRoute::middleware(['throttle:search'])->get('/search', ...);",
+          "language": "php"
+        },
+        {
+          "title": "Handle rate limit in frontend",
+          "code": "axios.get('/api/data')\n    .catch(error => {\n        if (error.response.status === 429) {\n            const retryAfter = error.response.headers['retry-after'];\n            console.log(`Rate limited. Retry after ${retryAfter} seconds`);\n            // Show user-friendly message\n        }\n    });",
+          "language": "javascript"
+        },
+        {
+          "title": "Disable rate limiting for testing",
+          "code": "// In routes/api.php temporarily\nRoute::withoutMiddleware('throttle:api')\n    ->get('/test', function () {\n        return 'No rate limit';\n    });",
+          "language": "php"
+        }
+      ],
+      "related_errors": ["cors-error-blocked", "authentication-error-unauthenticated"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix 429 Too Many Requests in Laravel",
+      "meta_description": "Resolve Laravel rate limiting errors. Configure custom rate limits, handle 429 responses, and optimize API throttling."
+    },
+    {
+      "slug": "artisan-command-not-found",
+      "error_message": "Command not found / artisan: command not found",
+      "title": "Artisan Command Not Found in Laravel - Fix",
+      "category": "cli",
+      "search_volume": "low",
+      "description": "This error occurs when trying to run an Artisan command that doesn't exist or when PHP/artisan isn't accessible.",
+      "causes": [
+        "Not in Laravel project directory",
+        "Custom command not registered",
+        "PHP not in system PATH",
+        "Typo in command name",
+        "Command class has errors"
+      ],
+      "solutions": [
+        {
+          "title": "Ensure you're in project root",
+          "code": "# Navigate to your Laravel project\ncd /path/to/your/laravel/project\n\n# Verify artisan exists\nls artisan\n\n# List available commands\nphp artisan list",
+          "language": "bash"
+        },
+        {
+          "title": "Register custom command",
+          "code": "// app/Console/Kernel.php\nprotected $commands = [\n    \\App\\Console\\Commands\\YourCustomCommand::class,\n];\n\n// Or commands are auto-discovered from app/Console/Commands",
+          "language": "php"
+        },
+        {
+          "title": "Create a custom command",
+          "code": "php artisan make:command SendEmails\n\n// In app/Console/Commands/SendEmails.php\nclass SendEmails extends Command\n{\n    protected $signature = 'mail:send {user}';\n    protected $description = 'Send emails to user';\n    \n    public function handle()\n    {\n        $this->info('Sending emails...');\n    }\n}",
+          "language": "bash"
+        },
+        {
+          "title": "Clear and cache commands",
+          "code": "# Clear cached commands\nphp artisan clear-compiled\n\n# If commands still not found\ncomposer dump-autoload\nphp artisan package:discover",
+          "language": "bash"
+        }
+      ],
+      "related_errors": ["class-not-found-exception", "scheduler-not-running"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix Artisan Command Not Found in Laravel",
+      "meta_description": "Resolve Laravel Artisan command errors. Verify project path, register custom commands, and troubleshoot CLI issues."
+    },
+    {
+      "slug": "composer-autoload-error",
+      "error_message": "Class not found after composer install",
+      "title": "Composer Autoload Error in Laravel - How to Fix",
+      "category": "autoloading",
+      "search_volume": "medium",
+      "description": "This error occurs when Composer's autoloader cannot find classes, usually after installing packages or moving files.",
+      "causes": [
+        "Autoload files not regenerated after changes",
+        "Namespace doesn't match directory structure",
+        "Package not properly installed",
+        "PSR-4 configuration incorrect in composer.json",
+        "Cached autoloader using old paths"
+      ],
+      "solutions": [
+        {
+          "title": "Regenerate autoload files",
+          "code": "# Basic regeneration\ncomposer dump-autoload\n\n# Optimized for production\ncomposer dump-autoload -o\n\n# Clear everything and reinstall\nrm -rf vendor\ncomposer install",
+          "language": "bash"
+        },
+        {
+          "title": "Check PSR-4 in composer.json",
+          "code": "{\n    \"autoload\": {\n        \"psr-4\": {\n            \"App\\\\\": \"app/\",\n            \"Database\\\\Factories\\\\\": \"database/factories/\",\n            \"Database\\\\Seeders\\\\\": \"database/seeders/\"\n        }\n    }\n}",
+          "language": "json"
+        },
+        {
+          "title": "Add custom namespace",
+          "code": "// In composer.json, add your custom namespace\n\"autoload\": {\n    \"psr-4\": {\n        \"App\\\\\": \"app/\",\n        \"Modules\\\\\": \"modules/\"\n    }\n}\n\n// Then run\ncomposer dump-autoload",
+          "language": "json"
+        },
+        {
+          "title": "Clear Laravel caches",
+          "code": "php artisan clear-compiled\nphp artisan cache:clear\nphp artisan config:clear\ncomposer dump-autoload",
+          "language": "bash"
+        }
+      ],
+      "related_errors": ["class-not-found-exception", "target-class-does-not-exist"],
+      "laravel_versions": ["8", "9", "10", "11", "12"],
+      "meta_title": "Fix Composer Autoload Error in Laravel",
+      "meta_description": "Resolve Laravel autoloading issues. Regenerate Composer autoload files, check PSR-4 configuration, and clear caches."
+    }
+  ],
+  "meta": {
+    "version": "1.0",
+    "created_at": "2026-01-27",
+    "updated_at": "2026-01-27",
+    "total_errors": 50,
+    "categories": [
+      "routing",
+      "security",
+      "database",
+      "configuration",
+      "autoloading",
+      "filesystem",
+      "views",
+      "eloquent",
+      "performance",
+      "api",
+      "authentication",
+      "authorization",
+      "validation",
+      "cache",
+      "queues",
+      "mail",
+      "middleware",
+      "scheduling",
+      "broadcasting",
+      "session",
+      "cli"
+    ],
+    "notes": "50 high-priority Laravel errors for pSEO pages. Each error includes slug, error message, causes, multiple solutions with code examples, and SEO metadata."
+  }
+}

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ErrorSolutionController;
 use App\Http\Controllers\ItalianPagesController;
 use App\Http\Controllers\NewsletterController;
 use Illuminate\Support\Facades\Route;
@@ -60,3 +61,7 @@ Route::prefix('it')->name('it.')->group(function () {
     Route::get('/sviluppatore-laravel-italia', [ItalianPagesController::class, 'laravelDeveloper'])->name('laravel-developer');
     Route::get('/automazione-processi-aziendali', [ItalianPagesController::class, 'processAutomation'])->name('process-automation');
 });
+
+// Laravel Error Solutions (pSEO)
+Route::get('/errors', [ErrorSolutionController::class, 'index'])->name('errors.index');
+Route::get('/errors/{slug}', [ErrorSolutionController::class, 'show'])->name('errors.show');

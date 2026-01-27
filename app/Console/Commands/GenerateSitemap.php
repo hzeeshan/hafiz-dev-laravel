@@ -33,6 +33,29 @@ class GenerateSitemap extends Command
 
         $sitemap = Sitemap::create();
 
+        // Laravel Error Solutions pages (pSEO)
+        $errorsData = $this->getErrorsData();
+        $errorCount = 0;
+
+        // Errors index page
+        $sitemap->add(
+            Url::create('/errors')
+                ->setLastModificationDate(now())
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
+                ->setPriority(0.8)
+        );
+
+        // Individual error pages
+        foreach ($errorsData['errors'] as $error) {
+            $sitemap->add(
+                Url::create('/errors/' . $error['slug'])
+                    ->setLastModificationDate(now())
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
+                    ->setPriority(0.7)
+            );
+            $errorCount++;
+        }
+
         // Homepage - highest priority
         $sitemap->add(
             Url::create('/')
@@ -113,7 +136,20 @@ class GenerateSitemap extends Command
         $this->info("  - Tool pages: {$toolCount}");
         $this->info("  - Italian pages: {$italianCount}");
         $this->info("  - Blog posts: {$postCount}");
-        $this->info("  - Total URLs: " . (3 + $toolCount + $italianCount + $postCount));
+        $this->info("  - Errors index: 1");
+        $this->info("  - Error pages: {$errorCount}");
+        $this->info("  - Total URLs: " . (4 + $toolCount + $italianCount + $postCount + $errorCount));
         $this->info("  - File: public/sitemap.xml");
+    }
+
+    /**
+     * Get the errors data from JSON file.
+     */
+    private function getErrorsData(): array
+    {
+        $jsonPath = base_path('docs/data/laravel-errors.json');
+        $content = file_get_contents($jsonPath);
+
+        return json_decode($content, true);
     }
 }

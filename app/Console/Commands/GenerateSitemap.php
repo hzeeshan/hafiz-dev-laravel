@@ -3,8 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Models\Post;
+use App\Models\Tool;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Route;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
 
@@ -118,19 +118,18 @@ class GenerateSitemap extends Command
             $italianPseoCount++;
         }
 
-        // Auto-discover tool pages from routes (excludes /tools index)
-        $toolRoutes = collect(Route::getRoutes())
-            ->filter(fn ($route) => str_starts_with($route->uri(), 'tools/'))
-            ->map(fn ($route) => '/' . $route->uri())
-            ->values();
+        // Tool pages from database (active tools only)
+        $tools = Tool::where('is_active', true)->get();
+        $toolCount = 0;
 
-        foreach ($toolRoutes as $tool) {
+        foreach ($tools as $tool) {
             $sitemap->add(
-                Url::create($tool)
-                    ->setLastModificationDate(now())
+                Url::create('/tools/' . $tool->slug)
+                    ->setLastModificationDate($tool->updated_at ?? now())
                     ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
                     ->setPriority(0.7)
             );
+            $toolCount++;
         }
 
         // Published blog posts
@@ -149,7 +148,6 @@ class GenerateSitemap extends Command
         $sitemap->writeToFile(public_path('sitemap.xml'));
 
         $postCount = Post::published()->count();
-        $toolCount = $toolRoutes->count();
         $italianStaticCount = count($italianStaticPages);
         $this->info("✓ Sitemap generated successfully!");
         $this->info("  - Homepage: 1");

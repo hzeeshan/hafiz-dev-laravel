@@ -272,7 +272,97 @@
                 </p>
 
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Project 1: ReplyGenius -->
+                    <!-- Project 1: StudyLab -->
+                    <div
+                        class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 overflow-hidden group">
+                        <div class="relative overflow-hidden h-48">
+                            <img src="/screenshots/studylab-screenshot.webp" alt="StudyLab.app"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                loading="lazy" width="1200" height="900">
+                            <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-darkBg/50 to-transparent">
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-light mb-2">StudyLab.app</h3>
+                            <p class="text-light-muted text-sm mb-4 leading-relaxed">
+                                AI-based quiz and flashcards generator from PDFs
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span
+                                    class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">Laravel</span>
+                                <span
+                                    class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">OpenAI</span>
+                                <span
+                                    class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">Stripe</span>
+                            </div>
+                            <a href="https://studylab.app/" target="_blank"
+                                class="text-gold hover:text-gold-light transition-colors text-sm font-semibold">
+                                View Project →
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project 2: Prompt Optimizer -->
+                    <div
+                        class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 overflow-hidden group">
+                        <div class="relative overflow-hidden h-48">
+                            <img src="/screenshots/promptoptimizer-screenshot.webp" alt="Prompt Optimizer"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                loading="lazy" width="1200" height="900">
+                            <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-darkBg/50 to-transparent">
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-light mb-2">Prompt Optimizer</h3>
+                            <p class="text-light-muted text-sm mb-4 leading-relaxed">
+                                Free AI-powered prompt enhancement tool for better AI results
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span
+                                    class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">Laravel</span>
+                                <span
+                                    class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">Vue.js</span>
+                                <span
+                                    class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">OpenAI</span>
+                            </div>
+                            <a href="https://promptoptimizer.tools/" target="_blank"
+                                class="text-gold hover:text-gold-light transition-colors text-sm font-semibold">
+                                View Project →
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project 3: MakeThreads -->
+                    <div
+                        class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 overflow-hidden group">
+                        <div class="relative overflow-hidden h-48">
+                            <img src="/screenshots/makethreads.webp" alt="MakeThreads"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                loading="lazy" width="1200" height="900">
+                            <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-darkBg/50 to-transparent">
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-light mb-2">MakeThreads</h3>
+                            <p class="text-light-muted text-sm mb-4 leading-relaxed">
+                                Turn YouTube videos into Twitter/X threads, tweets, and articles
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span
+                                    class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">Chrome Ext</span>
+                                <span
+                                    class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">JavaScript</span>
+                                <span
+                                    class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">AI APIs</span>
+                            </div>
+                            <a href="https://makethreads.app" target="_blank"
+                                class="text-gold hover:text-gold-light transition-colors text-sm font-semibold">
+                                View Project →
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project 4: ReplyGenius -->
                     <div
                         class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 overflow-hidden group">
                         <div class="relative overflow-hidden h-48">
@@ -303,37 +393,7 @@
                         </div>
                     </div>
 
-                    <!-- Project 2: StudyLab -->
-                    <div
-                        class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 overflow-hidden group">
-                        <div class="relative overflow-hidden h-48">
-                            <img src="/screenshots/studylab-screenshot.webp" alt="StudyLab.app"
-                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                loading="lazy" width="1200" height="900">
-                            <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-darkBg/50 to-transparent">
-                            </div>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold text-light mb-2">StudyLab.app</h3>
-                            <p class="text-light-muted text-sm mb-4 leading-relaxed">
-                                AI-based quiz and flashcards generator from PDFs
-                            </p>
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                <span
-                                    class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">Laravel</span>
-                                <span
-                                    class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">OpenAI</span>
-                                <span
-                                    class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">Stripe</span>
-                            </div>
-                            <a href="https://studylab.app/" target="_blank"
-                                class="text-gold hover:text-gold-light transition-colors text-sm font-semibold">
-                                View Project →
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Project 3: Claude Chat Manager -->
+                    <!-- Project 5: Claude Chat Manager -->
                     <div
                         class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 overflow-hidden group">
                         <div class="relative overflow-hidden h-48">
@@ -453,37 +513,7 @@
                         </div>
                     </div>
 
-                    <!-- Project 7: Prompt Optimizer -->
-                    <div
-                        class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 overflow-hidden group">
-                        <div class="relative overflow-hidden h-48">
-                            <img src="/screenshots/promptoptimizer-screenshot.webp" alt="Prompt Optimizer"
-                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                loading="lazy" width="1200" height="900">
-                            <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-darkBg/50 to-transparent">
-                            </div>
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold text-light mb-2">Prompt Optimizer</h3>
-                            <p class="text-light-muted text-sm mb-4 leading-relaxed">
-                                Free AI-powered prompt enhancement tool for better AI results
-                            </p>
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                <span
-                                    class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">Laravel</span>
-                                <span
-                                    class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">Vue.js</span>
-                                <span
-                                    class="text-xs px-2 py-1 bg-gold/20 text-gold rounded border border-gold/30">OpenAI</span>
-                            </div>
-                            <a href="https://promptoptimizer.tools/" target="_blank"
-                                class="text-gold hover:text-gold-light transition-colors text-sm font-semibold">
-                                View Project →
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Project 8: GhibliAIart -->
+                    <!-- Project 7: GhibliAIart -->
                     <div
                         class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 overflow-hidden group">
                         <div class="relative overflow-hidden h-48">
@@ -513,7 +543,7 @@
                         </div>
                     </div>
 
-                    <!-- Project 9: AI Tools Universe -->
+                    <!-- Project 8: AI Tools Universe -->
                     <div
                         class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 overflow-hidden group">
                         <div class="relative overflow-hidden h-48">
@@ -543,7 +573,7 @@
                         </div>
                     </div>
 
-                    <!-- Project 10: PianetaGaia -->
+                    <!-- Project 9: PianetaGaia -->
                     <div
                         class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 overflow-hidden group">
                         <div class="relative overflow-hidden h-48">
@@ -573,7 +603,7 @@
                         </div>
                     </div>
 
-                    <!-- Project 11: Soluzione Tasse -->
+                    <!-- Project 10: Soluzione Tasse -->
                     <div
                         class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 overflow-hidden group">
                         <div class="relative overflow-hidden h-48">

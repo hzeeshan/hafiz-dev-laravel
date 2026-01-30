@@ -204,10 +204,10 @@
 
         <!-- Author Bio -->
         <div class="flex items-start gap-6 p-6 bg-darkCard/50 rounded-xl border border-gold/20 shadow-dark-card">
-            <picture>
+            <picture class="shrink-0">
                 <source srcset="/profile-photo.webp" type="image/webp">
                 <img src="/profile-photo.png" alt="Hafiz Riaz"
-                    class="w-20 h-20 rounded-2xl border-4 border-gold/30 shadow-gold"
+                    class="w-20 h-20 min-w-[80px] min-h-[80px] rounded-full border-3 border-gold shadow-gold object-cover"
                     loading="lazy"
                     width="80"
                     height="80">

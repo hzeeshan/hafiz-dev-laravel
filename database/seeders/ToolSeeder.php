@@ -122,6 +122,14 @@ class ToolSeeder extends Seeder
                 'category' => 'Images',
                 'position' => 14,
             ],
+            [
+                'name' => 'JSON to CSV Converter',
+                'slug' => 'json-to-csv-converter',
+                'description' => 'Convert between JSON and CSV formats',
+                'icon' => '📊',
+                'category' => 'Data',
+                'position' => 15,
+            ],
         ];
 
         foreach ($tools as $tool) {

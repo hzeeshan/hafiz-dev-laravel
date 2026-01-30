@@ -71,8 +71,8 @@
                         <span class="text-gold font-medium">{{ $activeTag }}</span>
                         <a href="{{ route('blog.index') }}"
                            class="text-gold/70 hover:text-gold transition-colors"
-                           title="Clear filter">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                           aria-label="Clear filter">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                             </svg>
                         </a>
@@ -92,6 +92,9 @@
                                 <img src="{{ asset('storage/' . $post->featured_image) }}"
                                      alt="{{ $post->title }}"
                                      class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
+                                     loading="lazy"
+                                     width="400"
+                                     height="192"
                                      onerror="this.src='{{ asset('blog-placeholder.svg') }}'">
                             </a>
                         @endif

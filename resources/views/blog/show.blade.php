@@ -98,6 +98,9 @@
                 <meta property="article:tag" content="{{ $tag }}">
             @endforeach
         @endif
+
+        {{-- Blog-specific JS (highlight.js, reading progress, copy buttons) --}}
+        @vite('resources/js/blog.js')
     @endpush
 
     <!-- Override background pattern for blog posts -->
@@ -160,6 +163,9 @@
         @if ($post->featured_image)
             <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}"
                 class="w-full rounded-lg mb-12 shadow-gold border border-gold/20"
+                width="1200"
+                height="630"
+                fetchpriority="high"
                 onerror="this.src='{{ asset('blog-placeholder.svg') }}'">
         @endif
 
@@ -198,8 +204,14 @@
 
         <!-- Author Bio -->
         <div class="flex items-start gap-6 p-6 bg-darkCard/50 rounded-xl border border-gold/20 shadow-dark-card">
-            <img src="/profile-photo.png" alt="Hafiz Riaz"
-                class="w-20 h-20 rounded-2xl border-4 border-gold/30 shadow-gold">
+            <picture>
+                <source srcset="/profile-photo.webp" type="image/webp">
+                <img src="/profile-photo.png" alt="Hafiz Riaz"
+                    class="w-20 h-20 rounded-2xl border-4 border-gold/30 shadow-gold"
+                    loading="lazy"
+                    width="80"
+                    height="80">
+            </picture>
             <div>
                 <h4 class="text-light font-bold text-lg mb-2">About Hafiz Riaz</h4>
                 <p class="text-light-muted mb-4 leading-relaxed">
@@ -228,6 +240,9 @@
                             @if ($related->featured_image)
                                 <img src="{{ asset('storage/' . $related->featured_image) }}"
                                     alt="{{ $related->title }}" class="w-full h-48 object-cover"
+                                    loading="lazy"
+                                    width="400"
+                                    height="192"
                                     onerror="this.src='{{ asset('blog-placeholder.svg') }}'">
                             @endif
                             <div class="p-6">

@@ -190,7 +190,10 @@ class IndexNowService
             return ['success' => false, 'count' => 0, 'urls' => []];
         }
 
-        $errors = json_decode(file_get_contents($dataPath), true);
+        $data = json_decode(file_get_contents($dataPath), true);
+
+        // Handle nested 'errors' array structure
+        $errors = $data['errors'] ?? $data;
 
         if (empty($errors)) {
             return ['success' => false, 'count' => 0, 'urls' => []];
@@ -217,7 +220,10 @@ class IndexNowService
             return ['success' => false, 'count' => 0, 'urls' => []];
         }
 
-        $pages = json_decode(file_get_contents($dataPath), true);
+        $data = json_decode(file_get_contents($dataPath), true);
+
+        // Handle nested 'pages' array structure
+        $pages = $data['pages'] ?? $data;
 
         if (empty($pages)) {
             return ['success' => false, 'count' => 0, 'urls' => []];

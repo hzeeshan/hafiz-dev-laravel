@@ -3,6 +3,8 @@
 **Status:** ✅ **PRODUCTION COMPLETE** - All Issues Resolved
 **Lighthouse Scores:** Performance 99 | Accessibility 100 | Best Practices 100 | SEO 100
 **Google Search Console:** ✅ Verified & All Issues Fixed
+**Bing Webmaster Tools:** ✅ Configured (imported from GSC)
+**IndexNow:** ✅ Live - 156 URLs submitted for instant indexing
 **Sitemap:** 160 URLs indexed
 
 ---
@@ -724,6 +726,92 @@ curl -I https://www.hafiz.dev/
 - **Tool pages:** 15
 - **Italian pSEO pages:** 48
 - **Error pages:** 43
+
+---
+
+## 🔔 JANUARY 30, 2026 - INDEXNOW & BING WEBMASTER TOOLS
+
+### Bing Webmaster Tools Setup
+
+**Status:** ✅ Configured via Google Search Console import
+
+**URL:** https://www.bing.com/webmasters
+
+**What it covers:** Bing, Yahoo, DuckDuckGo, Ecosia (~3-4% of search traffic)
+
+**Setup method:** Imported from Google Search Console (automatic verification)
+
+### IndexNow Implementation
+
+**Status:** ✅ Live and working
+
+**What it does:** Instantly notifies Bing/Yandex when content is published or updated (minutes instead of days)
+
+**API Key:** `6dd8ebdc2bb44e9fa6b1b8a58dee2bdc`
+**Key File:** https://hafiz.dev/6dd8ebdc2bb44e9fa6b1b8a58dee2bdc.txt
+
+**Package:** `ymigval/laravel-indexnow` v3.0.1
+
+### How IndexNow Works
+
+1. **Automatic:** PostObserver triggers when posts are published/updated
+2. **Manual:** Use artisan commands for batch submissions
+
+### IndexNow Commands
+
+```bash
+# Submit ALL pages (blog, tools, errors, Italian pSEO)
+php artisan indexnow:submit --all
+
+# Submit by type
+php artisan indexnow:submit --blog      # Blog posts only
+php artisan indexnow:submit --tools     # Tool pages only
+php artisan indexnow:submit --errors    # Error solution pages
+php artisan indexnow:submit --italian   # Italian pSEO pages
+
+# Submit specific content
+php artisan indexnow:submit --post=my-post-slug
+php artisan indexnow:submit --url=https://hafiz.dev/some-page
+
+# Check status
+php artisan indexnow:status
+php artisan indexnow:logs
+```
+
+### Files Created
+
+| File | Purpose |
+|------|---------|
+| `app/Services/IndexNowService.php` | Core service for URL submissions |
+| `app/Observers/PostObserver.php` | Auto-triggers on post publish/update |
+| `app/Console/Commands/IndexNowSubmit.php` | Artisan command for manual submissions |
+| `config/indexnow.php` | Package configuration |
+| `docs/INDEXNOW_SETUP.md` | Detailed setup documentation |
+
+### Environment Variables
+
+```bash
+INDEXNOW_ENABLE_SUBMISSIONS=true   # Enable in production, false locally
+INDEXNOW_API_KEY=your_key_here     # 32-character key from Bing
+```
+
+### Initial Submission Results (Jan 30, 2026)
+
+| Page Type | URLs Submitted |
+|-----------|----------------|
+| Homepage | 1 |
+| Blog Posts | 46 |
+| Tools | 16 |
+| Error Solutions | 44 |
+| Italian pSEO | 49 |
+| **Total** | **156** |
+
+### Search Engines Supported
+
+- ✅ Microsoft Bing (primary)
+- ✅ Yandex
+- ✅ Naver, Seznam (via IndexNow protocol)
+- ❌ Google (does not support IndexNow - uses sitemap)
 
 ---
 

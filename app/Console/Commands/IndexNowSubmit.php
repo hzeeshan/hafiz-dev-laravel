@@ -48,7 +48,7 @@ class IndexNowSubmit extends Command
             $this->table(
                 ['Page Type', 'URLs Submitted', 'Status'],
                 [
-                    ['Homepage', '1', $results['homepage'] ? '✅ Success' : '❌ Failed'],
+                    ['Homepage', '1', ($results['results']['homepage'] ?? false) ? '✅ Success' : '❌ Failed'],
                     ['Blog Posts', $results['results']['blog']['count'] ?? 0, ($results['results']['blog']['success'] ?? false) ? '✅ Success' : '⚠️ None/Failed'],
                     ['Tools', $results['results']['tools']['count'] ?? 0, ($results['results']['tools']['success'] ?? false) ? '✅ Success' : '⚠️ None/Failed'],
                     ['Error Solutions', $results['results']['errors']['count'] ?? 0, ($results['results']['errors']['success'] ?? false) ? '✅ Success' : '⚠️ None/Failed'],

@@ -31,9 +31,10 @@ All tools run 100% client-side (no server processing) for privacy and speed.
 | JWT Decoder           | ~80K                  | ✅ Live |
 | Timestamp Converter   | ~80K                  | ✅ Live |
 | Cron Builder          | ~50K                  | ✅ Live |
-| **Total Potential**   | **~2.26M/month**      |         |
+| QR Code Generator     | ~100K                 | ✅ Live |
+| **Total Potential**   | **~2.36M/month**      |         |
 
-Even capturing 0.1-1% of this volume = 1,800-18,000 visits/month from tools alone.
+Even capturing 0.1-1% of this volume = 2,000-19,000 visits/month from tools alone.
 
 ---
 
@@ -151,6 +152,14 @@ Even capturing 0.1-1% of this volume = 1,800-18,000 visits/month from tools alon
 - **Status**: ✅ Live
 - **Features**: Client-side compression (100% private), JPEG/PNG/WebP/GIF support, quality presets, batch processing, ZIP download, format conversion, dimension resizing, auto-compress option, clipboard paste support
 
+### 15. QR Code Generator
+
+- **URL**: `/tools/qr-code-generator`
+- **Target Keywords**: qr code generator, free qr code generator, wifi qr code generator, qr code maker, create qr code, vcard qr code
+- **Monthly Search Volume**: ~100K
+- **Status**: ✅ Live
+- **Features**: Text/URL, WiFi credentials, vCard contacts, Email, SMS, Phone QR codes; customizable colors and size; PNG/SVG download; clipboard copy; 100% client-side
+
 ---
 
 ## Future Tools Roadmap
@@ -160,7 +169,6 @@ Even capturing 0.1-1% of this volume = 1,800-18,000 visits/month from tools alon
 | Tool                  | Search Volume | Build Time | Notes                                  |
 | --------------------- | ------------- | ---------- | -------------------------------------- |
 | Diff Checker          | ~100K         | 60 min     | Text comparison, highlight differences |
-| QR Code Generator     | ~100K         | 30 min     | Text, URL, vCard                       |
 | HTML Encoder/Decoder  | ~60K          | 30 min     | Entity encoding                        |
 | JSON to CSV Converter | ~50K          | 45 min     | Bidirectional conversion               |
 | Markdown Preview      | ~40K          | 45 min     | Live preview, export HTML              |
@@ -328,7 +336,7 @@ Monitor weekly:
 
 | Metric                                | Target (3 months) |
 | ------------------------------------- | ----------------- |
-| Tools indexed in Google               | All 14            |
+| Tools indexed in Google               | All 15            |
 | Monthly organic visits to /tools      | 1,000+            |
 | Average position for primary keywords | Top 50            |
 | Time on page                          | > 2 minutes       |
@@ -336,6 +344,12 @@ Monitor weekly:
 ---
 
 ## Changelog
+
+### January 31, 2026
+
+- ✅ QR Code Generator launched (Text/URL, WiFi, vCard, Email, SMS, Phone QR types with color customization, PNG/SVG download)
+- ✅ 15 tools now live!
+- ✅ Total potential traffic increased to ~2.36M/month
 
 ### January 26, 2026
 

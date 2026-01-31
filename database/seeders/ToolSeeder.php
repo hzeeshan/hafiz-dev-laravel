@@ -130,6 +130,14 @@ class ToolSeeder extends Seeder
                 'category' => 'Data',
                 'position' => 15,
             ],
+            [
+                'name' => 'QR Code Generator',
+                'slug' => 'qr-code-generator',
+                'description' => 'Create QR codes for URLs, WiFi, contacts, email, SMS, and phone numbers. Customize colors and size, download as PNG or SVG.',
+                'icon' => '📱',
+                'category' => 'Generators',
+                'position' => 17,
+            ],
         ];
 
         foreach ($tools as $tool) {

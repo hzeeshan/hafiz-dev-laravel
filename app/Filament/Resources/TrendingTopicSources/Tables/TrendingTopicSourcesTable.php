@@ -153,7 +153,7 @@ class TrendingTopicSourcesTable
                         return redirect()->to("/admin/blog-topics/{$blogTopic->id}/edit");
                     }),
             ])
-            ->defaultSort('calculated_score', 'desc')
+            ->defaultSort('created_at', 'desc')
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),

@@ -19,9 +19,11 @@ Schedule::command('sitemap:generate')
 
 /**
  * Blog Topic Discovery
- * Runs every Monday at 9:00 AM to discover trending topics
+ * DISABLED: Reddit API blocked on VPS. Discovery now runs from local Mac
+ * via crontab and syncs to production via API endpoint.
+ * See: docs/blog/TOPIC_DISCOVERY.md
  */
-Schedule::command('blog:discover-trending --auto-create --notify')
-    ->weeklyOn(1, '09:00')
-    ->onSuccess(fn () => logger('Topic discovery completed successfully'))
-    ->onFailure(fn () => logger('Topic discovery failed'));
+// Schedule::command('blog:discover-trending --auto-create --notify')
+//     ->weeklyOn(1, '09:00')
+//     ->onSuccess(fn () => logger('Topic discovery completed successfully'))
+//     ->onFailure(fn () => logger('Topic discovery failed'));

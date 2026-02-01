@@ -4,10 +4,13 @@ namespace App\Filament\Resources\Tools\Pages;
 
 use App\Filament\Resources\Tools\ToolResource;
 use App\Models\Setting;
+use App\Models\Tool;
+use App\Models\ToolView;
 use Filament\Actions\Action;
 use Filament\Actions\CreateAction;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ListRecords;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ListTools extends ListRecords
 {
@@ -19,6 +22,12 @@ class ListTools extends ListRecords
         $isManual = $currentMode === 'manual';
 
         return [
+            Action::make('exportCsv')
+                ->label('Export CSV')
+                ->icon('heroicon-o-arrow-down-tray')
+                ->color('gray')
+                ->action(fn () => $this->exportToCsv()),
+
             Action::make('toggleOrdering')
                 ->label($isManual ? 'Switch to Popularity Order' : 'Switch to Manual Order')
                 ->icon($isManual ? 'heroicon-o-fire' : 'heroicon-o-bars-3')
@@ -53,5 +62,44 @@ class ListTools extends ListRecords
         return $mode === 'manual'
             ? 'Ordering: Manual (drag to reorder)'
             : 'Ordering: By Popularity (view count)';
+    }
+
+    protected function exportToCsv(): StreamedResponse
+    {
+        $filename = 'tools-' . now()->format('Y-m-d') . '.csv';
+
+        return response()->streamDownload(function () {
+            $handle = fopen('php://output', 'w');
+
+            // CSV headers
+            fputcsv($handle, [
+                'Name',
+                'Slug',
+                'Category',
+                'Views',
+                'Active',
+                'Position',
+            ]);
+
+            // Get all tools
+            $tools = Tool::orderBy('position')->get();
+
+            foreach ($tools as $tool) {
+                $totalViews = ToolView::getTotalViews($tool->slug);
+
+                fputcsv($handle, [
+                    $tool->name,
+                    $tool->slug,
+                    $tool->category,
+                    $totalViews,
+                    $tool->is_active ? 'Yes' : 'No',
+                    $tool->position,
+                ]);
+            }
+
+            fclose($handle);
+        }, $filename, [
+            'Content-Type' => 'text/csv',
+        ]);
     }
 }

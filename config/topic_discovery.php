@@ -181,4 +181,29 @@ return [
         'similarity_threshold' => 0.8, // 80% title similarity = duplicate
         'lookback_days' => 30,         // Check last 30 days for duplicates
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Production Sync Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Settings for syncing discovered topics from local machine to production.
+    | Local machine uses PRODUCTION_SYNC_URL and PRODUCTION_SYNC_TOKEN.
+    | Production server uses TOPIC_SYNC_TOKEN to validate incoming requests.
+    |
+    */
+
+    'sync' => [
+        // Production endpoint URL (used by local machine)
+        'production_url' => env('PRODUCTION_SYNC_URL'),
+
+        // Token for authenticating with production (used by local machine)
+        'production_token' => env('PRODUCTION_SYNC_TOKEN'),
+
+        // Token for validating incoming sync requests (used by production)
+        'token' => env('TOPIC_SYNC_TOKEN'),
+
+        // Request timeout in seconds
+        'timeout' => 30,
+    ],
 ];

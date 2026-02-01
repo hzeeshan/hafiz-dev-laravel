@@ -6,6 +6,7 @@ use App\Services\NotificationService;
 use App\Services\TopicDiscovery\TopicDiscoveryService;
 use App\Services\TopicDiscovery\TopicSourceFactory;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Http;
 
 class DiscoverTrendingTopics extends Command
 {
@@ -18,7 +19,8 @@ class DiscoverTrendingTopics extends Command
                             {--sources=* : Specific sources to use (reddit, hackernews, google_trends)}
                             {--auto-create : Auto-create BlogTopics for high-scoring topics (score >= 7)}
                             {--notify : Send Telegram notification with summary}
-                            {--limit=100 : Maximum topics to discover per source}';
+                            {--limit=100 : Maximum topics to discover per source}
+                            {--sync-to-production : Sync discovered topics to production server}';
 
     /**
      * The console command description.
@@ -58,8 +60,14 @@ class DiscoverTrendingTopics extends Command
         // Display results
         $this->displayResults($results, $duration);
 
-        // Send notification if requested
-        if ($this->option('notify')) {
+        // Sync to production if requested
+        if ($this->option('sync-to-production')) {
+            $this->syncToProduction($results['discovered']);
+        }
+
+        // Send local notification if requested (and not syncing to production)
+        // When syncing, notifications are handled by production
+        if ($this->option('notify') && !$this->option('sync-to-production')) {
             $this->sendNotification($notifications, $results);
         }
 
@@ -158,5 +166,74 @@ class DiscoverTrendingTopics extends Command
         $notifications->sendCustomMessage($message);
 
         $this->info('📱 Telegram notification sent!');
+    }
+
+    /**
+     * Sync discovered topics to production server.
+     */
+    protected function syncToProduction(array $discovered): void
+    {
+        $productionUrl = config('topic_discovery.sync.production_url');
+        $productionToken = config('topic_discovery.sync.production_token');
+        $timeout = config('topic_discovery.sync.timeout', 30);
+
+        if (empty($productionUrl) || empty($productionToken)) {
+            $this->error('❌ Production sync not configured. Set PRODUCTION_SYNC_URL and PRODUCTION_SYNC_TOKEN in .env');
+
+            return;
+        }
+
+        $this->info('🔄 Syncing to production...');
+
+        // Prepare topics data for sync
+        $topicsData = collect($discovered)->map(function ($result) {
+            $topic = $result['trending'];
+
+            return [
+                'source' => $topic->source,
+                'source_id' => $topic->source_id,
+                'title' => $topic->title,
+                'url' => $topic->url,
+                'excerpt' => $topic->excerpt,
+                'metadata' => $topic->metadata,
+                'calculated_score' => $topic->calculated_score,
+                'upvotes' => $topic->upvotes,
+                'comments_count' => $topic->comments_count,
+                'keywords' => $topic->keywords,
+                'discovered_at' => $topic->discovered_at?->toIso8601String(),
+            ];
+        })->values()->toArray();
+
+        if (empty($topicsData)) {
+            $this->warn('⚠️  No topics to sync.');
+
+            return;
+        }
+
+        try {
+            $response = Http::timeout($timeout)
+                ->withHeaders([
+                    'X-Sync-Token' => $productionToken,
+                    'Accept' => 'application/json',
+                ])
+                ->post($productionUrl, [
+                    'topics' => $topicsData,
+                    'auto_create' => $this->option('auto-create'),
+                    'notify' => $this->option('notify'),
+                ]);
+
+            if ($response->successful()) {
+                $data = $response->json();
+                $this->info("✅ Sync complete!");
+                $this->line("   Synced: <fg=cyan>{$data['synced']}</> topics");
+                $this->line("   Skipped (duplicates): <fg=yellow>{$data['skipped']}</>");
+                $this->line("   BlogTopics created: <fg=green>{$data['blog_topics_created']}</>");
+            } else {
+                $this->error("❌ Sync failed: HTTP {$response->status()}");
+                $this->line("   Response: " . $response->body());
+            }
+        } catch (\Exception $e) {
+            $this->error("❌ Sync failed: {$e->getMessage()}");
+        }
     }
 }

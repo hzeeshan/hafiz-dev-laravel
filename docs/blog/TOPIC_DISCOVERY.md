@@ -83,6 +83,7 @@ php artisan blog:discover-trending --auto-create --notify
 | `--sources=*` | Specific sources (reddit, hackernews, google_trends) |
 | `--auto-create` | Auto-create BlogTopics if score >= 7.0 |
 | `--notify` | Send Telegram notification with summary |
+| `--sync-to-production` | Sync discovered topics to production server |
 
 ---
 
@@ -409,22 +410,50 @@ These keywords score **highest** in the algorithm because they match your unique
 
 ## Scheduled Automation
 
-**Weekly Discovery** (already configured in `routes/console.php`):
+### **Local-to-Production Sync**
 
-```php
-Schedule::command('blog:discover-trending --auto-create --notify')
-    ->weeklyOn(1, '09:00');  // Every Monday at 9 AM
+**Why?** Reddit API is blocked on VPS. Discovery runs locally on Mac and syncs to production via API.
+
+**Architecture:**
+```
+Mac (crontab: Mon/Thu 9 AM)
+    ↓
+blog:discover-trending --auto-create --notify --sync-to-production
+    ↓
+POST https://hafiz.dev/api/sync/trending-topics
+    ↓
+Production: Saves topics, creates BlogTopics, sends Telegram
 ```
 
+**Local Setup (Mac crontab):**
+```bash
+# Edit crontab
+crontab -e
+
+# Entry (Monday + Thursday at 9 AM):
+0 9 * * 1,4 cd /Users/hafizzeeshanriaz/side-projects/hafiz-dev-laravel && /usr/bin/php artisan blog:discover-trending --auto-create --notify --sync-to-production >> storage/logs/topic-discovery-cron.log 2>&1
+```
+
+**Environment Variables:**
+
+| Location | Variable | Purpose |
+|----------|----------|---------|
+| Local `.env` | `PRODUCTION_SYNC_URL` | `https://hafiz.dev/api/sync/trending-topics` |
+| Local `.env` | `PRODUCTION_SYNC_TOKEN` | Token for authenticating with production |
+| Production `.env` | `TOPIC_SYNC_TOKEN` | Token for validating incoming requests |
+
+Generate token: `openssl rand -hex 32`
+
 **What happens automatically:**
-1. Discovers 40-60 topics from Reddit + HN
-2. Auto-converts high-scoring topics (>= 7.0) to BlogTopics
-3. Sends Telegram notification with summary
-4. Logs success/failure
+1. Mac runs discovery from Reddit + HN (APIs work locally)
+2. Syncs topics to production via API endpoint
+3. Production auto-creates BlogTopics (score >= 7.0)
+4. Production sends Telegram notification
+5. Logs to `storage/logs/topic-discovery-cron.log`
 
 **Your workflow:**
-- Monday morning: Receive Telegram alert
-- Monday afternoon: Review auto-created topics, generate 2-3 posts
+- Monday/Thursday morning: Receive Telegram alert
+- Review auto-created topics, generate 2-3 posts
 - Total time: ~30 minutes/week
 
 ---
@@ -437,11 +466,14 @@ Schedule::command('blog:discover-trending --auto-create --notify')
 | Reddit only | `php artisan blog:discover-trending --sources=reddit` |
 | Auto-create high-scoring | `php artisan blog:discover-trending --auto-create` |
 | With Telegram alert | `php artisan blog:discover-trending --auto-create --notify` |
+| **Full sync to production** | `php artisan blog:discover-trending --auto-create --notify --sync-to-production` |
 | Check discovered count | See "Monitoring" section above |
-| Scheduled run | Every Monday 9 AM (automated) |
+| View crontab | `crontab -l` |
+| Check cron logs | `tail -f storage/logs/topic-discovery-cron.log` |
+| Scheduled run | Monday + Thursday 9 AM (Mac crontab) |
 
 ---
 
-**Status**: ✅ System is production ready with weekly automated discovery!
+**Status**: ✅ System is production ready with local-to-production sync!
 
-**Next**: Wait for Monday 9 AM or run manually to test.
+**Next**: Discovery runs automatically Mon/Thu at 9 AM from your Mac.

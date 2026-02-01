@@ -42,7 +42,7 @@ class TrendingTopicSourcesTable
                     ->searchable()
                     ->limit(60)
                     ->tooltip(fn ($record) => $record->title)
-                    ->url(fn ($record) => $record->url, true)
+                    ->url(fn ($record) => self::getDiscussionUrl($record), true)
                     ->wrap(),
 
                 TextColumn::make('source')
@@ -72,6 +72,11 @@ class TrendingTopicSourcesTable
                     ->separator(',')
                     ->limit(3)
                     ->toggleable(),
+
+                TextColumn::make('created_at')
+                    ->label('Added')
+                    ->since()
+                    ->sortable(),
 
                 TextColumn::make('blogTopic.title')
                     ->label('BlogTopic')
@@ -159,5 +164,18 @@ class TrendingTopicSourcesTable
                     DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+    /**
+     * Get the discussion URL (Reddit/HN) from metadata, fallback to external URL.
+     */
+    protected static function getDiscussionUrl($record): ?string
+    {
+        $metadata = $record->metadata ?? [];
+
+        // Reddit stores permalink, HN stores hn_url
+        return $metadata['permalink']
+            ?? $metadata['hn_url']
+            ?? $record->url;
     }
 }

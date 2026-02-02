@@ -121,7 +121,7 @@
 
                 <!-- Dual CTAs -->
                 <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                    <a href="#contact"
+                    <a href="https://calendly.com/hafizzeeshan619/15min" target="_blank"
                         class="px-8 py-4 bg-gold text-darkBg font-semibold rounded-lg hover:bg-gold-light transition-all duration-300 hover:shadow-gold-glow hover:-translate-y-0.5 text-center">
                         Book a Free Call
                     </a>

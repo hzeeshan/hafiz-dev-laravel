@@ -151,7 +151,7 @@
                 <div class="flex flex-wrap gap-2 mt-6">
                     @foreach ($post->tags as $tag)
                         <a href="{{ route('blog.index', ['tag' => $tag]) }}"
-                           class="px-3 py-1 bg-gold/20 text-gold rounded-full text-sm border border-gold/30 hover:bg-gold/30 hover:scale-105 transition-all duration-200">
+                            class="px-3 py-1 bg-gold/20 text-gold rounded-full text-sm border border-gold/30 hover:bg-gold/30 hover:scale-105 transition-all duration-200">
                             {{ $tag }}
                         </a>
                     @endforeach
@@ -162,11 +162,8 @@
         <!-- Featured Image -->
         @if ($post->featured_image)
             <img src="{{ asset('storage/' . $post->featured_image) }}" alt="{{ $post->title }}"
-                class="w-full rounded-lg mb-12 shadow-gold border border-gold/20"
-                width="1200"
-                height="630"
-                fetchpriority="high"
-                onerror="this.src='{{ asset('blog-placeholder.svg') }}'">
+                class="w-full rounded-lg mb-12 shadow-gold border border-gold/20" width="1200" height="630"
+                fetchpriority="high" onerror="this.src='{{ asset('blog-placeholder.svg') }}'">
         @endif
 
         <!-- Post Content -->
@@ -180,17 +177,15 @@
         <!-- CTA Box: MOST IMPORTANT FOR FREELANCE LEADS! -->
         <div class="my-16 p-8 bg-darkCard/50 border-2 border-gold/30 rounded-xl shadow-dark-card">
             <h3 class="text-2xl font-bold text-light mb-4">
-                Need Help With Your Laravel Project?
+                Got a Product Idea?
             </h3>
             <p class="text-light-muted mb-6 leading-relaxed">
-                I specialize in building custom Laravel applications, process automation,
-                and SaaS development. Whether you need to eliminate repetitive tasks or
-                build something from scratch, let's discuss your project.
+                I build MVPs, web apps, and SaaS platforms in 7 days. Fixed price, real code, deployed and ready to use.
             </p>
             <div class="flex flex-wrap gap-4">
-                <a href="/#contact"
+                <a href="https://calendly.com/hafizzeeshan619/15min" target="_blank"
                     class="px-6 py-3 bg-gold text-darkBg font-semibold rounded-lg hover:bg-gold-light transition-all duration-300 hover:shadow-gold-glow hover:-translate-y-0.5">
-                    Schedule Free Consultation
+                    Book a Free Call
                 </a>
                 <a href="/#portfolio"
                     class="px-6 py-3 border-2 border-gold text-gold font-semibold rounded-lg hover:bg-gold/10 transition-all duration-300">
@@ -208,18 +203,15 @@
                 <source srcset="/profile-photo.webp" type="image/webp">
                 <img src="/profile-photo.png" alt="Hafiz Riaz"
                     class="w-20 h-20 min-w-[80px] min-h-[80px] rounded-full border-3 border-gold shadow-gold object-cover"
-                    loading="lazy"
-                    width="80"
-                    height="80">
+                    loading="lazy" width="80" height="80">
             </picture>
             <div>
-                <h4 class="text-light font-bold text-lg mb-2">About Hafiz Riaz</h4>
+                <h4 class="text-light font-bold text-lg mb-2">About Hafiz</h4>
                 <p class="text-light-muted mb-4 leading-relaxed">
-                    Full Stack Developer from Turin, Italy. I build web applications with
-                    Laravel and Vue.js, and automate business processes. Creator of ReplyGenius,
-                    StudyLab, and other SaaS products.
+                    Full Stack Developer from Italy. I help founders turn ideas into working products fast. 9+
+                    years of experience building web apps, mobile apps, and SaaS platforms.
                 </p>
-                <a href="/" class="text-gold hover:text-gold-light transition-colors">View Portfolio →</a>
+                <a href="/#portfolio" class="text-gold hover:text-gold-light transition-colors">View My Work →</a>
             </div>
         </div>
 
@@ -239,10 +231,8 @@
                             class="block bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 hover:-translate-y-1 group overflow-hidden">
                             @if ($related->featured_image)
                                 <img src="{{ asset('storage/' . $related->featured_image) }}"
-                                    alt="{{ $related->title }}" class="w-full h-48 object-cover"
-                                    loading="lazy"
-                                    width="400"
-                                    height="192"
+                                    alt="{{ $related->title }}" class="w-full h-48 object-cover" loading="lazy"
+                                    width="400" height="192"
                                     onerror="this.src='{{ asset('blog-placeholder.svg') }}'">
                             @endif
                             <div class="p-6">

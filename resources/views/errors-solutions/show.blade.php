@@ -2,7 +2,8 @@
     {{-- SEO Meta Tags --}}
     <x-slot:title>{{ $error['meta_title'] }} | Hafiz Riaz</x-slot:title>
     <x-slot:description>{{ $error['meta_description'] }}</x-slot:description>
-    <x-slot:keywords>{{ $error['error_message'] }}, Laravel error, {{ $error['category'] }}, PHP error fix, Laravel troubleshooting</x-slot:keywords>
+    <x-slot:keywords>{{ $error['error_message'] }}, Laravel error, {{ $error['category'] }}, PHP error fix, Laravel
+        troubleshooting</x-slot:keywords>
     <x-slot:canonical>{{ route('errors.show', $error['slug']) }}</x-slot:canonical>
 
     {{-- Open Graph --}}
@@ -17,26 +18,59 @@
             'routing' => ['bg' => 'bg-green-500/20', 'badge' => 'bg-green-500/20 text-green-400 border-green-500/30'],
             'security' => ['bg' => 'bg-red-500/20', 'badge' => 'bg-red-500/20 text-red-400 border-red-500/30'],
             'database' => ['bg' => 'bg-blue-500/20', 'badge' => 'bg-blue-500/20 text-blue-400 border-blue-500/30'],
-            'configuration' => ['bg' => 'bg-purple-500/20', 'badge' => 'bg-purple-500/20 text-purple-400 border-purple-500/30'],
-            'autoloading' => ['bg' => 'bg-orange-500/20', 'badge' => 'bg-orange-500/20 text-orange-400 border-orange-500/30'],
-            'filesystem' => ['bg' => 'bg-yellow-500/20', 'badge' => 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30'],
+            'configuration' => [
+                'bg' => 'bg-purple-500/20',
+                'badge' => 'bg-purple-500/20 text-purple-400 border-purple-500/30',
+            ],
+            'autoloading' => [
+                'bg' => 'bg-orange-500/20',
+                'badge' => 'bg-orange-500/20 text-orange-400 border-orange-500/30',
+            ],
+            'filesystem' => [
+                'bg' => 'bg-yellow-500/20',
+                'badge' => 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
+            ],
             'views' => ['bg' => 'bg-pink-500/20', 'badge' => 'bg-pink-500/20 text-pink-400 border-pink-500/30'],
-            'eloquent' => ['bg' => 'bg-indigo-500/20', 'badge' => 'bg-indigo-500/20 text-indigo-400 border-indigo-500/30'],
+            'eloquent' => [
+                'bg' => 'bg-indigo-500/20',
+                'badge' => 'bg-indigo-500/20 text-indigo-400 border-indigo-500/30',
+            ],
             'performance' => ['bg' => 'bg-cyan-500/20', 'badge' => 'bg-cyan-500/20 text-cyan-400 border-cyan-500/30'],
             'api' => ['bg' => 'bg-teal-500/20', 'badge' => 'bg-teal-500/20 text-teal-400 border-teal-500/30'],
             'authentication' => ['bg' => 'bg-red-500/20', 'badge' => 'bg-red-500/20 text-red-400 border-red-500/30'],
-            'authorization' => ['bg' => 'bg-amber-500/20', 'badge' => 'bg-amber-500/20 text-amber-400 border-amber-500/30'],
+            'authorization' => [
+                'bg' => 'bg-amber-500/20',
+                'badge' => 'bg-amber-500/20 text-amber-400 border-amber-500/30',
+            ],
             'validation' => ['bg' => 'bg-lime-500/20', 'badge' => 'bg-lime-500/20 text-lime-400 border-lime-500/30'],
-            'cache' => ['bg' => 'bg-emerald-500/20', 'badge' => 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30'],
-            'queues' => ['bg' => 'bg-violet-500/20', 'badge' => 'bg-violet-500/20 text-violet-400 border-violet-500/30'],
+            'cache' => [
+                'bg' => 'bg-emerald-500/20',
+                'badge' => 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30',
+            ],
+            'queues' => [
+                'bg' => 'bg-violet-500/20',
+                'badge' => 'bg-violet-500/20 text-violet-400 border-violet-500/30',
+            ],
             'mail' => ['bg' => 'bg-rose-500/20', 'badge' => 'bg-rose-500/20 text-rose-400 border-rose-500/30'],
             'middleware' => ['bg' => 'bg-sky-500/20', 'badge' => 'bg-sky-500/20 text-sky-400 border-sky-500/30'],
-            'scheduling' => ['bg' => 'bg-fuchsia-500/20', 'badge' => 'bg-fuchsia-500/20 text-fuchsia-400 border-fuchsia-500/30'],
-            'broadcasting' => ['bg' => 'bg-orange-500/20', 'badge' => 'bg-orange-500/20 text-orange-400 border-orange-500/30'],
-            'session' => ['bg' => 'bg-yellow-500/20', 'badge' => 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30'],
+            'scheduling' => [
+                'bg' => 'bg-fuchsia-500/20',
+                'badge' => 'bg-fuchsia-500/20 text-fuchsia-400 border-fuchsia-500/30',
+            ],
+            'broadcasting' => [
+                'bg' => 'bg-orange-500/20',
+                'badge' => 'bg-orange-500/20 text-orange-400 border-orange-500/30',
+            ],
+            'session' => [
+                'bg' => 'bg-yellow-500/20',
+                'badge' => 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
+            ],
             'cli' => ['bg' => 'bg-gray-500/20', 'badge' => 'bg-gray-500/20 text-gray-400 border-gray-500/30'],
         ];
-        $style = $categoryStyles[$error['category']] ?? ['bg' => 'bg-gold/20', 'badge' => 'bg-gold/20 text-gold border-gold/30'];
+        $style = $categoryStyles[$error['category']] ?? [
+            'bg' => 'bg-gold/20',
+            'badge' => 'bg-gold/20 text-gold border-gold/30',
+        ];
 
         // Language labels for code blocks
         $languageLabels = [
@@ -61,18 +95,21 @@
                 '@type' => 'HowTo',
                 'name' => 'How to fix ' . $error['error_message'],
                 'description' => $error['description'],
-                'step' => collect($error['solutions'])->map(function ($solution, $index) {
-                    return [
-                        '@type' => 'HowToStep',
-                        'position' => $index + 1,
-                        'name' => $solution['title'],
-                        'text' => $solution['title'] . ': ' . $solution['code'],
-                        'itemListElement' => [
-                            '@type' => 'HowToDirection',
-                            'text' => $solution['code'],
-                        ],
-                    ];
-                })->values()->toArray(),
+                'step' => collect($error['solutions'])
+                    ->map(function ($solution, $index) {
+                        return [
+                            '@type' => 'HowToStep',
+                            'position' => $index + 1,
+                            'name' => $solution['title'],
+                            'text' => $solution['title'] . ': ' . $solution['code'],
+                            'itemListElement' => [
+                                '@type' => 'HowToDirection',
+                                'text' => $solution['code'],
+                            ],
+                        ];
+                    })
+                    ->values()
+                    ->toArray(),
                 'totalTime' => 'PT5M',
             ];
 
@@ -114,7 +151,12 @@
                         'name' => 'What causes the ' . $error['error_message'] . ' error in Laravel?',
                         'acceptedAnswer' => [
                             '@type' => 'Answer',
-                            'text' => 'The ' . $error['error_message'] . ' error is commonly caused by: ' . implode(', ', array_slice($error['causes'], 0, 3)) . '.',
+                            'text' =>
+                                'The ' .
+                                $error['error_message'] .
+                                ' error is commonly caused by: ' .
+                                implode(', ', array_slice($error['causes'], 0, 3)) .
+                                '.',
                         ],
                     ],
                     [
@@ -130,7 +172,10 @@
                         'name' => 'Which Laravel versions does this affect?',
                         'acceptedAnswer' => [
                             '@type' => 'Answer',
-                            'text' => 'This error can occur in Laravel versions ' . implode(', ', $error['laravel_versions']) . '.',
+                            'text' =>
+                                'This error can occur in Laravel versions ' .
+                                implode(', ', $error['laravel_versions']) .
+                                '.',
                         ],
                     ],
                 ],
@@ -192,7 +237,7 @@
                 <span class="px-3 py-1 {{ $style['badge'] }} rounded-full text-sm font-medium border">
                     {{ ucfirst($error['category']) }}
                 </span>
-                @foreach($error['laravel_versions'] as $version)
+                @foreach ($error['laravel_versions'] as $version)
                     <span class="px-2 py-0.5 bg-darkCard/50 text-light-muted rounded text-xs border border-gold/10">
                         Laravel {{ $version }}
                     </span>
@@ -215,9 +260,10 @@
                 <div class="flex items-center justify-between px-4 py-2 bg-red-500/10 border-b border-red-500/20">
                     <span class="text-xs font-medium text-red-400 uppercase tracking-wider">Error Message</span>
                     <button onclick="copyToClipboard(this, {{ Js::from($error['error_message']) }})"
-                            class="text-xs text-light-muted hover:text-gold transition-colors flex items-center gap-1">
+                        class="text-xs text-light-muted hover:text-gold transition-colors flex items-center gap-1">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                         </svg>
                         <span>Copy</span>
                     </button>
@@ -231,9 +277,10 @@
             <h2 class="text-2xl font-bold text-light mb-4">Common Causes</h2>
             <div class="bg-darkCard/50 rounded-xl border border-gold/20 p-6">
                 <ol class="space-y-3">
-                    @foreach($error['causes'] as $index => $cause)
+                    @foreach ($error['causes'] as $index => $cause)
                         <li class="flex items-start gap-3">
-                            <span class="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full bg-gold/20 text-gold text-sm font-bold">
+                            <span
+                                class="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full bg-gold/20 text-gold text-sm font-bold">
                                 {{ $index + 1 }}
                             </span>
                             <span class="text-light-muted">{{ $cause }}</span>
@@ -247,11 +294,12 @@
         <section class="mb-12">
             <h2 class="text-2xl font-bold text-light mb-6">Solutions</h2>
             <div class="space-y-6">
-                @foreach($error['solutions'] as $index => $solution)
+                @foreach ($error['solutions'] as $index => $solution)
                     <div class="bg-darkCard/50 rounded-xl border border-gold/20 overflow-hidden">
                         <!-- Solution Header -->
                         <div class="flex items-center gap-3 px-6 py-4 border-b border-gold/10">
-                            <span class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-gold text-darkBg font-bold">
+                            <span
+                                class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-gold text-darkBg font-bold">
                                 {{ $index + 1 }}
                             </span>
                             <h3 class="text-lg font-semibold text-light">{{ $solution['title'] }}</h3>
@@ -304,9 +352,9 @@
             <img src="/profile-photo.png" alt="Hafiz Riaz"
                 class="w-20 h-20 rounded-2xl border-4 border-gold/30 shadow-gold">
             <div>
-                <h4 class="text-light font-bold text-lg mb-2">About Hafiz Riaz</h4>
+                <h4 class="text-light font-bold text-lg mb-2">About Hafiz</h4>
                 <p class="text-light-muted mb-4 leading-relaxed">
-                    Full Stack Developer from Turin, Italy. I build web applications with
+                    Full Stack Developer from Italy. I build web applications with
                     Laravel and Vue.js, and automate business processes. Creator of ReplyGenius,
                     StudyLab, and other SaaS products.
                 </p>
@@ -315,20 +363,23 @@
         </div>
 
         <!-- Related Errors -->
-        @if(count($relatedErrors) > 0)
+        @if (count($relatedErrors) > 0)
             <hr class="my-16 border-t border-gold/10">
 
             <section>
                 <h3 class="text-2xl font-bold text-light mb-8">Related Errors</h3>
                 <div class="grid md:grid-cols-3 gap-6">
-                    @foreach($relatedErrors as $related)
+                    @foreach ($relatedErrors as $related)
                         @php
-                            $relatedStyle = $categoryStyles[$related['category']] ?? ['badge' => 'bg-gold/20 text-gold border-gold/30'];
+                            $relatedStyle = $categoryStyles[$related['category']] ?? [
+                                'badge' => 'bg-gold/20 text-gold border-gold/30',
+                            ];
                         @endphp
                         <a href="{{ route('errors.show', $related['slug']) }}"
-                           class="block bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 hover:-translate-y-1 group overflow-hidden">
+                            class="block bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 hover:-translate-y-1 group overflow-hidden">
                             <div class="p-6">
-                                <span class="text-xs px-2.5 py-1 {{ $relatedStyle['badge'] }} rounded-md font-medium border mb-3 inline-block">
+                                <span
+                                    class="text-xs px-2.5 py-1 {{ $relatedStyle['badge'] }} rounded-md font-medium border mb-3 inline-block">
                                     {{ ucfirst($related['category']) }}
                                 </span>
                                 <h4 class="text-light font-semibold mb-2 group-hover:text-gold transition-colors">
@@ -346,20 +397,20 @@
     </article>
 
     @push('scripts')
-    <script>
-        function copyToClipboard(button, text) {
-            navigator.clipboard.writeText(text).then(function() {
-                const originalText = button.querySelector('span').textContent;
-                button.querySelector('span').textContent = 'Copied!';
-                button.classList.add('text-gold');
-                setTimeout(function() {
-                    button.querySelector('span').textContent = originalText;
-                    button.classList.remove('text-gold');
-                }, 2000);
-            }).catch(function(err) {
-                console.error('Failed to copy: ', err);
-            });
-        }
-    </script>
+        <script>
+            function copyToClipboard(button, text) {
+                navigator.clipboard.writeText(text).then(function() {
+                    const originalText = button.querySelector('span').textContent;
+                    button.querySelector('span').textContent = 'Copied!';
+                    button.classList.add('text-gold');
+                    setTimeout(function() {
+                        button.querySelector('span').textContent = originalText;
+                        button.classList.remove('text-gold');
+                    }, 2000);
+                }).catch(function(err) {
+                    console.error('Failed to copy: ', err);
+                });
+            }
+        </script>
     @endpush
 </x-layout>

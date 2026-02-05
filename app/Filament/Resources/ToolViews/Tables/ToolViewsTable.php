@@ -49,7 +49,7 @@ class ToolViewsTable
             ->filters([
                 SelectFilter::make('tool_slug')
                     ->label('Tool')
-                    ->options(\App\Models\ToolView::$tools),
+                    ->options(fn () => \App\Models\Tool::pluck('name', 'slug')->toArray()),
             ])
             ->defaultSort('date', 'desc');
     }

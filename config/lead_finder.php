@@ -68,6 +68,11 @@ return [
                 'Automate',
                 'AutomateYourself',
                 'AppIdeas',
+
+                // EMERGING OPPORTUNITIES - People hitting limits, need real dev help
+                'vibecoding',        // People trying AI coding but getting stuck
+                'AlphaandBetaUsers', // Early-stage founders needing dev for next iteration
+                'juststart',         // People starting online businesses, some need tech built
             ],
             'sort' => 'new',         // Use /new not /hot (we want fresh posts)
             'min_upvotes' => 1,      // Low threshold - fresh posts have few upvotes

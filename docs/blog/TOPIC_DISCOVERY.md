@@ -20,6 +20,47 @@ Automated system that discovers trending blog topics from Reddit, Hacker News, a
 
 ---
 
+## Content Strategy: 70/30 Split
+
+### **Technical (70%) vs Founder-Focused (30%)**
+
+The discovery system now supports two content tracks:
+
+| Content Type | Target Audience | Purpose | Examples |
+|--------------|-----------------|---------|----------|
+| **Technical** | Developers | SEO authority, referrals | Laravel tutorials, Vue guides, API patterns |
+| **Founder** | Non-technical founders | Direct client acquisition | MVP validation, build vs buy, hiring developers |
+
+### **Why This Split?**
+
+1. **Technical posts** → Developers read them → They refer non-technical founders to you
+2. **Founder posts** → Rank for keywords founders actually search → Direct leads
+
+### **Auto-Detection Logic**
+
+Topics are auto-tagged based on:
+1. **Source subreddit** - Posts from r/startups, r/Entrepreneur, etc. → `founder`
+2. **Keywords in title** - "validate", "mvp", "startup" → `founder`
+3. **Default** → `technical`
+
+### **Founder Subreddits**
+
+```
+r/startups, r/Entrepreneur, r/SideProject, r/Solopreneur,
+r/smallbusiness, r/Business_Ideas, r/Startup_Ideas,
+r/SomebodyMakeThis, r/indiehackers, r/MicroSaas, r/buildinpublic
+```
+
+### **Founder Keywords (Hacker News)**
+
+```
+mvp, validate idea, validation, first customers, launch,
+bootstrapped, solo founder, no-code, build vs buy,
+hire developer, freelancer, outsourcing, app development cost
+```
+
+---
+
 ## Architecture
 
 ### **Clean & Pragmatic Design**
@@ -99,28 +140,59 @@ return [
     'sources' => [
         'reddit' => [
             'enabled' => true,
-            'subreddits' => ['laravel', 'PHP', 'webdev', 'SaaS'],
+            'subreddits' => [
+                // === TECHNICAL (70%) ===
+                'laravel', 'PHP', 'webdev', 'programming',
+                'vuejs', 'reactjs', 'javascript', 'Frontend',
+                'docker', 'devops', 'selfhosted',
+                'LocalLLaMA', 'AutomateYourself', 'ChatGPTCoding',
+
+                // === FOUNDER-FOCUSED (30%) ===
+                'SaaS', 'startups', 'Entrepreneur', 'EntrepreneurRideAlong',
+                'SideProject', 'Solopreneur', 'smallbusiness',
+                'Business_Ideas', 'Startup_Ideas', 'SomebodyMakeThis',
+                'indiehackers', 'MicroSaas', 'buildinpublic',
+            ],
             'min_upvotes' => 50,
             'limit' => 25,
         ],
 
         'hackernews' => [
             'enabled' => true,
-            'keywords' => ['laravel', 'php', 'saas', 'deepseek', 'ai'],
+            'keywords' => [
+                // === TECHNICAL (70%) ===
+                'laravel', 'php', 'api', 'vue', 'react', 'ai', 'llm',
+                'docker', 'database', 'performance', 'chrome extension',
+
+                // === FOUNDER-FOCUSED (30%) ===
+                'saas', 'startup', 'mvp', 'validate idea', 'validation',
+                'first customers', 'launch', 'bootstrapped', 'solo founder',
+                'no-code', 'build vs buy', 'hire developer', 'freelancer',
+            ],
             'min_points' => 100,
-            'limit' => 30,
+            'limit' => 50,
         ],
 
         'google_trends' => [
-            'enabled' => true,
-            'keywords' => ['laravel', 'deepseek', 'php', 'filament'],
-            'geo' => 'US',
+            'enabled' => false, // No free API available
         ],
+    ],
+
+    // Auto-detect content type based on source
+    'founder_subreddits' => [
+        'startups', 'Entrepreneur', 'SideProject', 'Solopreneur',
+        'smallbusiness', 'Business_Ideas', 'Startup_Ideas',
+        'SomebodyMakeThis', 'indiehackers', 'MicroSaas', 'buildinpublic',
+    ],
+
+    'content_type_mapping' => [
+        'technical' => ['tutorial', 'guide', 'laravel', 'php', 'api'],
+        'founder' => ['validate', 'mvp', 'startup', 'launch', 'customers'],
     ],
 
     'duplicate_detection' => [
         'enabled' => true,
-        'similarity_threshold' => 0.8,  // 80% similarity = duplicate
+        'similarity_threshold' => 0.8,
         'lookback_days' => 30,
     ],
 ];
@@ -290,12 +362,17 @@ BlogTopic::create([
     'title' => $trending->title,
     'keywords' => 'laravel, saas, automation',
     'description' => 'Excerpt from trending topic',
-    'content_type' => 'technical', // Auto-guessed
+    'content_type' => $this->detectContentType($trending), // 'technical' or 'founder'
     'generation_mode' => 'topic',
     'status' => 'pending',
     'priority' => 7, // Based on score
     'source_url' => $trending->url,
 ]);
+
+// Content type detection logic:
+// 1. If source subreddit is in 'founder_subreddits' → 'founder'
+// 2. If title/keywords match 'founder' mapping → 'founder'
+// 3. Default → 'technical'
 ```
 
 ---

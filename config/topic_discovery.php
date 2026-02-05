@@ -37,16 +37,12 @@ return [
         'reddit' => [
             'enabled' => true,
             'subreddits' => [
+                // === TECHNICAL (70%) ===
                 // Core Tech (Your Expertise)
                 'laravel',
                 'PHP',
                 'webdev',
                 'programming',
-                // Business & SaaS (Your Products)
-                'SaaS',
-                'EntrepreneurRideAlong',
-                'startups',
-                'sidehustle',
                 // Frontend (Full-Stack Focus)
                 'vuejs',
                 'reactjs',
@@ -60,6 +56,22 @@ return [
                 'LocalLLaMA',
                 'AutomateYourself',
                 'ChatGPTCoding',
+
+                // === FOUNDER-FOCUSED (30%) ===
+                // Business & SaaS (MVP Services Target Audience)
+                'SaaS',
+                'startups',
+                'Entrepreneur',
+                'EntrepreneurRideAlong',
+                'SideProject',
+                'Solopreneur',
+                'smallbusiness',
+                'Business_Ideas',
+                'Startup_Ideas',
+                'SomebodyMakeThis',
+                'indiehackers',
+                'MicroSaas',
+                'buildinpublic',
             ],
             'min_upvotes' => 50,
             'limit' => 25,
@@ -68,6 +80,7 @@ return [
         'hackernews' => [
             'enabled' => true,
             'keywords' => [
+                // === TECHNICAL (70%) ===
                 // Backend (Your Core)
                 'laravel',
                 'php',
@@ -94,12 +107,6 @@ return [
                 'claude',
                 'chatgpt',
                 'automation',
-                // SaaS & Business (Your Experience)
-                'saas',
-                'startup',
-                'monetization',
-                'side project',
-                'indie hacker',
                 // DevOps (Full-Stack Coverage)
                 'docker',
                 'kubernetes',
@@ -121,6 +128,28 @@ return [
                 'chrome extension',
                 'browser extension',
                 'manifest v3',
+
+                // === FOUNDER-FOCUSED (30%) ===
+                // SaaS & Business (MVP Services Target Audience)
+                'saas',
+                'startup',
+                'monetization',
+                'side project',
+                'indie hacker',
+                'mvp',
+                'validate idea',
+                'validation',
+                'first customers',
+                'launch',
+                'bootstrapped',
+                'solo founder',
+                'no-code',
+                'build vs buy',
+                'hire developer',
+                'freelancer',
+                'outsourcing',
+                'cost of building',
+                'app development cost',
             ],
             'min_points' => 100,
             'limit' => 50, // Increased from 30
@@ -162,9 +191,33 @@ return [
     */
 
     'content_type_mapping' => [
-        'technical' => ['tutorial', 'guide', 'how to', 'building', 'implementing'],
+        'technical' => ['tutorial', 'guide', 'how to', 'building', 'implementing', 'laravel', 'php', 'vue', 'api', 'database'],
+        'founder' => ['validate', 'mvp', 'startup', 'launch', 'customers', 'bootstrapped', 'founder', 'idea', 'cost', 'hire'],
         'opinion' => ['why', 'thoughts on', 'my take', 'unpopular opinion'],
         'news' => ['released', 'announced', 'update', 'new version', 'launched'],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Founder-Focused Subreddits
+    |--------------------------------------------------------------------------
+    |
+    | Topics from these subreddits are auto-tagged as 'founder' content type
+    |
+    */
+
+    'founder_subreddits' => [
+        'startups',
+        'Entrepreneur',
+        'SideProject',
+        'Solopreneur',
+        'smallbusiness',
+        'Business_Ideas',
+        'Startup_Ideas',
+        'SomebodyMakeThis',
+        'indiehackers',
+        'MicroSaas',
+        'buildinpublic',
     ],
 
     /*

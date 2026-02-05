@@ -26,6 +26,7 @@ return Application::configure(basePath: dirname(__DIR__))
         // Register custom middleware aliases
         $middleware->alias([
             'sync.token' => \App\Http\Middleware\ValidateSyncToken::class,
+            'lead.sync.token' => \App\Http\Middleware\ValidateLeadSyncToken::class,
         ]);
     })
     ->withSchedule(function (Schedule $schedule): void {

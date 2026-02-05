@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\DiscoveredLeadSyncController;
 use App\Http\Controllers\Api\TrendingTopicSyncController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::post('/sync/trending-topics', [TrendingTopicSyncController::class, 'store'])
     ->middleware('sync.token')
     ->name('api.sync.trending-topics');
+
+// Discovered Lead Sync - Receives leads from local machine
+Route::post('/sync/discovered-leads', [DiscoveredLeadSyncController::class, 'store'])
+    ->middleware('lead.sync.token')
+    ->name('api.sync.discovered-leads');

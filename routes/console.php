@@ -27,3 +27,13 @@ Schedule::command('sitemap:generate')
 //     ->weeklyOn(1, '09:00')
 //     ->onSuccess(fn () => logger('Topic discovery completed successfully'))
 //     ->onFailure(fn () => logger('Topic discovery failed'));
+
+/**
+ * Lead Finder Cleanup
+ * Automatically delete old "new" status leads after 30 days to prevent database bloat.
+ * Runs daily at 2 AM. Preserves contacted/replied/converted leads forever.
+ */
+Schedule::command('leads:cleanup --days=30 --status=new')
+    ->dailyAt('02:00')
+    ->onSuccess(fn () => logger('Lead cleanup completed successfully'))
+    ->onFailure(fn () => logger('Lead cleanup failed'));

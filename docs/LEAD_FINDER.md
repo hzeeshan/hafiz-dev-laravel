@@ -358,8 +358,68 @@ Generate token: `openssl rand -hex 32`
 crontab -e
 
 # Run every 2 hours
-0 */2 * * * cd /Users/hafizzeeshanriaz/side-projects/hafiz-dev-laravel && /usr/bin/php artisan leads:discover --notify --sync-to-production >> storage/logs/lead-finder-cron.log 2>&1
+0 */2 * * * cd /Users/hafizzeeshanriaz/side-projects/hafiz-dev-laravel && /opt/homebrew/opt/php@8.3/bin/php artisan leads:discover --notify --sync-to-production >> storage/logs/lead-finder-cron.log 2>&1
 ```
+
+**Note**: Use the correct PHP path for your system. Find it with `which php`.
+
+---
+
+## Lead Cleanup System
+
+To prevent database bloat from running discovery every 2 hours, the system includes automatic cleanup.
+
+### **Automatic Cleanup (Production)**
+
+Scheduled task runs daily at 2 AM and deletes old "new" status leads:
+
+```php
+// routes/console.php
+Schedule::command('leads:cleanup --days=30 --status=new')
+    ->dailyAt('02:00');
+```
+
+**What Gets Deleted:**
+- ✅ Leads with status `new` older than 30 days
+- ❌ **Preserves** `contacted`, `replied`, `converted` leads forever
+
+### **Manual Cleanup (CLI)**
+
+```bash
+# Preview what would be deleted (dry run)
+php artisan leads:cleanup --days=30 --status=new --dry-run
+
+# Delete old "new" leads (with confirmation)
+php artisan leads:cleanup --days=30 --status=new
+
+# Delete old skipped leads
+php artisan leads:cleanup --days=60 --status=skipped
+
+# Delete ANY old leads (dangerous!)
+php artisan leads:cleanup --days=90
+```
+
+### **Bulk Delete (Filament Admin)**
+
+The admin panel includes:
+
+1. **Date Range Filters**:
+   - 📅 Today
+   - 📅 Last 7 days
+   - 📅 Last 30 days
+   - 📅 Older than 30 days
+   - 🗑️ Older than 60 days
+
+2. **Bulk Actions**:
+   - Select multiple leads → "Delete" button
+   - Select all visible (filtered) leads → Delete in one click
+   - Bulk mark as contacted/skipped
+
+**Example Workflow:**
+1. Filter by "Older than 30 days" + Status "new"
+2. Select all visible leads
+3. Click bulk delete action
+4. Confirm deletion
 
 ---
 
@@ -452,7 +512,8 @@ docs/
 
 ## Future Enhancements
 
-- [ ] **Filament Admin Resource** - Manage leads in admin panel
+- [x] **Filament Admin Resource** - Manage leads in admin panel ✅
+- [x] **Automatic Cleanup** - Prevent database bloat ✅
 - [ ] **Twitter/X Integration** - Monitor for freelance opportunities
 - [ ] **Upwork/Freelancer Monitoring** - Job board scraping
 - [ ] **AI Reply Drafts** - Auto-generate personalized reply drafts

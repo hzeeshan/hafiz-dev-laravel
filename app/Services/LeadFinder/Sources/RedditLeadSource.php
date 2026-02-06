@@ -62,7 +62,7 @@ class RedditLeadSource implements LeadSourceInterface
                     // Build lead data
                     $leads[] = [
                         'title' => Str::limit($title, 500),
-                        'url' => $post['url'] ?? "https://reddit.com{$post['permalink']}",
+                        'url' => "https://reddit.com{$post['permalink']}",
                         'body' => Str::limit($body, 2000),
                         'author' => $post['author'] ?? 'unknown',
                         'score' => $post['ups'] ?? 0,

@@ -11,8 +11,10 @@ use Filament\Actions\ViewAction;
 use Filament\Forms\Components\Textarea;
 use Filament\Notifications\Notification;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
 class DiscoveredLeadsTable
@@ -160,6 +162,28 @@ class DiscoveredLeadsTable
                         ->toArray()
                     )
                     ->searchable(),
+
+                SelectFilter::make('discovered_date_range')
+                    ->label('Discovered')
+                    ->options([
+                        'today' => '📅 Today',
+                        'last_7_days' => '📅 Last 7 days',
+                        'last_30_days' => '📅 Last 30 days',
+                        'older_than_30_days' => '📅 Older than 30 days',
+                        'older_than_60_days' => '🗑️ Older than 60 days',
+                    ])
+                    ->query(function (Builder $query, array $data) {
+                        return $query->when($data['value'], function (Builder $query, string $value) {
+                            match ($value) {
+                                'today' => $query->whereDate('discovered_at', today()),
+                                'last_7_days' => $query->where('discovered_at', '>=', now()->subDays(7)),
+                                'last_30_days' => $query->where('discovered_at', '>=', now()->subDays(30)),
+                                'older_than_30_days' => $query->where('discovered_at', '<', now()->subDays(30)),
+                                'older_than_60_days' => $query->where('discovered_at', '<', now()->subDays(60)),
+                                default => $query,
+                            };
+                        });
+                    }),
             ])
             ->recordActions([
                 ViewAction::make()

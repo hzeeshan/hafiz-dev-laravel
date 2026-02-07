@@ -138,6 +138,14 @@ class ToolSeeder extends Seeder
                 'category' => 'Generators',
                 'position' => 17,
             ],
+            [
+                'name' => 'Diff Checker',
+                'slug' => 'diff-checker',
+                'description' => 'Compare two texts and highlight differences instantly',
+                'icon' => '↔️',
+                'category' => 'Text',
+                'position' => 18,
+            ],
         ];
 
         foreach ($tools as $tool) {

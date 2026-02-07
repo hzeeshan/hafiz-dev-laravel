@@ -19,6 +19,14 @@ class EditPost extends EditRecord
                 ->label('Save Changes')
                 ->icon('heroicon-o-check-circle'),
 
+            // Preview button - always visible
+            Actions\Action::make('preview')
+                ->label('Preview')
+                ->icon('heroicon-o-eye')
+                ->color('info')
+                ->url(fn () => $this->record->getPreviewUrl())
+                ->openUrlInNewTab(),
+
             // View Generation Log button (for AI-generated posts)
             Actions\Action::make('viewGenerationLog')
                 ->label('View Generation Log')

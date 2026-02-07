@@ -22,7 +22,7 @@
           "headline": {{ Js::from($post->title) }},
           "description": {{ Js::from($post->excerpt) }},
           "image": {{ Js::from($post->featured_image ? asset('storage/' . $post->featured_image) . '?v=' . $post->updated_at->timestamp : asset('profile-photo.png')) }},
-          "datePublished": {{ Js::from($post->published_at->toIso8601String()) }},
+          "datePublished": {{ Js::from($post->published_at?->toIso8601String() ?? $post->created_at->toIso8601String()) }},
           "dateModified": {{ Js::from($post->updated_at->toIso8601String()) }},
           "author": {
             "@@type": "Person",
@@ -89,7 +89,9 @@
 
     {{-- Article-specific Open Graph tags --}}
     @push('head')
-        <meta property="article:published_time" content="{{ $post->published_at->toIso8601String() }}">
+        @if($post->published_at)
+            <meta property="article:published_time" content="{{ $post->published_at->toIso8601String() }}">
+        @endif
         <meta property="article:modified_time" content="{{ $post->updated_at->toIso8601String() }}">
         <meta property="article:author" content="Hafiz Riaz">
         <meta property="article:section" content="Technology">
@@ -112,6 +114,25 @@
     </style>
 
     <article class="max-w-4xl mx-auto px-4 py-8 relative z-10 blog-post-content">
+        <!-- Preview Mode Banner -->
+        @if (isset($isPreview) && $isPreview)
+            <div class="mb-8 bg-blue-500/10 border border-blue-500/30 rounded-lg p-4 backdrop-blur-sm">
+                <div class="flex items-start gap-3">
+                    <svg class="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                    </svg>
+                    <div class="flex-1">
+                        <h3 class="text-blue-400 font-semibold mb-1">Preview Mode</h3>
+                        <p class="text-blue-200/80 text-sm">
+                            You're viewing this post in preview mode. This URL is private and shareable.
+                            <span class="block mt-1 text-blue-300/60">Status: <span class="font-medium">{{ ucfirst($post->status) }}</span></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        @endif
+
         <!-- Breadcrumb -->
         <nav class="text-sm text-light-muted mb-6">
             <a href="/" class="hover:text-gold transition-colors">Home</a>
@@ -124,9 +145,13 @@
         <!-- Post Header -->
         <header class="mb-12">
             <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-light-muted mb-6">
-                <time datetime="{{ $post->published_at->toIso8601String() }}">
-                    {{ $post->published_at->format('M d, Y') }}
-                </time>
+                @if($post->published_at)
+                    <time datetime="{{ $post->published_at->toIso8601String() }}">
+                        {{ $post->published_at->format('M d, Y') }}
+                    </time>
+                @else
+                    <span class="text-yellow-400">Draft - Not published yet</span>
+                @endif
                 <span class="hidden sm:inline">•</span>
                 <span>{{ $post->reading_time }} min read</span>
                 {{-- TODO: Enable views count display in future --}}

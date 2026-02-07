@@ -14,6 +14,7 @@ class Post extends Model
         'blog_topic_id',
         'title',
         'slug',
+        'preview_token',
         'excerpt',
         'content',
         'featured_image',
@@ -103,7 +104,13 @@ class Post extends Model
         return $value;
     }
 
-    // Auto-generate slug from title
+    // Helper method to get the preview URL
+    public function getPreviewUrl(): string
+    {
+        return route('blog.preview', ['token' => $this->preview_token]);
+    }
+
+    // Auto-generate slug and preview token from title
     protected static function boot()
     {
         parent::boot();
@@ -111,6 +118,11 @@ class Post extends Model
         static::creating(function ($post) {
             if (empty($post->slug)) {
                 $post->slug = Str::slug($post->title);
+            }
+
+            // Always generate a preview token for new posts
+            if (empty($post->preview_token)) {
+                $post->preview_token = (string) Str::uuid();
             }
         });
     }

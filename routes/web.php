@@ -14,6 +14,10 @@ Route::get('/', function () {
 
 // Blog routes
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+
+// Preview route (must come before {post:slug} to avoid conflict)
+Route::get('/blog/preview/{token}', [BlogController::class, 'preview'])->name('blog.preview');
+
 Route::get('/blog/{post:slug}', [BlogController::class, 'show'])->name('blog.show');
 
 // Optional: Track views

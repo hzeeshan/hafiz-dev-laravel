@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Posts\Schemas;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\MarkdownEditor;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\TextInput;
@@ -14,6 +15,7 @@ use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Str;
+use Illuminate\Support\HtmlString;
 
 class PostForm
 {
@@ -42,6 +44,23 @@ class PostForm
                             ->helperText('Auto-generated from title')
                             ->disabled()
                             ->dehydrated(),
+
+                        Placeholder::make('preview_url')
+                            ->label('Preview URL')
+                            ->content(fn ($record) => $record
+                                ? new HtmlString(
+                                    '<div class="text-sm">
+                                        <a href="' . $record->getPreviewUrl() . '"
+                                           target="_blank"
+                                           class="text-primary-600 hover:text-primary-500 underline font-medium">
+                                            ' . $record->getPreviewUrl() . '
+                                        </a>
+                                        <p class="text-gray-500 mt-1">🔒 This URL is private and shareable. It works for any post status (draft, review, published).</p>
+                                    </div>'
+                                )
+                                : 'Save the post to generate a preview URL'
+                            )
+                            ->visible(fn ($record) => $record !== null), // Only show when editing existing post
 
                         MarkdownEditor::make('content')
                             ->label('Post Content')

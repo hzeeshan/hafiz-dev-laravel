@@ -93,6 +93,7 @@ class Tool extends Model
             'Date/Time' => 'Date/Time',
             'Design' => 'Design',
             'Images' => 'Images',
+            'Converter' => 'Converter',
         ];
     }
 }

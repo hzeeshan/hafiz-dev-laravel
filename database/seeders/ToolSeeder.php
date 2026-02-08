@@ -146,6 +146,22 @@ class ToolSeeder extends Seeder
                 'category' => 'Text',
                 'position' => 18,
             ],
+            [
+                'name' => 'JSON to YAML Converter',
+                'slug' => 'json-to-yaml',
+                'description' => 'Convert JSON data to YAML format for configs, Docker, Kubernetes',
+                'icon' => '📋',
+                'category' => 'Converter',
+                'position' => 19,
+            ],
+            [
+                'name' => 'YAML to JSON Converter',
+                'slug' => 'yaml-to-json',
+                'description' => 'Convert YAML configs to JSON format for APIs and data exchange',
+                'icon' => '🔄',
+                'category' => 'Converter',
+                'position' => 20,
+            ],
         ];
 
         foreach ($tools as $tool) {

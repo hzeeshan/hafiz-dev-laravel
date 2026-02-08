@@ -837,7 +837,7 @@
                                 <div class="text-gold text-xl">📧</div>
                                 <div>
                                     <h4 class="text-light font-semibold mb-1">Email</h4>
-                                    <a href="https://calendly.com/hafizzeeshan619/15min" target="_blank"
+                                    <a href="mailto:contact@hafiz.dev"
                                         class="text-light-muted hover:text-gold transition-colors">contact@hafiz.dev</a>
                                 </div>
                             </div>

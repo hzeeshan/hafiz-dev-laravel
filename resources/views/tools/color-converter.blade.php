@@ -347,6 +347,9 @@
                 </div>
             </div>
 
+            {{-- CTA Section --}}
+            <x-tool-cta />
+
             {{-- FAQ Section --}}
             <div class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card p-8">
                 <h2 class="text-2xl font-bold text-light mb-6 text-center">Frequently Asked Questions</h2>

@@ -17,6 +17,7 @@ class ToolSeeder extends Seeder
                 'icon' => '{ }',
                 'category' => 'JSON',
                 'position' => 1,
+                'related_tools' => ['json-to-yaml', 'json-to-csv-converter', 'xml-to-json', 'jwt-decoder'],
             ],
             [
                 'name' => 'Base64 Encoder/Decoder',
@@ -25,6 +26,7 @@ class ToolSeeder extends Seeder
                 'icon' => '🔐',
                 'category' => 'Encoding',
                 'position' => 2,
+                'related_tools' => ['url-encoder', 'hash-generator', 'jwt-decoder'],
             ],
             [
                 'name' => 'Cron Expression Builder',
@@ -33,6 +35,7 @@ class ToolSeeder extends Seeder
                 'icon' => '⏰',
                 'category' => 'Scheduling',
                 'position' => 3,
+                'related_tools' => ['timestamp-converter', 'regex-tester', 'uuid-generator'],
             ],
             [
                 'name' => 'UUID/ULID Generator',
@@ -41,6 +44,7 @@ class ToolSeeder extends Seeder
                 'icon' => '🆔',
                 'category' => 'Generators',
                 'position' => 4,
+                'related_tools' => ['password-generator', 'hash-generator', 'qr-code-generator'],
             ],
             [
                 'name' => 'Regex Tester',
@@ -49,6 +53,7 @@ class ToolSeeder extends Seeder
                 'icon' => '.*',
                 'category' => 'Testing',
                 'position' => 5,
+                'related_tools' => ['diff-checker', 'word-counter', 'json-formatter'],
             ],
             [
                 'name' => 'JWT Decoder',
@@ -57,6 +62,7 @@ class ToolSeeder extends Seeder
                 'icon' => '🔑',
                 'category' => 'Security',
                 'position' => 6,
+                'related_tools' => ['base64-encoder', 'json-formatter', 'hash-generator', 'password-generator'],
             ],
             [
                 'name' => 'Password Generator',
@@ -65,6 +71,7 @@ class ToolSeeder extends Seeder
                 'icon' => '🔐',
                 'category' => 'Security',
                 'position' => 7,
+                'related_tools' => ['hash-generator', 'uuid-generator', 'jwt-decoder'],
             ],
             [
                 'name' => 'Hash Generator',
@@ -73,6 +80,7 @@ class ToolSeeder extends Seeder
                 'icon' => '#️⃣',
                 'category' => 'Security',
                 'position' => 8,
+                'related_tools' => ['password-generator', 'base64-encoder', 'jwt-decoder'],
             ],
             [
                 'name' => 'URL Encoder/Decoder',
@@ -81,6 +89,7 @@ class ToolSeeder extends Seeder
                 'icon' => '🔗',
                 'category' => 'Encoding',
                 'position' => 9,
+                'related_tools' => ['base64-encoder', 'qr-code-generator', 'json-formatter'],
             ],
             [
                 'name' => 'Lorem Ipsum Generator',
@@ -89,6 +98,7 @@ class ToolSeeder extends Seeder
                 'icon' => '📝',
                 'category' => 'Text',
                 'position' => 10,
+                'related_tools' => ['word-counter', 'diff-checker', 'uuid-generator'],
             ],
             [
                 'name' => 'Timestamp Converter',
@@ -97,6 +107,7 @@ class ToolSeeder extends Seeder
                 'icon' => '🕐',
                 'category' => 'Date/Time',
                 'position' => 11,
+                'related_tools' => ['cron-expression-builder', 'json-formatter', 'uuid-generator'],
             ],
             [
                 'name' => 'Color Converter',
@@ -113,6 +124,7 @@ class ToolSeeder extends Seeder
                 'icon' => '📝',
                 'category' => 'Text',
                 'position' => 13,
+                'related_tools' => ['lorem-ipsum-generator', 'diff-checker', 'regex-tester'],
             ],
             [
                 'name' => 'Image Compressor',
@@ -121,6 +133,16 @@ class ToolSeeder extends Seeder
                 'icon' => '🖼️',
                 'category' => 'Images',
                 'position' => 14,
+                'related_tools' => ['qr-code-generator', 'base64-encoder', 'color-converter'],
+            ],
+            [
+                'name' => 'Markdown Preview',
+                'slug' => 'markdown-preview',
+                'description' => 'Write and preview Markdown with real-time rendering, GitHub Flavored Markdown support, and syntax highlighting',
+                'icon' => '📝',
+                'category' => 'Text',
+                'position' => 16,
+                'related_tools' => ['diff-checker', 'word-counter', 'lorem-ipsum-generator'],
             ],
             [
                 'name' => 'JSON to CSV Converter',
@@ -129,6 +151,7 @@ class ToolSeeder extends Seeder
                 'icon' => '📊',
                 'category' => 'Data',
                 'position' => 15,
+                'related_tools' => ['json-formatter', 'json-to-yaml', 'xml-to-json'],
             ],
             [
                 'name' => 'QR Code Generator',
@@ -137,6 +160,7 @@ class ToolSeeder extends Seeder
                 'icon' => '📱',
                 'category' => 'Generators',
                 'position' => 17,
+                'related_tools' => ['uuid-generator', 'url-encoder', 'password-generator'],
             ],
             [
                 'name' => 'Diff Checker',
@@ -145,6 +169,7 @@ class ToolSeeder extends Seeder
                 'icon' => '↔️',
                 'category' => 'Text',
                 'position' => 18,
+                'related_tools' => ['word-counter', 'regex-tester', 'json-formatter'],
             ],
             [
                 'name' => 'JSON to YAML Converter',
@@ -153,6 +178,7 @@ class ToolSeeder extends Seeder
                 'icon' => '📋',
                 'category' => 'Converter',
                 'position' => 19,
+                'related_tools' => ['yaml-to-json', 'json-to-csv-converter', 'json-formatter', 'xml-to-json'],
             ],
             [
                 'name' => 'YAML to JSON Converter',
@@ -161,14 +187,29 @@ class ToolSeeder extends Seeder
                 'icon' => '🔄',
                 'category' => 'Converter',
                 'position' => 20,
+                'related_tools' => ['json-to-yaml', 'xml-to-json', 'json-to-csv-converter', 'json-formatter'],
+            ],
+            [
+                'name' => 'XML to JSON Converter',
+                'slug' => 'xml-to-json',
+                'description' => 'Convert XML data to JSON format. Handles attributes, CDATA, and nested elements',
+                'icon' => '📄',
+                'category' => 'Converter',
+                'position' => 21,
+                'related_tools' => ['json-to-yaml', 'yaml-to-json', 'json-to-csv-converter', 'json-formatter'],
             ],
         ];
 
         foreach ($tools as $tool) {
-            Tool::updateOrCreate(
-                ['slug' => $tool['slug']],
-                $tool
-            );
+            $existing = Tool::where('slug', $tool['slug'])->first();
+
+            if ($existing) {
+                // Don't overwrite position on existing tools (managed via admin drag-drop)
+                unset($tool['position']);
+                $existing->update($tool);
+            } else {
+                Tool::create($tool);
+            }
         }
     }
 }

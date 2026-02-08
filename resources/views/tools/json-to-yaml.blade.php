@@ -271,27 +271,7 @@ Example:
             </div>
 
             {{-- Related Tools --}}
-            <div class="mb-8">
-                <h2 class="text-xl font-bold text-light mb-4">Related Tools</h2>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                    <a href="/tools/yaml-to-json" class="bg-gradient-card p-4 rounded-lg border border-gold/20 hover:border-gold/50 transition-colors text-center group">
-                        <span class="text-2xl mb-2 block">🔄</span>
-                        <span class="text-light text-sm group-hover:text-gold transition-colors">YAML to JSON</span>
-                    </a>
-                    <a href="/tools/json-to-xml" class="bg-gradient-card p-4 rounded-lg border border-gold/20 hover:border-gold/50 transition-colors text-center group">
-                        <span class="text-2xl mb-2 block">📄</span>
-                        <span class="text-light text-sm group-hover:text-gold transition-colors">JSON to XML</span>
-                    </a>
-                    <a href="/tools/json-to-csv-converter" class="bg-gradient-card p-4 rounded-lg border border-gold/20 hover:border-gold/50 transition-colors text-center group">
-                        <span class="text-2xl mb-2 block">📊</span>
-                        <span class="text-light text-sm group-hover:text-gold transition-colors">JSON to CSV</span>
-                    </a>
-                    <a href="/tools/json-formatter" class="bg-gradient-card p-4 rounded-lg border border-gold/20 hover:border-gold/50 transition-colors text-center group">
-                        <span class="text-2xl mb-2 block">✨</span>
-                        <span class="text-light text-sm group-hover:text-gold transition-colors">JSON Formatter</span>
-                    </a>
-                </div>
-            </div>
+            <x-related-tools :tool="$tool" />
 
             {{-- Features Section --}}
             <div class="grid md:grid-cols-3 gap-6 mb-12">

@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Cache;
 
 class Tool extends Model
 {
@@ -15,11 +17,13 @@ class Tool extends Model
         'category',
         'position',
         'is_active',
+        'related_tools',
     ];
 
     protected $casts = [
         'position' => 'integer',
         'is_active' => 'boolean',
+        'related_tools' => 'array',
     ];
 
     /**
@@ -75,6 +79,34 @@ class Tool extends Model
         }
 
         return $query->ordered()->get();
+    }
+
+    /**
+     * Get related tools (only active + existing ones).
+     * Falls back to same-category tools if none configured.
+     */
+    public function getRelatedTools(): Collection
+    {
+        return Cache::remember("tool_related_{$this->slug}", 3600, function () {
+            if (! empty($this->related_tools)) {
+                $tools = static::whereIn('slug', $this->related_tools)
+                    ->where('is_active', true)
+                    ->ordered()
+                    ->get();
+
+                if ($tools->isNotEmpty()) {
+                    return $tools;
+                }
+            }
+
+            // Fallback: same category tools (excluding self), max 4
+            return static::where('category', $this->category)
+                ->where('id', '!=', $this->id)
+                ->where('is_active', true)
+                ->ordered()
+                ->limit(4)
+                ->get();
+        });
     }
 
     /**

@@ -44,6 +44,17 @@ class ToolForm
                             ->required()
                             ->searchable(),
 
+                        Select::make('related_tools')
+                            ->label('Related Tools')
+                            ->multiple()
+                            ->options(fn (?Tool $record) => Tool::query()
+                                ->where('is_active', true)
+                                ->when($record, fn ($q) => $q->where('id', '!=', $record->id))
+                                ->ordered()
+                                ->pluck('name', 'slug'))
+                            ->searchable()
+                            ->helperText('Select related tools to show on this tool\'s page. Falls back to same-category tools if empty.'),
+
                         TextInput::make('position')
                             ->numeric()
                             ->default(0)

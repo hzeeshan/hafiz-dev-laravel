@@ -164,16 +164,15 @@ Even capturing 0.1-1% of this volume = 2,000-19,000 visits/month from tools alon
 
 ## Future Tools Roadmap
 
-### Tier 2: Medium Effort, Good Volume (Next Priority)
+### Next Sprint: 18 New Tools (Feb 2026)
 
-| Tool                  | Search Volume | Build Time | Notes                                  |
-| --------------------- | ------------- | ---------- | -------------------------------------- |
-| Diff Checker          | ~100K         | 60 min     | Text comparison, highlight differences |
-| HTML Encoder/Decoder  | ~60K          | 30 min     | Entity encoding                        |
-| JSON to CSV Converter | ~50K          | 45 min     | Bidirectional conversion               |
-| Markdown Preview      | ~40K          | 45 min     | Live preview, export HTML              |
+See **[tools-keyword-research-feb-2026.md](./tools-keyword-research-feb-2026.md)** for the complete keyword-validated build plan with:
+- 18 tools prioritized by Ahrefs KD and search volume
+- SEO titles, meta descriptions, and CTA strategy
+- Day-by-day build order optimized for speed
+- Cross-linking strategy and post-launch checklist
 
-### Tier 3: Laravel-Specific (Lower Volume, Higher Quality Leads)
+### Laravel-Specific Tools (Lower Volume, Higher Quality Leads)
 
 | Tool                      | Notes                                         |
 | ------------------------- | --------------------------------------------- |

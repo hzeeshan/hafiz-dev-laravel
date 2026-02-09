@@ -279,6 +279,24 @@ class ToolSeeder extends Seeder
                 'position' => 30,
                 'related_tools' => ['csv-to-xml', 'json-to-csv-converter', 'xml-to-csv', 'csv-to-json'],
             ],
+            [
+                'name' => 'JSON to TypeScript Converter',
+                'slug' => 'json-to-typescript',
+                'description' => 'Generate TypeScript interfaces and types from JSON data with smart naming, union types, and configurable output',
+                'icon' => '📘',
+                'category' => 'Converter',
+                'position' => 31,
+                'related_tools' => ['json-formatter', 'json-to-yaml', 'json-to-xml', 'json-to-csv-converter'],
+            ],
+            [
+                'name' => 'Student Email Signature Generator',
+                'slug' => 'student-email-signature-generator',
+                'description' => 'Create professional email signatures for students with university, major, graduation year, social links, and multiple templates',
+                'icon' => '🎓',
+                'category' => 'Generator',
+                'position' => 32,
+                'related_tools' => ['twitter-character-counter', 'slug-generator', 'word-counter'],
+            ],
         ];
 
         foreach ($tools as $tool) {

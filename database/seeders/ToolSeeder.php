@@ -216,6 +216,15 @@ class ToolSeeder extends Seeder
                 'position' => 23,
                 'related_tools' => ['word-counter', 'json-formatter'],
             ],
+            [
+                'name' => 'Hex to RGB Converter',
+                'slug' => 'hex-to-rgb',
+                'description' => 'Convert hex color codes to RGB, HSL, and CMYK values with live preview and CSS code generation',
+                'icon' => '🎨',
+                'category' => 'Converter',
+                'position' => 24,
+                'related_tools' => ['json-formatter', 'word-counter'],
+            ],
         ];
 
         foreach ($tools as $tool) {

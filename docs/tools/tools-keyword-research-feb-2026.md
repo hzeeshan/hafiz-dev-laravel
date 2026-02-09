@@ -14,7 +14,7 @@ These are the absolute best opportunities. Easy to rank, high search volume.
 
 | # | Tool | Target Keyword | Secondary Keywords | KD | Volume | URL Slug | Est. Build | Status |
 |---|------|---------------|-------------------|-----|--------|----------|------------|--------|
-| 1 | **Hex to RGB Converter** | hex to rgb | convert hex to rgb, hex to rgb converter | Easy | >1,000 | `/tools/hex-to-rgb` | 30 min | 🔲 |
+| 1 | **Hex to RGB Converter** | hex to rgb | convert hex to rgb, hex to rgb converter | Easy | >1,000 | `/tools/hex-to-rgb` | 30 min | ✅ |
 | 2 | **JSON to YAML Converter** | json to yaml | json to yaml converter, convert json to yaml | Easy | >1,000 | `/tools/json-to-yaml` | 30 min | ✅ |
 | 3 | **YAML to JSON Converter** | yaml to json | yaml to json converter, convert yaml to json, yaml to json online | Easy | >1,000 | `/tools/yaml-to-json` | 30 min | ✅ |
 | 4 | **XML to JSON Converter** | xml to json converter | xml to json, convert xml to json | Easy | >1,000 | `/tools/xml-to-json` | 30 min | ✅ |

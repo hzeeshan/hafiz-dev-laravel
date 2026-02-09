@@ -33,7 +33,7 @@ Easy to rank, smaller but steady traffic. Quick wins.
 |---|------|---------------|-------------------|-----|--------|----------|------------|--------|
 | 7 | **Slug Generator** | slug generator | url slug generator, slug creator | Easy | >100 | `/tools/slug-generator` | 20 min | ✅ |
 | 8 | **ASCII Table / Generator** | ascii table generator | ascii table, ascii chart | Easy | >100 | `/tools/ascii-table` | 30 min | ✅ |
-| 9 | **Text to Binary Converter** | convert text to binary | text to binary, text to binary converter | Easy | >100 | `/tools/text-to-binary` | 20 min | 🔲 |
+| 9 | **Text to Binary Converter** | convert text to binary | text to binary, text to binary converter | Easy | >100 | `/tools/text-to-binary` | 20 min | ✅ |
 | 10 | **CSV to XML Converter** | csv to xml | convert csv to xml, csv to xml converter, csv to xml conversion | Easy | >100 | `/tools/csv-to-xml` | 30 min | 🔲 |
 | 11 | **JSON to XML Converter** | json to xml converter | convert json to xml, json to xml online | Easy | >100 | `/tools/json-to-xml` | 30 min | 🔲 |
 | 12 | **CSV to SQL Converter** | csv to sql | csv to sql converter, convert csv to sql, csv to sql insert | Easy | >100 | `/tools/csv-to-sql` | 30 min | 🔲 |

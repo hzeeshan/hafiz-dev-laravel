@@ -243,6 +243,15 @@ class ToolSeeder extends Seeder
                 'position' => 26,
                 'related_tools' => ['base64-encoder', 'text-to-binary', 'hash-generator'],
             ],
+            [
+                'name' => 'Text to Binary Converter',
+                'slug' => 'text-to-binary',
+                'description' => 'Convert text to binary code and binary to text instantly with ASCII and UTF-8 encoding support',
+                'icon' => '0️⃣1️⃣',
+                'category' => 'Converter',
+                'position' => 27,
+                'related_tools' => ['ascii-table', 'base64-encoder', 'hash-generator'],
+            ],
         ];
 
         foreach ($tools as $tool) {

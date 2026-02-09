@@ -234,6 +234,15 @@ class ToolSeeder extends Seeder
                 'position' => 25,
                 'related_tools' => ['url-encoder', 'word-counter', 'lorem-ipsum-generator'],
             ],
+            [
+                'name' => 'ASCII Table & Generator',
+                'slug' => 'ascii-table',
+                'description' => 'Complete ASCII reference table with all 128 characters. Search, filter, and convert text to ASCII codes instantly',
+                'icon' => '📟',
+                'category' => 'Reference',
+                'position' => 26,
+                'related_tools' => ['base64-encoder', 'text-to-binary', 'hash-generator'],
+            ],
         ];
 
         foreach ($tools as $tool) {

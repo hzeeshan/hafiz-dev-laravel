@@ -225,6 +225,15 @@ class ToolSeeder extends Seeder
                 'position' => 24,
                 'related_tools' => ['json-formatter', 'word-counter'],
             ],
+            [
+                'name' => 'Slug Generator',
+                'slug' => 'slug-generator',
+                'description' => 'Convert any text to clean, SEO-friendly URL slugs with transliteration, stop word removal, and bulk generation',
+                'icon' => '🔗',
+                'category' => 'Text',
+                'position' => 25,
+                'related_tools' => ['url-encoder', 'word-counter', 'lorem-ipsum-generator'],
+            ],
         ];
 
         foreach ($tools as $tool) {

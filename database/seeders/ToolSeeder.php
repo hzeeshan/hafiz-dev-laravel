@@ -207,6 +207,15 @@ class ToolSeeder extends Seeder
                 'position' => 22,
                 'related_tools' => ['xml-to-json', 'json-to-csv-converter', 'json-to-yaml', 'yaml-to-json'],
             ],
+            [
+                'name' => 'Twitter Character Counter',
+                'slug' => 'twitter-character-counter',
+                'description' => 'Count characters for Twitter/X posts with real-time tracking for URLs, mentions, and emojis',
+                'icon' => '🐦',
+                'category' => 'Text',
+                'position' => 23,
+                'related_tools' => ['word-counter', 'json-formatter'],
+            ],
         ];
 
         foreach ($tools as $tool) {

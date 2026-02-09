@@ -50,10 +50,10 @@ Harder to rank but significant traffic potential. Worth building after Easy KD t
 
 | # | Tool | Target Keyword | Secondary Keywords | KD | Volume | URL Slug | Est. Build | Status |
 |---|------|---------------|-------------------|-----|--------|----------|------------|--------|
-| 15 | **Chmod Calculator** | chmod calculator | chmod calculator online, linux chmod calculator | Medium | >1,000 | `/tools/chmod-calculator` | 45 min | 🔲 |
-| 16 | **Markdown to HTML** | markdown to html | markdown to html converter, convert markdown to html | Medium | >1,000 | `/tools/markdown-to-html` | 30 min | 🔲 |
-| 17 | **Base64 to Image** | base64 to image | base64 to image converter, convert base64 to image | Medium | >1,000 | `/tools/base64-to-image` | 30 min | 🔲 |
-| 18 | **Robots.txt Generator** | robots.txt generator | robots txt generator, create robots.txt | Medium | >100 | `/tools/robots-txt-generator` | 45 min | 🔲 |
+| 15 | **Chmod Calculator** | chmod calculator | chmod calculator online, linux chmod calculator | Medium | >1,000 | `/tools/chmod-calculator` | 45 min | ✅ |
+| 16 | **Markdown to HTML** | markdown to html | markdown to html converter, convert markdown to html | Medium | >1,000 | `/tools/markdown-to-html` | 30 min | ✅ |
+| 17 | **Base64 to Image** | base64 to image | base64 to image converter, convert base64 to image | Medium | >1,000 | `/tools/base64-to-image` | 30 min | ✅ |
+| 18 | **Robots.txt Generator** | robots.txt generator | robots txt generator, create robots.txt | Medium | >100 | `/tools/robots-txt-generator` | 45 min | ✅ |
 
 **Subtotal: ~2.5 hours | Combined monthly searches: 3,000+**
 

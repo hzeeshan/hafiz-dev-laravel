@@ -297,6 +297,42 @@ class ToolSeeder extends Seeder
                 'position' => 32,
                 'related_tools' => ['twitter-character-counter', 'slug-generator', 'word-counter'],
             ],
+            [
+                'name' => 'Chmod Calculator',
+                'slug' => 'chmod-calculator',
+                'description' => 'Calculate Linux file permissions with an interactive visual grid. Convert between octal (755) and symbolic (rwxr-xr-x) notation.',
+                'icon' => '🔒',
+                'category' => 'Developer',
+                'position' => 33,
+                'related_tools' => ['robots-txt-generator', 'slug-generator', 'ascii-table'],
+            ],
+            [
+                'name' => 'Markdown to HTML Converter',
+                'slug' => 'markdown-to-html',
+                'description' => 'Convert Markdown syntax to clean HTML code with live preview. Supports headings, lists, tables, code blocks, and GFM extensions.',
+                'icon' => '📝',
+                'category' => 'Converter',
+                'position' => 34,
+                'related_tools' => ['base64-encoder', 'url-encoder', 'json-formatter'],
+            ],
+            [
+                'name' => 'Base64 to Image Converter',
+                'slug' => 'base64-to-image',
+                'description' => 'Decode Base64 strings to viewable and downloadable images. Supports PNG, JPEG, GIF, WebP, SVG with auto-format detection.',
+                'icon' => '🖼️',
+                'category' => 'Converter',
+                'position' => 35,
+                'related_tools' => ['base64-encoder', 'base64-decoder', 'image-compressor'],
+            ],
+            [
+                'name' => 'Robots.txt Generator',
+                'slug' => 'robots-txt-generator',
+                'description' => 'Create robots.txt files with a visual editor. Add rules for search engines and AI bots, set crawl delays, and include sitemaps.',
+                'icon' => '🤖',
+                'category' => 'Generator',
+                'position' => 36,
+                'related_tools' => ['chmod-calculator', 'slug-generator', 'markdown-to-html'],
+            ],
         ];
 
         foreach ($tools as $tool) {

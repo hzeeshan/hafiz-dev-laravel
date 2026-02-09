@@ -136,6 +136,9 @@
 
             {{-- Main Tool Card --}}
             <div class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card p-6 mb-8">
+
+                <x-tool-privacy-banner />
+
                 {{-- Toolbar --}}
                 <div class="flex flex-wrap gap-3 mb-4">
                     <button id="btn-paste" class="px-4 py-2 border border-gold/50 text-light-muted rounded-lg hover:bg-gold/10 hover:text-gold transition-all duration-300 flex items-center gap-2 cursor-pointer">

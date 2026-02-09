@@ -136,6 +136,9 @@
 
             {{-- Main Tool Card --}}
             <div class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card p-6 mb-8">
+
+                <x-tool-privacy-banner />
+
                 {{-- Regex Input Row --}}
                 <div class="mb-6">
                     <label for="regex-input" class="text-light font-semibold mb-3 block">Regular Expression</label>

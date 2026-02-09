@@ -258,6 +258,9 @@
 
             {{-- Main Tool Card --}}
             <div class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card p-6 mb-8">
+
+                <x-tool-privacy-banner />
+
                 {{-- Toolbar --}}
                 <div class="flex flex-wrap items-center gap-2 mb-4">
                     {{-- Formatting Buttons --}}

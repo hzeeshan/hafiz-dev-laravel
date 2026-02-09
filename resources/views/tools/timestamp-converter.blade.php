@@ -159,6 +159,9 @@
 
             {{-- Main Tool Card --}}
             <div class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card p-6 mb-8">
+
+                <x-tool-privacy-banner />
+
                 {{-- Mode Tabs --}}
                 <div class="flex border-b border-gold/20 mb-6">
                     <button id="tab-timestamp-to-date" class="px-4 py-3 text-sm font-semibold border-b-2 border-gold text-gold transition-colors cursor-pointer">

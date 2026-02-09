@@ -136,6 +136,9 @@
 
             {{-- Main Tool Card --}}
             <div class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card p-6 mb-8">
+
+                <x-tool-privacy-banner />
+
                 {{-- Mode Tabs --}}
                 <div class="flex gap-2 mb-4">
                     <button id="tab-encode" class="tab-active px-6 py-2 font-semibold rounded-lg transition-all duration-300 cursor-pointer">

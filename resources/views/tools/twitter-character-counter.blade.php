@@ -134,6 +134,8 @@
             {{-- Main Tool Card --}}
             <div class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card p-6 mb-8">
 
+                <x-tool-privacy-banner />
+
                 {{-- Mode Selector --}}
                 <div class="mb-6 flex flex-wrap gap-3">
                     <button id="mode-tweet" class="px-5 py-2 rounded-lg font-semibold text-sm transition-all duration-300 bg-gold text-darkBg cursor-pointer">

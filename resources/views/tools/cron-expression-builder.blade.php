@@ -144,6 +144,9 @@
 
             {{-- Main Tool Card --}}
             <div class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card p-6 mb-8">
+
+                <x-tool-privacy-banner />
+
                 {{-- Expression Display --}}
                 <div class="mb-6">
                     <label for="cron-expression" class="text-light font-semibold mb-2 flex items-center gap-2">

@@ -136,6 +136,9 @@
 
             {{-- Main Tool Card --}}
             <div class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card p-6 mb-8">
+
+                <x-tool-privacy-banner />
+
                 {{-- JWT Input --}}
                 <div class="mb-6">
                     <label for="jwt-input" class="text-light font-semibold mb-2 flex items-center gap-2">

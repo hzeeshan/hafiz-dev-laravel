@@ -136,6 +136,9 @@
 
             {{-- Main Tool Card --}}
             <div class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card p-6 mb-8">
+
+                <x-tool-privacy-banner />
+
                 {{-- Type Selector --}}
                 <div class="mb-6">
                     <label class="text-light font-semibold mb-3 block">Identifier Type</label>

@@ -134,6 +134,8 @@
             {{-- Main Tool Card --}}
             <div class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card p-6 mb-8">
 
+                <x-tool-privacy-banner />
+
                 <div class="grid lg:grid-cols-2 gap-8">
                     {{-- Left Column: Input & Color Preview --}}
                     <div>

@@ -252,6 +252,15 @@ class ToolSeeder extends Seeder
                 'position' => 27,
                 'related_tools' => ['ascii-table', 'base64-encoder', 'hash-generator'],
             ],
+            [
+                'name' => 'CSV to XML Converter',
+                'slug' => 'csv-to-xml',
+                'description' => 'Convert CSV data to well-formatted XML with custom element names, attribute mode, and CDATA support',
+                'icon' => '📄',
+                'category' => 'Converter',
+                'position' => 28,
+                'related_tools' => ['xml-to-csv', 'xml-to-json', 'json-to-csv-converter', 'csv-to-sql'],
+            ],
         ];
 
         foreach ($tools as $tool) {

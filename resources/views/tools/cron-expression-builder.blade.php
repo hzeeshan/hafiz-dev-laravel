@@ -400,6 +400,9 @@
                 </div>
             </div>
 
+            {{-- Related Tools --}}
+            <x-related-tools :tool="$tool" />
+
             {{-- CTA Section --}}
             <x-tool-cta />
 

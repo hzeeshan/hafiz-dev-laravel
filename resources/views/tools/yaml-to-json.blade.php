@@ -269,9 +269,6 @@ metadata:
                 </div>
             </div>
 
-            {{-- Related Tools --}}
-            <x-related-tools :tool="$tool" />
-
             {{-- Features Section --}}
             <div class="grid md:grid-cols-3 gap-6 mb-12">
                 <div class="bg-gradient-card p-6 rounded-xl border border-gold/20 shadow-dark-card">
@@ -296,6 +293,9 @@ metadata:
                     <p class="text-light-muted text-sm">All processing happens in your browser. Your config files with secrets and credentials never leave your device.</p>
                 </div>
             </div>
+
+            {{-- Related Tools --}}
+            <x-related-tools :tool="$tool" />
 
             {{-- CTA Section --}}
             <x-tool-cta />

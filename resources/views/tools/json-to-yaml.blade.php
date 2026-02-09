@@ -270,9 +270,6 @@ Example:
                 </div>
             </div>
 
-            {{-- Related Tools --}}
-            <x-related-tools :tool="$tool" />
-
             {{-- Features Section --}}
             <div class="grid md:grid-cols-3 gap-6 mb-12">
                 <div class="bg-gradient-card p-6 rounded-xl border border-gold/20 shadow-dark-card">
@@ -297,6 +294,9 @@ Example:
                     <p class="text-light-muted text-sm">All processing happens in your browser. Your data never leaves your device — safe for sensitive configs.</p>
                 </div>
             </div>
+
+            {{-- Related Tools --}}
+            <x-related-tools :tool="$tool" />
 
             {{-- CTA Section --}}
             <x-tool-cta />

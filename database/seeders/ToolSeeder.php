@@ -261,6 +261,24 @@ class ToolSeeder extends Seeder
                 'position' => 28,
                 'related_tools' => ['xml-to-csv', 'xml-to-json', 'json-to-csv-converter', 'csv-to-sql'],
             ],
+            [
+                'name' => 'JSON to XML Converter',
+                'slug' => 'json-to-xml',
+                'description' => 'Convert JSON data to well-formatted XML with custom root elements, smart array handling, and type attributes',
+                'icon' => '🔀',
+                'category' => 'Converter',
+                'position' => 29,
+                'related_tools' => ['xml-to-json', 'json-to-yaml', 'json-formatter', 'csv-to-xml'],
+            ],
+            [
+                'name' => 'CSV to SQL Converter',
+                'slug' => 'csv-to-sql',
+                'description' => 'Generate SQL INSERT, CREATE TABLE, and UPDATE statements from CSV data with auto type detection',
+                'icon' => '🗃️',
+                'category' => 'Converter',
+                'position' => 30,
+                'related_tools' => ['csv-to-xml', 'json-to-csv-converter', 'xml-to-csv', 'csv-to-json'],
+            ],
         ];
 
         foreach ($tools as $tool) {

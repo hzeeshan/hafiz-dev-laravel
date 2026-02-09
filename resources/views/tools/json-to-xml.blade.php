@@ -1,23 +1,22 @@
 <x-layout>
-    <x-slot:title>CSV to XML Converter - Convert CSV to XML Online Free | hafiz.dev</x-slot:title>
-    <x-slot:description>Free online CSV to XML converter. Convert CSV data to well-formatted XML instantly. Custom root and row element names, attribute support, and CDATA options. 100% client-side.</x-slot:description>
-    <x-slot:keywords>csv to xml, convert csv to xml, csv to xml converter, csv to xml conversion, csv to xml online, csv xml converter</x-slot:keywords>
-    <x-slot:canonical>{{ url('/tools/csv-to-xml') }}</x-slot:canonical>
+    <x-slot:title>JSON to XML Converter - Convert JSON to XML Online Free | hafiz.dev</x-slot:title>
+    <x-slot:description>Free online JSON to XML converter. Convert JSON data to well-formatted XML instantly. Custom root elements, attribute mapping, CDATA support, and pretty printing. 100% client-side.</x-slot:description>
+    <x-slot:keywords>json to xml, json to xml converter, convert json to xml, json to xml online, json xml converter, json to xml conversion</x-slot:keywords>
+    <x-slot:canonical>{{ url('/tools/json-to-xml') }}</x-slot:canonical>
 
-    {{-- Open Graph --}}
-    <x-slot:ogTitle>CSV to XML Converter - Convert CSV to XML Online Free | hafiz.dev</x-slot:ogTitle>
-    <x-slot:ogDescription>Free online CSV to XML converter. Convert CSV data to well-formatted XML instantly with custom element names and formatting options.</x-slot:ogDescription>
+    <x-slot:ogTitle>JSON to XML Converter - Convert JSON to XML Online Free | hafiz.dev</x-slot:ogTitle>
+    <x-slot:ogDescription>Free online JSON to XML converter. Convert JSON data to well-formatted XML instantly with custom element names and formatting options.</x-slot:ogDescription>
     <x-slot:ogType>website</x-slot:ogType>
-    <x-slot:ogUrl>{{ url('/tools/csv-to-xml') }}</x-slot:ogUrl>
+    <x-slot:ogUrl>{{ url('/tools/json-to-xml') }}</x-slot:ogUrl>
 
     @push('schemas')
         <script type="application/ld+json">
         {
             "@@context": "https://schema.org",
             "@@type": "SoftwareApplication",
-            "name": "CSV to XML Converter",
-            "description": "Free online CSV to XML converter. Convert CSV data to well-formatted XML instantly.",
-            "url": "https://hafiz.dev/tools/csv-to-xml",
+            "name": "JSON to XML Converter",
+            "description": "Free online JSON to XML converter. Convert JSON data to well-formatted XML instantly.",
+            "url": "https://hafiz.dev/tools/json-to-xml",
             "applicationCategory": "DeveloperApplication",
             "operatingSystem": "Any",
             "offers": { "@@type": "Offer", "price": "0", "priceCurrency": "USD" },
@@ -31,7 +30,7 @@
             "itemListElement": [
                 { "@@type": "ListItem", "position": 1, "name": "Home", "item": "https://hafiz.dev" },
                 { "@@type": "ListItem", "position": 2, "name": "Tools", "item": "https://hafiz.dev/tools" },
-                { "@@type": "ListItem", "position": 3, "name": "CSV to XML Converter", "item": "https://hafiz.dev/tools/csv-to-xml" }
+                { "@@type": "ListItem", "position": 3, "name": "JSON to XML Converter", "item": "https://hafiz.dev/tools/json-to-xml" }
             ]
         }
         </script>
@@ -42,42 +41,42 @@
             "mainEntity": [
                 {
                     "@@type": "Question",
-                    "name": "How do I convert CSV to XML?",
+                    "name": "How do I convert JSON to XML?",
                     "acceptedAnswer": {
                         "@@type": "Answer",
-                        "text": "Paste your CSV data into the input field or upload a .csv file. The tool instantly converts it to well-formatted XML. The first row is used as element names, and each subsequent row becomes an XML record."
+                        "text": "Paste your JSON data into the input field and the tool instantly converts it to well-formatted XML. Objects become XML elements, arrays become repeated elements, and primitive values become text content."
                     }
                 },
                 {
                     "@@type": "Question",
-                    "name": "Can I customize the XML element names?",
+                    "name": "How are JSON arrays handled in XML?",
                     "acceptedAnswer": {
                         "@@type": "Answer",
-                        "text": "Yes! You can set custom root element name (default: 'data'), row element name (default: 'record'), and choose whether to use CSV headers as element names or as attributes on each row element."
+                        "text": "JSON arrays are converted to repeated XML elements with the same tag name. For example, a 'tags' array with values ['php', 'laravel'] becomes multiple <tag> elements. The item element name is automatically derived by singularizing the array key."
                     }
                 },
                 {
                     "@@type": "Question",
-                    "name": "What CSV delimiters are supported?",
+                    "name": "Can I customize the XML root element name?",
                     "acceptedAnswer": {
                         "@@type": "Answer",
-                        "text": "The converter supports comma, semicolon, tab, and pipe delimiters. It also handles quoted fields correctly, including fields with embedded commas, newlines, and escaped quotes."
+                        "text": "Yes! You can set a custom root element name (default: 'root'). You can also customize how array items are named and choose between pretty-printed or minified XML output."
                     }
                 },
                 {
                     "@@type": "Question",
-                    "name": "Does the converter handle special characters in XML?",
+                    "name": "What is the difference between JSON and XML?",
                     "acceptedAnswer": {
                         "@@type": "Answer",
-                        "text": "Yes, the tool automatically escapes XML special characters like <, >, &, and quotes. You can also enable CDATA wrapping for text values that contain special characters."
+                        "text": "JSON (JavaScript Object Notation) uses key-value pairs and arrays with a lightweight syntax. XML (Extensible Markup Language) uses a tag-based structure with opening and closing tags. JSON is more common in modern APIs, while XML is used in enterprise systems, SOAP services, and configuration files."
                     }
                 },
                 {
                     "@@type": "Question",
-                    "name": "Can I upload a CSV file directly?",
+                    "name": "Does the converter handle nested JSON objects?",
                     "acceptedAnswer": {
                         "@@type": "Answer",
-                        "text": "Yes! Click the Upload button to select a .csv file from your computer. The file is processed entirely in your browser and never sent to any server."
+                        "text": "Yes! Nested JSON objects are converted to nested XML elements. The converter handles any level of nesting, including objects within arrays and arrays within objects, producing properly indented XML output."
                     }
                 }
             ]
@@ -94,15 +93,15 @@
                     <li><span class="text-gold/50">/</span></li>
                     <li><a href="/tools" class="hover:text-gold transition-colors">Tools</a></li>
                     <li><span class="text-gold/50">/</span></li>
-                    <li class="text-gold">CSV to XML Converter</li>
+                    <li class="text-gold">JSON to XML Converter</li>
                 </ol>
             </nav>
 
             {{-- Header --}}
             <div class="text-center mb-10">
-                <h1 class="text-3xl md:text-4xl font-bold text-light mb-4">CSV to XML Converter</h1>
+                <h1 class="text-3xl md:text-4xl font-bold text-light mb-4">JSON to XML Converter</h1>
                 <p class="text-light-muted max-w-2xl mx-auto">
-                    Convert CSV data to well-formatted XML instantly. Custom element names, attribute mode, CDATA support, and downloadable output.
+                    Convert JSON data to well-formatted XML instantly. Handles nested objects, arrays, and primitive values with customizable output options.
                 </p>
             </div>
 
@@ -119,74 +118,72 @@
                 <div class="mb-6 p-4 bg-darkBg rounded-lg border border-gold/10">
                     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
                         <div>
-                            <label for="delimiter" class="text-light font-semibold mb-2 block text-sm">Delimiter</label>
-                            <select id="delimiter" class="w-full bg-darkCard border border-gold/20 rounded-lg px-3 py-2 text-light text-sm focus:border-gold/50 focus:outline-none cursor-pointer">
-                                <option value=",">Comma (,)</option>
-                                <option value=";">Semicolon (;)</option>
-                                <option value="\t">Tab</option>
-                                <option value="|">Pipe (|)</option>
+                            <label for="root-element" class="text-light font-semibold mb-2 block text-sm">Root Element</label>
+                            <input type="text" id="root-element" class="w-full bg-darkCard border border-gold/20 rounded-lg px-3 py-2 text-light text-sm font-mono focus:border-gold/50 focus:outline-none" value="root" spellcheck="false">
+                        </div>
+                        <div>
+                            <label for="array-item-name" class="text-light font-semibold mb-2 block text-sm">Array Item Name</label>
+                            <select id="array-item-name" class="w-full bg-darkCard border border-gold/20 rounded-lg px-3 py-2 text-light text-sm focus:border-gold/50 focus:outline-none cursor-pointer">
+                                <option value="auto">Auto-singularize (tags → tag)</option>
+                                <option value="item">Always use "item"</option>
                             </select>
                         </div>
                         <div>
-                            <label for="root-element" class="text-light font-semibold mb-2 block text-sm">Root Element</label>
-                            <input type="text" id="root-element" class="w-full bg-darkCard border border-gold/20 rounded-lg px-3 py-2 text-light text-sm font-mono focus:border-gold/50 focus:outline-none" value="data" spellcheck="false">
-                        </div>
-                        <div>
-                            <label for="row-element" class="text-light font-semibold mb-2 block text-sm">Row Element</label>
-                            <input type="text" id="row-element" class="w-full bg-darkCard border border-gold/20 rounded-lg px-3 py-2 text-light text-sm font-mono focus:border-gold/50 focus:outline-none" value="record" spellcheck="false">
+                            <label for="indent-size" class="text-light font-semibold mb-2 block text-sm">Indent</label>
+                            <select id="indent-size" class="w-full bg-darkCard border border-gold/20 rounded-lg px-3 py-2 text-light text-sm focus:border-gold/50 focus:outline-none cursor-pointer">
+                                <option value="2" selected>2 spaces</option>
+                                <option value="4">4 spaces</option>
+                                <option value="tab">Tab</option>
+                                <option value="0">Minified</option>
+                            </select>
                         </div>
                     </div>
                     <div class="flex flex-wrap gap-6">
-                        <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="checkbox" id="first-row-header" checked class="w-4 h-4 rounded border-gray-600 bg-darkBg text-gold focus:ring-gold focus:ring-offset-0 cursor-pointer">
-                            <span class="text-sm text-light-muted">First row as headers</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="checkbox" id="use-attributes" class="w-4 h-4 rounded border-gray-600 bg-darkBg text-gold focus:ring-gold focus:ring-offset-0 cursor-pointer">
-                            <span class="text-sm text-light-muted">Values as attributes</span>
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="checkbox" id="use-cdata" class="w-4 h-4 rounded border-gray-600 bg-darkBg text-gold focus:ring-gold focus:ring-offset-0 cursor-pointer">
-                            <span class="text-sm text-light-muted">Wrap values in CDATA</span>
-                        </label>
                         <label class="flex items-center gap-2 cursor-pointer">
                             <input type="checkbox" id="include-declaration" checked class="w-4 h-4 rounded border-gray-600 bg-darkBg text-gold focus:ring-gold focus:ring-offset-0 cursor-pointer">
                             <span class="text-sm text-light-muted">XML declaration</span>
                         </label>
                         <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="checkbox" id="minify-output" class="w-4 h-4 rounded border-gray-600 bg-darkBg text-gold focus:ring-gold focus:ring-offset-0 cursor-pointer">
-                            <span class="text-sm text-light-muted">Minify output</span>
+                            <input type="checkbox" id="use-cdata" class="w-4 h-4 rounded border-gray-600 bg-darkBg text-gold focus:ring-gold focus:ring-offset-0 cursor-pointer">
+                            <span class="text-sm text-light-muted">Wrap strings in CDATA</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" id="include-types" class="w-4 h-4 rounded border-gray-600 bg-darkBg text-gold focus:ring-gold focus:ring-offset-0 cursor-pointer">
+                            <span class="text-sm text-light-muted">Add type attributes</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" id="empty-self-close" checked class="w-4 h-4 rounded border-gray-600 bg-darkBg text-gold focus:ring-gold focus:ring-offset-0 cursor-pointer">
+                            <span class="text-sm text-light-muted">Self-close empty elements</span>
                         </label>
                     </div>
                 </div>
 
                 {{-- Input / Output --}}
                 <div class="grid lg:grid-cols-2 gap-4 mb-6">
-                    {{-- Input --}}
                     <div class="flex flex-col">
                         <div class="flex items-center justify-between mb-2">
-                            <label for="csv-input" class="text-light font-semibold flex items-center gap-2">
+                            <label for="json-input" class="text-light font-semibold flex items-center gap-2">
                                 <svg class="w-4 h-4 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                                CSV Input
+                                JSON Input
                             </label>
                             <label class="px-3 py-1 border border-gold/30 text-light-muted rounded-lg hover:bg-gold/10 hover:text-gold transition-all text-xs flex items-center gap-1 cursor-pointer">
                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-                                Upload .csv
-                                <input type="file" id="file-upload" accept=".csv,.tsv,.txt" class="hidden">
+                                Upload .json
+                                <input type="file" id="file-upload" accept=".json" class="hidden">
                             </label>
                         </div>
                         <textarea
-                            id="csv-input"
-                            class="flex-1 min-h-[320px] bg-darkBg border border-gold/20 rounded-lg p-4 font-mono text-sm text-light placeholder-light-muted/50 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold/30 resize-none"
-                            placeholder="name,email,city,role
-John Smith,john@example.com,New York,Developer
-Jane Doe,jane@example.com,London,Designer
-Bob Wilson,bob@example.com,Berlin,Manager"
+                            id="json-input"
+                            class="flex-1 min-h-[350px] bg-darkBg border border-gold/20 rounded-lg p-4 font-mono text-sm text-light placeholder-light-muted/50 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold/30 resize-none"
+                            placeholder='{
+  "name": "John",
+  "age": 30,
+  "skills": ["PHP", "Laravel", "Vue.js"]
+}'
                             spellcheck="false"
                         ></textarea>
                     </div>
 
-                    {{-- Output --}}
                     <div class="flex flex-col">
                         <label class="text-light font-semibold mb-2 flex items-center gap-2">
                             <svg class="w-4 h-4 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
@@ -194,7 +191,7 @@ Bob Wilson,bob@example.com,Berlin,Manager"
                         </label>
                         <textarea
                             id="xml-output"
-                            class="flex-1 min-h-[320px] bg-darkBg border border-gold/20 rounded-lg p-4 font-mono text-sm text-light placeholder-light-muted/50 focus:border-gold/50 focus:outline-none resize-none"
+                            class="flex-1 min-h-[350px] bg-darkBg border border-gold/20 rounded-lg p-4 font-mono text-sm text-light placeholder-light-muted/50 focus:border-gold/50 focus:outline-none resize-none"
                             placeholder="XML output will appear here..."
                             readonly
                         ></textarea>
@@ -229,12 +226,12 @@ Bob Wilson,bob@example.com,Berlin,Manager"
                 <div id="stats-bar" class="hidden bg-darkBg rounded-lg p-4 border border-gold/10">
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                         <div class="text-center">
-                            <div id="stat-rows" class="text-2xl font-bold text-gold mb-1">0</div>
-                            <div class="text-light-muted text-sm">Rows</div>
+                            <div id="stat-elements" class="text-2xl font-bold text-gold mb-1">0</div>
+                            <div class="text-light-muted text-sm">XML Elements</div>
                         </div>
                         <div class="text-center">
-                            <div id="stat-cols" class="text-2xl font-bold text-light mb-1">0</div>
-                            <div class="text-light-muted text-sm">Columns</div>
+                            <div id="stat-depth" class="text-2xl font-bold text-light mb-1">0</div>
+                            <div class="text-light-muted text-sm">Max Depth</div>
                         </div>
                         <div class="text-center">
                             <div id="stat-input-size" class="text-2xl font-bold text-light mb-1">0</div>
@@ -262,31 +259,31 @@ Bob Wilson,bob@example.com,Berlin,Manager"
                 </div>
             </div>
 
-            {{-- Related Tools (Dynamic) --}}
+            {{-- Related Tools --}}
             <x-related-tools :tool="$tool" />
 
             {{-- Features Section --}}
             <div class="grid md:grid-cols-3 gap-6 mb-12">
                 <div class="bg-gradient-card p-6 rounded-xl border border-gold/20 shadow-dark-card">
                     <div class="text-gold text-2xl mb-3">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"></path></svg>
                     </div>
-                    <h3 class="text-lg font-semibold text-light mb-2">Flexible Options</h3>
-                    <p class="text-light-muted text-sm">Customize root and row element names, choose between child elements or attributes, add XML declarations, and enable CDATA wrapping.</p>
+                    <h3 class="text-lg font-semibold text-light mb-2">Deep Nesting</h3>
+                    <p class="text-light-muted text-sm">Handles any level of nested objects and arrays. Objects within arrays, arrays within objects — all converted to properly structured XML.</p>
                 </div>
                 <div class="bg-gradient-card p-6 rounded-xl border border-gold/20 shadow-dark-card">
                     <div class="text-gold text-2xl mb-3">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path></svg>
                     </div>
-                    <h3 class="text-lg font-semibold text-light mb-2">Safe XML Output</h3>
-                    <p class="text-light-muted text-sm">Automatically escapes special characters and sanitizes element names to produce valid, well-formed XML every time.</p>
+                    <h3 class="text-lg font-semibold text-light mb-2">Smart Arrays</h3>
+                    <p class="text-light-muted text-sm">Automatically singularizes array element names (users → user, categories → category). Or use a fixed "item" name for all arrays.</p>
                 </div>
                 <div class="bg-gradient-card p-6 rounded-xl border border-gold/20 shadow-dark-card">
                     <div class="text-gold text-2xl mb-3">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
                     </div>
-                    <h3 class="text-lg font-semibold text-light mb-2">Upload & Download</h3>
-                    <p class="text-light-muted text-sm">Upload .csv files directly or paste data. Download the converted XML file with one click. Everything runs in your browser — no server uploads.</p>
+                    <h3 class="text-lg font-semibold text-light mb-2">Type Awareness</h3>
+                    <p class="text-light-muted text-sm">Optional type attributes preserve JSON data types (string, number, boolean, null) in the XML output for lossless round-trip conversion.</p>
                 </div>
             </div>
 
@@ -299,48 +296,38 @@ Bob Wilson,bob@example.com,Berlin,Manager"
                 <div class="space-y-4 max-w-3xl mx-auto">
                     <details class="group">
                         <summary class="flex items-center justify-between cursor-pointer p-4 bg-darkBg rounded-lg border border-gold/10 hover:border-gold/30 transition-colors">
-                            <span class="text-light font-medium">How do I convert CSV to XML?</span>
+                            <span class="text-light font-medium">How do I convert JSON to XML?</span>
                             <svg class="w-5 h-5 text-gold transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </summary>
-                        <div class="p-4 text-light-muted text-sm leading-relaxed">
-                            Paste your CSV data into the input field or upload a .csv file. The tool converts it to well-formatted XML automatically. The first row is used as element names, and each subsequent row becomes an XML record wrapped in your chosen row element tag.
-                        </div>
+                        <div class="p-4 text-light-muted text-sm leading-relaxed">Paste your JSON data into the input field and the tool instantly converts it to XML. JSON objects become XML elements, arrays become repeated child elements, and primitive values become text content. You can customize the root element name, indentation, and other formatting options.</div>
                     </details>
                     <details class="group">
                         <summary class="flex items-center justify-between cursor-pointer p-4 bg-darkBg rounded-lg border border-gold/10 hover:border-gold/30 transition-colors">
-                            <span class="text-light font-medium">Can I customize the XML element names?</span>
+                            <span class="text-light font-medium">How are JSON arrays handled in XML?</span>
                             <svg class="w-5 h-5 text-gold transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </summary>
-                        <div class="p-4 text-light-muted text-sm leading-relaxed">
-                            Yes! You can set a custom root element name (default: <code class="bg-darkCard px-1 rounded">data</code>) and row element name (default: <code class="bg-darkCard px-1 rounded">record</code>). CSV column headers automatically become child element names. You can also switch to "Values as attributes" mode where values are stored as XML attributes instead of child elements.
-                        </div>
+                        <div class="p-4 text-light-muted text-sm leading-relaxed">JSON arrays become repeated XML elements. For example, <code class="bg-darkCard px-1 rounded">"tags": ["php", "laravel"]</code> becomes <code class="bg-darkCard px-1 rounded">&lt;tags&gt;&lt;tag&gt;php&lt;/tag&gt;&lt;tag&gt;laravel&lt;/tag&gt;&lt;/tags&gt;</code>. The item name is auto-singularized from the parent key, or you can use a fixed "item" name.</div>
                     </details>
                     <details class="group">
                         <summary class="flex items-center justify-between cursor-pointer p-4 bg-darkBg rounded-lg border border-gold/10 hover:border-gold/30 transition-colors">
-                            <span class="text-light font-medium">What CSV delimiters are supported?</span>
+                            <span class="text-light font-medium">Can I customize the XML root element name?</span>
                             <svg class="w-5 h-5 text-gold transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </summary>
-                        <div class="p-4 text-light-muted text-sm leading-relaxed">
-                            The converter supports comma, semicolon, tab, and pipe delimiters. It handles quoted fields correctly, including fields with embedded delimiters, newlines, and escaped quotes (double-quote inside quoted fields).
-                        </div>
+                        <div class="p-4 text-light-muted text-sm leading-relaxed">Yes! Enter any valid XML element name in the "Root Element" field (default: <code class="bg-darkCard px-1 rounded">root</code>). You can also choose between 2-space, 4-space, tab indentation, or minified output with no whitespace.</div>
                     </details>
                     <details class="group">
                         <summary class="flex items-center justify-between cursor-pointer p-4 bg-darkBg rounded-lg border border-gold/10 hover:border-gold/30 transition-colors">
-                            <span class="text-light font-medium">Does the converter handle special characters?</span>
+                            <span class="text-light font-medium">What is the difference between JSON and XML?</span>
                             <svg class="w-5 h-5 text-gold transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </summary>
-                        <div class="p-4 text-light-muted text-sm leading-relaxed">
-                            Yes, XML special characters (<code class="bg-darkCard px-1 rounded">&lt;</code>, <code class="bg-darkCard px-1 rounded">&gt;</code>, <code class="bg-darkCard px-1 rounded">&amp;</code>, <code class="bg-darkCard px-1 rounded">"</code>, <code class="bg-darkCard px-1 rounded">'</code>) are automatically escaped. You can also enable CDATA wrapping for values that contain complex markup or special characters.
-                        </div>
+                        <div class="p-4 text-light-muted text-sm leading-relaxed">JSON uses key-value pairs with a lightweight syntax and is the standard for modern REST APIs. XML uses a tag-based structure and is common in enterprise systems, SOAP web services, RSS feeds, and configuration files like Maven and Android manifests. JSON is typically more compact, while XML supports attributes, namespaces, and schemas.</div>
                     </details>
                     <details class="group">
                         <summary class="flex items-center justify-between cursor-pointer p-4 bg-darkBg rounded-lg border border-gold/10 hover:border-gold/30 transition-colors">
-                            <span class="text-light font-medium">Can I upload a CSV file directly?</span>
+                            <span class="text-light font-medium">Does the converter handle nested JSON objects?</span>
                             <svg class="w-5 h-5 text-gold transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </summary>
-                        <div class="p-4 text-light-muted text-sm leading-relaxed">
-                            Yes! Click the "Upload .csv" button to select a CSV file from your computer. The file is processed entirely in your browser — no data is ever sent to a server. You can also drag and paste CSV content directly into the input area.
-                        </div>
+                        <div class="p-4 text-light-muted text-sm leading-relaxed">Yes! Any level of nesting is fully supported. Nested objects become nested XML elements, arrays of objects become repeated element groups, and mixed structures are handled correctly with proper indentation at every level.</div>
                     </details>
                 </div>
             </div>
@@ -350,17 +337,15 @@ Bob Wilson,bob@example.com,Berlin,Manager"
     @push('scripts')
     <script>
     (function() {
-        // DOM Elements
-        const csvInput = document.getElementById('csv-input');
+        const jsonInput = document.getElementById('json-input');
         const xmlOutput = document.getElementById('xml-output');
-        const delimiter = document.getElementById('delimiter');
-        const rootElement = document.getElementById('root-element');
-        const rowElement = document.getElementById('row-element');
-        const firstRowHeader = document.getElementById('first-row-header');
-        const useAttributes = document.getElementById('use-attributes');
-        const useCdata = document.getElementById('use-cdata');
+        const rootElementInput = document.getElementById('root-element');
+        const arrayItemName = document.getElementById('array-item-name');
+        const indentSize = document.getElementById('indent-size');
         const includeDeclaration = document.getElementById('include-declaration');
-        const minifyOutput = document.getElementById('minify-output');
+        const useCdata = document.getElementById('use-cdata');
+        const includeTypes = document.getElementById('include-types');
+        const emptySelfClose = document.getElementById('empty-self-close');
         const fileUpload = document.getElementById('file-upload');
         const btnConvert = document.getElementById('btn-convert');
         const btnCopy = document.getElementById('btn-copy');
@@ -373,160 +358,163 @@ Bob Wilson,bob@example.com,Berlin,Manager"
         const errorNotification = document.getElementById('error-notification');
         const errorMessage = document.getElementById('error-message');
 
-        const sampleCSV = `name,email,city,role,salary
-John Smith,john@example.com,New York,Developer,95000
-Jane Doe,jane@example.com,London,Designer,82000
-Bob Wilson,bob@example.com,Berlin,Manager,105000
-Alice Chen,alice@example.com,Tokyo,"Senior Developer",112000
-Carlos García,carlos@example.com,Madrid,DevOps,88000`;
+        const sampleJSON = `{
+  "company": "Acme Corp",
+  "founded": 2015,
+  "active": true,
+  "address": {
+    "street": "123 Main St",
+    "city": "San Francisco",
+    "state": "CA",
+    "zip": "94105"
+  },
+  "employees": [
+    {
+      "name": "John Smith",
+      "role": "Developer",
+      "skills": ["PHP", "Laravel", "Vue.js"]
+    },
+    {
+      "name": "Jane Doe",
+      "role": "Designer",
+      "skills": ["Figma", "CSS", "Tailwind"]
+    }
+  ],
+  "tags": ["tech", "startup", "saas"],
+  "metadata": null
+}`;
 
-        // ===== CSV Parser =====
-        function parseCSV(text, delim) {
-            const rows = [];
-            let current = '';
-            let inQuotes = false;
-            let row = [];
+        let elementCount = 0;
+        let maxDepth = 0;
 
-            for (let i = 0; i < text.length; i++) {
-                const ch = text[i];
-                const next = text[i + 1];
-
-                if (inQuotes) {
-                    if (ch === '"' && next === '"') {
-                        current += '"';
-                        i++;
-                    } else if (ch === '"') {
-                        inQuotes = false;
-                    } else {
-                        current += ch;
-                    }
-                } else {
-                    if (ch === '"') {
-                        inQuotes = true;
-                    } else if (ch === delim) {
-                        row.push(current.trim());
-                        current = '';
-                    } else if (ch === '\n' || (ch === '\r' && next === '\n')) {
-                        row.push(current.trim());
-                        if (row.some(cell => cell !== '')) rows.push(row);
-                        row = [];
-                        current = '';
-                        if (ch === '\r') i++;
-                    } else {
-                        current += ch;
-                    }
-                }
-            }
-            // Last field
-            row.push(current.trim());
-            if (row.some(cell => cell !== '')) rows.push(row);
-
-            return rows;
+        // ===== Singularize =====
+        function singularize(word) {
+            if (word.endsWith('ies')) return word.slice(0, -3) + 'y';
+            if (word.endsWith('ses') || word.endsWith('xes') || word.endsWith('zes')) return word.slice(0, -2);
+            if (word.endsWith('s') && !word.endsWith('ss') && !word.endsWith('us')) return word.slice(0, -1);
+            return word;
         }
 
-        // ===== XML Generation =====
-        function sanitizeElementName(name) {
-            // XML element name rules: start with letter or _, no spaces/special chars
+        // ===== XML Helpers =====
+        function sanitizeName(name) {
             let clean = name.replace(/[^a-zA-Z0-9_.-]/g, '_').replace(/^[^a-zA-Z_]/, '_');
-            if (!clean) clean = 'field';
-            return clean;
+            return clean || 'element';
         }
 
         function escapeXml(str) {
-            return str
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/"/g, '&quot;')
-                .replace(/'/g, '&apos;');
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;');
         }
 
-        function wrapValue(value, cdata) {
-            if (cdata && value.length > 0) {
-                return '<![CDATA[' + value + ']]>';
+        function getIndent(level) {
+            const val = indentSize.value;
+            if (val === '0') return '';
+            if (val === 'tab') return '\t'.repeat(level);
+            return ' '.repeat(parseInt(val) * level);
+        }
+
+        function getNl() {
+            return indentSize.value === '0' ? '' : '\n';
+        }
+
+        // ===== JSON to XML =====
+        function jsonToXml(value, tagName, depth) {
+            const nl = getNl();
+            const indent = getIndent(depth);
+            const tag = sanitizeName(tagName);
+            let xml = '';
+
+            elementCount++;
+            if (depth > maxDepth) maxDepth = depth;
+
+            const typeAttr = includeTypes.checked;
+
+            if (value === null || value === undefined) {
+                if (typeAttr) {
+                    xml += indent + '<' + tag + ' type="null"';
+                } else {
+                    xml += indent + '<' + tag;
+                }
+                xml += emptySelfClose.checked ? '/>' + nl : '></' + tag + '>' + nl;
+            } else if (typeof value === 'boolean') {
+                xml += indent + '<' + tag + (typeAttr ? ' type="boolean"' : '') + '>' + value + '</' + tag + '>' + nl;
+            } else if (typeof value === 'number') {
+                xml += indent + '<' + tag + (typeAttr ? ' type="number"' : '') + '>' + value + '</' + tag + '>' + nl;
+            } else if (typeof value === 'string') {
+                if (value === '') {
+                    xml += indent + '<' + tag + (typeAttr ? ' type="string"' : '');
+                    xml += emptySelfClose.checked ? '/>' + nl : '></' + tag + '>' + nl;
+                } else {
+                    const content = useCdata.checked ? '<![CDATA[' + value + ']]>' : escapeXml(value);
+                    xml += indent + '<' + tag + (typeAttr ? ' type="string"' : '') + '>' + content + '</' + tag + '>' + nl;
+                }
+            } else if (Array.isArray(value)) {
+                xml += indent + '<' + tag + (typeAttr ? ' type="array"' : '') + '>' + nl;
+                const itemName = arrayItemName.value === 'auto' ? singularize(tag) : 'item';
+                for (const item of value) {
+                    xml += jsonToXml(item, itemName, depth + 1);
+                }
+                xml += indent + '</' + tag + '>' + nl;
+            } else if (typeof value === 'object') {
+                xml += indent + '<' + tag + (typeAttr ? ' type="object"' : '') + '>' + nl;
+                for (const key of Object.keys(value)) {
+                    xml += jsonToXml(value[key], key, depth + 1);
+                }
+                xml += indent + '</' + tag + '>' + nl;
             }
-            return escapeXml(value);
+
+            return xml;
         }
 
         function convert() {
-            const input = csvInput.value.trim();
-            if (!input) {
-                showError('Please enter or paste CSV data');
-                return;
-            }
+            const input = jsonInput.value.trim();
+            if (!input) { showError('Please enter JSON data'); return; }
 
             try {
-                const delim = delimiter.value === '\\t' ? '\t' : delimiter.value;
-                const rows = parseCSV(input, delim);
+                const parsed = JSON.parse(input);
 
-                if (rows.length === 0) {
-                    showError('No data found in CSV input');
-                    return;
-                }
+                elementCount = 0;
+                maxDepth = 0;
 
-                const root = sanitizeElementName(rootElement.value || 'data');
-                const row = sanitizeElementName(rowElement.value || 'record');
-                const hasHeaders = firstRowHeader.checked;
-                const asAttributes = useAttributes.checked;
-                const cdata = useCdata.checked;
-                const declaration = includeDeclaration.checked;
-                const minify = minifyOutput.checked;
-
-                // Headers
-                let headers;
-                let dataRows;
-                if (hasHeaders && rows.length > 1) {
-                    headers = rows[0].map(h => sanitizeElementName(h));
-                    dataRows = rows.slice(1);
-                } else {
-                    headers = rows[0].map((_, i) => 'field' + (i + 1));
-                    dataRows = hasHeaders ? rows.slice(1) : rows;
-                }
-
-                const nl = minify ? '' : '\n';
-                const t1 = minify ? '' : '  ';
-                const t2 = minify ? '' : '    ';
-
+                const rootName = sanitizeName(rootElementInput.value || 'root');
+                const nl = getNl();
                 let xml = '';
-                if (declaration) {
+
+                if (includeDeclaration.checked) {
                     xml += '<?xml version="1.0" encoding="UTF-8"?>' + nl;
                 }
-                xml += '<' + root + '>' + nl;
 
-                for (const dataRow of dataRows) {
-                    if (asAttributes) {
-                        // Attribute mode
-                        xml += t1 + '<' + row;
-                        for (let i = 0; i < headers.length; i++) {
-                            const val = i < dataRow.length ? dataRow[i] : '';
-                            xml += ' ' + headers[i] + '="' + escapeXml(val) + '"';
-                        }
-                        xml += '/>' + nl;
-                    } else {
-                        // Child element mode
-                        xml += t1 + '<' + row + '>' + nl;
-                        for (let i = 0; i < headers.length; i++) {
-                            const val = i < dataRow.length ? dataRow[i] : '';
-                            xml += t2 + '<' + headers[i] + '>' + wrapValue(val, cdata) + '</' + headers[i] + '>' + nl;
-                        }
-                        xml += t1 + '</' + row + '>' + nl;
+                // If top-level is array, wrap in root
+                if (Array.isArray(parsed)) {
+                    xml += '<' + rootName + '>' + nl;
+                    const itemName = arrayItemName.value === 'auto' ? singularize(rootName) : 'item';
+                    for (const item of parsed) {
+                        xml += jsonToXml(item, itemName, 1);
                     }
+                    xml += '</' + rootName + '>';
+                    elementCount++;
+                } else if (typeof parsed === 'object' && parsed !== null) {
+                    xml += '<' + rootName + '>' + nl;
+                    for (const key of Object.keys(parsed)) {
+                        xml += jsonToXml(parsed[key], key, 1);
+                    }
+                    xml += '</' + rootName + '>';
+                    elementCount++;
+                } else {
+                    // Primitive at root
+                    xml += jsonToXml(parsed, rootName, 0);
                 }
-
-                xml += '</' + root + '>';
 
                 xmlOutput.value = xml;
 
-                // Stats
-                document.getElementById('stat-rows').textContent = dataRows.length;
-                document.getElementById('stat-cols').textContent = headers.length;
+                document.getElementById('stat-elements').textContent = elementCount;
+                document.getElementById('stat-depth').textContent = maxDepth;
                 document.getElementById('stat-input-size').textContent = formatSize(input.length);
                 document.getElementById('stat-output-size').textContent = formatSize(xml.length);
                 statsBar.classList.remove('hidden');
 
-                showSuccess(`Converted ${dataRows.length} rows × ${headers.length} columns to XML`);
+                showSuccess(`Converted to XML — ${elementCount} elements, depth ${maxDepth}`);
             } catch (e) {
-                showError('Error converting CSV: ' + e.message);
+                showError('Invalid JSON: ' + e.message);
             }
         }
 
@@ -549,12 +537,12 @@ Carlos García,carlos@example.com,Madrid,DevOps,88000`;
             setTimeout(() => errorNotification.classList.add('hidden'), 5000);
         }
 
-        // ===== Event Listeners =====
+        // ===== Events =====
         btnConvert.addEventListener('click', convert);
 
         btnCopy.addEventListener('click', function() {
             const output = xmlOutput.value;
-            if (!output) { showError('Nothing to copy. Convert CSV first.'); return; }
+            if (!output) { showError('Nothing to copy. Convert JSON first.'); return; }
             navigator.clipboard.writeText(output).then(() => {
                 const orig = this.innerHTML;
                 this.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Copied!';
@@ -565,27 +553,24 @@ Carlos García,carlos@example.com,Madrid,DevOps,88000`;
 
         btnDownload.addEventListener('click', function() {
             const output = xmlOutput.value;
-            if (!output) { showError('Nothing to download. Convert CSV first.'); return; }
+            if (!output) { showError('Nothing to download. Convert JSON first.'); return; }
             const blob = new Blob([output], { type: 'application/xml;charset=utf-8' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
-            a.href = url;
-            a.download = 'data.xml';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
+            a.href = url; a.download = 'data.xml';
+            document.body.appendChild(a); a.click();
+            document.body.removeChild(a); URL.revokeObjectURL(url);
             showSuccess('XML file downloaded');
         });
 
         btnSample.addEventListener('click', function() {
-            csvInput.value = sampleCSV;
+            jsonInput.value = sampleJSON;
             xmlOutput.value = '';
             statsBar.classList.add('hidden');
         });
 
         btnClear.addEventListener('click', function() {
-            csvInput.value = '';
+            jsonInput.value = '';
             xmlOutput.value = '';
             statsBar.classList.add('hidden');
             successNotification.classList.add('hidden');
@@ -597,7 +582,7 @@ Carlos García,carlos@example.com,Madrid,DevOps,88000`;
             if (!file) return;
             const reader = new FileReader();
             reader.onload = function(evt) {
-                csvInput.value = evt.target.result;
+                jsonInput.value = evt.target.result;
                 xmlOutput.value = '';
                 statsBar.classList.add('hidden');
                 showSuccess('File loaded: ' + file.name);
@@ -606,24 +591,19 @@ Carlos García,carlos@example.com,Madrid,DevOps,88000`;
             this.value = '';
         });
 
-        // Real-time conversion
-        let debounceTimer;
-        csvInput.addEventListener('input', function() {
-            clearTimeout(debounceTimer);
-            debounceTimer = setTimeout(() => {
-                if (csvInput.value.trim()) convert();
-            }, 500);
+        // Real-time
+        let timer;
+        jsonInput.addEventListener('input', function() {
+            clearTimeout(timer);
+            timer = setTimeout(() => { if (jsonInput.value.trim()) convert(); }, 500);
         });
 
         // Re-convert on option change
-        [delimiter, firstRowHeader, useAttributes, useCdata, includeDeclaration, minifyOutput].forEach(el => {
-            el.addEventListener('change', () => { if (csvInput.value.trim()) convert(); });
+        [arrayItemName, indentSize, includeDeclaration, useCdata, includeTypes, emptySelfClose].forEach(el => {
+            el.addEventListener('change', () => { if (jsonInput.value.trim()) convert(); });
         });
-        [rootElement, rowElement].forEach(el => {
-            el.addEventListener('input', () => { if (csvInput.value.trim()) { clearTimeout(debounceTimer); debounceTimer = setTimeout(convert, 500); } });
-        });
+        rootElementInput.addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(() => { if (jsonInput.value.trim()) convert(); }, 500); });
 
-        // Keyboard shortcut
         document.addEventListener('keydown', function(e) {
             if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); convert(); }
         });

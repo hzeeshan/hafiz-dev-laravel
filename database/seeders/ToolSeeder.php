@@ -198,6 +198,15 @@ class ToolSeeder extends Seeder
                 'position' => 21,
                 'related_tools' => ['json-to-yaml', 'yaml-to-json', 'json-to-csv-converter', 'json-formatter'],
             ],
+            [
+                'name' => 'XML to CSV Converter',
+                'slug' => 'xml-to-csv',
+                'description' => 'Convert XML data to CSV spreadsheet format for Excel and Google Sheets',
+                'icon' => '📊',
+                'category' => 'Converter',
+                'position' => 22,
+                'related_tools' => ['xml-to-json', 'json-to-csv-converter', 'json-to-yaml', 'yaml-to-json'],
+            ],
         ];
 
         foreach ($tools as $tool) {

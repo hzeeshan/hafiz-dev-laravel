@@ -394,7 +394,16 @@ class ToolSeeder extends Seeder
                 'icon' => '🎂',
                 'category' => 'Calculators',
                 'position' => 43,
-                'related_tools' => ['timestamp-converter', 'word-counter', 'color-converter'],
+                'related_tools' => ['korean-age-calculator', 'timestamp-converter', 'word-counter'],
+            ],
+            [
+                'name' => 'Korean Age Calculator',
+                'slug' => 'korean-age-calculator',
+                'description' => 'Calculate your Korean age, international age, and see the difference. Learn how the traditional Korean age system works.',
+                'icon' => '🇰🇷',
+                'category' => 'Calculators',
+                'position' => 44,
+                'related_tools' => ['chronological-age-calculator', 'timestamp-converter', 'word-counter'],
             ],
         ];
 

@@ -126,6 +126,7 @@ class Tool extends Model
             'Design' => 'Design',
             'Images' => 'Images',
             'Converter' => 'Converter',
+            'Calculators' => 'Calculators',
         ];
     }
 }

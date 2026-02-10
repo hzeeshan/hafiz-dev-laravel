@@ -387,6 +387,15 @@ class ToolSeeder extends Seeder
                 'position' => 42,
                 'related_tools' => ['text-to-binary', 'bubble-text-generator', 'upside-down-text-generator', 'small-text-generator'],
             ],
+            [
+                'name' => 'Chronological Age Calculator',
+                'slug' => 'chronological-age-calculator',
+                'description' => 'Calculate your exact age in years, months, days, hours, minutes, and seconds. Find next birthday countdown and zodiac sign.',
+                'icon' => '🎂',
+                'category' => 'Calculators',
+                'position' => 43,
+                'related_tools' => ['timestamp-converter', 'word-counter', 'color-converter'],
+            ],
         ];
 
         foreach ($tools as $tool) {

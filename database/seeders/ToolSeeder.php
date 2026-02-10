@@ -405,6 +405,15 @@ class ToolSeeder extends Seeder
                 'position' => 44,
                 'related_tools' => ['chronological-age-calculator', 'timestamp-converter', 'word-counter'],
             ],
+            [
+                'name' => 'Crontab Guru',
+                'slug' => 'crontab-guru',
+                'description' => 'Build, validate, and understand cron expressions with human-readable explanations and next scheduled run times. Interactive crontab editor for developers.',
+                'icon' => '⏰',
+                'category' => 'Developer',
+                'position' => 45,
+                'related_tools' => ['timestamp-converter', 'json-formatter', 'regex-tester'],
+            ],
         ];
 
         foreach ($tools as $tool) {

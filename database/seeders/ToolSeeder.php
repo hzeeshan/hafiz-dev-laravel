@@ -333,6 +333,42 @@ class ToolSeeder extends Seeder
                 'position' => 36,
                 'related_tools' => ['chmod-calculator', 'slug-generator', 'markdown-to-html'],
             ],
+            [
+                'name' => 'Bubble Text Generator',
+                'slug' => 'bubble-text-generator',
+                'description' => 'Convert your text to bubble letters (ⓑⓤⓑⓑⓛⓔ) instantly for social media, Discord, and more. Copy and paste bubble text anywhere.',
+                'icon' => '🫧',
+                'category' => 'Text',
+                'position' => 37,
+                'related_tools' => ['zalgo-text-generator', 'strikethrough-text-generator', 'upside-down-text-generator', 'word-counter'],
+            ],
+            [
+                'name' => 'Strikethrough Text Generator',
+                'slug' => 'strikethrough-text-generator',
+                'description' => 'Create crossed out text instantly for social media, Discord, and more. Copy and paste strikethrough text anywhere.',
+                'icon' => '✂️',
+                'category' => 'Text',
+                'position' => 38,
+                'related_tools' => ['bubble-text-generator', 'zalgo-text-generator', 'upside-down-text-generator', 'word-counter'],
+            ],
+            [
+                'name' => 'Upside Down Text Generator',
+                'slug' => 'upside-down-text-generator',
+                'description' => 'Flip your text upside down instantly for social media, Discord, and more. Copy and paste flipped text anywhere.',
+                'icon' => '🙃',
+                'category' => 'Text',
+                'position' => 39,
+                'related_tools' => ['bubble-text-generator', 'zalgo-text-generator', 'strikethrough-text-generator', 'word-counter'],
+            ],
+            [
+                'name' => 'Zalgo Text Generator',
+                'slug' => 'zalgo-text-generator',
+                'description' => 'Create creepy glitch text with customizable chaos level instantly. Perfect for Discord, social media, and memes.',
+                'icon' => '👾',
+                'category' => 'Text',
+                'position' => 40,
+                'related_tools' => ['bubble-text-generator', 'strikethrough-text-generator', 'upside-down-text-generator', 'word-counter'],
+            ],
         ];
 
         foreach ($tools as $tool) {

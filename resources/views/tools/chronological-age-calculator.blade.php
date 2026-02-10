@@ -320,6 +320,13 @@
 
     @push('scripts')
     <style>
+        /* Normalize date inputs on iOS Safari */
+        input[type="date"] {
+            -webkit-appearance: none;
+            appearance: none;
+            min-height: 50px;
+        }
+
         /* Style the native date picker calendar icon for dark theme */
         input[type="date"]::-webkit-calendar-picker-indicator {
             filter: invert(85%) sepia(20%) saturate(500%) hue-rotate(10deg) brightness(95%);

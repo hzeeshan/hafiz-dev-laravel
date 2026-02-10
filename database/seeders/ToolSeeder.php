@@ -414,6 +414,15 @@ class ToolSeeder extends Seeder
                 'position' => 45,
                 'related_tools' => ['timestamp-converter', 'json-formatter', 'regex-tester'],
             ],
+            [
+                'name' => 'HTTP Status Codes Cheat Sheet',
+                'slug' => 'http-status-codes',
+                'description' => 'Complete HTTP status codes reference with descriptions, categories, and examples. Search and filter all 1xx-5xx response codes instantly.',
+                'icon' => '📡',
+                'category' => 'Developer',
+                'position' => 46,
+                'related_tools' => ['json-formatter', 'regex-tester', 'crontab-guru'],
+            ],
         ];
 
         foreach ($tools as $tool) {

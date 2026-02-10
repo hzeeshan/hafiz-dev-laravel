@@ -378,6 +378,15 @@ class ToolSeeder extends Seeder
                 'position' => 41,
                 'related_tools' => ['bubble-text-generator', 'strikethrough-text-generator', 'upside-down-text-generator', 'zalgo-text-generator'],
             ],
+            [
+                'name' => 'Morse Code Translator',
+                'slug' => 'morse-code-translator',
+                'description' => 'Convert text to Morse code and Morse code to text instantly. Listen to audio playback with adjustable speed. Supports letters, numbers, and punctuation.',
+                'icon' => '📡',
+                'category' => 'Text',
+                'position' => 42,
+                'related_tools' => ['text-to-binary', 'bubble-text-generator', 'upside-down-text-generator', 'small-text-generator'],
+            ],
         ];
 
         foreach ($tools as $tool) {

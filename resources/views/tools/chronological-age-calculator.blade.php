@@ -111,9 +111,11 @@
                             <svg class="w-4 h-4 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                             Date of Birth
                         </label>
-                        <input type="date" id="birth-date"
-                            class="w-full bg-darkBg border border-gold/20 rounded-lg px-4 py-3 text-light focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold/30 transition-colors"
-                        >
+                        <div class="date-input-wrapper" data-placeholder="dd/mm/yyyy">
+                            <input type="date" id="birth-date"
+                                class="w-full bg-darkBg border border-gold/20 rounded-lg px-4 py-3 text-light focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold/30 transition-colors"
+                            >
+                        </div>
                     </div>
 
                     {{-- Age at Date --}}
@@ -325,6 +327,28 @@
             -webkit-appearance: none;
             appearance: none;
             min-height: 50px;
+            position: relative;
+        }
+
+        /* Placeholder for empty date inputs on iOS Safari */
+        .date-input-wrapper {
+            position: relative;
+        }
+        .date-input-wrapper:not(.has-value) input[type="date"] {
+            color: transparent;
+        }
+        .date-input-wrapper::after {
+            content: attr(data-placeholder);
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-light-muted);
+            pointer-events: none;
+            font-size: 1rem;
+        }
+        .date-input-wrapper.has-value::after {
+            display: none;
         }
 
         /* Style the native date picker calendar icon for dark theme */
@@ -338,6 +362,15 @@
         // Set default target date to today
         const today = new Date();
         document.getElementById('target-date').value = today.toISOString().split('T')[0];
+
+        // Toggle placeholder visibility for date input wrappers
+        document.querySelectorAll('.date-input-wrapper input[type="date"]').forEach(function(input) {
+            function updateWrapper() {
+                input.closest('.date-input-wrapper').classList.toggle('has-value', !!input.value);
+            }
+            input.addEventListener('change', updateWrapper);
+            updateWrapper();
+        });
 
         // DOM Elements
         const btnCalculate = document.getElementById('btn-calculate');
@@ -488,6 +521,10 @@
             document.getElementById('target-date').value = new Date().toISOString().split('T')[0];
             document.getElementById('results-section').classList.add('hidden');
             successNotification.classList.add('hidden');
+            // Re-check placeholder wrappers
+            document.querySelectorAll('.date-input-wrapper input[type="date"]').forEach(function(input) {
+                input.closest('.date-input-wrapper').classList.toggle('has-value', !!input.value);
+            });
         });
 
         btnCopy.addEventListener('click', function() {

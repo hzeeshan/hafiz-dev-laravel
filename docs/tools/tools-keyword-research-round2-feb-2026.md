@@ -5,8 +5,8 @@
 **Date:** February 10, 2026
 **Goal:** Build & publish 23 new Easy KD tools to maximize organic traffic
 **Research:** 64 keywords tested across 8 rounds using Ahrefs Free Keyword Generator
-**Existing tools:** 40 live (see ToolSeeder.php) — 36 from Round 1 + 4 from Round 2
-**Progress:** 4/23 built ✅ | 19 remaining 🔲
+**Existing tools:** 41 live (see ToolSeeder.php) — 36 from Round 1 + 5 from Round 2
+**Progress:** 5/23 built ✅ | 18 remaining 🔲
 **Previous research:** [tools-keyword-research-feb-2026.md](./tools-keyword-research-feb-2026.md)
 
 ---
@@ -48,7 +48,7 @@ Easy to rank, steady niche traffic. Many share templates so builds are very fast
 | 18  | **Decimal to Octal Converter**    | decimal to octal              | decimal to octal converter, decimal to octal conversion | Easy | >100   | `/tools/decimal-to-octal`     | 15 min     | 🔲     |
 | 19  | **Binary to Octal Converter**     | binary to octal               | binary to octal converter, convert binary to octal      | Easy | >100   | `/tools/binary-to-octal`      | 15 min     | 🔲     |
 | 20  | **Hex to Binary Converter**       | convert hex to binary         | how to convert hex to binary                            | Easy | >100   | `/tools/hex-to-binary`        | 15 min     | 🔲     |
-| 21  | **Small Text Generator**          | super small text generator    | small text generator discord                            | Easy | >100   | `/tools/small-text-generator` | 15 min     | 🔲     |
+| 21  | **Small Text Generator**          | super small text generator    | small text generator discord                            | Easy | >100   | `/tools/small-text-generator` | 15 min     | ✅     |
 | 22  | **CSV Viewer Online**             | csv viewer online             |                                                         | Easy | >100   | `/tools/csv-viewer`           | 30 min     | 🔲     |
 | 23  | **TSV to CSV Converter**          | tsv to csv                    | convert tsv to csv, tsv to csv converter                | Easy | >100   | `/tools/tsv-to-csv`           | 15 min     | 🔲     |
 
@@ -58,7 +58,7 @@ Easy to rank, steady niche traffic. Many share templates so builds are very fast
 
 ## TOTAL: 23 NEW TOOLS | ~9 HOURS | ~22,000+ monthly keyword searches
 
-**Current: 40 tools live (36 existing + 4 from Round 2)**
+**Current: 41 tools live (36 existing + 5 from Round 2)**
 **After all built: 36 existing + 23 new = 59 tools**
 
 ---
@@ -73,10 +73,10 @@ Build one Unicode text generator template, then clone for each variant:
 2. ✅ Strikethrough Text Generator ← Built & deployed
 3. ✅ Bubble Text Generator ← Built & deployed
 4. ✅ Zalgo Text Generator ← Built & deployed
-5. 🔲 Small Text Generator ← Clone, swap Unicode map (superscript)
+5. ✅ Small Text Generator ← Built & deployed
 6. 🔲 Morse Code Translator ← Similar template, different logic
 
-**Sprint 1 progress: 4/6 tools done**
+**Sprint 1 progress: 5/6 tools done**
 
 ### Sprint 2 — Number Base Converters (Tools 8-9, 15, 18-20)
 

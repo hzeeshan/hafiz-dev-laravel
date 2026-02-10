@@ -369,6 +369,15 @@ class ToolSeeder extends Seeder
                 'position' => 40,
                 'related_tools' => ['bubble-text-generator', 'strikethrough-text-generator', 'upside-down-text-generator', 'word-counter'],
             ],
+            [
+                'name' => 'Small Text Generator',
+                'slug' => 'small-text-generator',
+                'description' => 'Convert your text to superscript, subscript, and small caps instantly for social media, Discord, and more. Copy and paste tiny text anywhere.',
+                'icon' => '🔤',
+                'category' => 'Text',
+                'position' => 41,
+                'related_tools' => ['bubble-text-generator', 'strikethrough-text-generator', 'upside-down-text-generator', 'zalgo-text-generator'],
+            ],
         ];
 
         foreach ($tools as $tool) {

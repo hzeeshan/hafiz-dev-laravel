@@ -441,6 +441,42 @@ class ToolSeeder extends Seeder
                 'position' => 48,
                 'related_tools' => ['hex-to-binary', 'text-to-binary', 'ascii-table', 'base64-encoder'],
             ],
+            [
+                'name' => 'Octal to Decimal Converter',
+                'slug' => 'octal-to-decimal',
+                'description' => 'Convert octal (base-8) numbers to decimal (base-10) instantly with step-by-step positional notation breakdown.',
+                'icon' => '🔢',
+                'category' => 'Converter',
+                'position' => 49,
+                'related_tools' => ['decimal-to-binary', 'hex-to-binary', 'text-to-binary', 'ascii-table'],
+            ],
+            [
+                'name' => 'Decimal to Binary Converter',
+                'slug' => 'decimal-to-binary',
+                'description' => 'Convert decimal (base-10) numbers to binary (base-2) instantly with division-remainder breakdown and configurable bit padding.',
+                'icon' => '🔢',
+                'category' => 'Converter',
+                'position' => 50,
+                'related_tools' => ['octal-to-decimal', 'hex-to-binary', 'text-to-binary', 'ascii-table'],
+            ],
+            [
+                'name' => 'Decimal to Octal Converter',
+                'slug' => 'decimal-to-octal',
+                'description' => 'Convert decimal (base-10) numbers to octal (base-8) instantly with step-by-step division breakdown and Unix permission reference.',
+                'icon' => '🔢',
+                'category' => 'Converter',
+                'position' => 51,
+                'related_tools' => ['octal-to-decimal', 'decimal-to-binary', 'hex-to-binary', 'binary-to-octal'],
+            ],
+            [
+                'name' => 'Binary to Octal Converter',
+                'slug' => 'binary-to-octal',
+                'description' => 'Convert binary (base-2) numbers to octal (base-8) instantly with step-by-step 3-bit grouping breakdown.',
+                'icon' => '🔢',
+                'category' => 'Converter',
+                'position' => 52,
+                'related_tools' => ['decimal-to-octal', 'octal-to-decimal', 'decimal-to-binary', 'hex-to-binary'],
+            ],
         ];
 
         foreach ($tools as $tool) {

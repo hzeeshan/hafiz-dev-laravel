@@ -423,6 +423,24 @@ class ToolSeeder extends Seeder
                 'position' => 46,
                 'related_tools' => ['json-formatter', 'regex-tester', 'crontab-guru'],
             ],
+            [
+                'name' => 'Hex to Binary Converter',
+                'slug' => 'hex-to-binary',
+                'description' => 'Convert hexadecimal to binary instantly with step-by-step nibble breakdown. Supports batch conversion and reverse binary to hex.',
+                'icon' => '🔄',
+                'category' => 'Converter',
+                'position' => 47,
+                'related_tools' => ['text-to-binary', 'ascii-table', 'base64-encoder', 'ip-to-binary'],
+            ],
+            [
+                'name' => 'IP to Binary Converter',
+                'slug' => 'ip-to-binary',
+                'description' => 'Convert IPv4 addresses to binary notation with octet breakdown, subnet visualization, and CIDR support.',
+                'icon' => '🌐',
+                'category' => 'Converter',
+                'position' => 48,
+                'related_tools' => ['hex-to-binary', 'text-to-binary', 'ascii-table', 'base64-encoder'],
+            ],
         ];
 
         foreach ($tools as $tool) {

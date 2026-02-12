@@ -540,6 +540,15 @@ class ToolSeeder extends Seeder
                 'position' => 59,
                 'related_tools' => ['csv-viewer', 'csv-to-sql', 'csv-to-xml', 'json-to-csv-converter'],
             ],
+            [
+                'name' => 'JSON to PHP Array Converter',
+                'slug' => 'json-to-php-array',
+                'description' => 'Convert JSON data to PHP array syntax instantly. Supports short and long array syntax, trailing commas, and variable assignment.',
+                'icon' => '🐘',
+                'category' => 'Converter',
+                'position' => 60,
+                'related_tools' => ['json-formatter', 'json-to-yaml', 'json-to-typescript', 'json-to-csharp'],
+            ],
         ];
 
         foreach ($tools as $tool) {

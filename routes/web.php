@@ -66,6 +66,9 @@ Route::prefix('it')->name('it.')->middleware('set-locale')->group(function () {
     // Services index page
     Route::get('/servizi', [ItalianLocalSeoController::class, 'index'])->name('servizi');
 
+    // Italian homepage
+    Route::get('/', [ItalianPagesController::class, 'home'])->name('home');
+
     // Custom static pages (manually created, higher quality)
     Route::get('/sviluppatore-web-torino', [ItalianPagesController::class, 'webDeveloperTorino'])->name('web-developer-torino');
     Route::get('/sviluppatore-laravel-italia', [ItalianPagesController::class, 'laravelDeveloper'])->name('laravel-developer');

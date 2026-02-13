@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ request()->is('it/*') ? 'it' : 'en' }}" class="scroll-smooth scroll-pt-20 h-full">
+<html lang="{{ request()->is('it') || request()->is('it/*') ? 'it' : 'en' }}" class="scroll-smooth scroll-pt-20 h-full">
 
 <head>
     <meta charset="UTF-8">
@@ -23,7 +23,9 @@
     {{-- Hreflang Tags --}}
     @php
         $currentPath = request()->getPathInfo();
-        $isItalian = request()->is('it/*');
+        $isItalian = request()->is('it') || request()->is('it/*');
+        $isHomepage = $currentPath === '/';
+        $isItalianHomepage = $currentPath === '/it' || $currentPath === '/it/';
         $isToolPage = request()->is('tools/*') && !request()->is('tools');
         $isItalianToolPage = request()->is('it/strumenti/*') && !request()->is('it/strumenti');
         $isToolsIndex = request()->is('tools');
@@ -32,7 +34,10 @@
         $enUrl = null;
         $itUrl = null;
 
-        if ($isToolPage) {
+        if ($isHomepage || $isItalianHomepage) {
+            $enUrl = 'https://hafiz.dev';
+            $itUrl = 'https://hafiz.dev/it';
+        } elseif ($isToolPage) {
             $toolSlug = str_replace('/tools/', '', $currentPath);
             $tool = \App\Models\Tool::where('slug', $toolSlug)->first();
             $translation = $tool?->translation('it');
@@ -51,7 +56,7 @@
             $itUrl = 'https://hafiz.dev/it/strumenti';
         } elseif (!$isItalian) {
             $enUrl = 'https://hafiz.dev' . ($currentPath === '/' ? '' : $currentPath);
-            $itUrl = 'https://hafiz.dev/it/sviluppatore-web-torino';
+            $itUrl = 'https://hafiz.dev/it';
         }
     @endphp
     @if($enUrl)
@@ -278,14 +283,14 @@
                 <!-- Language Switcher -->
                 <div class="flex items-center gap-2 text-sm">
                     <span class="text-light-muted">🌐</span>
-                    @if(request()->is('it/*'))
+                    @if(request()->is('it') || request()->is('it/*'))
                         <a href="{{ $enUrl ?? '/' }}" class="text-light-muted hover:text-gold transition-colors">English</a>
                         <span class="text-gold/40">|</span>
                         <span class="text-gold font-medium">Italiano</span>
                     @else
                         <span class="text-gold font-medium">English</span>
                         <span class="text-gold/40">|</span>
-                        <a href="{{ $itUrl ?? '/it/sviluppatore-web-torino' }}" class="text-light-muted hover:text-gold transition-colors">Italiano</a>
+                        <a href="{{ $itUrl ?? '/it' }}" class="text-light-muted hover:text-gold transition-colors">Italiano</a>
                     @endif
                 </div>
             </div>

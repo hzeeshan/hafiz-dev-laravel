@@ -81,6 +81,14 @@ class GenerateSitemap extends Command
                 ->setPriority(0.8)
         );
 
+        // Italian homepage
+        $sitemap->add(
+            Url::create('/it')
+                ->setLastModificationDate(now())
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY)
+                ->setPriority(0.9)
+        );
+
         // Italian services index page
         $sitemap->add(
             Url::create('/it/servizi')
@@ -185,13 +193,14 @@ class GenerateSitemap extends Command
         $this->info("  - Tool pages: {$toolCount}");
         $this->info("  - Italian tools index: {$italianToolsIndexCount}");
         $this->info("  - Italian tool pages: {$italianToolCount}");
+        $this->info("  - Italian homepage: 1");
         $this->info("  - Italian services index: 1");
         $this->info("  - Italian static pages: {$italianStaticCount}");
         $this->info("  - Italian pSEO pages: {$italianPseoCount}");
         $this->info("  - Blog posts: {$postCount}");
         $this->info("  - Errors index: 1");
         $this->info("  - Error pages: {$errorCount}");
-        $this->info("  - Total URLs: " . (5 + $toolCount + $italianToolsIndexCount + $italianToolCount + $italianStaticCount + $italianPseoCount + $postCount + $errorCount));
+        $this->info("  - Total URLs: " . (6 + $toolCount + $italianToolsIndexCount + $italianToolCount + $italianStaticCount + $italianPseoCount + $postCount + $errorCount));
         $this->info("  - File: public/sitemap.xml");
     }
 

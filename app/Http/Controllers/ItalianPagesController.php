@@ -27,4 +27,12 @@ class ItalianPagesController extends Controller
     {
         return view('it.automazione-processi-aziendali');
     }
+
+    /**
+     * Display the Italian homepage.
+     */
+    public function home()
+    {
+        return view('it.home');
+    }
 }

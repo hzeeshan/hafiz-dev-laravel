@@ -26,6 +26,13 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Conta Parole',
                 'description' => 'Conta caratteri, parole, frasi e paragrafi istantaneamente. Mostra tempo di lettura e parlato.',
             ],
+            [
+                'tool_slug' => 'json-formatter',
+                'locale' => 'it',
+                'slug' => 'formattatore-json',
+                'name' => 'Formattatore JSON',
+                'description' => 'Formatta, valida e minimizza JSON istantaneamente. 100% lato client, nessun dato inviato al server.',
+            ],
         ];
 
         foreach ($translations as $data) {

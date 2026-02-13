@@ -2,7 +2,7 @@
 
 ## Why
 
-Inspired by a Reddit post about a boring utilities site reaching 600K monthly users (key insight: "multi-language pages worked better than blog posts"), we translate tool pages to multiply rankable pages and target low-competition keywords in other languages. Starting with Italian (living in Italy = authentic + local SEO boost), designed to scale to 5+ languages × 100+ tools.
+Inspired by a Reddit post(https://www.reddit.com/r/SaaS/comments/1r2mx24/comment/o50t7bw/?context=3) about a boring utilities site reaching 600K monthly users (key insight: "multi-language pages worked better than blog posts"), we translate tool pages to multiply rankable pages and target low-competition keywords in other languages. Starting with Italian (living in Italy = authentic + local SEO boost), designed to scale to 5+ languages × 100+ tools.
 
 ## URL Structure
 
@@ -26,18 +26,21 @@ Italian tool URLs use **translated slugs** for SEO (e.g., `/it/strumenti/generat
 ## Architecture Decisions
 
 ### Why PHP translation files?
+
 - Laravel native (`__()` helper, cached in production)
 - Git-versioned, easy to diff/review
 - No database overhead for 60-80 strings per tool
 - Familiar pattern for Laravel developers
 
 ### Why keep English hardcoded?
+
 - Zero risk of breaking existing 60+ tool pages
 - No refactoring cost
 - English pages remain the "source of truth"
 - Italian pages use a separate shared template that reads from translation files
 
 ### Why one shared Italian template?
+
 - Adding a new Italian tool = create 2 files (translation + UI partial), not a full blade template
 - Shared scaffolding: SEO meta, JSON-LD schemas, breadcrumbs, features, FAQ, CTA
 - 100 tools × 5 languages = 500 UI partials, not 500 full page templates
@@ -77,31 +80,31 @@ public function tool(): BelongsTo
 
 ### Per-tool files (created for each translated tool)
 
-| File | Purpose |
-|------|---------|
-| `lang/it/tools/{slug}.php` | All Italian translations (SEO, UI, FAQ, features, JS strings) |
-| `resources/views/tools/it/partials/{slug}-ui.blade.php` | Tool-specific HTML with `__()` calls |
-| `resources/views/tools/partials/{slug}-script.blade.php` | Extracted JS (shared between EN/IT) |
+| File                                                     | Purpose                                                       |
+| -------------------------------------------------------- | ------------------------------------------------------------- |
+| `lang/it/tools/{slug}.php`                               | All Italian translations (SEO, UI, FAQ, features, JS strings) |
+| `resources/views/tools/it/partials/{slug}-ui.blade.php`  | Tool-specific HTML with `__()` calls                          |
+| `resources/views/tools/partials/{slug}-script.blade.php` | Extracted JS (shared between EN/IT)                           |
 
 ### Shared files (created once, used by all tools)
 
-| File | Purpose |
-|------|---------|
-| `lang/it/tools.php` | Common strings (buttons, breadcrumbs, categories, privacy banner) |
-| `resources/views/tools/it/show.blade.php` | Shared template for ALL Italian tools |
-| `resources/views/tools/it/index.blade.php` | Italian tools listing page |
-| `resources/views/tools/it/partials/schemas.blade.php` | Dynamic JSON-LD generator |
-| `resources/views/tools/it/partials/faq.blade.php` | Reusable FAQ renderer |
+| File                                                  | Purpose                                                           |
+| ----------------------------------------------------- | ----------------------------------------------------------------- |
+| `lang/it/tools.php`                                   | Common strings (buttons, breadcrumbs, categories, privacy banner) |
+| `resources/views/tools/it/show.blade.php`             | Shared template for ALL Italian tools                             |
+| `resources/views/tools/it/index.blade.php`            | Italian tools listing page                                        |
+| `resources/views/tools/it/partials/schemas.blade.php` | Dynamic JSON-LD generator                                         |
+| `resources/views/tools/it/partials/faq.blade.php`     | Reusable FAQ renderer                                             |
 
 ### Infrastructure files
 
-| File | Purpose |
-|------|---------|
-| `app/Models/ToolTranslation.php` | Translation model |
-| `app/Http/Controllers/ToolController.php` | Italian tool routes handler |
-| `app/Http/Middleware/SetLocale.php` | Auto-set locale from URL prefix |
-| `database/seeders/ToolTranslationSeeder.php` | Seed Italian slug mappings |
-| `database/migrations/xxxx_create_tool_translations_table.php` | Schema |
+| File                                                          | Purpose                         |
+| ------------------------------------------------------------- | ------------------------------- |
+| `app/Models/ToolTranslation.php`                              | Translation model               |
+| `app/Http/Controllers/ToolController.php`                     | Italian tool routes handler     |
+| `app/Http/Middleware/SetLocale.php`                           | Auto-set locale from URL prefix |
+| `database/seeders/ToolTranslationSeeder.php`                  | Seed Italian slug mappings      |
+| `database/migrations/xxxx_create_tool_translations_table.php` | Schema                          |
 
 ## Translation File Format
 
@@ -154,7 +157,9 @@ return [
 The shared `show.blade.php` renders a hidden div with data attributes from the `js_strings` array:
 
 ```html
-<div id="tool-strings" class="hidden"
+<div
+    id="tool-strings"
+    class="hidden"
     data-placeholder="Clicca Genera per creare una password"
     data-copied="Password copiata!"
     data-no-char-type="Seleziona almeno un tipo di carattere"
@@ -164,10 +169,11 @@ The shared `show.blade.php` renders a hidden div with data attributes from the `
 The extracted script partial reads these with English fallbacks:
 
 ```javascript
-const stringsEl = document.getElementById('tool-strings');
+const stringsEl = document.getElementById("tool-strings");
 const S = {
-    placeholder: stringsEl?.dataset.placeholder || 'Click Generate to create a password',
-    copied: stringsEl?.dataset.copied || 'Password copied!',
+    placeholder:
+        stringsEl?.dataset.placeholder || "Click Generate to create a password",
+    copied: stringsEl?.dataset.copied || "Password copied!",
 };
 ```
 
@@ -196,11 +202,11 @@ Or manually:
 2. Create `lang/{locale}/tools/{slug}.php` — per-tool translations
 3. Add `tool_translations` seed entries with new locale and translated slugs
 4. Add routes in `routes/web.php` inside `/it/` group pattern (or make ToolController generic):
-   ```php
-   Route::prefix('{locale}')->middleware('set-locale')->group(function () {
-       Route::get('/{tools-word}/{slug}', [ToolController::class, 'show']);
-   });
-   ```
+    ```php
+    Route::prefix('{locale}')->middleware('set-locale')->group(function () {
+        Route::get('/{tools-word}/{slug}', [ToolController::class, 'show']);
+    });
+    ```
 5. Create `resources/views/tools/{locale}/` directory or reuse `it/` templates (they read from `__()` which respects locale)
 6. Supported locales are defined in `SetLocale.php` middleware
 

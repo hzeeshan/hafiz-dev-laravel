@@ -88,7 +88,7 @@
         {{-- Pass translatable strings to JS via data attributes --}}
         <div id="tool-strings" class="hidden"
             @foreach(__($t . '.js_strings') ?? [] as $key => $value)
-                data-{{ Str::kebab($key) }}="{{ $value }}"
+                data-{{ str_replace('_', '-', $key) }}="{{ $value }}"
             @endforeach
         ></div>
 

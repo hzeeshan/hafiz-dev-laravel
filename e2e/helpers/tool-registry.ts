@@ -21,6 +21,8 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'lorem-ipsum-generator': 'generatore-lorem-ipsum',
   'timestamp-converter': 'convertitore-timestamp',
   'color-converter': 'convertitore-colori',
+  'markdown-preview': 'anteprima-markdown',
+  'json-to-csv-converter': 'convertitore-json-csv',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

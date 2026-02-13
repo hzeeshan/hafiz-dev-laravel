@@ -110,6 +110,20 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Convertitore di Colori',
                 'description' => 'Converti colori tra formati HEX, RGB, RGBA, HSL, HSLA istantaneamente. Include selettore colori e verifica contrasto WCAG.',
             ],
+            [
+                'tool_slug' => 'markdown-preview',
+                'locale' => 'it',
+                'slug' => 'anteprima-markdown',
+                'name' => 'Anteprima Markdown',
+                'description' => 'Scrivi e visualizza Markdown con rendering in tempo reale. Supporta GitHub Flavored Markdown con evidenziazione sintassi. 100% lato client.',
+            ],
+            [
+                'tool_slug' => 'json-to-csv-converter',
+                'locale' => 'it',
+                'slug' => 'convertitore-json-csv',
+                'name' => 'Convertitore JSON in CSV',
+                'description' => 'Converti tra JSON e CSV istantaneamente. Supporta oggetti annidati, delimitatori personalizzati e conversione bidirezionale. 100% lato client.',
+            ],
         ];
 
         foreach ($translations as $data) {

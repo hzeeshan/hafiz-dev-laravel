@@ -96,6 +96,13 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Generatore Lorem Ipsum',
                 'description' => 'Genera testo segnaposto per paragrafi, frasi o parole. Perfetto per mockup e design. 100% lato client.',
             ],
+            [
+                'tool_slug' => 'timestamp-converter',
+                'locale' => 'it',
+                'slug' => 'convertitore-timestamp',
+                'name' => 'Convertitore Timestamp',
+                'description' => 'Converti timestamp Unix in date leggibili e viceversa. Supporta più fusi orari e formati. 100% lato client.',
+            ],
         ];
 
         foreach ($translations as $data) {

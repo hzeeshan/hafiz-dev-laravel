@@ -19,6 +19,7 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'hash-generator': 'generatore-hash',
   'url-encoder': 'codificatore-url',
   'lorem-ipsum-generator': 'generatore-lorem-ipsum',
+  'timestamp-converter': 'convertitore-timestamp',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

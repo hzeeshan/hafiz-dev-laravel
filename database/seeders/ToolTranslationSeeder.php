@@ -54,6 +54,13 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Generatore di Espressioni Cron',
                 'description' => 'Crea e valida espressioni cron con un\'interfaccia visuale intuitiva. Visualizza le prossime esecuzioni istantaneamente.',
             ],
+            [
+                'tool_slug' => 'uuid-generator',
+                'locale' => 'it',
+                'slug' => 'generatore-uuid',
+                'name' => 'Generatore UUID',
+                'description' => 'Genera UUID v4, UUID v1 e ULID istantaneamente. Generazione in blocco, formati multipli. 100% lato client.',
+            ],
         ];
 
         foreach ($translations as $data) {

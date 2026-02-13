@@ -33,6 +33,13 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Formattatore JSON',
                 'description' => 'Formatta, valida e minimizza JSON istantaneamente. 100% lato client, nessun dato inviato al server.',
             ],
+            [
+                'tool_slug' => 'image-compressor',
+                'locale' => 'it',
+                'slug' => 'compressore-immagini',
+                'name' => 'Compressore di Immagini',
+                'description' => 'Comprimi immagini JPEG, PNG, WebP e GIF fino al 90%. 100% lato client, le tue immagini non escono mai dal browser.',
+            ],
         ];
 
         foreach ($translations as $data) {

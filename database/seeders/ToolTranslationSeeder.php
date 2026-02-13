@@ -61,6 +61,13 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Generatore UUID',
                 'description' => 'Genera UUID v4, UUID v1 e ULID istantaneamente. Generazione in blocco, formati multipli. 100% lato client.',
             ],
+            [
+                'tool_slug' => 'regex-tester',
+                'locale' => 'it',
+                'slug' => 'tester-regex',
+                'name' => 'Tester Regex',
+                'description' => 'Testa espressioni regolari in tempo reale con evidenziazione delle corrispondenze. Compatibile JavaScript/PCRE. 100% lato client.',
+            ],
         ];
 
         foreach ($translations as $data) {

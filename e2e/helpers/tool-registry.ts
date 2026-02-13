@@ -14,6 +14,7 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'base64-encoder': 'codificatore-base64',
   'cron-expression-builder': 'generatore-espressioni-cron',
   'uuid-generator': 'generatore-uuid',
+  'regex-tester': 'tester-regex',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

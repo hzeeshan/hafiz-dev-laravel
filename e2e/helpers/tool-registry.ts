@@ -20,6 +20,7 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'url-encoder': 'codificatore-url',
   'lorem-ipsum-generator': 'generatore-lorem-ipsum',
   'timestamp-converter': 'convertitore-timestamp',
+  'color-converter': 'convertitore-colori',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

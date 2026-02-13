@@ -103,6 +103,13 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Convertitore Timestamp',
                 'description' => 'Converti timestamp Unix in date leggibili e viceversa. Supporta più fusi orari e formati. 100% lato client.',
             ],
+            [
+                'tool_slug' => 'color-converter',
+                'locale' => 'it',
+                'slug' => 'convertitore-colori',
+                'name' => 'Convertitore di Colori',
+                'description' => 'Converti colori tra formati HEX, RGB, RGBA, HSL, HSLA istantaneamente. Include selettore colori e verifica contrasto WCAG.',
+            ],
         ];
 
         foreach ($translations as $data) {

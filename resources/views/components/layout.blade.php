@@ -207,17 +207,17 @@
 
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center gap-8">
-                    <a href="/"
+                    <a href="{{ $isItalian ? '/it' : '/' }}"
                         class="text-light-muted hover:text-light font-medium transition-colors duration-300">Home</a>
-                    <a href="/#services"
+                    <a href="{{ $isItalian ? '/it' : '/' }}#services"
                         class="text-light-muted hover:text-light font-medium transition-colors duration-300">Services</a>
-                    <a href="/#portfolio"
+                    <a href="{{ $isItalian ? '/it' : '/' }}#portfolio"
                         class="text-light-muted hover:text-light font-medium transition-colors duration-300">Portfolio</a>
                     <a href="/blog"
                         class="text-light-muted hover:text-light font-medium transition-colors duration-300">Blog</a>
-                    <a href="/tools"
+                    <a href="{{ $isItalian ? '/it/strumenti' : '/tools' }}"
                         class="text-light-muted hover:text-light font-medium transition-colors duration-300">Tools</a>
-                    <a href="/#contact"
+                    <a href="{{ $isItalian ? '/it' : '/' }}#contact"
                         class="px-5 py-2.5 bg-gold text-darkBg rounded-lg hover:bg-gold-light font-semibold transition-all duration-300 hover:shadow-gold-glow hover:-translate-y-0.5">
                         Contact
                     </a>
@@ -234,17 +234,17 @@
             <!-- Mobile Navigation Menu -->
             <div id="mobile-menu" class="hidden md:hidden pb-4">
                 <div class="flex flex-col space-y-3">
-                    <a href="/"
+                    <a href="{{ $isItalian ? '/it' : '/' }}"
                         class="text-light-muted hover:text-light font-medium transition-colors duration-300 py-2 border-b border-gold/10">Home</a>
-                    <a href="/#services"
+                    <a href="{{ $isItalian ? '/it' : '/' }}#services"
                         class="text-light-muted hover:text-light font-medium transition-colors duration-300 py-2 border-b border-gold/10">Services</a>
-                    <a href="/#portfolio"
+                    <a href="{{ $isItalian ? '/it' : '/' }}#portfolio"
                         class="text-light-muted hover:text-light font-medium transition-colors duration-300 py-2 border-b border-gold/10">Portfolio</a>
                     <a href="/blog"
                         class="text-light-muted hover:text-light font-medium transition-colors duration-300 py-2 border-b border-gold/10">Blog</a>
-                    <a href="/tools"
+                    <a href="{{ $isItalian ? '/it/strumenti' : '/tools' }}"
                         class="text-light-muted hover:text-light font-medium transition-colors duration-300 py-2 border-b border-gold/10">Tools</a>
-                    <a href="/#contact"
+                    <a href="{{ $isItalian ? '/it' : '/' }}#contact"
                         class="px-5 py-2.5 bg-gold text-darkBg rounded-lg hover:bg-gold-light font-semibold transition-all duration-300 text-center">
                         Contact
                     </a>

@@ -274,6 +274,10 @@ Routes are automatically generated from the database - no need to edit `routes/w
 - `App\Models\Setting` - Generic settings with cache support
 - `App\Models\ToolView` - View tracking (existing)
 
+### E2E Testing
+
+Playwright tests verify tool pages (SEO, structure, functionality) in both English and Italian. See **[E2E_TESTING.md](./E2E_TESTING.md)** for full docs.
+
 ### SEO Requirements
 
 Each tool page must include:

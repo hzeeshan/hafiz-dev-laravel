@@ -234,3 +234,7 @@ Italian tool page views are tracked under the **English slug** in the `tool_view
 ## Sitemap
 
 `GenerateSitemap.php` includes Italian tool URLs by querying `ToolTranslation::where('locale', 'it')`.
+
+## Testing
+
+Translated tools are automatically tested with Playwright (both EN and IT versions). See **[E2E_TESTING.md](./E2E_TESTING.md)** for setup, commands, and how the `/translate-tool` skill auto-generates tests.

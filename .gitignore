@@ -32,6 +32,11 @@ resources/views/vendor/pagination/*.blade.php
 !resources/views/vendor/pagination/dark-theme.blade.php
 .claude
 
+# Playwright
+/test-results/
+/playwright-report/
+/playwright/.cache/
+
 # Auto-generated files (regenerate with commands)
 /public/sitemap.xml
 CLAUDE.md

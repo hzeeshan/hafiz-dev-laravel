@@ -15,6 +15,9 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'cron-expression-builder': 'generatore-espressioni-cron',
   'uuid-generator': 'generatore-uuid',
   'regex-tester': 'tester-regex',
+  'jwt-decoder': 'decodificatore-jwt',
+  'hash-generator': 'generatore-hash',
+  'url-encoder': 'codificatore-url',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

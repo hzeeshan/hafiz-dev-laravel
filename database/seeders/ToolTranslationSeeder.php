@@ -68,6 +68,27 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Tester Regex',
                 'description' => 'Testa espressioni regolari in tempo reale con evidenziazione delle corrispondenze. Compatibile JavaScript/PCRE. 100% lato client.',
             ],
+            [
+                'tool_slug' => 'jwt-decoder',
+                'locale' => 'it',
+                'slug' => 'decodificatore-jwt',
+                'name' => 'Decodificatore JWT',
+                'description' => 'Decodifica e analizza JSON Web Token istantaneamente. Visualizza header, payload e scadenza. 100% lato client.',
+            ],
+            [
+                'tool_slug' => 'hash-generator',
+                'locale' => 'it',
+                'slug' => 'generatore-hash',
+                'name' => 'Generatore di Hash',
+                'description' => 'Genera hash MD5, SHA-1, SHA-256, SHA-512 da testo o file istantaneamente. 100% lato client.',
+            ],
+            [
+                'tool_slug' => 'url-encoder',
+                'locale' => 'it',
+                'slug' => 'codificatore-url',
+                'name' => 'Codificatore/Decodificatore URL',
+                'description' => 'Codifica e decodifica URL istantaneamente con encodeURIComponent e encodeURI. 100% lato client.',
+            ],
         ];
 
         foreach ($translations as $data) {

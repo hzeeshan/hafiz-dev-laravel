@@ -20,12 +20,49 @@
     {{-- Canonical URL --}}
     <link rel="canonical" href="{{ $canonical ?? url()->current() }}">
 
-    {{-- Hreflang Tags for English pages (Italian pages add their own) --}}
-    @unless(request()->is('it/*'))
-    <link rel="alternate" hreflang="en" href="https://hafiz.dev{{ request()->getPathInfo() === '/' ? '' : request()->getPathInfo() }}" />
-    <link rel="alternate" hreflang="it" href="https://hafiz.dev/it/sviluppatore-web-torino" />
-    <link rel="alternate" hreflang="x-default" href="https://hafiz.dev{{ request()->getPathInfo() === '/' ? '' : request()->getPathInfo() }}" />
-    @endunless
+    {{-- Hreflang Tags --}}
+    @php
+        $currentPath = request()->getPathInfo();
+        $isItalian = request()->is('it/*');
+        $isToolPage = request()->is('tools/*') && !request()->is('tools');
+        $isItalianToolPage = request()->is('it/strumenti/*') && !request()->is('it/strumenti');
+        $isToolsIndex = request()->is('tools');
+        $isItalianToolsIndex = request()->is('it/strumenti');
+
+        $enUrl = null;
+        $itUrl = null;
+
+        if ($isToolPage) {
+            $toolSlug = str_replace('/tools/', '', $currentPath);
+            $tool = \App\Models\Tool::where('slug', $toolSlug)->first();
+            $translation = $tool?->translation('it');
+            $enUrl = 'https://hafiz.dev/tools/' . $toolSlug;
+            $itUrl = $translation ? 'https://hafiz.dev/it/strumenti/' . $translation->slug : null;
+        } elseif ($isItalianToolPage) {
+            $itSlug = str_replace('/it/strumenti/', '', $currentPath);
+            $translation = \App\Models\ToolTranslation::where('locale', 'it')->where('slug', $itSlug)->with('tool')->first();
+            $enUrl = $translation ? 'https://hafiz.dev/tools/' . $translation->tool->slug : null;
+            $itUrl = 'https://hafiz.dev/it/strumenti/' . $itSlug;
+        } elseif ($isToolsIndex) {
+            $enUrl = 'https://hafiz.dev/tools';
+            $itUrl = 'https://hafiz.dev/it/strumenti';
+        } elseif ($isItalianToolsIndex) {
+            $enUrl = 'https://hafiz.dev/tools';
+            $itUrl = 'https://hafiz.dev/it/strumenti';
+        } elseif (!$isItalian) {
+            $enUrl = 'https://hafiz.dev' . ($currentPath === '/' ? '' : $currentPath);
+            $itUrl = 'https://hafiz.dev/it/sviluppatore-web-torino';
+        }
+    @endphp
+    @if($enUrl)
+    <link rel="alternate" hreflang="en" href="{{ $enUrl }}" />
+    @endif
+    @if($itUrl)
+    <link rel="alternate" hreflang="it" href="{{ $itUrl }}" />
+    @endif
+    @if($enUrl)
+    <link rel="alternate" hreflang="x-default" href="{{ $enUrl }}" />
+    @endif
 
     {{-- Favicon --}}
     <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
@@ -41,7 +78,7 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:site_name" content="Hafiz Riaz - Laravel Developer">
-    <meta property="og:locale" content="en_US">
+    <meta property="og:locale" content="{{ request()->is('it/*') ? 'it_IT' : 'en_US' }}">
 
     {{-- Twitter Card --}}
     <meta name="twitter:card" content="summary_large_image">
@@ -242,13 +279,13 @@
                 <div class="flex items-center gap-2 text-sm">
                     <span class="text-light-muted">🌐</span>
                     @if(request()->is('it/*'))
-                        <a href="/" class="text-light-muted hover:text-gold transition-colors">English</a>
+                        <a href="{{ $enUrl ?? '/' }}" class="text-light-muted hover:text-gold transition-colors">English</a>
                         <span class="text-gold/40">|</span>
                         <span class="text-gold font-medium">Italiano</span>
                     @else
                         <span class="text-gold font-medium">English</span>
                         <span class="text-gold/40">|</span>
-                        <a href="/it/sviluppatore-web-torino" class="text-light-muted hover:text-gold transition-colors">Italiano</a>
+                        <a href="{{ $itUrl ?? '/it/sviluppatore-web-torino' }}" class="text-light-muted hover:text-gold transition-colors">Italiano</a>
                     @endif
                 </div>
             </div>
@@ -259,13 +296,20 @@
     @stack('scripts')
 
     {{-- Tool View Tracking --}}
-    @if(request()->is('tools/*') && !request()->is('tools'))
+    @if((request()->is('tools/*') && !request()->is('tools')) || (request()->is('it/strumenti/*') && !request()->is('it/strumenti')))
     <script>
         (function() {
             const path = window.location.pathname;
-            const toolSlug = path.replace('/tools/', '');
-            if (toolSlug && toolSlug !== 'index') {
-                fetch('/tools/' + toolSlug + '/view', {
+            let trackUrl;
+            if (path.startsWith('/it/strumenti/')) {
+                const slug = path.replace('/it/strumenti/', '');
+                trackUrl = '/it/strumenti/' + slug + '/view';
+            } else {
+                const slug = path.replace('/tools/', '');
+                trackUrl = '/tools/' + slug + '/view';
+            }
+            if (trackUrl) {
+                fetch(trackUrl, {
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}',

@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Post;
 use App\Models\Tool;
+use App\Models\ToolTranslation;
 use Illuminate\Console\Command;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
@@ -132,6 +133,33 @@ class GenerateSitemap extends Command
             $toolCount++;
         }
 
+        // Italian tools index page
+        $italianToolTranslations = ToolTranslation::where('locale', 'it')
+            ->where('is_active', true)
+            ->whereHas('tool', fn ($q) => $q->where('is_active', true))
+            ->with('tool')
+            ->get();
+        $italianToolCount = 0;
+
+        if ($italianToolTranslations->isNotEmpty()) {
+            $sitemap->add(
+                Url::create('/it/strumenti')
+                    ->setLastModificationDate(now())
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
+                    ->setPriority(0.8)
+            );
+
+            foreach ($italianToolTranslations as $translation) {
+                $sitemap->add(
+                    Url::create('/it/strumenti/' . $translation->slug)
+                        ->setLastModificationDate($translation->tool->updated_at ?? now())
+                        ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
+                        ->setPriority(0.7)
+                );
+                $italianToolCount++;
+            }
+        }
+
         // Published blog posts
         Post::published()
             ->orderBy('updated_at', 'desc')
@@ -149,18 +177,21 @@ class GenerateSitemap extends Command
 
         $postCount = Post::published()->count();
         $italianStaticCount = count($italianStaticPages);
+        $italianToolsIndexCount = $italianToolCount > 0 ? 1 : 0;
         $this->info("✓ Sitemap generated successfully!");
         $this->info("  - Homepage: 1");
         $this->info("  - Blog index: 1");
         $this->info("  - Tools index: 1");
         $this->info("  - Tool pages: {$toolCount}");
+        $this->info("  - Italian tools index: {$italianToolsIndexCount}");
+        $this->info("  - Italian tool pages: {$italianToolCount}");
         $this->info("  - Italian services index: 1");
         $this->info("  - Italian static pages: {$italianStaticCount}");
         $this->info("  - Italian pSEO pages: {$italianPseoCount}");
         $this->info("  - Blog posts: {$postCount}");
         $this->info("  - Errors index: 1");
         $this->info("  - Error pages: {$errorCount}");
-        $this->info("  - Total URLs: " . (5 + $toolCount + $italianStaticCount + $italianPseoCount + $postCount + $errorCount));
+        $this->info("  - Total URLs: " . (5 + $toolCount + $italianToolsIndexCount + $italianToolCount + $italianStaticCount + $italianPseoCount + $postCount + $errorCount));
         $this->info("  - File: public/sitemap.xml");
     }
 

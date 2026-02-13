@@ -27,6 +27,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'sync.token' => \App\Http\Middleware\ValidateSyncToken::class,
             'lead.sync.token' => \App\Http\Middleware\ValidateLeadSyncToken::class,
+            'set-locale' => \App\Http\Middleware\SetLocale::class,
         ]);
     })
     ->withSchedule(function (Schedule $schedule): void {

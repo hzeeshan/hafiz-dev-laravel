@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Cache;
 class ToolCtaSetting extends Model
 {
     protected $fillable = [
+        'locale',
         'heading',
         'description',
         'button_text',
@@ -20,20 +21,26 @@ class ToolCtaSetting extends Model
     ];
 
     /**
-     * Get the active CTA setting (cached).
+     * Get the active CTA setting for a locale (cached).
      */
-    public static function getActive(): ?self
+    public static function getActive(?string $locale = null): ?self
     {
-        return Cache::remember('tool_cta_setting', 3600, function () {
-            return static::where('is_active', true)->first();
+        $locale = $locale ?? app()->getLocale();
+        $cacheKey = "tool_cta_setting_{$locale}";
+
+        return Cache::remember($cacheKey, 3600, function () use ($locale) {
+            return static::where('is_active', true)
+                ->where('locale', $locale)
+                ->first();
         });
     }
 
     /**
-     * Clear the cached CTA setting.
+     * Clear all cached CTA settings.
      */
     public static function clearCache(): void
     {
-        Cache::forget('tool_cta_setting');
+        Cache::forget('tool_cta_setting_en');
+        Cache::forget('tool_cta_setting_it');
     }
 }

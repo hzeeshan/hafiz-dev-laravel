@@ -27,6 +27,22 @@ class Tool extends Model
     ];
 
     /**
+     * Get translations for this tool.
+     */
+    public function translations(): HasMany
+    {
+        return $this->hasMany(ToolTranslation::class);
+    }
+
+    /**
+     * Get a specific locale translation.
+     */
+    public function translation(string $locale): ?ToolTranslation
+    {
+        return $this->translations()->where('locale', $locale)->first();
+    }
+
+    /**
      * Get the views for this tool.
      */
     public function views(): HasMany

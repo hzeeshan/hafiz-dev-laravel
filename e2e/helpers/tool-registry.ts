@@ -18,6 +18,7 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'jwt-decoder': 'decodificatore-jwt',
   'hash-generator': 'generatore-hash',
   'url-encoder': 'codificatore-url',
+  'lorem-ipsum-generator': 'generatore-lorem-ipsum',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

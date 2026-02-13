@@ -89,6 +89,13 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Codificatore/Decodificatore URL',
                 'description' => 'Codifica e decodifica URL istantaneamente con encodeURIComponent e encodeURI. 100% lato client.',
             ],
+            [
+                'tool_slug' => 'lorem-ipsum-generator',
+                'locale' => 'it',
+                'slug' => 'generatore-lorem-ipsum',
+                'name' => 'Generatore Lorem Ipsum',
+                'description' => 'Genera testo segnaposto per paragrafi, frasi o parole. Perfetto per mockup e design. 100% lato client.',
+            ],
         ];
 
         foreach ($translations as $data) {

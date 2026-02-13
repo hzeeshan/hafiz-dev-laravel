@@ -40,6 +40,20 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Compressore di Immagini',
                 'description' => 'Comprimi immagini JPEG, PNG, WebP e GIF fino al 90%. 100% lato client, le tue immagini non escono mai dal browser.',
             ],
+            [
+                'tool_slug' => 'base64-encoder',
+                'locale' => 'it',
+                'slug' => 'codificatore-base64',
+                'name' => 'Codificatore Base64',
+                'description' => 'Codifica testo in Base64 o decodifica stringhe Base64 istantaneamente. 100% lato client, i tuoi dati non escono mai dal browser.',
+            ],
+            [
+                'tool_slug' => 'cron-expression-builder',
+                'locale' => 'it',
+                'slug' => 'generatore-espressioni-cron',
+                'name' => 'Generatore di Espressioni Cron',
+                'description' => 'Crea e valida espressioni cron con un\'interfaccia visuale intuitiva. Visualizza le prossime esecuzioni istantaneamente.',
+            ],
         ];
 
         foreach ($translations as $data) {

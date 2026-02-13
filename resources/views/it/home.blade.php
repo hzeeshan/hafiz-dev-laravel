@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot:title>Hafiz Riaz | Realizzo il Tuo MVP in 7 Giorni | Sviluppo Web App e SaaS</x-slot:title>
-    <x-slot:description>Hai un'idea? La realizzo in 7 giorni. Dal concetto al prodotto funzionante. Ho creato app utilizzate da oltre 500 scuole. Prezzo fisso, nessuna sorpresa. Basato a Torino, lavoro in tutto il mondo.</x-slot:description>
+    <x-slot:description>Hai un'idea? La realizzo in 7 giorni. Dal concetto al prodotto funzionante. Prezzo fisso, nessuna sorpresa. Basato a Torino, lavoro in tutto il mondo.</x-slot:description>
     <x-slot:keywords>sviluppo mvp, costruire mvp velocemente, sviluppatore startup, prototipazione rapida, sviluppatore laravel italia, sviluppatore vue.js, sviluppo saas, sviluppatore full stack torino, sviluppatore web freelance italia</x-slot:keywords>
     <x-slot:canonical>{{ url('/it') }}</x-slot:canonical>
 
@@ -96,7 +96,7 @@
               "name": "Cos'è esattamente un MVP?",
               "acceptedAnswer": {
                 "@@type": "Answer",
-                "text": "Un MVP (Minimum Viable Product) è una versione funzionante del tuo prodotto con solo le funzionalità principali necessarie per risolvere il problema centrale. Non è un prototipo o un mockup — è un prodotto reale e funzionale che i tuoi utenti possono effettivamente utilizzare. L'obiettivo è lanciare velocemente, ottenere feedback reali e iterare da lì."
+                "text": "Un MVP (Minimum Viable Product) è una versione funzionante del tuo prodotto con solo le funzionalità principali necessarie per risolvere il problema centrale. Non è un prototipo o un mockup, è un prodotto reale e funzionale che i tuoi utenti possono effettivamente utilizzare. L'obiettivo è lanciare velocemente, ottenere feedback reali e iterare da lì."
               }
             },
             {
@@ -104,7 +104,7 @@
               "name": "E se non sono tecnico?",
               "acceptedAnswer": {
                 "@@type": "Answer",
-                "text": "Perfetto — non devi esserlo. Tu porti l'idea, io mi occupo di tutto il lato tecnico. Trasformo la tua visione in un prodotto funzionante e ti spiego tutto in modo semplice e chiaro."
+                "text": "Perfetto, non devi esserlo. Tu porti l'idea, io mi occupo di tutto il lato tecnico. Trasformo la tua visione in un prodotto funzionante e ti spiego tutto in modo semplice e chiaro."
               }
             },
             {
@@ -120,7 +120,7 @@
               "name": "Che tipi di prodotti puoi costruire in 7 giorni?",
               "acceptedAnswer": {
                 "@@type": "Answer",
-                "text": "Applicazioni web, piattaforme SaaS, app mobile, landing page con waitlist, pannelli amministrativi, estensioni Chrome e strumenti basati su AI. Integrazioni complesse o sistemi enterprise richiedono più tempo — ne parliamo durante la chiamata."
+                "text": "Applicazioni web, piattaforme SaaS, app mobile, landing page con waitlist, pannelli amministrativi, estensioni Chrome e strumenti basati su AI. Integrazioni complesse o sistemi enterprise richiedono più tempo, ne parliamo durante la chiamata."
               }
             },
             {
@@ -152,7 +152,7 @@
               "name": "Lavori con clienti in tutta Italia?",
               "acceptedAnswer": {
                 "@@type": "Answer",
-                "text": "Assolutamente. Sono basato a Torino ma lavoro con clienti in tutta Italia e anche all'estero. La comunicazione avviene via email, Slack o videochiamate — qualsiasi cosa funzioni per te. Essendo in Italia, non ci sono problemi di fuso orario e posso comunicare direttamente in italiano."
+                "text": "Assolutamente. Sono basato a Torino ma lavoro con clienti in tutta Italia e anche all'estero. La comunicazione avviene via email, Slack o videochiamate, qualsiasi cosa funzioni per te. Essendo in Italia, non ci sono problemi di fuso orario e posso comunicare direttamente in italiano."
               }
             },
             {
@@ -160,7 +160,7 @@
               "name": "Perché scegliere un freelancer invece di un'agenzia?",
               "acceptedAnswer": {
                 "@@type": "Answer",
-                "text": "Con un freelancer senior lavori direttamente con chi scrive il codice — nessun intermediario, nessun project manager che fa da filtro. Questo significa comunicazione più veloce, meno incomprensioni e prezzi più competitivi. Le agenzie hanno costi strutturali che si riflettono sui prezzi. Con me ottieni la stessa qualità (o superiore) a una frazione del costo, con tempi di consegna molto più rapidi."
+                "text": "Con un freelancer senior lavori direttamente con chi scrive il codice. Nessun intermediario, nessun project manager che fa da filtro. Questo significa comunicazione più veloce, meno incomprensioni e prezzi più competitivi. Le agenzie hanno costi strutturali che si riflettono sui prezzi. Con me ottieni la stessa qualità (o superiore) a una frazione del costo, con tempi di consegna molto più rapidi."
               }
             }
           ]
@@ -195,7 +195,7 @@
                         Smetti di aspettare mesi per il tuo prodotto. Sviluppo MVP, web app, app mobile e piattaforme SaaS velocemente. Codice reale che scala.
                     </p>
                     <p>
-                        <strong class="text-light">Sono basato a Torino</strong> — nessun problema di fuso orario, comunicazione diretta in italiano. Ho creato app utilizzate da oltre 500 scuole, estensioni Chrome con migliaia di utenti e strumenti AI che funzionano davvero.
+                        <strong class="text-light">Sono basato a Torino.</strong> Nessun problema di fuso orario, comunicazione diretta in italiano. Creo web app, piattaforme SaaS, estensioni Chrome e strumenti AI che funzionano davvero.
                     </p>
                     <p class="font-medium text-gold">
                         Prezzo fisso. Nessuna sorpresa. Parliamone.
@@ -256,7 +256,7 @@
                         <p class="text-gold text-2xl font-bold mb-1">Da €750</p>
                         <p class="text-light-muted text-sm mb-3">2-3 giorni</p>
                         <p class="text-light-muted text-sm mb-4 leading-relaxed">
-                            Landing Page + Waitlist — Perfetto per validare la tua idea
+                            Landing Page + Waitlist. Perfetto per validare la tua idea
                         </p>
                         <ul class="text-light-muted text-sm space-y-2 mb-6 flex-grow">
                             <li class="flex items-start gap-2">
@@ -798,7 +798,7 @@
                             <span class="text-gold transform group-open:rotate-180 transition-transform">▼</span>
                         </summary>
                         <div class="px-6 pb-6 text-light-muted leading-relaxed">
-                            <p>Un MVP (Minimum Viable Product) è una versione funzionante del tuo prodotto con solo le funzionalità principali necessarie per risolvere il problema centrale. Non è un prototipo o un mockup — è un prodotto reale e funzionale che i tuoi utenti possono effettivamente utilizzare. L'obiettivo è lanciare velocemente, ottenere feedback reali e iterare da lì.</p>
+                            <p>Un MVP (Minimum Viable Product) è una versione funzionante del tuo prodotto con solo le funzionalità principali necessarie per risolvere il problema centrale. Non è un prototipo o un mockup, è un prodotto reale e funzionale che i tuoi utenti possono effettivamente utilizzare. L'obiettivo è lanciare velocemente, ottenere feedback reali e iterare da lì.</p>
                         </div>
                     </details>
 
@@ -809,7 +809,7 @@
                             <span class="text-gold transform group-open:rotate-180 transition-transform">▼</span>
                         </summary>
                         <div class="px-6 pb-6 text-light-muted leading-relaxed">
-                            <p>Perfetto — non devi esserlo. Tu porti l'idea, io mi occupo di tutto il lato tecnico. Trasformo la tua visione in un prodotto funzionante e ti spiego tutto in modo semplice e chiaro.</p>
+                            <p>Perfetto, non devi esserlo. Tu porti l'idea, io mi occupo di tutto il lato tecnico. Trasformo la tua visione in un prodotto funzionante e ti spiego tutto in modo semplice e chiaro.</p>
                         </div>
                     </details>
 
@@ -831,7 +831,7 @@
                             <span class="text-gold transform group-open:rotate-180 transition-transform">▼</span>
                         </summary>
                         <div class="px-6 pb-6 text-light-muted leading-relaxed">
-                            <p>Applicazioni web, piattaforme SaaS, app mobile, landing page con waitlist, pannelli amministrativi, estensioni Chrome e strumenti basati su AI. Integrazioni complesse o sistemi enterprise richiedono più tempo — ne parliamo durante la chiamata.</p>
+                            <p>Applicazioni web, piattaforme SaaS, app mobile, landing page con waitlist, pannelli amministrativi, estensioni Chrome e strumenti basati su AI. Integrazioni complesse o sistemi enterprise richiedono più tempo, ne parliamo durante la chiamata.</p>
                         </div>
                     </details>
 
@@ -875,7 +875,7 @@
                             <span class="text-gold transform group-open:rotate-180 transition-transform">▼</span>
                         </summary>
                         <div class="px-6 pb-6 text-light-muted leading-relaxed">
-                            <p>Assolutamente. Sono basato a Torino ma lavoro con clienti in tutta Italia e anche all'estero. La comunicazione avviene via email, Slack o videochiamate — qualsiasi cosa funzioni per te. Essendo in Italia, non ci sono problemi di fuso orario e posso comunicare direttamente in italiano.</p>
+                            <p>Assolutamente. Sono basato a Torino ma lavoro con clienti in tutta Italia e anche all'estero. La comunicazione avviene via email, Slack o videochiamate, qualsiasi cosa funzioni per te. Essendo in Italia, non ci sono problemi di fuso orario e posso comunicare direttamente in italiano.</p>
                         </div>
                     </details>
 
@@ -886,7 +886,7 @@
                             <span class="text-gold transform group-open:rotate-180 transition-transform">▼</span>
                         </summary>
                         <div class="px-6 pb-6 text-light-muted leading-relaxed">
-                            <p>Con un freelancer senior lavori direttamente con chi scrive il codice — nessun intermediario, nessun project manager che fa da filtro. Questo significa comunicazione più veloce, meno incomprensioni e prezzi più competitivi. Le agenzie hanno costi strutturali che si riflettono sui prezzi. Con me ottieni la stessa qualità (o superiore) a una frazione del costo, con tempi di consegna molto più rapidi.</p>
+                            <p>Con un freelancer senior lavori direttamente con chi scrive il codice. Nessun intermediario, nessun project manager che fa da filtro. Questo significa comunicazione più veloce, meno incomprensioni e prezzi più competitivi. Le agenzie hanno costi strutturali che si riflettono sui prezzi. Con me ottieni la stessa qualità (o superiore) a una frazione del costo, con tempi di consegna molto più rapidi.</p>
                         </div>
                     </details>
                 </div>

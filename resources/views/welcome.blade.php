@@ -1,7 +1,6 @@
 <x-layout>
     <x-slot:title>Hafiz Riaz | I Build Your MVP in 7 Days | Web Apps & SaaS Development</x-slot:title>
-    <x-slot:description>Got an idea? I'll build it in 7 days. From concept to working product. I've shipped apps used by
-        500+ schools. Fixed price, no surprises. Based in Italy, working worldwide.</x-slot:description>
+    <x-slot:description>Got an idea? I'll build it in 7 days. From concept to working product. Fixed price, no surprises. Based in Italy, working worldwide.</x-slot:description>
     <x-slot:keywords>MVP development, build MVP fast, startup developer, rapid prototyping, Laravel developer Italy,
         Vue.js developer, SaaS development, Full stack developer Turin, Freelance web developer</x-slot:keywords>
     <x-slot:canonical>{{ url('/') }}</x-slot:canonical>

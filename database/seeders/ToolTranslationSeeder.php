@@ -124,6 +124,13 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Convertitore JSON in CSV',
                 'description' => 'Converti tra JSON e CSV istantaneamente. Supporta oggetti annidati, delimitatori personalizzati e conversione bidirezionale. 100% lato client.',
             ],
+            [
+                'tool_slug' => 'qr-code-generator',
+                'locale' => 'it',
+                'slug' => 'generatore-codice-qr',
+                'name' => 'Generatore di Codici QR',
+                'description' => 'Crea codici QR per URL, WiFi, contatti, email e altro. Personalizza colori e dimensioni, scarica in PNG o SVG. 100% gratuito.',
+            ],
         ];
 
         foreach ($translations as $data) {

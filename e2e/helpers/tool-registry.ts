@@ -23,6 +23,7 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'color-converter': 'convertitore-colori',
   'markdown-preview': 'anteprima-markdown',
   'json-to-csv-converter': 'convertitore-json-csv',
+  'qr-code-generator': 'generatore-codice-qr',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

@@ -24,6 +24,7 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'markdown-preview': 'anteprima-markdown',
   'json-to-csv-converter': 'convertitore-json-csv',
   'qr-code-generator': 'generatore-codice-qr',
+  'diff-checker': 'confronta-testi',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

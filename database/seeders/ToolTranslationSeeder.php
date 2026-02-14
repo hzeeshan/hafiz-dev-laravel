@@ -131,6 +131,13 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Generatore di Codici QR',
                 'description' => 'Crea codici QR per URL, WiFi, contatti, email e altro. Personalizza colori e dimensioni, scarica in PNG o SVG. 100% gratuito.',
             ],
+            [
+                'tool_slug' => 'diff-checker',
+                'locale' => 'it',
+                'slug' => 'confronta-testi',
+                'name' => 'Confronta Testi (Diff Checker)',
+                'description' => 'Confronta due testi e trova le differenze. Evidenzia aggiunte, eliminazioni e modifiche istantaneamente. 100% lato client.',
+            ],
         ];
 
         foreach ($translations as $data) {

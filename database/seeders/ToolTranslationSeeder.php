@@ -215,6 +215,27 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Convertitore JSON in XML',
                 'description' => 'Converti dati JSON in XML ben formattato istantaneamente. Oggetti annidati, array intelligenti e attributi tipo. 100% lato client.',
             ],
+            [
+                'tool_slug' => 'csv-to-sql',
+                'locale' => 'it',
+                'slug' => 'convertitore-csv-sql',
+                'name' => 'Convertitore CSV in SQL',
+                'description' => 'Genera istruzioni SQL INSERT, CREATE TABLE e UPDATE da dati CSV. Supporta MySQL, PostgreSQL, SQLite e SQL Server.',
+            ],
+            [
+                'tool_slug' => 'json-to-typescript',
+                'locale' => 'it',
+                'slug' => 'convertitore-json-typescript',
+                'name' => 'Convertitore JSON in TypeScript',
+                'description' => 'Genera interfacce e tipi TypeScript da dati JSON istantaneamente. Supporta oggetti annidati, array e campi opzionali.',
+            ],
+            [
+                'tool_slug' => 'student-email-signature-generator',
+                'locale' => 'it',
+                'slug' => 'generatore-firma-email-studente',
+                'name' => 'Generatore Firma Email per Studenti',
+                'description' => 'Crea firme email professionali per studenti con università, corso di studi, anno di laurea e link social. Copia HTML o testo semplice.',
+            ],
         ];
 
         foreach ($translations as $data) {

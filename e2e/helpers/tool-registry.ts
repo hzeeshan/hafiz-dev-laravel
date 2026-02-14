@@ -36,6 +36,9 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'text-to-binary': 'convertitore-testo-binario',
   'csv-to-xml': 'convertitore-csv-xml',
   'json-to-xml': 'convertitore-json-xml',
+  'csv-to-sql': 'convertitore-csv-sql',
+  'json-to-typescript': 'convertitore-json-typescript',
+  'student-email-signature-generator': 'generatore-firma-email-studente',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

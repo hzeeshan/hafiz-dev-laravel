@@ -44,16 +44,40 @@ class BlogController extends Controller
         // Increment view count
         $post->increment('views');
 
-        // Get related posts (same tags)
+        // Get related posts ranked by tag relevance
+        $tags = $post->tags ?? [];
+
         $relatedPosts = Post::published()
             ->where('id', '!=', $post->id)
-            ->where(function ($query) use ($post) {
-                foreach ($post->tags ?? [] as $tag) {
+            ->where(function ($query) use ($tags) {
+                foreach ($tags as $tag) {
                     $query->orWhereJsonContains('tags', $tag);
                 }
             })
+            ->when(count($tags) > 0, function ($query) use ($tags) {
+                $relevance = collect($tags)
+                    ->map(fn ($tag) => "(SELECT COUNT(*) FROM json_each(tags) WHERE json_each.value = '" . addslashes($tag) . "')")
+                    ->implode(' + ');
+
+                $query->orderByRaw("({$relevance}) DESC");
+            })
+            ->orderBy('published_at', 'desc')
             ->limit(3)
             ->get();
+
+        // Fallback: fill remaining slots with recent posts
+        if ($relatedPosts->count() < 3) {
+            $excludeIds = $relatedPosts->pluck('id')->push($post->id)->all();
+            $fillCount = 3 - $relatedPosts->count();
+
+            $fallbackPosts = Post::published()
+                ->whereNotIn('id', $excludeIds)
+                ->orderBy('published_at', 'desc')
+                ->limit($fillCount)
+                ->get();
+
+            $relatedPosts = $relatedPosts->concat($fallbackPosts);
+        }
 
         return view('blog.show', [
             'post' => $post,

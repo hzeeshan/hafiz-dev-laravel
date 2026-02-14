@@ -194,6 +194,27 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Tabella ASCII e Generatore',
                 'description' => 'Tabella ASCII completa con tutti i 128 caratteri. Cerca, filtra e converti testo in codici ASCII istantaneamente. 100% lato client.',
             ],
+            [
+                'tool_slug' => 'text-to-binary',
+                'locale' => 'it',
+                'slug' => 'convertitore-testo-binario',
+                'name' => 'Convertitore Testo in Binario',
+                'description' => 'Converti testo in codice binario e binario in testo istantaneamente. Supporta ASCII e UTF-8 con più formati di output.',
+            ],
+            [
+                'tool_slug' => 'csv-to-xml',
+                'locale' => 'it',
+                'slug' => 'convertitore-csv-xml',
+                'name' => 'Convertitore CSV in XML',
+                'description' => 'Converti dati CSV in XML ben formattato istantaneamente. Nomi di elementi personalizzabili, supporto attributi e CDATA. 100% lato client.',
+            ],
+            [
+                'tool_slug' => 'json-to-xml',
+                'locale' => 'it',
+                'slug' => 'convertitore-json-xml',
+                'name' => 'Convertitore JSON in XML',
+                'description' => 'Converti dati JSON in XML ben formattato istantaneamente. Oggetti annidati, array intelligenti e attributi tipo. 100% lato client.',
+            ],
         ];
 
         foreach ($translations as $data) {

@@ -33,6 +33,9 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'hex-to-rgb': 'convertitore-hex-rgb',
   'slug-generator': 'generatore-slug',
   'ascii-table': 'tabella-ascii',
+  'text-to-binary': 'convertitore-testo-binario',
+  'csv-to-xml': 'convertitore-csv-xml',
+  'json-to-xml': 'convertitore-json-xml',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

@@ -25,6 +25,9 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'json-to-csv-converter': 'convertitore-json-csv',
   'qr-code-generator': 'generatore-codice-qr',
   'diff-checker': 'confronta-testi',
+  'json-to-yaml': 'convertitore-json-yaml',
+  'yaml-to-json': 'convertitore-yaml-json',
+  'xml-to-json': 'convertitore-xml-json',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

@@ -138,6 +138,27 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Confronta Testi (Diff Checker)',
                 'description' => 'Confronta due testi e trova le differenze. Evidenzia aggiunte, eliminazioni e modifiche istantaneamente. 100% lato client.',
             ],
+            [
+                'tool_slug' => 'json-to-yaml',
+                'locale' => 'it',
+                'slug' => 'convertitore-json-yaml',
+                'name' => 'Convertitore JSON in YAML',
+                'description' => 'Converti dati JSON in formato YAML istantaneamente. Supporta oggetti annidati, array e file di grandi dimensioni. 100% lato client.',
+            ],
+            [
+                'tool_slug' => 'yaml-to-json',
+                'locale' => 'it',
+                'slug' => 'convertitore-yaml-json',
+                'name' => 'Convertitore YAML in JSON',
+                'description' => 'Converti file di configurazione YAML in formato JSON istantaneamente. Validazione sintassi e output con evidenziazione. 100% lato client.',
+            ],
+            [
+                'tool_slug' => 'xml-to-json',
+                'locale' => 'it',
+                'slug' => 'convertitore-xml-json',
+                'name' => 'Convertitore XML in JSON',
+                'description' => 'Converti dati XML in formato JSON istantaneamente. Supporta attributi, CDATA e strutture complesse. 100% lato client.',
+            ],
         ];
 
         foreach ($translations as $data) {

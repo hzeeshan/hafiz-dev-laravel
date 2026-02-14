@@ -6,6 +6,7 @@ use App\Http\Controllers\ItalianLocalSeoController;
 use App\Http\Controllers\ItalianPagesController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\ToolController;
+use App\Http\Controllers\ToolFeedbackController;
 use Illuminate\Support\Facades\Route;
 
 // Homepage
@@ -53,6 +54,11 @@ Route::get('/tools/{slug}', function (string $slug) {
 
     return view($viewName, compact('tool'));
 })->name('tools.show');
+
+// Tool feedback
+Route::post('/api/tool-feedback', [ToolFeedbackController::class, 'store'])
+    ->middleware('throttle:5,60')
+    ->name('tool-feedback.store');
 
 // Tool view tracking
 Route::post('/tools/{toolSlug}/view', function (string $toolSlug) {

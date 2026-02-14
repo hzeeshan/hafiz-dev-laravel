@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     {{-- Primary Meta Tags --}}
     <title>{{ $title ?? 'Hafiz Riaz | Laravel & Vue.js Developer | Process Automation Expert' }}</title>
@@ -272,6 +273,11 @@
     <main class="flex-1 pt-16">
         {{ $slot }}
     </main>
+
+    {{-- Tool Feedback Button --}}
+    @if((request()->is('tools/*') && !request()->is('tools')) || (request()->is('it/strumenti/*') && !request()->is('it/strumenti')))
+        <x-tool-feedback-button />
+    @endif
 
     <!-- Dark Footer -->
     <footer class="bg-darkCard/60 border-t border-gold/10 relative z-10">

@@ -180,6 +180,20 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Convertitore Hex in RGB',
                 'description' => 'Converti codici colore esadecimali in valori RGB, HSL e CMYK istantaneamente. Anteprima colore dal vivo e generazione codice CSS. 100% lato client.',
             ],
+            [
+                'tool_slug' => 'slug-generator',
+                'locale' => 'it',
+                'slug' => 'generatore-slug',
+                'name' => 'Generatore di Slug',
+                'description' => 'Converti qualsiasi testo in slug URL puliti e SEO-friendly istantaneamente. Supporta traslitterazione, separatori personalizzati e generazione in blocco. 100% lato client.',
+            ],
+            [
+                'tool_slug' => 'ascii-table',
+                'locale' => 'it',
+                'slug' => 'tabella-ascii',
+                'name' => 'Tabella ASCII e Generatore',
+                'description' => 'Tabella ASCII completa con tutti i 128 caratteri. Cerca, filtra e converti testo in codici ASCII istantaneamente. 100% lato client.',
+            ],
         ];
 
         foreach ($translations as $data) {

@@ -31,6 +31,8 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'xml-to-csv': 'convertitore-xml-csv',
   'twitter-character-counter': 'contatore-caratteri-twitter',
   'hex-to-rgb': 'convertitore-hex-rgb',
+  'slug-generator': 'generatore-slug',
+  'ascii-table': 'tabella-ascii',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

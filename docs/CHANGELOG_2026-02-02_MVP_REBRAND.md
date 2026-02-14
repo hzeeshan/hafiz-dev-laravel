@@ -16,35 +16,41 @@ Major redesign of the homepage and blog post page to reposition from "Laravel De
 ### Homepage (welcome.blade.php)
 
 **Hero Section**
+
 - New headline: "Launch Your Product in 7 Days"
 - Trust badge: "9+ Years Experience"
 - Dual CTAs: "Book a Free Call" (Calendly) + "See My Work"
 - Trust badges row: 40+ projects, Fixed pricing, Source code ownership
 
 **Pricing Section**
+
 - 3 clear tiers:
-  - Launch Fast (€750): Landing pages, forms, basic features
-  - MVP in 7 Days (€2,000): Full web apps, database, auth, deployment
-  - Full Product (€5,000): Complex apps, integrations, optimization
+    - Launch Fast (€750): Landing pages, forms, basic features
+    - MVP in 7 Days (€2,000): Full web apps, database, auth, deployment
+    - Full Product (€5,000): Complex apps, integrations, optimization
 - Flexbox layout for equal-height cards with bottom-aligned buttons
 
 **FAQ Section**
+
 - Converted to collapsible accordion using native HTML `<details>`/`<summary>`
 - 8 new questions covering common client concerns
 - Conversational tone, removed AI-sounding em dashes
 
 **Contact Section**
+
 - Integrated Calendly booking links
 - Removed generic contact form CTA
 
 ### Blog Post Page (blog/show.blade.php)
 
 **CTA Box**
+
 - New headline: "Got a Product Idea?"
 - Focus on MVP building service
 - Direct Calendly link for booking
 
 **Author Bio**
+
 - Updated description to focus on helping founders build products
 - Shortened, more impactful copy
 
@@ -61,6 +67,8 @@ Major redesign of the homepage and blog post page to reposition from "Laravel De
 
 ## Competitor References
 
-For inspiration and comparison:
+For inspiration and comparison + compatirors:
+
 - https://rapidmvp.app/
 - https://kratos.digital/
+- https://www.vayuapps.com/

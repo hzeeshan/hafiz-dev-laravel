@@ -167,6 +167,7 @@ Even capturing 0.1-1% of this volume = 2,000-19,000 visits/month from tools alon
 ### Next Sprint: 18 New Tools (Feb 2026)
 
 See **[tools-keyword-research-feb-2026.md](./tools-keyword-research-feb-2026.md)** for the complete keyword-validated build plan with:
+
 - 18 tools prioritized by Ahrefs KD and search volume
 - SEO titles, meta descriptions, and CTA strategy
 - Day-by-day build order optimized for speed
@@ -256,9 +257,9 @@ Tools are managed via the Filament admin panel at `/admin/tools`.
 
 1. Create the Blade view: `resources/views/tools/my-new-tool.blade.php`
 2. Add tool in admin panel (`/admin/tools`) with:
-   - Name, Slug (must match blade filename), Description
-   - Icon (emoji), Category, Position
-   - Active toggle
+    - Name, Slug (must match blade filename), Description
+    - Icon (emoji), Category, Position
+    - Active toggle
 
 Routes are automatically generated from the database - no need to edit `routes/web.php`.
 
@@ -359,12 +360,12 @@ Monitor weekly:
 - ✅ Image Compressor launched (client-side compression, batch processing, quality presets, ZIP download, format conversion, clipboard paste)
 - ✅ 14 tools now live!
 - ✅ **Admin Tool Management System** added:
-  - Filament resource at `/admin/tools` for managing tools
-  - Drag-drop reordering of tools
-  - Active/inactive toggle per tool
-  - Manual vs Popularity ordering mode switch
-  - Dynamic routing (no need to edit web.php for new tools)
-  - Database-driven tools index page
+    - Filament resource at `/admin/tools` for managing tools
+    - Drag-drop reordering of tools
+    - Active/inactive toggle per tool
+    - Manual vs Popularity ordering mode switch
+    - Dynamic routing (no need to edit web.php for new tools)
+    - Database-driven tools index page
 
 ### January 24, 2026
 
@@ -418,3 +419,8 @@ Monitor weekly:
 - Quick Reference sections (like in Regex Tester) add value and increase time on page
 
 ---
+
+Compattitors:
+
+- https://qtoolkit.dev
+- https://goonlinetools.com/

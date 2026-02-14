@@ -28,6 +28,9 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'json-to-yaml': 'convertitore-json-yaml',
   'yaml-to-json': 'convertitore-yaml-json',
   'xml-to-json': 'convertitore-xml-json',
+  'xml-to-csv': 'convertitore-xml-csv',
+  'twitter-character-counter': 'contatore-caratteri-twitter',
+  'hex-to-rgb': 'convertitore-hex-rgb',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

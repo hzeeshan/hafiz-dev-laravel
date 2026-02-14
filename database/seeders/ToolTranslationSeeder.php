@@ -159,6 +159,27 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Convertitore XML in JSON',
                 'description' => 'Converti dati XML in formato JSON istantaneamente. Supporta attributi, CDATA e strutture complesse. 100% lato client.',
             ],
+            [
+                'tool_slug' => 'xml-to-csv',
+                'locale' => 'it',
+                'slug' => 'convertitore-xml-csv',
+                'name' => 'Convertitore XML in CSV',
+                'description' => 'Converti dati XML in formato CSV per fogli di calcolo istantaneamente. Appiattisci elementi annidati, estrai attributi ed esporta per Excel o Google Sheets. 100% lato client.',
+            ],
+            [
+                'tool_slug' => 'twitter-character-counter',
+                'locale' => 'it',
+                'slug' => 'contatore-caratteri-twitter',
+                'name' => 'Contatore Caratteri Twitter',
+                'description' => 'Conta i caratteri per Twitter/X in tempo reale. Monitora URL, menzioni, hashtag ed emoji con le regole di conteggio precise di Twitter.',
+            ],
+            [
+                'tool_slug' => 'hex-to-rgb',
+                'locale' => 'it',
+                'slug' => 'convertitore-hex-rgb',
+                'name' => 'Convertitore Hex in RGB',
+                'description' => 'Converti codici colore esadecimali in valori RGB, HSL e CMYK istantaneamente. Anteprima colore dal vivo e generazione codice CSS. 100% lato client.',
+            ],
         ];
 
         foreach ($translations as $data) {

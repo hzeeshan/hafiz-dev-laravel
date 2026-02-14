@@ -549,6 +549,15 @@ class ToolSeeder extends Seeder
                 'position' => 60,
                 'related_tools' => ['json-formatter', 'json-to-yaml', 'json-to-typescript', 'json-to-csharp'],
             ],
+            [
+                'name' => 'TypeScript to JavaScript Converter',
+                'slug' => 'typescript-to-javascript',
+                'description' => 'Convert TypeScript to JavaScript instantly. Removes type annotations, interfaces, enums, and generics to produce clean JS output.',
+                'icon' => '📘',
+                'category' => 'Converter',
+                'position' => 61,
+                'related_tools' => ['json-to-typescript', 'json-to-csharp', 'json-to-dart', 'css-to-tailwind'],
+            ],
         ];
 
         foreach ($tools as $tool) {

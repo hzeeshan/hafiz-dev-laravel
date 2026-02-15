@@ -39,6 +39,11 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'csv-to-sql': 'convertitore-csv-sql',
   'json-to-typescript': 'convertitore-json-typescript',
   'student-email-signature-generator': 'generatore-firma-email-studente',
+  'chmod-calculator': 'calcolatore-chmod',
+  'markdown-to-html': 'convertitore-markdown-html',
+  'base64-to-image': 'convertitore-base64-immagine',
+  'robots-txt-generator': 'generatore-robots-txt',
+  'bubble-text-generator': 'generatore-testo-bolle',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

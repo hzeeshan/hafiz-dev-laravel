@@ -236,6 +236,41 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Generatore Firma Email per Studenti',
                 'description' => 'Crea firme email professionali per studenti con università, corso di studi, anno di laurea e link social. Copia HTML o testo semplice.',
             ],
+            [
+                'tool_slug' => 'chmod-calculator',
+                'locale' => 'it',
+                'slug' => 'calcolatore-chmod',
+                'name' => 'Calcolatore Chmod',
+                'description' => 'Calcolatore chmod online gratuito. Calcola i permessi dei file Linux con una griglia interattiva. Converti tra notazione simbolica e ottale istantaneamente.',
+            ],
+            [
+                'tool_slug' => 'markdown-to-html',
+                'locale' => 'it',
+                'slug' => 'convertitore-markdown-html',
+                'name' => 'Convertitore Markdown in HTML',
+                'description' => 'Converti la sintassi Markdown in codice HTML pulito istantaneamente. Supporta intestazioni, liste, tabelle, blocchi di codice e GFM.',
+            ],
+            [
+                'tool_slug' => 'base64-to-image',
+                'locale' => 'it',
+                'slug' => 'convertitore-base64-immagine',
+                'name' => 'Convertitore Base64 in Immagine',
+                'description' => 'Decodifica stringhe Base64 in immagini PNG, JPEG, GIF, SVG e WebP istantaneamente. Anteprima, download e rilevamento automatico del formato.',
+            ],
+            [
+                'tool_slug' => 'robots-txt-generator',
+                'locale' => 'it',
+                'slug' => 'generatore-robots-txt',
+                'name' => 'Generatore Robots.txt',
+                'description' => 'Crea un file robots.txt per il tuo sito con un editor visuale. Aggiungi regole di crawling, sitemap e crawl-delay per i bot dei motori di ricerca.',
+            ],
+            [
+                'tool_slug' => 'bubble-text-generator',
+                'locale' => 'it',
+                'slug' => 'generatore-testo-bolle',
+                'name' => 'Generatore Testo a Bolle',
+                'description' => 'Converti il tuo testo in lettere a bolla istantaneamente per social media, Discord e altro. Stile contorno e pieno.',
+            ],
         ];
 
         foreach ($translations as $data) {

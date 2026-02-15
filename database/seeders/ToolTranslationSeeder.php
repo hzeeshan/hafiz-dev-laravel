@@ -292,6 +292,27 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Generatore Testo Zalgo',
                 'description' => 'Crea testo glitch inquietante con livello di caos personalizzabile. Perfetto per Discord, Roblox, social media e meme.',
             ],
+            [
+                'tool_slug' => 'small-text-generator',
+                'locale' => 'it',
+                'slug' => 'generatore-testo-piccolo',
+                'name' => 'Generatore di Testo Piccolo',
+                'description' => 'Converti il tuo testo in apice, pedice e maiuscoletto istantaneamente per social media, Discord e altro. Copia e incolla ovunque.',
+            ],
+            [
+                'tool_slug' => 'morse-code-translator',
+                'locale' => 'it',
+                'slug' => 'traduttore-codice-morse',
+                'name' => 'Traduttore Codice Morse',
+                'description' => 'Converti testo in codice Morse e codice Morse in testo istantaneamente. Riproduzione audio con velocità regolabile.',
+            ],
+            [
+                'tool_slug' => 'chronological-age-calculator',
+                'locale' => 'it',
+                'slug' => 'calcolatore-eta-cronologica',
+                'name' => 'Calcolatore Età Cronologica',
+                'description' => 'Calcola la tua età esatta in anni, mesi, giorni, ore, minuti e secondi. Conto alla rovescia compleanno e segno zodiacale.',
+            ],
         ];
 
         foreach ($translations as $data) {

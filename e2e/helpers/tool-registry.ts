@@ -47,6 +47,9 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'strikethrough-text-generator': 'generatore-testo-barrato',
   'upside-down-text-generator': 'generatore-testo-capovolto',
   'zalgo-text-generator': 'generatore-testo-zalgo',
+  'small-text-generator': 'generatore-testo-piccolo',
+  'morse-code-translator': 'traduttore-codice-morse',
+  'chronological-age-calculator': 'calcolatore-eta-cronologica',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

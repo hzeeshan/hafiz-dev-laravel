@@ -53,6 +53,9 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'korean-age-calculator': 'calcolatore-eta-coreana',
   'crontab-guru': 'crontab-guru',
   'http-status-codes': 'codici-stato-http',
+  'hex-to-binary': 'convertitore-esadecimale-binario',
+  'ip-to-binary': 'convertitore-ip-binario',
+  'octal-to-decimal': 'convertitore-ottale-decimale',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

@@ -334,6 +334,27 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Codici di Stato HTTP',
                 'description' => 'Guida completa ai codici di stato HTTP con descrizioni, categorie ed esempi. Cerca e filtra tutti i codici 1xx-5xx.',
             ],
+            [
+                'tool_slug' => 'hex-to-binary',
+                'locale' => 'it',
+                'slug' => 'convertitore-esadecimale-binario',
+                'name' => 'Convertitore Esadecimale in Binario',
+                'description' => 'Converti esadecimale in binario istantaneamente con scomposizione nibble passo-passo. Supporta conversione in blocco e direzione inversa.',
+            ],
+            [
+                'tool_slug' => 'ip-to-binary',
+                'locale' => 'it',
+                'slug' => 'convertitore-ip-binario',
+                'name' => 'Convertitore IP in Binario',
+                'description' => 'Converti indirizzi IPv4 in notazione binaria con scomposizione per ottetto e visualizzazione subnet. Nessuna registrazione richiesta.',
+            ],
+            [
+                'tool_slug' => 'octal-to-decimal',
+                'locale' => 'it',
+                'slug' => 'convertitore-ottale-decimale',
+                'name' => 'Convertitore Ottale in Decimale',
+                'description' => 'Converti numeri ottali (base 8) in decimali (base 10) istantaneamente con calcolo passo-passo. Supporta conversione in blocco.',
+            ],
         ];
 
         foreach ($translations as $data) {

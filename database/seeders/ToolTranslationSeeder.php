@@ -313,6 +313,27 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Calcolatore Età Cronologica',
                 'description' => 'Calcola la tua età esatta in anni, mesi, giorni, ore, minuti e secondi. Conto alla rovescia compleanno e segno zodiacale.',
             ],
+            [
+                'tool_slug' => 'korean-age-calculator',
+                'locale' => 'it',
+                'slug' => 'calcolatore-eta-coreana',
+                'name' => 'Calcolatore Età Coreana',
+                'description' => 'Calcola la tua età coreana, età internazionale e la differenza. Scopri come funziona il sistema di età coreano.',
+            ],
+            [
+                'tool_slug' => 'crontab-guru',
+                'locale' => 'it',
+                'slug' => 'crontab-guru',
+                'name' => 'Crontab Guru',
+                'description' => 'Editor di espressioni cron online. Crea, valida e comprendi le pianificazioni crontab con spiegazioni leggibili.',
+            ],
+            [
+                'tool_slug' => 'http-status-codes',
+                'locale' => 'it',
+                'slug' => 'codici-stato-http',
+                'name' => 'Codici di Stato HTTP',
+                'description' => 'Guida completa ai codici di stato HTTP con descrizioni, categorie ed esempi. Cerca e filtra tutti i codici 1xx-5xx.',
+            ],
         ];
 
         foreach ($translations as $data) {

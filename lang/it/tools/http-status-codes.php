@@ -1,0 +1,135 @@
+<?php
+
+return [
+    // SEO
+    'title' => 'Codici di Stato HTTP - Guida di Riferimento Completa | hafiz.dev',
+    'description' => 'Guida completa ai codici di stato HTTP con descrizioni, categorie ed esempi. Cerca e filtra tutti i codici 1xx-5xx. Riferimento gratuito per sviluppatori.',
+    'keywords' => 'codici stato http, codici di stato http, codici risposta http, codice stato 404, 200 ok, 301 redirect, 500 errore interno server, http status codes',
+
+    // Page content
+    'h1' => 'Codici di Stato HTTP',
+    'subtitle' => 'Riferimento completo di tutti i codici di stato HTTP con descrizioni, categorie ed esempi di utilizzo. Cerca e filtra per trovare qualsiasi codice istantaneamente.',
+
+    // UI Labels
+    'search' => 'Cerca',
+    'search_placeholder' => 'Cerca per codice, nome o descrizione...',
+    'filter_all' => 'Tutti',
+    'filter_1xx' => '1xx Informativi',
+    'filter_2xx' => '2xx Successo',
+    'filter_3xx' => '3xx Reindirizzamento',
+    'filter_4xx' => '4xx Errore Client',
+    'filter_5xx' => '5xx Errore Server',
+    'showing' => 'Visualizzati',
+    'status_codes' => 'codici di stato',
+    'no_results' => 'Nessun codice di stato corrisponde alla tua ricerca.',
+
+    // Features
+    'features' => [
+        [
+            'title' => 'Riferimento Completo',
+            'desc' => 'Tutti i codici di stato HTTP standard da 100 a 511, con descrizioni chiare e note di utilizzo reali.',
+        ],
+        [
+            'title' => 'Ricerca Istantanea',
+            'desc' => 'Cerca per numero di codice, nome o descrizione. Filtra per categoria per trovare rapidamente il codice che cerchi.',
+        ],
+        [
+            'title' => 'Codificato per Colore',
+            'desc' => 'Ogni categoria è codificata con un colore per un\'identificazione visiva rapida: blu, verde, giallo, arancione e rosso.',
+        ],
+    ],
+
+    // FAQ
+    'faq' => [
+        [
+            'question' => 'Cosa sono i codici di stato HTTP?',
+            'answer' => 'I codici di stato HTTP sono numeri a tre cifre restituiti da un server web in risposta alla richiesta di un client. Indicano se la richiesta è riuscita, è stata reindirizzata o ha prodotto un errore. I codici sono raggruppati in cinque classi: 1xx (Informativi), 2xx (Successo), 3xx (Reindirizzamento), 4xx (Errore Client) e 5xx (Errore Server).',
+        ],
+        [
+            'question' => 'Qual è la differenza tra redirect 301 e 302?',
+            'answer' => 'Un redirect 301 è permanente, significa che la risorsa si è spostata definitivamente a un nuovo URL. I motori di ricerca trasferiscono il valore SEO al nuovo URL. Un redirect 302 è temporaneo, indica che la risorsa si trova temporaneamente a un URL diverso. I motori di ricerca continuano a indicizzare l\'URL originale. Usa 301 per cambi permanenti di URL e 302 per reindirizzamenti temporanei.',
+        ],
+        [
+            'question' => 'Qual è la differenza tra 401 e 403?',
+            'answer' => '401 Unauthorized significa che la richiesta non ha credenziali di autenticazione valide — l\'utente deve effettuare il login. 403 Forbidden significa che l\'utente è autenticato ma non ha il permesso di accedere alla risorsa. In breve: 401 = "Chi sei?" e 403 = "So chi sei, ma non puoi accedere a questo."',
+        ],
+        [
+            'question' => 'Quando usare 404 oppure 410?',
+            'answer' => 'Usa 404 Not Found quando una risorsa non esiste o potrebbe non essere mai esistita. Usa 410 Gone quando una risorsa è stata intenzionalmente e permanentemente rimossa. La differenza chiave è che 410 dice ai motori di ricerca di rimuovere la pagina dal loro indice più velocemente, mentre 404 potrebbe essere rivisitato periodicamente. Usa 410 quando elimini contenuti di proposito.',
+        ],
+        [
+            'question' => 'Cosa significa l\'errore 500 Internal Server Error?',
+            'answer' => 'Un errore 500 Internal Server Error è un errore generico che indica che qualcosa è andato storto lato server. Il server ha incontrato una condizione imprevista che gli ha impedito di soddisfare la richiesta. Le cause comuni includono eccezioni non gestite nel codice, server mal configurati, errori di connessione al database o errori di sintassi negli script lato server. Controlla i log del server per i dettagli specifici.',
+        ],
+    ],
+
+    // JavaScript translatable strings
+    'js_strings' => [
+        'cat_1xx' => '1xx — Informativi',
+        'cat_2xx' => '2xx — Successo',
+        'cat_3xx' => '3xx — Reindirizzamento',
+        'cat_4xx' => '4xx — Errore Client',
+        'cat_5xx' => '5xx — Errore Server',
+        'code_100' => 'Il server ha ricevuto le intestazioni della richiesta e il client dovrebbe procedere a inviare il corpo della richiesta.',
+        'code_101' => 'Il server sta cambiando protocollo come richiesto dal client (es. upgrade a WebSocket).',
+        'code_102' => 'Il server ha ricevuto e sta elaborando la richiesta, ma nessuna risposta è ancora disponibile (WebDAV).',
+        'code_103' => 'Usato per restituire alcune intestazioni di risposta prima del messaggio HTTP finale, permettendo il precaricamento delle risorse.',
+        'code_200' => 'La richiesta è riuscita. Il corpo della risposta contiene la risorsa richiesta.',
+        'code_201' => 'La richiesta è riuscita e una nuova risorsa è stata creata. Tipicamente usato dopo richieste POST o PUT.',
+        'code_202' => 'La richiesta è stata accettata per l\'elaborazione, ma l\'elaborazione non è ancora completata (operazioni asincrone).',
+        'code_203' => 'I metadati restituiti non provengono dal server di origine ma da una copia locale o di terze parti.',
+        'code_204' => 'La richiesta è riuscita ma non c\'è contenuto da restituire. Spesso usato per operazioni DELETE o PUT.',
+        'code_205' => 'La richiesta è riuscita e il client dovrebbe reimpostare la vista del documento (es. cancellare un modulo).',
+        'code_206' => 'Il server sta fornendo solo una parte della risorsa a causa di un header Range inviato dal client.',
+        'code_207' => 'Trasmette informazioni su più risorse dove più codici di stato potrebbero essere appropriati (WebDAV).',
+        'code_208' => 'Usato all\'interno di una risposta DAV: propstat per evitare di enumerare ripetutamente i membri di un binding (WebDAV).',
+        'code_226' => 'Il server ha soddisfatto una richiesta GET con manipolazioni di istanza applicate all\'istanza corrente.',
+        'code_300' => 'La richiesta ha più di una possibile risposta. L\'utente o l\'agente dovrebbe sceglierne una.',
+        'code_301' => 'La risorsa si è spostata permanentemente a un nuovo URL. I motori di ricerca aggiorneranno i loro link. Usare per cambi URL permanenti.',
+        'code_302' => 'La risorsa si trova temporaneamente a un URL diverso. Il client dovrebbe continuare a usare l\'URL originale per le richieste future.',
+        'code_303' => 'La risposta alla richiesta può essere trovata a un altro URL usando una richiesta GET (spesso dopo POST).',
+        'code_304' => 'La risorsa non è stata modificata dall\'ultima richiesta. Il client può usare la sua copia in cache.',
+        'code_307' => 'La risorsa si trova temporaneamente a un URL diverso. A differenza di 302, il metodo della richiesta non deve essere cambiato.',
+        'code_308' => 'La risorsa si è spostata permanentemente. A differenza di 301, il metodo della richiesta non deve essere cambiato.',
+        'code_400' => 'Il server non può elaborare la richiesta a causa di un errore del client (sintassi malformata, richiesta non valida, ecc.).',
+        'code_401' => 'L\'autenticazione è richiesta. Il client deve autenticarsi per ottenere la risposta richiesta.',
+        'code_402' => 'Riservato per uso futuro. Originariamente pensato per sistemi di pagamento digitale.',
+        'code_403' => 'Il server ha compreso la richiesta ma rifiuta di autorizzarla. A differenza di 401, riautenticarsi non aiuterà.',
+        'code_404' => 'Il server non riesce a trovare la risorsa richiesta. L\'errore HTTP più comune riscontrato dagli utenti.',
+        'code_405' => 'Il metodo HTTP usato non è supportato per la risorsa richiesta (es. POST su una risorsa in sola lettura).',
+        'code_406' => 'Il server non può produrre una risposta corrispondente agli header Accept inviati dal client.',
+        'code_407' => 'Simile a 401, ma l\'autenticazione deve essere effettuata tramite un proxy.',
+        'code_408' => 'Il server è andato in timeout nell\'attesa della richiesta. Il client ha impiegato troppo tempo per inviare la richiesta completa.',
+        'code_409' => 'La richiesta è in conflitto con lo stato corrente del server (es. conflitto di modifica, risorsa duplicata).',
+        'code_410' => 'La risorsa è stata eliminata permanentemente. A differenza di 404, questo è intenzionale e la risorsa non tornerà.',
+        'code_411' => 'Il server richiede che l\'intestazione Content-Length sia specificata nella richiesta.',
+        'code_412' => 'Una o più condizioni nelle intestazioni della richiesta sono risultate false sul server.',
+        'code_413' => 'Il corpo della richiesta è più grande di quanto il server è disposto o in grado di elaborare.',
+        'code_414' => 'L\'URL richiesto è più lungo di quanto il server è disposto a interpretare.',
+        'code_415' => 'Il formato multimediale della richiesta non è supportato dal server.',
+        'code_416' => 'L\'intervallo specificato nell\'intestazione Range non può essere soddisfatto dal server.',
+        'code_417' => 'L\'aspettativa indicata dall\'intestazione Expect della richiesta non può essere soddisfatta dal server.',
+        'code_418' => 'Uno scherzo del Pesce d\'Aprile da RFC 2324. Il server rifiuta di preparare il caffè perché è una teiera.',
+        'code_421' => 'La richiesta è stata indirizzata a un server che non è in grado di produrre una risposta.',
+        'code_422' => 'La richiesta era ben formata ma non ha potuto essere elaborata a causa di errori semantici (errori di validazione).',
+        'code_423' => 'La risorsa a cui si sta accedendo è bloccata (WebDAV).',
+        'code_424' => 'La richiesta è fallita perché dipendeva da un\'altra richiesta che è fallita (WebDAV).',
+        'code_425' => 'Il server non vuole rischiare di elaborare una richiesta che potrebbe essere riprodotta (TLS early data).',
+        'code_426' => 'Il server rifiuta la richiesta usando il protocollo corrente ma potrebbe accettarla dopo un aggiornamento del protocollo.',
+        'code_428' => 'Il server richiede che la richiesta sia condizionale per prevenire conflitti di aggiornamento persi.',
+        'code_429' => 'L\'utente ha inviato troppe richieste in un dato periodo di tempo (rate limiting).',
+        'code_431' => 'Il server rifiuta la richiesta perché i campi dell\'intestazione sono troppo grandi.',
+        'code_451' => 'La risorsa non è disponibile per motivi legali (censura, ordine del tribunale, ecc.). Chiamato così da Fahrenheit 451.',
+        'code_500' => 'Un errore generico del server. Qualcosa è andato storto lato server che non è riuscito a gestire.',
+        'code_501' => 'Il server non supporta la funzionalità necessaria per soddisfare la richiesta.',
+        'code_502' => 'Il server che agisce come gateway ha ricevuto una risposta non valida dal server upstream.',
+        'code_503' => 'Il server è temporaneamente impossibilitato a gestire la richiesta (sovraccarico o in manutenzione).',
+        'code_504' => 'Il server che agisce come gateway non ha ricevuto una risposta tempestiva dal server upstream.',
+        'code_505' => 'Il server non supporta la versione HTTP usata nella richiesta.',
+        'code_506' => 'Il server ha un errore di configurazione interna: la negoziazione trasparente del contenuto genera un riferimento circolare.',
+        'code_507' => 'Il server non è in grado di memorizzare la rappresentazione necessaria per completare la richiesta (WebDAV).',
+        'code_508' => 'Il server ha rilevato un loop infinito durante l\'elaborazione della richiesta (WebDAV).',
+        'code_510' => 'Sono necessarie ulteriori estensioni alla richiesta affinché il server possa soddisfarla.',
+        'code_511' => 'Il client deve autenticarsi per ottenere l\'accesso alla rete (es. captive portal).',
+    ],
+];

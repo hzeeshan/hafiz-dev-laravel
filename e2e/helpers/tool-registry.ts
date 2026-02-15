@@ -50,6 +50,9 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'small-text-generator': 'generatore-testo-piccolo',
   'morse-code-translator': 'traduttore-codice-morse',
   'chronological-age-calculator': 'calcolatore-eta-cronologica',
+  'korean-age-calculator': 'calcolatore-eta-coreana',
+  'crontab-guru': 'crontab-guru',
+  'http-status-codes': 'codici-stato-http',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

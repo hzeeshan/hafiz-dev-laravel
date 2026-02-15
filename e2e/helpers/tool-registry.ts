@@ -44,6 +44,9 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'base64-to-image': 'convertitore-base64-immagine',
   'robots-txt-generator': 'generatore-robots-txt',
   'bubble-text-generator': 'generatore-testo-bolle',
+  'strikethrough-text-generator': 'generatore-testo-barrato',
+  'upside-down-text-generator': 'generatore-testo-capovolto',
+  'zalgo-text-generator': 'generatore-testo-zalgo',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

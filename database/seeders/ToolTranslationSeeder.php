@@ -271,6 +271,27 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Generatore Testo a Bolle',
                 'description' => 'Converti il tuo testo in lettere a bolla istantaneamente per social media, Discord e altro. Stile contorno e pieno.',
             ],
+            [
+                'tool_slug' => 'strikethrough-text-generator',
+                'locale' => 'it',
+                'slug' => 'generatore-testo-barrato',
+                'name' => 'Generatore Testo Barrato',
+                'description' => 'Crea testo barrato istantaneamente con 4 stili diversi. Perfetto per social media, Discord e altro. Copia e incolla ovunque.',
+            ],
+            [
+                'tool_slug' => 'upside-down-text-generator',
+                'locale' => 'it',
+                'slug' => 'generatore-testo-capovolto',
+                'name' => 'Generatore Testo Capovolto',
+                'description' => 'Capovolgi il tuo testo istantaneamente per social media, Discord e altro. Copia e incolla il testo rovesciato ovunque.',
+            ],
+            [
+                'tool_slug' => 'zalgo-text-generator',
+                'locale' => 'it',
+                'slug' => 'generatore-testo-zalgo',
+                'name' => 'Generatore Testo Zalgo',
+                'description' => 'Crea testo glitch inquietante con livello di caos personalizzabile. Perfetto per Discord, Roblox, social media e meme.',
+            ],
         ];
 
         foreach ($translations as $data) {

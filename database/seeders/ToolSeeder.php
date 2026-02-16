@@ -558,6 +558,15 @@ class ToolSeeder extends Seeder
                 'position' => 61,
                 'related_tools' => ['json-to-typescript', 'json-to-csharp', 'json-to-dart', 'css-to-tailwind'],
             ],
+            [
+                'name' => 'Backward Text Generator',
+                'slug' => 'backward-text-generator',
+                'description' => 'Reverse your text instantly — character by character or word by word. Perfect for social media, puzzles, and fun messages.',
+                'icon' => '🔀',
+                'category' => 'Text',
+                'position' => 62,
+                'related_tools' => ['upside-down-text-generator', 'bubble-text-generator', 'strikethrough-text-generator', 'small-text-generator'],
+            ],
         ];
 
         foreach ($tools as $tool) {

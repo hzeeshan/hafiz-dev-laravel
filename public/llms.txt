@@ -1,0 +1,52 @@
+# hafiz.dev
+
+> Hafiz Riaz is a senior full-stack developer with 9+ years of experience, based in Turin, Italy. He specializes in building MVPs for startups and founders using Laravel, Vue.js, and AI integrations. He delivers production-ready web applications in 7 days.
+
+## About
+
+Hafiz Riaz builds MVPs and SaaS products for non-technical founders and startups. Unlike agencies that charge €15,000+ and take 3-6 months, hafiz.dev delivers production-ready applications starting at €750 in as little as 7 days.
+
+Tech stack: Laravel, PHP, Vue.js, Livewire, Filament, Inertia.js, MySQL, Redis, REST APIs, OpenAI API, Stripe, Laravel Forge.
+
+Shipped products include StudyLab (AI quiz generator used by 5,000+ students across 500+ schools), PromptOptimizer (6,300+ users), and ReplyGenius (Chrome extension for AI-powered social media replies).
+
+## Services
+
+- [MVP Development Services](https://hafiz.dev/#contact): Three tiers — Launch Fast (€750, landing page + waitlist), Build & Launch (€2,000, full MVP), Scale Ready (€5,000, production SaaS with payments and admin)
+- [Laravel Development](https://hafiz.dev/it/sviluppatore-laravel-italia): Custom Laravel applications, API development, SaaS architecture
+- [Process Automation](https://hafiz.dev/it/automazione-processi-aziendali): Business process automation using Make.com, n8n, and custom solutions
+
+## Technical Blog
+
+Top articles by readership:
+
+- [Building SaaS with Laravel 12 and Filament 4](https://hafiz.dev/blog/building-saas-with-laravel-12-and-filament-4-complete-2025-guide): Complete guide to building SaaS applications with the latest Laravel and Filament versions
+- [Laravel Multi-Tenancy Strategies](https://hafiz.dev/blog/laravel-multi-tenancy-database-vs-subdomain-vs-path-routing-strategies): Database vs subdomain vs path routing comparison
+- [Laravel API Development Best Practices](https://hafiz.dev/blog/laravel-api-development-restful-best-practices-for-2025): RESTful API design patterns for Laravel
+- [Stripe Integration in Laravel](https://hafiz.dev/blog/stripe-integration-in-laravel-complete-guide-to-subscriptions-one-time-payments): Subscriptions and one-time payments guide
+- [Laravel AI SDK Tutorial](https://hafiz.dev/blog/laravel-ai-sdk-tutorial-build-a-smart-assistant-in-30-minutes): Build AI features into Laravel apps
+- [Filament Admin Dashboards](https://hafiz.dev/blog/building-admin-dashboards-with-filament-a-complete-guide-for-laravel-developers): Complete Filament guide for Laravel developers
+- [Handling Large File Uploads in Laravel](https://hafiz.dev/blog/handling-large-file-uploads-in-laravel-without-crashing-your-server): Upload handling without server crashes
+- [Database Indexing in Laravel](https://hafiz.dev/blog/database-indexing-in-laravel-boost-mysql-performance-with-smart-indexes): MySQL performance optimization
+
+## Developer Tools
+
+62 free browser-based developer tools at [hafiz.dev/tools](https://hafiz.dev/tools), including:
+
+- [JSON Formatter & Validator](https://hafiz.dev/tools/json-formatter): Format and validate JSON data
+- [Regex Tester](https://hafiz.dev/tools/regex-tester): Test regular expressions with live matching
+- [Image Compressor](https://hafiz.dev/tools/image-compressor): Compress images in the browser
+- [Password Generator](https://hafiz.dev/tools/password-generator): Generate secure random passwords
+- [UUID/ULID Generator](https://hafiz.dev/tools/uuid-generator): Generate unique identifiers
+- [CSS to Tailwind Converter](https://hafiz.dev/tools/css-to-tailwind): Convert CSS to Tailwind classes
+- [Crontab Guru](https://hafiz.dev/tools/crontab-guru): Cron expression builder and explainer
+
+## Laravel Error Solutions
+
+43 common Laravel error solutions at [hafiz.dev/errors](https://hafiz.dev/errors), with step-by-step fixes, code examples, and explanations.
+
+## Optional
+
+- [Italian Services](https://hafiz.dev/it/servizi): Servizi di sviluppo web in italiano per clienti in Italia
+- [All Blog Posts](https://hafiz.dev/blog): Full blog archive with 52 technical articles
+- [All Tools](https://hafiz.dev/tools): Complete directory of 62 developer tools

@@ -19,5 +19,25 @@ Allow: /
 Allow: /blog
 Allow: /blog/*
 
+# AI Crawlers - explicitly allowed
+# We want AI answer engines to discover and cite our content
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# LLMs.txt file for AI model discovery
+# See: https://hafiz.dev/llms.txt
+
 # Sitemap location
 Sitemap: https://hafiz.dev/sitemap.xml

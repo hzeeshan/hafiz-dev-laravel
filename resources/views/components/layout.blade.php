@@ -111,37 +111,51 @@
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
 
-    {{-- Structured Data - Organization/Person Schema --}}
+    {{-- Structured Data - Person Schema --}}
     <script type="application/ld+json">
     {
       "@@context": "https://schema.org",
       "@@type": "Person",
+      "@@id": "https://hafiz.dev/#person",
       "name": "Hafiz Riaz",
+      "givenName": "Hafiz",
+      "familyName": "Riaz",
       "url": "https://hafiz.dev",
       "image": "https://hafiz.dev/profile-photo.png",
-      "sameAs": [
-        "https://github.com/hzeeshan",
-        "https://www.linkedin.com/in/hafiz-riaz-777501150/",
-        "https://x.com/hafizzeeshan619"
-      ],
-      "jobTitle": "Full Stack Developer",
-      "description": "Laravel & Vue.js developer specializing in process automation, SaaS development, and web applications",
-      "worksFor": {
-        "@@type": "Organization",
-        "name": "Freelance"
-      },
+      "jobTitle": "Senior Full-Stack Developer",
+      "description": "Senior full-stack developer with 9+ years of experience specializing in Laravel, Vue.js, and MVP development for startups. Based in Turin, Italy.",
+      "email": "contact@@hafiz.dev",
+      "telephone": "+393888255329",
       "address": {
         "@@type": "PostalAddress",
         "addressLocality": "Turin",
         "addressRegion": "Piedmont",
         "addressCountry": "IT"
       },
-      "email": "contact@@hafiz.dev",
-      "telephone": "+393888255329",
-      "knowsAbout": ["Laravel", "Vue.js", "PHP", "Process Automation", "SaaS Development", "Web Development", "JavaScript", "MySQL", "Docker"],
-      "alumniOf": {
-        "@@type": "EducationalOrganization",
-        "name": "Self-taught Developer"
+      "sameAs": [
+        "https://www.linkedin.com/in/hafiz-riaz-777501150/",
+        "https://github.com/hzeeshan",
+        "https://x.com/hafizzeeshan619",
+        "https://dev.to/hafizzeeshanriaz"
+      ],
+      "knowsAbout": [
+        "Laravel",
+        "PHP",
+        "Vue.js",
+        "Full-Stack Development",
+        "MVP Development",
+        "SaaS Architecture",
+        "REST API Development",
+        "Process Automation",
+        "AI Integration",
+        "Filament",
+        "Livewire",
+        "Chrome Extension Development"
+      ],
+      "worksFor": {
+        "@@type": "Organization",
+        "name": "hafiz.dev",
+        "url": "https://hafiz.dev"
       }
     }
     </script>

@@ -58,27 +58,149 @@
         }
         </script>
 
-        {{-- Offer Schema --}}
+        {{-- Service Schema with Pricing Tiers --}}
         <script type="application/ld+json">
         {
           "@@context": "https://schema.org",
-          "@@type": "Offer",
-          "itemOffered": {
-            "@@type": "Service",
-            "name": "MVP Development Services",
-            "description": "Rapid MVP and web application development. From idea to working product in 7 days.",
-            "provider": {
-              "@@type": "Person",
-              "@@id": "https://hafiz.dev/#person"
+          "@@type": "ItemList",
+          "name": "MVP Development Services",
+          "description": "Production-ready MVP development in 7 days for startups and founders",
+          "itemListElement": [
+            {
+              "@@type": "ListItem",
+              "position": 1,
+              "item": {
+                "@@type": "Service",
+                "name": "Launch Fast",
+                "description": "Landing page with waitlist, email collection, and basic analytics. Ideal for validating your idea before building the full product.",
+                "provider": {
+                  "@@type": "Person",
+                  "@@id": "https://hafiz.dev/#person"
+                },
+                "areaServed": "Worldwide",
+                "offers": {
+                  "@@type": "Offer",
+                  "price": "750",
+                  "priceCurrency": "EUR",
+                  "description": "Landing page + waitlist in 2-3 days"
+                }
+              }
             },
-            "serviceType": "Web Development",
-            "areaServed": "Worldwide"
-          },
-          "availability": "https://schema.org/InStock",
-          "priceSpecification": {
-            "@@type": "PriceSpecification",
-            "priceCurrency": "EUR"
-          }
+            {
+              "@@type": "ListItem",
+              "position": 2,
+              "item": {
+                "@@type": "Service",
+                "name": "MVP in 7 Days",
+                "description": "Full MVP with authentication, core features, database, and deployment. Production-ready application delivered in 7 days.",
+                "provider": {
+                  "@@type": "Person",
+                  "@@id": "https://hafiz.dev/#person"
+                },
+                "areaServed": "Worldwide",
+                "offers": {
+                  "@@type": "Offer",
+                  "price": "2000",
+                  "priceCurrency": "EUR",
+                  "description": "Full MVP in 7 days"
+                }
+              }
+            },
+            {
+              "@@type": "ListItem",
+              "position": 3,
+              "item": {
+                "@@type": "Service",
+                "name": "Full Product",
+                "description": "Production SaaS with payments integration, admin dashboard, API integrations, and scalable architecture. Built for growth.",
+                "provider": {
+                  "@@type": "Person",
+                  "@@id": "https://hafiz.dev/#person"
+                },
+                "areaServed": "Worldwide",
+                "offers": {
+                  "@@type": "Offer",
+                  "price": "5000",
+                  "priceCurrency": "EUR",
+                  "description": "Production SaaS in 2-3 weeks"
+                }
+              }
+            }
+          ]
+        }
+        </script>
+
+        {{-- FAQPage Schema for Homepage FAQ Section --}}
+        <script type="application/ld+json">
+        {
+          "@@context": "https://schema.org",
+          "@@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@@type": "Question",
+              "name": "What exactly is an MVP?",
+              "acceptedAnswer": {
+                "@@type": "Answer",
+                "text": "An MVP (Minimum Viable Product) is a working version of your product with just the core features needed to solve the main problem. It's not a prototype or mockup. It's a real, functional product your users can actually use. The goal is to launch fast, get real feedback, and iterate from there."
+              }
+            },
+            {
+              "@@type": "Question",
+              "name": "What if I'm not technical?",
+              "acceptedAnswer": {
+                "@@type": "Answer",
+                "text": "Perfect - you don't need to be. You bring the idea, I handle everything technical. I'll translate your vision into a working product and explain things in plain language along the way."
+              }
+            },
+            {
+              "@@type": "Question",
+              "name": "How can you build so fast?",
+              "acceptedAnswer": {
+                "@@type": "Answer",
+                "text": "9+ years of experience plus modern AI tools. I've built dozens of products, so I know exactly what to build and what to skip. No wasted time on unnecessary features. I focus on what matters for launch, not perfect code that nobody sees."
+              }
+            },
+            {
+              "@@type": "Question",
+              "name": "What types of products can you build in 7 days?",
+              "acceptedAnswer": {
+                "@@type": "Answer",
+                "text": "Web applications, SaaS platforms, mobile apps, landing pages with waitlists, admin dashboards, Chrome extensions, and AI-powered tools. Complex integrations or enterprise systems need more time. We'd figure that out on our call."
+              }
+            },
+            {
+              "@@type": "Question",
+              "name": "Do I own all the code and intellectual property?",
+              "acceptedAnswer": {
+                "@@type": "Answer",
+                "text": "Yes, 100%. Once the project is complete and paid, you own everything. All source code, designs, and IP. No licensing fees. No royalties. No lock-in. It's yours to keep, modify, or sell."
+              }
+            },
+            {
+              "@@type": "Question",
+              "name": "What's the payment structure?",
+              "acceptedAnswer": {
+                "@@type": "Answer",
+                "text": "50% upfront to start, 50% on completion before launch. For larger projects, we can split into milestones. I accept bank transfer and PayPal. Clear pricing upfront, no surprise invoices."
+              }
+            },
+            {
+              "@@type": "Question",
+              "name": "What if I need changes after launch?",
+              "acceptedAnswer": {
+                "@@type": "Answer",
+                "text": "All packages include 2 weeks of bug fixes after delivery. For new features or ongoing development, we can discuss a monthly retainer or per-feature pricing. Most clients come back for Phase 2 once they've validated their idea."
+              }
+            },
+            {
+              "@@type": "Question",
+              "name": "Do you work with international clients?",
+              "acceptedAnswer": {
+                "@@type": "Answer",
+                "text": "Absolutely. I work with clients worldwide. Communication happens via email, Slack, or video calls. Whatever works for you. I'm based in Italy (CET timezone) so I overlap well with both European and US clients."
+              }
+            }
+          ]
         }
         </script>
     @endpush

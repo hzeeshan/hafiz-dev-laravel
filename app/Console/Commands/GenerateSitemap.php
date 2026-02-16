@@ -65,6 +65,14 @@ class GenerateSitemap extends Command
                 ->setPriority(1.0)
         );
 
+        // About page
+        $sitemap->add(
+            Url::create('/about')
+                ->setLastModificationDate(now())
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
+                ->setPriority(0.8)
+        );
+
         // Blog index page
         $sitemap->add(
             Url::create('/blog')

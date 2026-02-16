@@ -4,6 +4,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ErrorSolutionController;
 use App\Http\Controllers\ItalianLocalSeoController;
 use App\Http\Controllers\ItalianPagesController;
+use App\Http\Controllers\LlmsTxtController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\ToolController;
 use App\Http\Controllers\ToolFeedbackController;
@@ -13,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// About page
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
+// LLMs.txt - dynamic AI model discovery file
+Route::get('/llms.txt', LlmsTxtController::class)->name('llms-txt');
 
 // Blog routes
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');

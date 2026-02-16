@@ -297,9 +297,13 @@
     <footer class="bg-darkCard/60 border-t border-gold/10 relative z-10">
         <div class="max-w-7xl mx-auto px-4 py-5">
             <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
-                <p class="text-light-muted text-sm">
-                    © {{ date('Y') }} Hafiz Riaz. All rights reserved.
-                </p>
+                <div class="flex items-center gap-3 text-sm">
+                    <p class="text-light-muted">
+                        &copy; {{ date('Y') }} Hafiz Riaz.
+                    </p>
+                    <span class="text-gold/30">|</span>
+                    <a href="/about" class="text-light-muted hover:text-gold transition-colors">About</a>
+                </div>
                 <!-- Language Switcher -->
                 <div class="flex items-center gap-2 text-sm">
                     <span class="text-light-muted">🌐</span>

@@ -355,6 +355,27 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Convertitore Ottale in Decimale',
                 'description' => 'Converti numeri ottali (base 8) in decimali (base 10) istantaneamente con calcolo passo-passo. Supporta conversione in blocco.',
             ],
+            [
+                'tool_slug' => 'decimal-to-binary',
+                'locale' => 'it',
+                'slug' => 'convertitore-decimale-binario',
+                'name' => 'Convertitore Decimale in Binario',
+                'description' => 'Converti numeri decimali (base 10) in binario (base 2) istantaneamente con scomposizione della divisione passo-passo.',
+            ],
+            [
+                'tool_slug' => 'decimal-to-octal',
+                'locale' => 'it',
+                'slug' => 'convertitore-decimale-ottale',
+                'name' => 'Convertitore Decimale in Ottale',
+                'description' => 'Converti numeri decimali (base 10) in ottale (base 8) istantaneamente con scomposizione della divisione passo-passo.',
+            ],
+            [
+                'tool_slug' => 'binary-to-octal',
+                'locale' => 'it',
+                'slug' => 'convertitore-binario-ottale',
+                'name' => 'Convertitore Binario in Ottale',
+                'description' => 'Converti numeri binari (base 2) in ottale (base 8) istantaneamente con raggruppamento a 3 bit passo-passo.',
+            ],
         ];
 
         foreach ($translations as $data) {

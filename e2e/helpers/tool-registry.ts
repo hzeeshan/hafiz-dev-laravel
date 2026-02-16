@@ -56,6 +56,9 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'hex-to-binary': 'convertitore-esadecimale-binario',
   'ip-to-binary': 'convertitore-ip-binario',
   'octal-to-decimal': 'convertitore-ottale-decimale',
+  'decimal-to-binary': 'convertitore-decimale-binario',
+  'decimal-to-octal': 'convertitore-decimale-ottale',
+  'binary-to-octal': 'convertitore-binario-ottale',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

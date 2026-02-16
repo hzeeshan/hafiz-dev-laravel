@@ -59,6 +59,9 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'decimal-to-binary': 'convertitore-decimale-binario',
   'decimal-to-octal': 'convertitore-decimale-ottale',
   'binary-to-octal': 'convertitore-binario-ottale',
+  'css-to-tailwind': 'convertitore-css-tailwind',
+  'json-to-csharp': 'convertitore-json-csharp',
+  'json-to-dart': 'convertitore-json-dart',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

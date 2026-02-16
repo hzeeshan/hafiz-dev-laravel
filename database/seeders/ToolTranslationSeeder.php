@@ -376,6 +376,27 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Convertitore Binario in Ottale',
                 'description' => 'Converti numeri binari (base 2) in ottale (base 8) istantaneamente con raggruppamento a 3 bit passo-passo.',
             ],
+            [
+                'tool_slug' => 'css-to-tailwind',
+                'locale' => 'it',
+                'slug' => 'convertitore-css-tailwind',
+                'name' => 'Convertitore CSS in Tailwind',
+                'description' => 'Converti proprietà CSS in classi utility Tailwind CSS istantaneamente. Supporta colori, spaziatura, tipografia, flexbox, grid e altro.',
+            ],
+            [
+                'tool_slug' => 'json-to-csharp',
+                'locale' => 'it',
+                'slug' => 'convertitore-json-csharp',
+                'name' => 'Generatore Classi C# da JSON',
+                'description' => 'Genera classi C# da dati JSON con tipi corretti, proprietà nullable e attributi JsonProperty istantaneamente.',
+            ],
+            [
+                'tool_slug' => 'json-to-dart',
+                'locale' => 'it',
+                'slug' => 'convertitore-json-dart',
+                'name' => 'Convertitore JSON in Dart',
+                'description' => 'Genera classi Dart da JSON con factory constructor, metodi toJson e null safety. Perfetto per Flutter.',
+            ],
         ];
 
         foreach ($translations as $data) {

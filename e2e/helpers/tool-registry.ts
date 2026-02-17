@@ -62,6 +62,8 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'css-to-tailwind': 'convertitore-css-tailwind',
   'json-to-csharp': 'convertitore-json-csharp',
   'json-to-dart': 'convertitore-json-dart',
+  'whitespace-remover': 'rimuovi-spazi-bianchi',
+  'remove-line-breaks': 'rimuovi-interruzioni-riga',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

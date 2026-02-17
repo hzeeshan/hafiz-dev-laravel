@@ -397,6 +397,20 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Convertitore JSON in Dart',
                 'description' => 'Genera classi Dart da JSON con factory constructor, metodi toJson e null safety. Perfetto per Flutter.',
             ],
+            [
+                'tool_slug' => 'whitespace-remover',
+                'locale' => 'it',
+                'slug' => 'rimuovi-spazi-bianchi',
+                'name' => 'Rimuovi Spazi Bianchi',
+                'description' => 'Rimuovi spazi bianchi in eccesso, spazi iniziali/finali e righe vuote istantaneamente. 100% lato client.',
+            ],
+            [
+                'tool_slug' => 'remove-line-breaks',
+                'locale' => 'it',
+                'slug' => 'rimuovi-interruzioni-riga',
+                'name' => 'Rimuovi Interruzioni di Riga',
+                'description' => 'Converti testo multiriga in una singola riga con separatore personalizzabile. Gestisce CRLF, LF e CR. 100% lato client.',
+            ],
         ];
 
         foreach ($translations as $data) {

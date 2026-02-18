@@ -446,6 +446,13 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Generatore di Testo al Contrario',
                 'description' => 'Inverti il tuo testo istantaneamente per social media, Discord e altro. Inversione per caratteri, parole o righe. 100% lato client.',
             ],
+            [
+                'tool_slug' => 'stripe-fee-calculator',
+                'locale' => 'it',
+                'slug' => 'calcolatore-commissioni-stripe',
+                'name' => 'Calcolatore Commissioni Stripe',
+                'description' => 'Calcola le commissioni Stripe, scopri quanto addebitare per ricevere un importo specifico e confronta le tariffe tra paesi. 100% lato client.',
+            ],
         ];
 
         foreach ($translations as $data) {

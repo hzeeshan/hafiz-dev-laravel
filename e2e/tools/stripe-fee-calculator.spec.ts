@@ -55,12 +55,13 @@ test.describe('Stripe Fee Calculator — functional tests', () => {
     await expect(page.locator('#results-section')).toBeHidden();
   });
 
-  test('copy button works when results exist', async ({ page, context }) => {
+  test('copy button works when results exist', async ({ page, context, toolPage }) => {
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
     await page.click('#btn-sample');
     await page.click('#btn-copy');
-    // Check that the button text changed to "Copied!"
-    await expect(page.locator('#copy-text')).toHaveText('Copied!');
+    // Check that the button text changed to "Copied!" / "Copiato!"
+    const expectedText = toolPage.locale === 'it' ? 'Copiato!' : 'Copied!';
+    await expect(page.locator('#copy-text')).toHaveText(expectedText);
   });
 
   test('international card adds surcharge', async ({ page }) => {

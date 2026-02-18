@@ -69,6 +69,7 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'json-to-php-array': 'convertitore-json-php-array',
   'typescript-to-javascript': 'convertitore-typescript-javascript',
   'backward-text-generator': 'generatore-testo-al-contrario',
+  'stripe-fee-calculator': 'calcolatore-commissioni-stripe',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

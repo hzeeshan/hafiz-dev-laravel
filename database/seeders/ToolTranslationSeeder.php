@@ -439,6 +439,13 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Convertitore TypeScript in JavaScript',
                 'description' => 'Rimuovi annotazioni di tipo, interfacce, enum e generici da TypeScript istantaneamente. 100% lato client.',
             ],
+            [
+                'tool_slug' => 'backward-text-generator',
+                'locale' => 'it',
+                'slug' => 'generatore-testo-al-contrario',
+                'name' => 'Generatore di Testo al Contrario',
+                'description' => 'Inverti il tuo testo istantaneamente per social media, Discord e altro. Inversione per caratteri, parole o righe. 100% lato client.',
+            ],
         ];
 
         foreach ($translations as $data) {

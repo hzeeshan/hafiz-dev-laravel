@@ -68,6 +68,7 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'tsv-to-csv': 'convertitore-tsv-csv',
   'json-to-php-array': 'convertitore-json-php-array',
   'typescript-to-javascript': 'convertitore-typescript-javascript',
+  'backward-text-generator': 'generatore-testo-al-contrario',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

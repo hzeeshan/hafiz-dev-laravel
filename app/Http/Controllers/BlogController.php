@@ -35,16 +35,15 @@ class BlogController extends Controller
 
     public function show(Post $post)
     {
-        // Only show published posts
-        if ($post->status !== 'published' ||
-            ($post->published_at && $post->published_at->isFuture())) {
+        if (
+            $post->status !== 'published' ||
+            ($post->published_at && $post->published_at->isFuture())
+        ) {
             abort(404);
         }
 
-        // Increment view count
         $post->increment('views');
 
-        // Get related posts ranked by tag relevance
         $tags = $post->tags ?? [];
 
         $relatedPosts = Post::published()
@@ -54,18 +53,19 @@ class BlogController extends Controller
                     $query->orWhereJsonContains('tags', $tag);
                 }
             })
-            ->when(count($tags) > 0, function ($query) use ($tags) {
-                $relevance = collect($tags)
-                    ->map(fn ($tag) => "(SELECT COUNT(*) FROM json_each(tags) WHERE json_each.value = '" . addslashes($tag) . "')")
-                    ->implode(' + ');
-
-                $query->orderByRaw("({$relevance}) DESC");
+            ->get()
+            ->map(function ($related) use ($tags) {
+                $related->relevance_score = count(array_intersect($tags, $related->tags ?? []));
+                return $related;
             })
-            ->orderBy('published_at', 'desc')
-            ->limit(3)
-            ->get();
+            ->sort(function ($a, $b) {
+                $scoreCompare = $b->relevance_score <=> $a->relevance_score;
+                if ($scoreCompare !== 0) return $scoreCompare;
+                return $b->published_at <=> $a->published_at;
+            })
+            ->take(3)
+            ->values();
 
-        // Fallback: fill remaining slots with recent posts
         if ($relatedPosts->count() < 3) {
             $excludeIds = $relatedPosts->pluck('id')->push($post->id)->all();
             $fillCount = 3 - $relatedPosts->count();

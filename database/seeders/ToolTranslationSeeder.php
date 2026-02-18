@@ -425,6 +425,20 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Convertitore TSV in CSV',
                 'description' => 'Converti valori separati da tab in valori separati da virgola istantaneamente. Virgolette intelligenti e supporto caratteri speciali. 100% lato client.',
             ],
+            [
+                'tool_slug' => 'json-to-php-array',
+                'locale' => 'it',
+                'slug' => 'convertitore-json-php-array',
+                'name' => 'Convertitore JSON in Array PHP',
+                'description' => 'Converti dati JSON in sintassi array PHP istantaneamente. Supporta sintassi breve, virgole finali e assegnazione variabile. 100% lato client.',
+            ],
+            [
+                'tool_slug' => 'typescript-to-javascript',
+                'locale' => 'it',
+                'slug' => 'convertitore-typescript-javascript',
+                'name' => 'Convertitore TypeScript in JavaScript',
+                'description' => 'Rimuovi annotazioni di tipo, interfacce, enum e generici da TypeScript istantaneamente. 100% lato client.',
+            ],
         ];
 
         foreach ($translations as $data) {

@@ -66,6 +66,8 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'remove-line-breaks': 'rimuovi-interruzioni-riga',
   'csv-viewer': 'visualizzatore-csv',
   'tsv-to-csv': 'convertitore-tsv-csv',
+  'json-to-php-array': 'convertitore-json-php-array',
+  'typescript-to-javascript': 'convertitore-typescript-javascript',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

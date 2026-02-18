@@ -585,6 +585,15 @@ class ToolSeeder extends Seeder
                 'position' => 64,
                 'related_tools' => ['stripe-fee-calculator', 'chronological-age-calculator', 'korean-age-calculator', 'json-formatter'],
             ],
+            [
+                'name' => 'Random Emoji Generator',
+                'slug' => 'random-emoji-generator',
+                'description' => 'Generate random emojis by category. Pick from Smileys, Animals, Food, Activities, and more. Copy and paste instantly.',
+                'icon' => '🎲',
+                'category' => 'Generators',
+                'position' => 65,
+                'related_tools' => ['password-generator', 'uuid-generator', 'lorem-ipsum-generator', 'slug-generator'],
+            ],
         ];
 
         foreach ($tools as $tool) {

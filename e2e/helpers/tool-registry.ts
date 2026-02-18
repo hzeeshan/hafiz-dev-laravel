@@ -71,6 +71,7 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'backward-text-generator': 'generatore-testo-al-contrario',
   'stripe-fee-calculator': 'calcolatore-commissioni-stripe',
   'etsy-fee-calculator': 'calcolatore-commissioni-etsy',
+  'random-emoji-generator': 'generatore-emoji-casuali',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

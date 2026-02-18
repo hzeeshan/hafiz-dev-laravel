@@ -411,6 +411,20 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Rimuovi Interruzioni di Riga',
                 'description' => 'Converti testo multiriga in una singola riga con separatore personalizzabile. Gestisce CRLF, LF e CR. 100% lato client.',
             ],
+            [
+                'tool_slug' => 'csv-viewer',
+                'locale' => 'it',
+                'slug' => 'visualizzatore-csv',
+                'name' => 'Visualizzatore CSV Online',
+                'description' => 'Visualizza file CSV in una tabella ordinabile e ricercabile. Incolla o carica dati CSV per una visualizzazione immediata. 100% lato client.',
+            ],
+            [
+                'tool_slug' => 'tsv-to-csv',
+                'locale' => 'it',
+                'slug' => 'convertitore-tsv-csv',
+                'name' => 'Convertitore TSV in CSV',
+                'description' => 'Converti valori separati da tab in valori separati da virgola istantaneamente. Virgolette intelligenti e supporto caratteri speciali. 100% lato client.',
+            ],
         ];
 
         foreach ($translations as $data) {

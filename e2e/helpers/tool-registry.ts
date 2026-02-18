@@ -64,6 +64,8 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'json-to-dart': 'convertitore-json-dart',
   'whitespace-remover': 'rimuovi-spazi-bianchi',
   'remove-line-breaks': 'rimuovi-interruzioni-riga',
+  'csv-viewer': 'visualizzatore-csv',
+  'tsv-to-csv': 'convertitore-tsv-csv',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

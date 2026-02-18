@@ -72,6 +72,12 @@
             background-image: none !important;
             background: #1e1e28;
         }
+        .tool-card-wrapper {
+            transition: opacity 150ms ease;
+        }
+        .tool-card-wrapper.hiding {
+            opacity: 0;
+        }
     </style>
 
     <div class="max-w-6xl mx-auto px-4 py-16 relative z-10">
@@ -92,11 +98,68 @@
             </p>
         </div>
 
+        {{-- Search Bar --}}
+        <div class="mb-4">
+            <div class="relative">
+                <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-light-muted/50 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                <input
+                    type="text"
+                    id="tools-search"
+                    class="w-full bg-darkBg border border-gold/20 rounded-lg pl-12 pr-10 py-3 text-sm text-light placeholder-light-muted/50 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold/30"
+                    placeholder="{{ __('tools.search_placeholder') }}"
+                    spellcheck="false"
+                    autocomplete="off"
+                >
+                <button id="tools-search-clear" class="absolute right-3 top-1/2 -translate-y-1/2 text-light-muted/50 hover:text-light transition-colors hidden cursor-pointer" aria-label="{{ __('tools.clear') }}">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        {{-- Category Filter Pills --}}
+        <div class="mb-4 flex flex-wrap gap-2">
+            <button data-category="all" class="tools-filter-btn px-4 py-2 rounded-lg text-sm font-semibold bg-gold text-darkBg transition-all duration-200 cursor-pointer">{{ __('tools.all_categories') }}</button>
+            @foreach(__('tools.filter_categories') as $key => $label)
+            <button data-category="{{ $key }}" class="tools-filter-btn px-4 py-2 rounded-lg text-sm font-medium border border-gold/30 text-light-muted hover:border-gold/50 hover:text-gold transition-all duration-200 cursor-pointer">{{ $label }}</button>
+            @endforeach
+        </div>
+
+        {{-- Results Counter --}}
+        <div class="text-light-muted text-sm mb-4">
+            {{ __('tools.showing') }} <span id="tools-result-count" class="text-gold font-semibold">{{ $translations->count() }}</span> {{ __('tools.of') }} <span id="tools-total-count">{{ $translations->count() }}</span> {{ __('tools.tools_label') }}
+        </div>
+
         {{-- Tools Grid --}}
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div id="tools-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach($translations as $translation)
+            @php
+                $categoryMap = [
+                    'Converter' => 'converters',
+                    'Data' => 'converters',
+                    'Text' => 'text',
+                    'Text Fun' => 'text',
+                    'Developer' => 'developer',
+                    'Reference' => 'developer',
+                    'Scheduling' => 'developer',
+                    'JSON' => 'developer',
+                    'Testing' => 'developer',
+                    'Generators' => 'generators',
+                    'Generator' => 'generators',
+                    'Security' => 'security',
+                    'Encoding' => 'security',
+                    'Calculators' => 'calculators',
+                    'Date/Time' => 'calculators',
+                    'Design' => 'design',
+                    'Images' => 'images',
+                ];
+                $displayCategory = $categoryMap[$translation->tool->category] ?? 'developer';
+            @endphp
             <a href="/it/strumenti/{{ $translation->slug }}"
-               class="group block">
+               class="tool-card-wrapper group block"
+               data-name="{{ strtolower($translation->name) }}"
+               data-description="{{ strtolower($translation->description) }}"
+               data-category="{{ $displayCategory }}"
+               data-db-category="{{ strtolower($translation->tool->category) }}">
                 <div class="bg-gradient-card p-6 rounded-xl border border-gold/20 shadow-dark-card hover:shadow-dark-card-hover transition-all duration-300 hover:-translate-y-1 h-full">
                     <div class="flex items-start justify-between mb-4">
                         <div class="text-3xl">{{ $translation->tool->icon }}</div>
@@ -113,6 +176,13 @@
                 </div>
             </a>
             @endforeach
+        </div>
+
+        {{-- No Results State --}}
+        <div id="tools-no-results" class="hidden text-center py-16">
+            <svg class="w-16 h-16 mx-auto mb-4 text-light-muted/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            <p class="text-light-muted text-lg mb-2">{{ __('tools.no_results') }}</p>
+            <button id="tools-clear-filters" class="text-gold hover:text-gold-light text-sm font-medium transition-colors cursor-pointer">{{ __('tools.clear_filters') }}</button>
         </div>
 
         {{-- Request Tool Section --}}
@@ -147,4 +217,122 @@
             </div>
         </div>
     </div>
+
+    @push('scripts')
+    <script>
+    (function() {
+        const searchInput = document.getElementById('tools-search');
+        const clearBtn = document.getElementById('tools-search-clear');
+        const filterBtns = document.querySelectorAll('.tools-filter-btn');
+        const grid = document.getElementById('tools-grid');
+        const cards = grid.querySelectorAll('.tool-card-wrapper');
+        const resultCount = document.getElementById('tools-result-count');
+        const totalCount = document.getElementById('tools-total-count');
+        const noResults = document.getElementById('tools-no-results');
+
+        let activeCategory = 'all';
+        let searchQuery = '';
+        let debounceTimer;
+
+        function filterTools() {
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const name = card.dataset.name;
+                const description = card.dataset.description;
+                const category = card.dataset.category;
+                const dbCategory = card.dataset.dbCategory;
+
+                const matchesCategory = activeCategory === 'all' || category === activeCategory;
+                const matchesSearch = !searchQuery ||
+                    name.includes(searchQuery) ||
+                    description.includes(searchQuery) ||
+                    category.includes(searchQuery) ||
+                    dbCategory.includes(searchQuery);
+
+                if (matchesCategory && matchesSearch) {
+                    card.style.display = '';
+                    card.classList.remove('hiding');
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            resultCount.textContent = visibleCount;
+
+            if (visibleCount === 0) {
+                noResults.classList.remove('hidden');
+                grid.classList.add('hidden');
+            } else {
+                noResults.classList.add('hidden');
+                grid.classList.remove('hidden');
+            }
+        }
+
+        function setActiveFilter(category) {
+            activeCategory = category;
+
+            filterBtns.forEach(btn => {
+                if (btn.dataset.category === category) {
+                    btn.className = 'tools-filter-btn px-4 py-2 rounded-lg text-sm font-semibold bg-gold text-darkBg transition-all duration-200 cursor-pointer';
+                } else {
+                    btn.className = 'tools-filter-btn px-4 py-2 rounded-lg text-sm font-medium border border-gold/30 text-light-muted hover:border-gold/50 hover:text-gold transition-all duration-200 cursor-pointer';
+                }
+            });
+
+            if (category === 'all') {
+                history.replaceState(null, '', window.location.pathname);
+            } else {
+                history.replaceState(null, '', '#' + category);
+            }
+
+            filterTools();
+        }
+
+        function clearAll() {
+            searchInput.value = '';
+            searchQuery = '';
+            clearBtn.classList.add('hidden');
+            setActiveFilter('all');
+        }
+
+        searchInput.addEventListener('input', function() {
+            clearTimeout(debounceTimer);
+            const val = this.value;
+
+            clearBtn.classList.toggle('hidden', !val);
+
+            debounceTimer = setTimeout(() => {
+                searchQuery = val.toLowerCase().trim();
+                filterTools();
+            }, 200);
+        });
+
+        clearBtn.addEventListener('click', function() {
+            searchInput.value = '';
+            searchQuery = '';
+            clearBtn.classList.add('hidden');
+            searchInput.focus();
+            filterTools();
+        });
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                setActiveFilter(this.dataset.category);
+            });
+        });
+
+        document.getElementById('tools-clear-filters').addEventListener('click', clearAll);
+
+        const hash = window.location.hash.replace('#', '');
+        if (hash) {
+            const validCategories = Array.from(filterBtns).map(b => b.dataset.category);
+            if (validCategories.includes(hash)) {
+                setActiveFilter(hash);
+            }
+        }
+    })();
+    </script>
+    @endpush
 </x-layout>

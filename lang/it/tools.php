@@ -28,10 +28,26 @@ return [
     'index_keywords' => 'strumenti sviluppatori, strumenti online gratuiti, strumenti web gratis, convertitori online',
     'index_h1' => 'Strumenti Gratuiti per Sviluppatori',
     'index_subtitle' => 'Strumenti online gratuiti e potenti che funzionano direttamente nel tuo browser. Nessuna registrazione, nessun limite di utilizzo, 100% privato.',
-    'search_placeholder' => 'Cerca strumenti...',
+    'search_placeholder' => 'Cerca strumenti per nome, descrizione o categoria...',
     'all_categories' => 'Tutti',
-    'no_results' => 'Nessuno strumento trovato. Prova con un altro termine di ricerca.',
+    'no_results' => 'Nessuno strumento corrisponde alla tua ricerca.',
+    'clear_filters' => 'Cancella filtri',
+    'showing' => 'Mostrando',
+    'of' => 'di',
+    'tools_label' => 'strumenti',
     'tools_count' => ':count strumenti disponibili',
+
+    // Filter categories (simplified groups for filter pills)
+    'filter_categories' => [
+        'converters' => 'Convertitori',
+        'text' => 'Testo',
+        'developer' => 'Sviluppo',
+        'generators' => 'Generatori',
+        'security' => 'Sicurezza',
+        'calculators' => 'Calcolatori',
+        'design' => 'Design',
+        'images' => 'Immagini',
+    ],
 
     // Categories
     'categories' => [

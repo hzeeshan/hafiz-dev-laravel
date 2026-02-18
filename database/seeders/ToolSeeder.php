@@ -567,6 +567,15 @@ class ToolSeeder extends Seeder
                 'position' => 62,
                 'related_tools' => ['upside-down-text-generator', 'bubble-text-generator', 'strikethrough-text-generator', 'small-text-generator'],
             ],
+            [
+                'name' => 'Stripe Fee Calculator',
+                'slug' => 'stripe-fee-calculator',
+                'description' => 'Calculate Stripe processing fees and find out how much to charge to receive a specific amount after fees.',
+                'icon' => '💳',
+                'category' => 'Calculators',
+                'position' => 63,
+                'related_tools' => ['chronological-age-calculator', 'korean-age-calculator', 'json-formatter'],
+            ],
         ];
 
         foreach ($tools as $tool) {

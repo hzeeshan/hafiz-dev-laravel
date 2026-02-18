@@ -594,6 +594,15 @@ class ToolSeeder extends Seeder
                 'position' => 65,
                 'related_tools' => ['password-generator', 'uuid-generator', 'lorem-ipsum-generator', 'slug-generator'],
             ],
+            [
+                'name' => 'Text Repeater',
+                'slug' => 'text-repeater',
+                'description' => 'Repeat any text or string multiple times with custom separators, numbering, and formatting options.',
+                'icon' => '🔁',
+                'category' => 'Text',
+                'position' => 66,
+                'related_tools' => ['word-counter', 'lorem-ipsum-generator', 'whitespace-remover', 'remove-line-breaks'],
+            ],
         ];
 
         foreach ($tools as $tool) {

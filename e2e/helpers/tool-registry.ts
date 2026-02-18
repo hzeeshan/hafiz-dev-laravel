@@ -73,6 +73,7 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'etsy-fee-calculator': 'calcolatore-commissioni-etsy',
   'random-emoji-generator': 'generatore-emoji-casuali',
   'text-repeater': 'ripetitore-testo',
+  'linkedin-font-generator': 'generatore-font-linkedin',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

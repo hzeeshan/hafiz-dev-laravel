@@ -603,6 +603,15 @@ class ToolSeeder extends Seeder
                 'position' => 66,
                 'related_tools' => ['word-counter', 'lorem-ipsum-generator', 'whitespace-remover', 'remove-line-breaks'],
             ],
+            [
+                'name' => 'LinkedIn Font Generator',
+                'slug' => 'linkedin-font-generator',
+                'description' => 'Create bold, italic, script, and fancy Unicode fonts for LinkedIn posts, profiles, and comments.',
+                'icon' => '💼',
+                'category' => 'Text',
+                'position' => 67,
+                'related_tools' => ['bubble-text-generator', 'small-text-generator', 'upside-down-text-generator', 'strikethrough-text-generator'],
+            ],
         ];
 
         foreach ($tools as $tool) {

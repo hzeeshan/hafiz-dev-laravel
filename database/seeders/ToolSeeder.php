@@ -576,6 +576,15 @@ class ToolSeeder extends Seeder
                 'position' => 63,
                 'related_tools' => ['chronological-age-calculator', 'korean-age-calculator', 'json-formatter'],
             ],
+            [
+                'name' => 'Etsy Fee Calculator',
+                'slug' => 'etsy-fee-calculator',
+                'description' => 'Calculate Etsy seller fees including listing, transaction, processing, and Offsite Ads fees. See your net profit per sale.',
+                'icon' => '🏪',
+                'category' => 'Calculators',
+                'position' => 64,
+                'related_tools' => ['stripe-fee-calculator', 'chronological-age-calculator', 'korean-age-calculator', 'json-formatter'],
+            ],
         ];
 
         foreach ($tools as $tool) {

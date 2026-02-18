@@ -70,6 +70,7 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'typescript-to-javascript': 'convertitore-typescript-javascript',
   'backward-text-generator': 'generatore-testo-al-contrario',
   'stripe-fee-calculator': 'calcolatore-commissioni-stripe',
+  'etsy-fee-calculator': 'calcolatore-commissioni-etsy',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

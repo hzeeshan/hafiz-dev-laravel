@@ -630,6 +630,15 @@ class ToolSeeder extends Seeder
                 'position' => 69,
                 'related_tools' => ['stripe-fee-calculator', 'etsy-fee-calculator', 'chronological-age-calculator', 'korean-age-calculator'],
             ],
+            [
+                'name' => 'Triple Discount Calculator',
+                'slug' => 'triple-discount-calculator',
+                'description' => 'Apply three successive discounts to any price and see the final price, total savings, and combined discount percentage.',
+                'icon' => '🏷️',
+                'category' => 'Calculators',
+                'position' => 70,
+                'related_tools' => ['double-discount-calculator', 'stripe-fee-calculator', 'etsy-fee-calculator', 'chronological-age-calculator'],
+            ],
         ];
 
         foreach ($tools as $tool) {

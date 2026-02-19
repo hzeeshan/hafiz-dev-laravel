@@ -75,6 +75,8 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'text-repeater': 'ripetitore-testo',
   'linkedin-font-generator': 'generatore-font-linkedin',
   'bold-italic-text-generator': 'generatore-testo-grassetto-corsivo',
+  'double-discount-calculator': 'calcolatore-doppio-sconto',
+  'triple-discount-calculator': 'calcolatore-triplo-sconto',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

@@ -18,6 +18,9 @@
         nothingToCopy: ds.nothingToCopy || 'Nothing to copy. Write some Markdown first.',
         nothingToDownload: ds.nothingToDownload || 'Nothing to download. Write some Markdown first.',
         downloaded: ds.downloaded || 'Markdown file downloaded!',
+        focus: ds.focus || 'Focus',
+        exitFocus: ds.exitFocus || 'Exit',
+        escToExit: ds.escToExit || 'Esc to exit',
     };
 
     // DOM Elements
@@ -52,6 +55,15 @@
     const btnQuote = document.getElementById('btn-quote');
     const btnHr = document.getElementById('btn-hr');
     const btnTable = document.getElementById('btn-table');
+
+    // Focus Mode elements
+    const btnFocus = document.getElementById('btn-focus');
+    const focusIconExpand = document.getElementById('focus-icon-expand');
+    const focusIconCollapse = document.getElementById('focus-icon-collapse');
+    const focusLabel = document.getElementById('focus-label');
+    // Find the tool card container: either explicit ID or walk up from editor
+    const toolCard = document.getElementById('markdown-tool-card')
+        || markdownInput.closest('.bg-gradient-card');
 
     // Local Storage Key
     const STORAGE_KEY = 'markdownPreviewContent';
@@ -334,6 +346,89 @@
             this.value = this.value.substring(0, start) + '    ' + this.value.substring(end);
             this.selectionStart = this.selectionEnd = start + 4;
             this.dispatchEvent(new Event('input'));
+        }
+    });
+
+    // ===== Focus Mode =====
+
+    let isFocusMode = false;
+
+    // Find privacy banner inside the tool card (works for both EN and IT templates)
+    const privacyBanner = toolCard
+        ? (document.getElementById('focus-privacy-banner')
+            || toolCard.querySelector('[class*="bg-green"]'))
+        : null;
+
+    // Elements to hide in focus mode (navbar, footer, feedback button)
+    const siteNav = document.querySelector('nav.fixed');
+    const siteFooter = document.querySelector('footer');
+    const feedbackBtn = document.getElementById('feedback-btn');
+    // The parent wrapper that creates a stacking context (z-10)
+    const zParent = toolCard ? toolCard.closest('.relative.z-10') : null;
+
+    function toggleFocusMode() {
+        isFocusMode = !isFocusMode;
+
+        if (isFocusMode) {
+            // Hide site chrome so focus mode is truly fullscreen
+            if (siteNav) siteNav.style.display = 'none';
+            if (siteFooter) siteFooter.style.display = 'none';
+            if (feedbackBtn) feedbackBtn.style.display = 'none';
+
+            // Fix stacking context: bump parent z-index above everything
+            if (zParent) zParent.style.zIndex = '9999';
+
+            // Enter focus mode
+            toolCard.classList.add('focus-mode');
+            document.body.style.overflow = 'hidden';
+
+            // Hide privacy banner in focus mode
+            if (privacyBanner) privacyBanner.style.display = 'none';
+
+            // Update button
+            focusIconExpand.classList.add('hidden');
+            focusIconCollapse.classList.remove('hidden');
+            focusLabel.textContent = STRINGS.exitFocus;
+        } else {
+            // Exit focus mode
+            toolCard.classList.remove('focus-mode');
+            document.body.style.overflow = '';
+
+            // Restore site chrome
+            if (siteNav) siteNav.style.display = '';
+            if (siteFooter) siteFooter.style.display = '';
+            if (feedbackBtn) feedbackBtn.style.display = '';
+
+            // Restore parent z-index
+            if (zParent) zParent.style.zIndex = '';
+
+            // Show privacy banner again
+            if (privacyBanner) privacyBanner.style.display = '';
+
+            // Update button
+            focusIconExpand.classList.remove('hidden');
+            focusIconCollapse.classList.add('hidden');
+            focusLabel.textContent = STRINGS.focus;
+        }
+
+        // Re-focus the editor
+        markdownInput.focus();
+    }
+
+    if (btnFocus) {
+        btnFocus.addEventListener('click', toggleFocusMode);
+    }
+
+    // Escape key to exit focus mode
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && isFocusMode) {
+            e.preventDefault();
+            toggleFocusMode();
+        }
+        // F11 to toggle focus mode (prevent browser fullscreen)
+        if (e.key === 'F11') {
+            e.preventDefault();
+            toggleFocusMode();
         }
     });
 

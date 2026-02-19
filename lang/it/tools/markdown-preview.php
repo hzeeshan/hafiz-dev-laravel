@@ -37,6 +37,8 @@ return [
     'download_title' => 'Scarica file .md',
     'clear' => 'Cancella',
     'clear_title' => 'Cancella',
+    'focus' => 'Focus',
+    'focus_title' => 'Modalità Focus (F11)',
 
     // Status bar
     'words' => 'Parole',
@@ -143,5 +145,8 @@ console.log(saluto);
         'nothing_to_copy' => 'Niente da copiare. Scrivi prima del Markdown.',
         'nothing_to_download' => 'Niente da scaricare. Scrivi prima del Markdown.',
         'downloaded' => 'File Markdown scaricato!',
+        'focus' => 'Focus',
+        'exit_focus' => 'Esci',
+        'esc_to_exit' => 'Esc per uscire',
     ],
 ];

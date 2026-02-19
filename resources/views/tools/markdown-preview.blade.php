@@ -232,6 +232,69 @@
         .split-divider:hover {
             background: rgba(212, 168, 83, 0.5);
         }
+
+        /* Focus Mode */
+        .focus-mode {
+            position: fixed !important;
+            inset: 0;
+            z-index: 9999;
+            background: #0d1117;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: none !important;
+            border-radius: 0 !important;
+            margin: 0 !important;
+            box-shadow: none !important;
+        }
+        .focus-mode .focus-toolbar {
+            flex-shrink: 0;
+        }
+        .focus-mode .focus-status-bar {
+            flex-shrink: 0;
+        }
+        .focus-mode .focus-notifications {
+            flex-shrink: 0;
+        }
+        .focus-mode .focus-editor-area {
+            flex: 1;
+            min-height: 0;
+            display: flex;
+            flex-direction: row;
+            gap: 0;
+        }
+        .focus-mode .focus-editor-area .editor-panel,
+        .focus-mode .focus-editor-area .preview-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            min-height: 0;
+        }
+        .focus-mode .focus-editor-area label {
+            flex-shrink: 0;
+        }
+        /* Make the flex-1 wrapper inside editor-panel also stretch */
+        .focus-mode .focus-editor-area .editor-panel > div {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+        }
+        .focus-mode .focus-editor-area .editor-textarea {
+            flex: 1;
+            height: auto !important;
+            min-height: 0;
+        }
+        .focus-mode .focus-editor-area .markdown-body {
+            flex: 1;
+            height: auto !important;
+            min-height: 0;
+        }
+        .focus-mode .focus-editor-area .split-divider {
+            display: block !important;
+        }
     </style>
     @endpush
 
@@ -257,12 +320,14 @@
             </div>
 
             {{-- Main Tool Card --}}
-            <div class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card p-6 mb-8">
+            <div id="markdown-tool-card" class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card p-6 mb-8">
 
-                <x-tool-privacy-banner />
+                <div id="focus-privacy-banner">
+                    <x-tool-privacy-banner />
+                </div>
 
                 {{-- Toolbar --}}
-                <div class="flex flex-wrap items-center gap-2 mb-4">
+                <div class="focus-toolbar flex flex-wrap items-center gap-2 mb-4">
                     {{-- Formatting Buttons --}}
                     <div class="flex items-center gap-1 p-1 bg-darkBg rounded-lg border border-gold/10">
                         <button id="btn-bold" class="toolbar-btn p-2 text-light-muted hover:text-gold hover:bg-gold/10 rounded transition-all" title="Bold (Ctrl+B)">
@@ -344,11 +409,19 @@
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                             Clear
                         </button>
+
+                        <div class="h-6 w-px bg-gold/20"></div>
+
+                        <button id="btn-focus" class="px-3 py-1.5 bg-gold/10 border border-gold/50 text-gold rounded-lg hover:bg-gold/20 transition-all duration-300 flex items-center gap-2 text-sm cursor-pointer" title="Focus Mode (F11)">
+                            <svg id="focus-icon-expand" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"></path></svg>
+                            <svg id="focus-icon-collapse" class="w-4 h-4 hidden" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 14h6v6"></path><path d="M20 10h-6V4"></path><path d="M14 10l7-7"></path><path d="M3 21l7-7"></path></svg>
+                            <span id="focus-label">Focus</span>
+                        </button>
                     </div>
                 </div>
 
                 {{-- Status Bar --}}
-                <div class="flex flex-wrap items-center justify-between gap-4 mb-4 p-3 rounded-lg bg-darkBg border border-gold/10 text-sm">
+                <div class="focus-status-bar flex flex-wrap items-center justify-between gap-4 mb-4 p-3 rounded-lg bg-darkBg border border-gold/10 text-sm">
                     <div class="flex items-center gap-4 text-light-muted">
                         <span>Words: <span id="word-count" class="text-light">0</span></span>
                         <span>Characters: <span id="char-count" class="text-light">0</span></span>
@@ -364,9 +437,9 @@
                 </div>
 
                 {{-- Split View Editor --}}
-                <div class="flex flex-col lg:flex-row gap-4 lg:gap-0">
+                <div class="focus-editor-area flex flex-col lg:flex-row gap-4 lg:gap-0">
                     {{-- Editor Panel --}}
-                    <div class="flex-1 flex flex-col min-w-0">
+                    <div class="editor-panel flex-1 flex flex-col min-w-0">
                         <label class="text-light font-semibold mb-2 flex items-center gap-2">
                             <svg class="w-4 h-4 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                             Markdown Editor
@@ -401,7 +474,7 @@ console.log(greeting);
                     <div class="hidden lg:block split-divider mx-2"></div>
 
                     {{-- Preview Panel --}}
-                    <div class="flex-1 flex flex-col min-w-0">
+                    <div class="preview-panel flex-1 flex flex-col min-w-0">
                         <label class="text-light font-semibold mb-2 flex items-center gap-2">
                             <svg class="w-4 h-4 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
                             Preview
@@ -413,14 +486,14 @@ console.log(greeting);
                 </div>
 
                 {{-- Success/Error Notifications --}}
-                <div id="success-notification" class="hidden mt-4 p-3 rounded-lg bg-green-500/10 border border-green-500/30">
+                <div id="success-notification" class="focus-notifications hidden mt-4 p-3 rounded-lg bg-green-500/10 border border-green-500/30">
                     <div class="flex items-center gap-2">
                         <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                         <span id="success-message" class="text-green-400 text-sm"></span>
                     </div>
                 </div>
 
-                <div id="error-notification" class="hidden mt-4 p-3 rounded-lg bg-red-500/10 border border-red-500/30">
+                <div id="error-notification" class="focus-notifications hidden mt-4 p-3 rounded-lg bg-red-500/10 border border-red-500/30">
                     <div class="flex items-center gap-2">
                         <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         <span id="error-message" class="text-red-400 text-sm"></span>

@@ -2,6 +2,17 @@
 (function() {
     'use strict';
 
+    var stringsEl = document.getElementById('tool-strings');
+    var S = {
+        enter_valid_price: stringsEl?.dataset.enterValidPrice || 'Please enter a valid item price greater than 0.',
+        calculate_first_copy: stringsEl?.dataset.calculateFirstCopy || 'Calculate fees first before copying.',
+        calculate_first_download: stringsEl?.dataset.calculateFirstDownload || 'Calculate fees first before downloading.',
+        copied: stringsEl?.dataset.copied || 'Results copied to clipboard!',
+        downloaded: stringsEl?.dataset.downloaded || 'Downloaded ebay-paypal-fee-calculation.txt',
+        copied_btn: stringsEl?.dataset.copiedBtn || 'Copied!',
+        copy_btn: stringsEl?.dataset.copyBtn || 'Copy',
+    };
+
     // DOM elements
     var categorySelect = document.getElementById('opt-category');
     var processorSelect = document.getElementById('opt-processor');
@@ -110,7 +121,7 @@
     function calculate() {
         var itemPrice = parseFloat(inputItemPrice.value);
         if (!itemPrice || itemPrice <= 0) {
-            showError('Please enter a valid item price greater than 0.');
+            showError(S.enter_valid_price);
             return;
         }
 
@@ -289,16 +300,16 @@
 
     btnCopy.addEventListener('click', function() {
         if (resultsSection.classList.contains('hidden')) {
-            showError('Calculate fees first before copying.');
+            showError(S.calculate_first_copy);
             return;
         }
         navigator.clipboard.writeText(getResultText()).then(function() {
-            copyText.textContent = 'Copied!';
+            copyText.textContent = S.copied_btn;
             copyIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>';
             copyIcon.classList.add('text-green-400');
-            showSuccess('Results copied to clipboard!');
+            showSuccess(S.copied);
             setTimeout(function() {
-                copyText.textContent = 'Copy';
+                copyText.textContent = S.copy_btn;
                 copyIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>';
                 copyIcon.classList.remove('text-green-400');
             }, 2000);
@@ -307,7 +318,7 @@
 
     btnDownload.addEventListener('click', function() {
         if (resultsSection.classList.contains('hidden')) {
-            showError('Calculate fees first before downloading.');
+            showError(S.calculate_first_download);
             return;
         }
         var blob = new Blob([getResultText()], { type: 'text/plain' });
@@ -317,7 +328,7 @@
         a.download = 'ebay-paypal-fee-calculation.txt';
         a.click();
         URL.revokeObjectURL(url);
-        showSuccess('Downloaded ebay-paypal-fee-calculation.txt');
+        showSuccess(S.downloaded);
     });
 
     btnClear.addEventListener('click', function() {

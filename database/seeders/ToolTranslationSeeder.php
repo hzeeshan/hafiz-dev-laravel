@@ -488,6 +488,34 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Generatore Testo Grassetto Corsivo',
                 'description' => 'Crea testo in grassetto, corsivo e grassetto corsivo Unicode per social media, Discord e altro. Copia e incolla il testo stilizzato ovunque.',
             ],
+            [
+                'tool_slug' => 'double-discount-calculator',
+                'locale' => 'it',
+                'slug' => 'calcolatore-doppio-sconto',
+                'name' => 'Calcolatore Doppio Sconto',
+                'description' => 'Calcola due sconti successivi su qualsiasi prezzo. Scopri il prezzo finale, il risparmio totale e la percentuale di sconto combinata.',
+            ],
+            [
+                'tool_slug' => 'triple-discount-calculator',
+                'locale' => 'it',
+                'slug' => 'calcolatore-triplo-sconto',
+                'name' => 'Calcolatore Triplo Sconto',
+                'description' => 'Applica tre sconti successivi a qualsiasi prezzo. Visualizza il prezzo finale, il risparmio totale e la percentuale di sconto combinata.',
+            ],
+            [
+                'tool_slug' => 'ebay-paypal-fee-calculator',
+                'locale' => 'it',
+                'slug' => 'calcolatore-commissioni-ebay-paypal',
+                'name' => 'Calcolatore Commissioni eBay e PayPal',
+                'description' => 'Calcola le commissioni eBay sul valore finale e le fee PayPal. Scopri le commissioni totali, il profitto netto e il margine per vendita.',
+            ],
+            [
+                'tool_slug' => 'random-word-generator-for-songs',
+                'locale' => 'it',
+                'slug' => 'generatore-parole-casuali-canzoni',
+                'name' => 'Generatore di Parole Casuali per Canzoni',
+                'description' => 'Genera parole casuali per canzoni con temi, rime e vocabolario curato. Ispirazione istantanea per songwriter e parolieri.',
+            ],
         ];
 
         foreach ($translations as $data) {

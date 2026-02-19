@@ -32,22 +32,24 @@ test.describe('Random Word Generator for Songs — functional tests', () => {
     expect(output).toBe('');
   });
 
-  test('copy button works when output exists', async ({ page, context }) => {
+  test('copy button works when output exists', async ({ page, context, toolPage }) => {
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
     await page.click('#btn-sample');
     await page.click('#btn-copy');
-    // Verify button text changes to "Copied!"
-    await expect(page.locator('#btn-copy')).toContainText('Copied!', { timeout: 3000 });
+    // Verify button text changes to "Copied!" / "Copiato!"
+    const expectedText = toolPage.locale === 'it' ? 'Copiato!' : 'Copied!';
+    await expect(page.locator('#btn-copy')).toContainText(expectedText, { timeout: 3000 });
   });
 
-  test('theme selection changes word pool', async ({ page }) => {
+  test('theme selection changes word pool', async ({ page, toolPage }) => {
     await page.selectOption('#word-theme', 'love');
     await page.click('#btn-generate');
     const output = await page.inputValue('#word-output');
     expect(output.length).toBeGreaterThan(0);
 
     // Stats should show theme
-    await expect(page.locator('#stat-theme')).toContainText('Love');
+    const expectedTheme = toolPage.locale === 'it' ? 'Amore' : 'Love';
+    await expect(page.locator('#stat-theme')).toContainText(expectedTheme);
   });
 
   test('word count controls number of words', async ({ page }) => {

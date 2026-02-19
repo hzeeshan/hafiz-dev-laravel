@@ -78,6 +78,7 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'double-discount-calculator': 'calcolatore-doppio-sconto',
   'triple-discount-calculator': 'calcolatore-triplo-sconto',
   'ebay-paypal-fee-calculator': 'calcolatore-commissioni-ebay-paypal',
+  'random-word-generator-for-songs': 'generatore-parole-casuali-canzoni',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

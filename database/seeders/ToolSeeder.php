@@ -648,6 +648,15 @@ class ToolSeeder extends Seeder
                 'position' => 71,
                 'related_tools' => ['stripe-fee-calculator', 'etsy-fee-calculator', 'double-discount-calculator', 'triple-discount-calculator'],
             ],
+            [
+                'name' => 'Random Word Generator for Songs',
+                'slug' => 'random-word-generator-for-songs',
+                'description' => 'Generate random songwriting words by theme with rhyme suggestions. Get instant lyric inspiration for any genre.',
+                'icon' => '🎵',
+                'category' => 'Generators',
+                'position' => 72,
+                'related_tools' => ['random-emoji-generator', 'lorem-ipsum-generator', 'password-generator', 'word-counter'],
+            ],
         ];
 
         foreach ($tools as $tool) {

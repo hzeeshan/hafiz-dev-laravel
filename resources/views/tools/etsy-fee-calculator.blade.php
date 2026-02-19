@@ -102,7 +102,7 @@
             <div class="text-center mb-10">
                 <h1 class="text-3xl md:text-4xl font-bold text-light mb-4">Etsy Fee Calculator</h1>
                 <p class="text-light-muted max-w-2xl mx-auto">
-                    Calculate all Etsy seller fees instantly — listing fees, transaction fees, payment processing, and Offsite Ads. See your net profit per sale.
+                    Calculate all Etsy seller fees instantly. Listing fees, transaction fees, payment processing, and Offsite Ads. See your net profit per sale.
                 </p>
             </div>
 
@@ -287,7 +287,7 @@
 
                     {{-- Quick Comparison Table --}}
                     <div class="bg-darkBg rounded-lg p-4 border border-gold/10">
-                        <div class="text-xs text-light-muted mb-3 uppercase tracking-wider">Quick Comparison — Common Price Points</div>
+                        <div class="text-xs text-light-muted mb-3 uppercase tracking-wider">Quick Comparison: Common Price Points</div>
                         <div class="overflow-x-auto">
                             <table class="w-full text-sm">
                                 <thead>
@@ -337,7 +337,7 @@
                 <div class="bg-gradient-card p-6 rounded-xl border border-gold/20 shadow-dark-card">
                     <div class="text-gold text-2xl mb-3">📊</div>
                     <h3 class="text-lg font-semibold text-light mb-2">Complete Fee Breakdown</h3>
-                    <p class="text-light-muted text-sm">See every Etsy fee itemized — listing fees, transaction fees, payment processing, and Offsite Ads — so you know exactly where your money goes.</p>
+                    <p class="text-light-muted text-sm">See every Etsy fee itemized: listing fees, transaction fees, payment processing, and Offsite Ads. You'll know exactly where your money goes.</p>
                 </div>
                 <div class="bg-gradient-card p-6 rounded-xl border border-gold/20 shadow-dark-card">
                     <div class="text-gold text-2xl mb-3">💰</div>
@@ -364,7 +364,7 @@
                             <svg class="w-5 h-5 text-gold transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </summary>
                         <div class="p-4 text-light-muted text-sm leading-relaxed">
-                            Etsy charges sellers several fees on each sale. The <strong>listing fee</strong> is $0.20 per item and renews every 4 months or when the item sells. The <strong>transaction fee</strong> is 6.5% of the total sale price including shipping. The <strong>payment processing fee</strong> varies by country — in the US it's 3% + $0.25 per order. If your sale came through Etsy's Offsite Ads, there's an additional 15% fee (or 12% for sellers earning $10K+/year).
+                            Etsy charges sellers several fees on each sale. The <strong>listing fee</strong> is $0.20 per item and renews every 4 months or when the item sells. The <strong>transaction fee</strong> is 6.5% of the total sale price including shipping. The <strong>payment processing fee</strong> varies by country; in the US it's 3% + $0.25 per order. If your sale came through Etsy's Offsite Ads, there's an additional 15% fee (or 12% for sellers earning $10K+/year).
                         </div>
                     </details>
                     <details class="group">
@@ -373,7 +373,7 @@
                             <svg class="w-5 h-5 text-gold transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </summary>
                         <div class="p-4 text-light-muted text-sm leading-relaxed">
-                            Yes, Etsy charges the 6.5% transaction fee on the total order amount, which includes both the item price and shipping cost. The payment processing fee is also calculated on the total amount. This means offering "free shipping" by including it in the item price doesn't change your total fees — the fee percentage is applied to the same total either way.
+                            Yes, Etsy charges the 6.5% transaction fee on the total order amount, which includes both the item price and shipping cost. The payment processing fee is also calculated on the total amount. This means offering "free shipping" by including it in the item price doesn't change your total fees. The fee percentage is applied to the same total either way.
                         </div>
                     </details>
                     <details class="group">
@@ -400,7 +400,7 @@
                             <svg class="w-5 h-5 text-gold transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </summary>
                         <div class="p-4 text-light-muted text-sm leading-relaxed">
-                            For a typical US seller without Offsite Ads, total Etsy fees are approximately 10-13% of your sale price. This includes the $0.20 listing fee, 6.5% transaction fee, and 3% + $0.25 payment processing fee. With Offsite Ads (15%), total fees can reach 25-28%. The exact percentage depends on your item price — higher-priced items have a lower effective fee rate because the fixed fees ($0.20 + $0.25) become a smaller proportion.
+                            For a typical US seller without Offsite Ads, total Etsy fees are approximately 10-13% of your sale price. This includes the $0.20 listing fee, 6.5% transaction fee, and 3% + $0.25 payment processing fee. With Offsite Ads (15%), total fees can reach 25-28%. The exact percentage depends on your item price. Higher-priced items have a lower effective fee rate because the fixed fees ($0.20 + $0.25) become a smaller proportion.
                         </div>
                     </details>
                 </div>

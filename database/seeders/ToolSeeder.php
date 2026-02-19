@@ -612,6 +612,15 @@ class ToolSeeder extends Seeder
                 'position' => 67,
                 'related_tools' => ['bubble-text-generator', 'small-text-generator', 'upside-down-text-generator', 'strikethrough-text-generator'],
             ],
+            [
+                'name' => 'Bold Italic Text Generator',
+                'slug' => 'bold-italic-text-generator',
+                'description' => 'Convert text to bold, italic, or bold italic Unicode characters for social media, Discord, and more.',
+                'icon' => '📝',
+                'category' => 'Text',
+                'position' => 68,
+                'related_tools' => ['linkedin-font-generator', 'bubble-text-generator', 'strikethrough-text-generator', 'small-text-generator'],
+            ],
         ];
 
         foreach ($tools as $tool) {

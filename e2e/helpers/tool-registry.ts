@@ -74,6 +74,7 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'random-emoji-generator': 'generatore-emoji-casuali',
   'text-repeater': 'ripetitore-testo',
   'linkedin-font-generator': 'generatore-font-linkedin',
+  'bold-italic-text-generator': 'generatore-testo-grassetto-corsivo',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

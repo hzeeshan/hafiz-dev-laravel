@@ -1,7 +1,16 @@
 @push('scripts')
 <script>
 (function() {
-    const SAMPLE_TEXT = 'Make your text stand out with bold and italic styles!\n\nPerfect for social media posts, bios, and comments.';
+    const stringsEl = document.getElementById('tool-strings');
+    const S = {
+        sample_text: stringsEl?.dataset.sampleText || 'Make your text stand out with bold and italic styles!\n\nPerfect for social media posts, bios, and comments.',
+        preview_default: stringsEl?.dataset.previewDefault || 'Hello World',
+        nothing_to_copy: stringsEl?.dataset.nothingToCopy || 'Nothing to copy. Type some text first.',
+        copied_btn: stringsEl?.dataset.copiedBtn || 'Copied!',
+        copied: stringsEl?.dataset.copied || 'Copied to clipboard!',
+        nothing_to_download: stringsEl?.dataset.nothingToDownload || 'Nothing to download. Type some text first.',
+        downloaded: stringsEl?.dataset.downloaded || 'Downloaded as bold-italic-text.txt',
+    };
 
     // Unicode Mathematical Alphanumeric Symbols mappings
     function buildRange(upperStart, lowerStart, digitStart) {
@@ -77,7 +86,7 @@
         if (!text) {
             textOutput.value = '';
             statsBar.classList.add('hidden');
-            updatePreviews('Hello World');
+            updatePreviews(S.preview_default);
             return;
         }
 
@@ -141,14 +150,14 @@
     btnCopy.addEventListener('click', function() {
         const output = textOutput.value;
         if (!output) {
-            showError('Nothing to copy. Type some text first.');
+            showError(S.nothing_to_copy);
             return;
         }
         navigator.clipboard.writeText(output).then(() => {
             const orig = this.innerHTML;
-            this.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Copied!';
+            this.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> ' + S.copied_btn;
             this.classList.add('text-green-400', 'border-green-400');
-            showSuccess('Copied to clipboard!');
+            showSuccess(S.copied);
             setTimeout(() => {
                 this.innerHTML = orig;
                 this.classList.remove('text-green-400', 'border-green-400');
@@ -159,7 +168,7 @@
     btnDownload.addEventListener('click', function() {
         const output = textOutput.value;
         if (!output) {
-            showError('Nothing to download. Type some text first.');
+            showError(S.nothing_to_download);
             return;
         }
         const blob = new Blob([output], { type: 'text/plain' });
@@ -171,11 +180,11 @@
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
-        showSuccess('Downloaded as bold-italic-text.txt');
+        showSuccess(S.downloaded);
     });
 
     btnSample.addEventListener('click', function() {
-        textInput.value = SAMPLE_TEXT;
+        textInput.value = S.sample_text;
         convert();
     });
 
@@ -185,11 +194,11 @@
         statsBar.classList.add('hidden');
         successNotification.classList.add('hidden');
         errorNotification.classList.add('hidden');
-        updatePreviews('Hello World');
+        updatePreviews(S.preview_default);
     });
 
     // Initialize previews
-    updatePreviews('Hello World');
+    updatePreviews(S.preview_default);
 })();
 </script>
 @endpush

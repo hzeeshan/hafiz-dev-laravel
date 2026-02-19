@@ -1,5 +1,21 @@
 <script>
 (function() {
+    // i18n strings from #tool-strings data attributes (with English defaults)
+    const stringsEl = document.getElementById('tool-strings');
+    const S = {
+        enter_text: stringsEl?.dataset.enterText || 'Please enter some text to repeat.',
+        invalid_count: stringsEl?.dataset.invalidCount || 'Please enter a valid number of repetitions (1 or more).',
+        max_exceeded: stringsEl?.dataset.maxExceeded || 'Maximum 10,000 repetitions allowed.',
+        repeated_success: stringsEl?.dataset.repeatedSuccess || 'Text repeated {count} times!',
+        nothing_to_copy: stringsEl?.dataset.nothingToCopy || 'Nothing to copy. Repeat some text first.',
+        copied_btn: stringsEl?.dataset.copiedBtn || 'Copied!',
+        copied: stringsEl?.dataset.copied || 'Copied to clipboard!',
+        copy_fail: stringsEl?.dataset.copyFail || 'Failed to copy to clipboard.',
+        nothing_to_download: stringsEl?.dataset.nothingToDownload || 'Nothing to download. Repeat some text first.',
+        downloaded: stringsEl?.dataset.downloaded || 'Downloaded as repeated-text.txt',
+        sample_text: stringsEl?.dataset.sampleText || 'Hello, World!',
+    };
+
     // DOM Elements
     const inputText = document.getElementById('input-text');
     const outputText = document.getElementById('output-text');
@@ -22,9 +38,6 @@
     const successMessage = document.getElementById('success-message');
     const errorNotification = document.getElementById('error-notification');
     const errorMessage = document.getElementById('error-message');
-
-    // Sample text
-    const SAMPLE_TEXT = 'Hello, World!';
 
     // Get the separator string from the select value
     function getSeparator() {
@@ -67,17 +80,17 @@
     function repeatText() {
         const text = inputText.value;
         if (!text) {
-            showError('Please enter some text to repeat.');
+            showError(S.enter_text);
             return;
         }
 
         let count = parseInt(repeatCount.value, 10);
         if (isNaN(count) || count < 1) {
-            showError('Please enter a valid number of repetitions (1 or more).');
+            showError(S.invalid_count);
             return;
         }
         if (count > 10000) {
-            showError('Maximum 10,000 repetitions allowed.');
+            showError(S.max_exceeded);
             return;
         }
 
@@ -107,13 +120,13 @@
         statOutputSize.textContent = formatSize(outputSize);
 
         statsBar.classList.remove('hidden');
-        showSuccess('Text repeated ' + count + ' times!');
+        showSuccess(S.repeated_success.replace('{count}', count));
     }
 
     // Copy to clipboard
     async function copyOutput() {
         if (!outputText.value) {
-            showError('Nothing to copy. Repeat some text first.');
+            showError(S.nothing_to_copy);
             return;
         }
 
@@ -121,7 +134,7 @@
             await navigator.clipboard.writeText(outputText.value);
 
             const originalHtml = btnCopy.innerHTML;
-            btnCopy.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Copied!';
+            btnCopy.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> ' + S.copied_btn;
             btnCopy.classList.add('text-green-400', 'border-green-400');
 
             setTimeout(() => {
@@ -129,16 +142,16 @@
                 btnCopy.classList.remove('text-green-400', 'border-green-400');
             }, 2000);
 
-            showSuccess('Copied to clipboard!');
+            showSuccess(S.copied);
         } catch (err) {
-            showError('Failed to copy to clipboard.');
+            showError(S.copy_fail);
         }
     }
 
     // Download as .txt file
     function downloadOutput() {
         if (!outputText.value) {
-            showError('Nothing to download. Repeat some text first.');
+            showError(S.nothing_to_download);
             return;
         }
 
@@ -152,12 +165,12 @@
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
 
-        showSuccess('Downloaded as repeated-text.txt');
+        showSuccess(S.downloaded);
     }
 
     // Load sample text
     function loadSample() {
-        inputText.value = SAMPLE_TEXT;
+        inputText.value = S.sample_text;
         repeatCount.value = '5';
         separatorSelect.value = 'newline';
         customSeparatorWrapper.classList.add('hidden');

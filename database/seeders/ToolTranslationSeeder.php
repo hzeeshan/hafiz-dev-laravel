@@ -467,6 +467,27 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Generatore di Emoji Casuali',
                 'description' => 'Genera emoji casuali per categoria, copia negli appunti e usa per social media, Slack, Discord e altro. 100% lato client.',
             ],
+            [
+                'tool_slug' => 'text-repeater',
+                'locale' => 'it',
+                'slug' => 'ripetitore-testo',
+                'name' => 'Ripetitore di Testo',
+                'description' => 'Ripeti qualsiasi testo o stringa più volte istantaneamente. Aggiungi separatori, numerazione e formattazione personalizzata. 100% lato client.',
+            ],
+            [
+                'tool_slug' => 'linkedin-font-generator',
+                'locale' => 'it',
+                'slug' => 'generatore-font-linkedin',
+                'name' => 'Generatore di Font per LinkedIn',
+                'description' => 'Crea testo in grassetto, corsivo, script e font Unicode speciali per post, profili e commenti LinkedIn. Copia e incolla subito.',
+            ],
+            [
+                'tool_slug' => 'bold-italic-text-generator',
+                'locale' => 'it',
+                'slug' => 'generatore-testo-grassetto-corsivo',
+                'name' => 'Generatore Testo Grassetto Corsivo',
+                'description' => 'Crea testo in grassetto, corsivo e grassetto corsivo Unicode per social media, Discord e altro. Copia e incolla il testo stilizzato ovunque.',
+            ],
         ];
 
         foreach ($translations as $data) {

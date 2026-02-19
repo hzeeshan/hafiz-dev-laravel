@@ -639,6 +639,15 @@ class ToolSeeder extends Seeder
                 'position' => 70,
                 'related_tools' => ['double-discount-calculator', 'stripe-fee-calculator', 'etsy-fee-calculator', 'chronological-age-calculator'],
             ],
+            [
+                'name' => 'eBay PayPal Fee Calculator',
+                'slug' => 'ebay-paypal-fee-calculator',
+                'description' => 'Calculate eBay final value fees, PayPal processing fees, and your net profit per sale. Supports multiple categories and payment methods.',
+                'icon' => '🛒',
+                'category' => 'Calculators',
+                'position' => 71,
+                'related_tools' => ['stripe-fee-calculator', 'etsy-fee-calculator', 'double-discount-calculator', 'triple-discount-calculator'],
+            ],
         ];
 
         foreach ($tools as $tool) {

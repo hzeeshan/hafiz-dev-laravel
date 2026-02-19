@@ -2,6 +2,40 @@
 (function() {
     'use strict';
 
+    // Translatable strings from #tool-strings (Italian) with English fallbacks
+    var stringsEl = document.getElementById('tool-strings');
+    var S = {
+        error_invalid_price: stringsEl?.dataset.errorInvalidPrice || 'Please enter a valid item price greater than 0.',
+        error_calculate_first_copy: stringsEl?.dataset.errorCalculateFirstCopy || 'Calculate fees first before copying.',
+        error_calculate_first_download: stringsEl?.dataset.errorCalculateFirstDownload || 'Calculate fees first before downloading.',
+        copied_to_clipboard: stringsEl?.dataset.copiedToClipboard || 'Results copied to clipboard!',
+        copied: stringsEl?.dataset.copied || 'Copied!',
+        copy: stringsEl?.dataset.copy || 'Copy',
+        downloaded: stringsEl?.dataset.downloaded || 'Downloaded etsy-fee-calculation.txt',
+        none: stringsEl?.dataset.none || 'None',
+        items_suffix: stringsEl?.dataset.itemsSuffix || 's',
+        result_header: stringsEl?.dataset.resultHeader || 'Etsy Fee Calculation',
+        result_total_revenue: stringsEl?.dataset.resultTotalRevenue || 'Total Revenue',
+        result_total_fees: stringsEl?.dataset.resultTotalFees || 'Total Etsy Fees',
+        result_net_profit: stringsEl?.dataset.resultNetProfit || 'Net Profit',
+        result_effective_rate: stringsEl?.dataset.resultEffectiveRate || 'Effective Rate',
+        result_fee_breakdown: stringsEl?.dataset.resultFeeBreakdown || 'Fee Breakdown',
+        result_listing_fee: stringsEl?.dataset.resultListingFee || 'Listing Fee',
+        result_transaction_fee: stringsEl?.dataset.resultTransactionFee || 'Transaction Fee',
+        result_processing_fee: stringsEl?.dataset.resultProcessingFee || 'Processing Fee',
+        result_offsite_ads_fee: stringsEl?.dataset.resultOffsiteAdsFee || 'Offsite Ads Fee',
+        result_settings: stringsEl?.dataset.resultSettings || 'Settings',
+        result_processing: stringsEl?.dataset.resultProcessing || 'Processing',
+        result_offsite_ads: stringsEl?.dataset.resultOffsiteAds || 'Offsite Ads',
+        result_calculated_at: stringsEl?.dataset.resultCalculatedAt || 'Calculated at hafiz.dev/tools/etsy-fee-calculator',
+        name_us: stringsEl?.dataset.nameUs || 'United States',
+        name_uk: stringsEl?.dataset.nameUk || 'United Kingdom',
+        name_ca: stringsEl?.dataset.nameCa || 'Canada',
+        name_au: stringsEl?.dataset.nameAu || 'Australia',
+        name_eu: stringsEl?.dataset.nameEu || 'Europe',
+        name_in: stringsEl?.dataset.nameIn || 'India',
+    };
+
     // DOM elements
     const countrySelect = document.getElementById('opt-country');
     const offsiteAdsSelect = document.getElementById('opt-offsite-ads');
@@ -33,12 +67,12 @@
 
     // Payment processing rates by country: [percent, fixed]
     const PROCESSING_RATES = {
-        us: { percent: 3.0, fixed: 0.25, currency: '$',   name: 'United States' },
-        uk: { percent: 4.0, fixed: 0.20, currency: '£',   name: 'United Kingdom' },
-        ca: { percent: 3.0, fixed: 0.25, currency: 'CA$', name: 'Canada' },
-        au: { percent: 3.0, fixed: 0.25, currency: 'A$',  name: 'Australia' },
-        eu: { percent: 4.0, fixed: 0.30, currency: '€',   name: 'Europe' },
-        in: { percent: 4.0, fixed: 3.00, currency: '₹',   name: 'India' },
+        us: { percent: 3.0, fixed: 0.25, currency: '$',   name: S.name_us },
+        uk: { percent: 4.0, fixed: 0.20, currency: '£',   name: S.name_uk },
+        ca: { percent: 3.0, fixed: 0.25, currency: 'CA$', name: S.name_ca },
+        au: { percent: 3.0, fixed: 0.25, currency: 'A$',  name: S.name_au },
+        eu: { percent: 4.0, fixed: 0.30, currency: '€',   name: S.name_eu },
+        in: { percent: 4.0, fixed: 3.00, currency: '₹',   name: S.name_in },
     };
 
     function getProcessingRate() {
@@ -71,7 +105,7 @@
     function calculate() {
         const itemPrice = parseFloat(inputItemPrice.value);
         if (!itemPrice || itemPrice <= 0) {
-            showError('Please enter a valid item price greater than 0.');
+            showError(S.error_invalid_price);
             return;
         }
 
@@ -88,7 +122,7 @@
         // Listing fee: $0.20 per item
         const listingFee = LISTING_FEE * quantity;
 
-        // Transaction fee: 6.5% of (item price + shipping) × quantity
+        // Transaction fee: 6.5% of (item price + shipping) x quantity
         const transactionFee = saleTotal * (TRANSACTION_FEE_PERCENT / 100);
 
         // Payment processing: percent of total + fixed fee (once per order)
@@ -129,7 +163,7 @@
 
         // Update breakdown
         document.getElementById('breakdown-qty').textContent = quantity;
-        document.getElementById('breakdown-qty-plural').textContent = quantity > 1 ? 's' : '';
+        document.getElementById('breakdown-qty-plural').textContent = quantity > 1 ? S.items_suffix : '';
         document.getElementById('breakdown-listing').textContent = formatMoney(listingFee, sym);
         document.getElementById('breakdown-transaction').textContent = formatMoney(transactionFee, sym);
         document.getElementById('breakdown-processing-rate').textContent = rate.percent + '% + ' + formatMoney(rate.fixed, sym);
@@ -198,7 +232,7 @@
         // Stats bar
         document.getElementById('stat-region').textContent = rate.name;
         document.getElementById('stat-processing').textContent = rate.percent + '% + ' + formatMoney(rate.fixed, sym);
-        document.getElementById('stat-offsite').textContent = offsiteAdsPercent > 0 ? offsiteAdsPercent + '%' : 'None';
+        document.getElementById('stat-offsite').textContent = offsiteAdsPercent > 0 ? offsiteAdsPercent + '%' : S.none;
 
         // Show results
         resultsSection.classList.remove('hidden');
@@ -216,19 +250,19 @@
         var processing = document.getElementById('stat-processing').textContent;
         var offsite = document.getElementById('stat-offsite').textContent;
 
-        return 'Etsy Fee Calculation\n' +
+        return S.result_header + '\n' +
             '=====================\n' +
-            'Total Revenue:   ' + revenue + '\n' +
-            'Total Etsy Fees: ' + fees + '\n' +
-            'Net Profit:      ' + profit + '\n' +
-            'Effective Rate:  ' + effectiveRate + '\n\n' +
-            'Fee Breakdown:\n' +
-            '  Listing Fee:      ' + document.getElementById('breakdown-listing').textContent + '\n' +
-            '  Transaction Fee:  ' + document.getElementById('breakdown-transaction').textContent + '\n' +
-            '  Processing Fee:   ' + document.getElementById('breakdown-processing').textContent + '\n' +
-            (offsiteAdsSelect.value !== 'none' ? '  Offsite Ads Fee:  ' + document.getElementById('breakdown-offsite').textContent + '\n' : '') +
-            '\nSettings: ' + region + ' | Processing: ' + processing + ' | Offsite Ads: ' + offsite + '\n' +
-            '\nCalculated at hafiz.dev/tools/etsy-fee-calculator';
+            S.result_total_revenue + ':   ' + revenue + '\n' +
+            S.result_total_fees + ': ' + fees + '\n' +
+            S.result_net_profit + ':      ' + profit + '\n' +
+            S.result_effective_rate + ':  ' + effectiveRate + '\n\n' +
+            S.result_fee_breakdown + ':\n' +
+            '  ' + S.result_listing_fee + ':      ' + document.getElementById('breakdown-listing').textContent + '\n' +
+            '  ' + S.result_transaction_fee + ':  ' + document.getElementById('breakdown-transaction').textContent + '\n' +
+            '  ' + S.result_processing_fee + ':   ' + document.getElementById('breakdown-processing').textContent + '\n' +
+            (offsiteAdsSelect.value !== 'none' ? '  ' + S.result_offsite_ads_fee + ':  ' + document.getElementById('breakdown-offsite').textContent + '\n' : '') +
+            '\n' + S.result_settings + ': ' + region + ' | ' + S.result_processing + ': ' + processing + ' | ' + S.result_offsite_ads + ': ' + offsite + '\n' +
+            '\n' + S.result_calculated_at;
     }
 
     // Event listeners
@@ -250,16 +284,16 @@
 
     btnCopy.addEventListener('click', function() {
         if (resultsSection.classList.contains('hidden')) {
-            showError('Calculate fees first before copying.');
+            showError(S.error_calculate_first_copy);
             return;
         }
         navigator.clipboard.writeText(getResultText()).then(function() {
-            copyText.textContent = 'Copied!';
+            copyText.textContent = S.copied;
             copyIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>';
             copyIcon.classList.add('text-green-400');
-            showSuccess('Results copied to clipboard!');
+            showSuccess(S.copied_to_clipboard);
             setTimeout(function() {
-                copyText.textContent = 'Copy';
+                copyText.textContent = S.copy;
                 copyIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>';
                 copyIcon.classList.remove('text-green-400');
             }, 2000);
@@ -268,7 +302,7 @@
 
     btnDownload.addEventListener('click', function() {
         if (resultsSection.classList.contains('hidden')) {
-            showError('Calculate fees first before downloading.');
+            showError(S.error_calculate_first_download);
             return;
         }
         var blob = new Blob([getResultText()], { type: 'text/plain' });
@@ -278,7 +312,7 @@
         a.download = 'etsy-fee-calculation.txt';
         a.click();
         URL.revokeObjectURL(url);
-        showSuccess('Downloaded etsy-fee-calculation.txt');
+        showSuccess(S.downloaded);
     });
 
     btnClear.addEventListener('click', function() {

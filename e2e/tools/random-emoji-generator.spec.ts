@@ -29,15 +29,16 @@ test.describe('Random Emoji Generator — functional tests', () => {
     expect(foundDifferent).toBe(true);
   });
 
-  test('category filter changes emoji pool', async ({ page }) => {
+  test('category filter changes emoji pool', async ({ toolPage, page }) => {
     await page.selectOption('#emoji-category', 'flags');
     await page.click('#btn-generate');
     const output = await page.inputValue('#emoji-output');
     expect(output.length).toBeGreaterThan(0);
 
-    // Stats should show Flags category
+    // Stats should show Flags category (translated in Italian)
     const categoryText = await page.textContent('#stat-category');
-    expect(categoryText).toContain('Flags');
+    const expected = toolPage.locale === 'it' ? 'Bandiere' : 'Flags';
+    expect(categoryText).toContain(expected);
   });
 
   test('quantity control limits output count', async ({ page }) => {
@@ -68,12 +69,13 @@ test.describe('Random Emoji Generator — functional tests', () => {
     await expect(page.locator('#stats-bar')).toBeVisible();
   });
 
-  test('copy button works when output exists', async ({ page }) => {
+  test('copy button works when output exists', async ({ toolPage, page }) => {
     // Grant clipboard permissions
     await page.context().grantPermissions(['clipboard-read', 'clipboard-write']);
     await page.click('#btn-generate');
     await page.click('#btn-copy');
-    // Verify success feedback (button text changes to "Copied!")
-    await expect(page.locator('#btn-copy')).toContainText('Copied', { timeout: 3000 });
+    // Verify success feedback (button text changes to "Copied!" / "Copiato!")
+    const expected = toolPage.locale === 'it' ? 'Copiato' : 'Copied';
+    await expect(page.locator('#btn-copy')).toContainText(expected, { timeout: 3000 });
   });
 });

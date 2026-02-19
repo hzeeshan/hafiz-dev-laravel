@@ -453,6 +453,20 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Calcolatore Commissioni Stripe',
                 'description' => 'Calcola le commissioni Stripe, scopri quanto addebitare per ricevere un importo specifico e confronta le tariffe tra paesi. 100% lato client.',
             ],
+            [
+                'tool_slug' => 'etsy-fee-calculator',
+                'locale' => 'it',
+                'slug' => 'calcolatore-commissioni-etsy',
+                'name' => 'Calcolatore Commissioni Etsy',
+                'description' => 'Calcola le commissioni Etsy per venditori: fee di inserzione, transazione, elaborazione pagamento e Offsite Ads. Scopri il tuo profitto netto.',
+            ],
+            [
+                'tool_slug' => 'random-emoji-generator',
+                'locale' => 'it',
+                'slug' => 'generatore-emoji-casuali',
+                'name' => 'Generatore di Emoji Casuali',
+                'description' => 'Genera emoji casuali per categoria, copia negli appunti e usa per social media, Slack, Discord e altro. 100% lato client.',
+            ],
         ];
 
         foreach ($translations as $data) {

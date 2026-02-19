@@ -64,7 +64,7 @@ return [
     'effective_rate' => 'Tasso effettivo',
 
     // Comparison table
-    'quick_comparison' => 'Confronto Rapido — Importi Comuni',
+    'quick_comparison' => 'Confronto Rapido: Importi Comuni',
     'th_amount' => 'Importo',
     'th_stripe_fee' => 'Commissione Stripe',
     'th_you_receive' => 'Ricevi',
@@ -103,7 +103,7 @@ return [
         ],
         [
             'question' => 'Stripe addebita di più per le carte internazionali?',
-            'answer' => 'Sì. Stripe aggiunge un sovrapprezzo dell\'1,5% per le carte internazionali — carte emesse al di fuori del paese del tuo account Stripe. Se è necessaria anche la conversione valuta (ad es. una carta EUR che paga un commerciante USD), viene aggiunto un ulteriore 1%. Quindi il sovrapprezzo totale internazionale + conversione è del 2,5% sulla tariffa base.',
+            'answer' => 'Sì. Stripe aggiunge un sovrapprezzo dell\'1,5% per le carte internazionali, ovvero carte emesse al di fuori del paese del tuo account Stripe. Se è necessaria anche la conversione valuta (ad es. una carta EUR che paga un commerciante USD), viene aggiunto un ulteriore 1%. Quindi il sovrapprezzo totale internazionale + conversione è del 2,5% sulla tariffa base.',
         ],
         [
             'question' => 'Le commissioni Stripe sono deducibili fiscalmente?',
@@ -164,7 +164,7 @@ return [
         'international_surcharge' => 'Sovrapprezzo carta internazionale',
         'total_stripe_fee' => 'Commissione Stripe Totale',
         'effective_rate' => 'Tasso effettivo',
-        'quick_comparison' => 'Confronto Rapido — Importi Comuni',
+        'quick_comparison' => 'Confronto Rapido: Importi Comuni',
         'th_amount' => 'Importo',
         'th_stripe_fee' => 'Commissione Stripe',
         'th_you_receive' => 'Ricevi',

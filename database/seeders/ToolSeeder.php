@@ -666,6 +666,15 @@ class ToolSeeder extends Seeder
                 'position' => 73,
                 'related_tools' => ['zalgo-text-generator', 'upside-down-text-generator', 'bubble-text-generator', 'strikethrough-text-generator'],
             ],
+            [
+                'name' => 'Glitch Text Generator',
+                'slug' => 'glitch-text-generator',
+                'description' => 'Create glitchy, corrupted, and distorted text with multiple styles. Perfect for Discord, social media, and usernames.',
+                'icon' => '📟',
+                'category' => 'Text',
+                'position' => 74,
+                'related_tools' => ['zalgo-text-generator', 'cursed-text-generator', 'upside-down-text-generator', 'bubble-text-generator'],
+            ],
         ];
 
         foreach ($tools as $tool) {

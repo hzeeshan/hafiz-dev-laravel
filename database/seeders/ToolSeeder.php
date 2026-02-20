@@ -711,6 +711,15 @@ class ToolSeeder extends Seeder
                 'position' => 78,
                 'related_tools' => ['stripe-fee-calculator', 'etsy-fee-calculator', 'ebay-paypal-fee-calculator', 'double-discount-calculator'],
             ],
+            [
+                'name' => 'Underline Text Generator',
+                'slug' => 'underline-text-generator',
+                'description' => 'Add underlines to your text using Unicode combining characters. Works on social media, Discord, and anywhere Unicode is supported.',
+                'icon' => '📝',
+                'category' => 'Text',
+                'position' => 79,
+                'related_tools' => ['bold-italic-text-generator', 'strikethrough-text-generator', 'bubble-text-generator', 'small-text-generator'],
+            ],
         ];
 
         foreach ($tools as $tool) {

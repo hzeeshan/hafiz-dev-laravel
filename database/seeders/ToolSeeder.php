@@ -657,6 +657,15 @@ class ToolSeeder extends Seeder
                 'position' => 72,
                 'related_tools' => ['random-emoji-generator', 'lorem-ipsum-generator', 'password-generator', 'word-counter'],
             ],
+            [
+                'name' => 'Cursed Text Generator',
+                'slug' => 'cursed-text-generator',
+                'description' => 'Create creepy, spooky, and weird cursed text with multiple styles. Perfect for Discord, social media, and memes.',
+                'icon' => '👻',
+                'category' => 'Text',
+                'position' => 73,
+                'related_tools' => ['zalgo-text-generator', 'upside-down-text-generator', 'bubble-text-generator', 'strikethrough-text-generator'],
+            ],
         ];
 
         foreach ($tools as $tool) {

@@ -684,6 +684,15 @@ class ToolSeeder extends Seeder
                 'position' => 75,
                 'related_tools' => ['cursed-text-generator', 'glitch-text-generator', 'text-to-binary', 'morse-code-translator'],
             ],
+            [
+                'name' => 'Audiobook Speed Calculator',
+                'slug' => 'audiobook-speed-calculator',
+                'description' => 'Calculate how long an audiobook takes at different playback speeds. Compare 1x, 1.5x, 2x, and custom speeds instantly.',
+                'icon' => '🎧',
+                'category' => 'Calculators',
+                'position' => 76,
+                'related_tools' => ['chronological-age-calculator', 'word-counter', 'timestamp-converter', 'stripe-fee-calculator'],
+            ],
         ];
 
         foreach ($tools as $tool) {

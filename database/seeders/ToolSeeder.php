@@ -675,6 +675,15 @@ class ToolSeeder extends Seeder
                 'position' => 74,
                 'related_tools' => ['zalgo-text-generator', 'cursed-text-generator', 'upside-down-text-generator', 'bubble-text-generator'],
             ],
+            [
+                'name' => 'Wingdings Translator',
+                'slug' => 'wingdings-translator',
+                'description' => 'Translate text to Wingdings symbols and Wingdings to English. Supports Wingdings 1, 2, and 3 with Gaster Mode.',
+                'icon' => '🔣',
+                'category' => 'Text',
+                'position' => 75,
+                'related_tools' => ['cursed-text-generator', 'glitch-text-generator', 'text-to-binary', 'morse-code-translator'],
+            ],
         ];
 
         foreach ($tools as $tool) {

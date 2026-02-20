@@ -424,3 +424,5 @@ Compattitors:
 
 - https://qtoolkit.dev
 - https://goonlinetools.com/
+- https://devtoys.app/
+- https://github.com/DevToys-app/DevToys

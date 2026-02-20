@@ -693,6 +693,15 @@ class ToolSeeder extends Seeder
                 'position' => 76,
                 'related_tools' => ['chronological-age-calculator', 'word-counter', 'timestamp-converter', 'stripe-fee-calculator'],
             ],
+            [
+                'name' => 'Playback Speed Calculator',
+                'slug' => 'playback-speed-calculator',
+                'description' => 'Calculate how long any video, podcast, or lecture takes at different playback speeds. Compare watch times at 1x, 1.5x, 2x, and custom speeds.',
+                'icon' => '⏩',
+                'category' => 'Calculators',
+                'position' => 77,
+                'related_tools' => ['audiobook-speed-calculator', 'chronological-age-calculator', 'word-counter', 'timestamp-converter'],
+            ],
         ];
 
         foreach ($tools as $tool) {

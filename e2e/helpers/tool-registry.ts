@@ -79,6 +79,12 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'triple-discount-calculator': 'calcolatore-triplo-sconto',
   'ebay-paypal-fee-calculator': 'calcolatore-commissioni-ebay-paypal',
   'random-word-generator-for-songs': 'generatore-parole-casuali-canzoni',
+  'cursed-text-generator': 'generatore-testo-maledetto',
+  'glitch-text-generator': 'generatore-testo-glitch',
+  'wingdings-translator': 'traduttore-wingdings',
+  'audiobook-speed-calculator': 'calcolatore-velocita-audiolibro',
+  'playback-speed-calculator': 'calcolatore-velocita-riproduzione',
+  'venmo-fee-calculator': 'calcolatore-commissioni-venmo',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

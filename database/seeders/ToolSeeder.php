@@ -702,6 +702,15 @@ class ToolSeeder extends Seeder
                 'position' => 77,
                 'related_tools' => ['audiobook-speed-calculator', 'chronological-age-calculator', 'word-counter', 'timestamp-converter'],
             ],
+            [
+                'name' => 'Venmo Fee Calculator',
+                'slug' => 'venmo-fee-calculator',
+                'description' => 'Calculate Venmo fees for personal payments, business transactions, credit card sends, and instant transfers.',
+                'icon' => '💸',
+                'category' => 'Calculators',
+                'position' => 78,
+                'related_tools' => ['stripe-fee-calculator', 'etsy-fee-calculator', 'ebay-paypal-fee-calculator', 'double-discount-calculator'],
+            ],
         ];
 
         foreach ($tools as $tool) {

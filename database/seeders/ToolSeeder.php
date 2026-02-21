@@ -747,6 +747,15 @@ class ToolSeeder extends Seeder
                 'position' => 82,
                 'related_tools' => ['whitespace-remover', 'text-to-binary', 'word-counter', 'morse-code-translator'],
             ],
+            [
+                'name' => 'AI ASCII Art Generator',
+                'slug' => 'ai-ascii-art-generator',
+                'description' => 'Convert any text to stunning ASCII art with 15+ font styles. Perfect for Discord, README files, and social media.',
+                'icon' => '🎨',
+                'category' => 'Generators',
+                'position' => 83,
+                'related_tools' => ['ascii-table', 'text-to-binary', 'bubble-text-generator', 'upside-down-text-generator'],
+            ],
         ];
 
         foreach ($tools as $tool) {

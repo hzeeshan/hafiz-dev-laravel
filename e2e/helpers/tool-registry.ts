@@ -85,6 +85,7 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'audiobook-speed-calculator': 'calcolatore-velocita-audiolibro',
   'playback-speed-calculator': 'calcolatore-velocita-riproduzione',
   'venmo-fee-calculator': 'calcolatore-commissioni-venmo',
+  'superscript-generator': 'generatore-apice',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

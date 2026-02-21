@@ -720,6 +720,15 @@ class ToolSeeder extends Seeder
                 'position' => 79,
                 'related_tools' => ['bold-italic-text-generator', 'strikethrough-text-generator', 'bubble-text-generator', 'small-text-generator'],
             ],
+            [
+                'name' => 'Superscript Text Generator',
+                'slug' => 'superscript-generator',
+                'description' => 'Convert regular text to superscript Unicode characters instantly. Perfect for social media, math notation, and footnotes.',
+                'icon' => '📝',
+                'category' => 'Text',
+                'position' => 80,
+                'related_tools' => ['small-text-generator', 'bold-italic-text-generator', 'bubble-text-generator', 'strikethrough-text-generator'],
+            ],
         ];
 
         foreach ($tools as $tool) {

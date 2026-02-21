@@ -86,6 +86,7 @@ export const ITALIAN_SLUGS: Record<string, string> = {
   'playback-speed-calculator': 'calcolatore-velocita-riproduzione',
   'venmo-fee-calculator': 'calcolatore-commissioni-venmo',
   'superscript-generator': 'generatore-apice',
+  'global-days-calculator': 'calcolatore-giorni-globale',
 };
 
 /** Tools that have been translated and should be tested in both locales. */

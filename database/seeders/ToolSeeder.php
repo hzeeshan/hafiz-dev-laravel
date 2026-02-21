@@ -756,6 +756,15 @@ class ToolSeeder extends Seeder
                 'position' => 83,
                 'related_tools' => ['ascii-table', 'text-to-binary', 'bubble-text-generator', 'upside-down-text-generator'],
             ],
+            [
+                'name' => 'Global Days Calculator',
+                'slug' => 'global-days-calculator',
+                'description' => 'Calculate the exact number of days between any two dates with business days, weekends, and detailed breakdown.',
+                'icon' => '📅',
+                'category' => 'Calculators',
+                'position' => 84,
+                'related_tools' => ['chronological-age-calculator', 'korean-age-calculator', 'timestamp-converter', 'stripe-fee-calculator'],
+            ],
         ];
 
         foreach ($tools as $tool) {

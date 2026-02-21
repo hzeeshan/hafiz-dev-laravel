@@ -738,6 +738,15 @@ class ToolSeeder extends Seeder
                 'position' => 81,
                 'related_tools' => ['text-to-binary', 'decimal-to-binary', 'octal-to-decimal', 'word-counter'],
             ],
+            [
+                'name' => 'Invisible Character',
+                'slug' => 'invisible-character',
+                'description' => 'Copy and paste invisible, blank, and empty Unicode characters for usernames, messages, and formatting tricks.',
+                'icon' => '👻',
+                'category' => 'Text',
+                'position' => 82,
+                'related_tools' => ['whitespace-remover', 'text-to-binary', 'word-counter', 'morse-code-translator'],
+            ],
         ];
 
         foreach ($tools as $tool) {

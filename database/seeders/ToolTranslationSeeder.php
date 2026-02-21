@@ -537,6 +537,27 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Traduttore Wingdings',
                 'description' => 'Converti testo in simboli Wingdings e Wingdings in testo leggibile. Supporta Wingdings 1, 2 e 3. Decodifica i messaggi di Gaster.',
             ],
+            [
+                'tool_slug' => 'audiobook-speed-calculator',
+                'locale' => 'it',
+                'slug' => 'calcolatore-velocita-audiolibro',
+                'name' => 'Calcolatore Velocità Audiolibro',
+                'description' => 'Calcola quanto dura un audiolibro a diverse velocità di riproduzione. Confronta i tempi di ascolto da 1x a 3x. 100% lato client.',
+            ],
+            [
+                'tool_slug' => 'playback-speed-calculator',
+                'locale' => 'it',
+                'slug' => 'calcolatore-velocita-riproduzione',
+                'name' => 'Calcolatore Velocità di Riproduzione',
+                'description' => 'Calcola quanto dura qualsiasi video, podcast o lezione a diverse velocità. Confronta i tempi di visione istantaneamente. 100% lato client.',
+            ],
+            [
+                'tool_slug' => 'venmo-fee-calculator',
+                'locale' => 'it',
+                'slug' => 'calcolatore-commissioni-venmo',
+                'name' => 'Calcolatore Commissioni Venmo',
+                'description' => 'Calcola le commissioni Venmo per pagamenti personali, transazioni business, carta di credito e trasferimenti istantanei. 100% lato client.',
+            ],
         ];
 
         foreach ($translations as $data) {

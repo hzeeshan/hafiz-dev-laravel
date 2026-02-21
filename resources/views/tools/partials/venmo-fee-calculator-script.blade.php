@@ -2,6 +2,31 @@
 (function() {
     'use strict';
 
+    // Translatable strings
+    var stringsEl = document.getElementById('tool-strings');
+    var S = {
+        error_invalid: stringsEl?.dataset.errorInvalid || 'Please enter a valid amount greater than 0.',
+        error_calculate_first_copy: stringsEl?.dataset.errorCalculateFirstCopy || 'Calculate fees first before copying.',
+        error_calculate_first_download: stringsEl?.dataset.errorCalculateFirstDownload || 'Calculate fees first before downloading.',
+        copied_to_clipboard: stringsEl?.dataset.copiedToClipboard || 'Results copied to clipboard!',
+        downloaded: stringsEl?.dataset.downloaded || 'Downloaded venmo-fee-calculation.txt',
+        payment_amount: stringsEl?.dataset.paymentAmount || 'Payment Amount',
+        desired_receive_amount: stringsEl?.dataset.desiredReceiveAmount || 'Desired Receive Amount',
+        fee_from_amount_mode: stringsEl?.dataset.feeFromAmountMode || 'Fee from amount',
+        reverse_mode: stringsEl?.dataset.reverseMode || 'Reverse calculation',
+        transfer_amount: stringsEl?.dataset.transferAmount || 'Transfer Amount',
+        you_receive: stringsEl?.dataset.youReceive || 'You Receive',
+        buyer_pays: stringsEl?.dataset.buyerPays || 'Buyer Pays',
+        seller_receives: stringsEl?.dataset.sellerReceives || 'Seller Receives',
+        charge_this: stringsEl?.dataset.chargeThis || 'Charge This',
+        you_send: stringsEl?.dataset.youSend || 'You Send',
+        recipient_gets: stringsEl?.dataset.recipientGets || 'Recipient Gets',
+        send_this: stringsEl?.dataset.sendThis || 'Send This',
+        free_label: stringsEl?.dataset.freeLabel || 'Free',
+        copied: stringsEl?.dataset.copied || 'Copied!',
+        copy: stringsEl?.dataset.copy || 'Copy'
+    };
+
     // DOM elements
     const transactionType = document.getElementById('opt-transaction-type');
     const modeSelect = document.getElementById('opt-mode');
@@ -64,7 +89,7 @@
     function calculate() {
         var amount = parseFloat(inputAmount.value);
         if (!amount || amount <= 0) {
-            showError('Please enter a valid amount greater than 0.');
+            showError(S.error_invalid);
             return;
         }
 
@@ -124,23 +149,23 @@
 
         // Update labels
         if (type === 'instant_transfer') {
-            document.getElementById('result-label-1').textContent = 'Transfer Amount';
-            document.getElementById('result-label-3').textContent = 'You Receive';
+            document.getElementById('result-label-1').textContent = S.transfer_amount;
+            document.getElementById('result-label-3').textContent = S.you_receive;
         } else if (type === 'business') {
             if (mode === 'fee_from_amount') {
-                document.getElementById('result-label-1').textContent = 'Buyer Pays';
-                document.getElementById('result-label-3').textContent = 'Seller Receives';
+                document.getElementById('result-label-1').textContent = S.buyer_pays;
+                document.getElementById('result-label-3').textContent = S.seller_receives;
             } else {
-                document.getElementById('result-label-1').textContent = 'Charge This';
-                document.getElementById('result-label-3').textContent = 'Seller Receives';
+                document.getElementById('result-label-1').textContent = S.charge_this;
+                document.getElementById('result-label-3').textContent = S.seller_receives;
             }
         } else {
             if (mode === 'fee_from_amount') {
-                document.getElementById('result-label-1').textContent = 'You Send';
-                document.getElementById('result-label-3').textContent = 'Recipient Gets';
+                document.getElementById('result-label-1').textContent = S.you_send;
+                document.getElementById('result-label-3').textContent = S.recipient_gets;
             } else {
-                document.getElementById('result-label-1').textContent = 'Send This';
-                document.getElementById('result-label-3').textContent = 'Recipient Gets';
+                document.getElementById('result-label-1').textContent = S.send_this;
+                document.getElementById('result-label-3').textContent = S.recipient_gets;
             }
         }
 
@@ -175,7 +200,7 @@
             row.className = 'border-b border-gold/5';
             row.innerHTML =
                 '<td class="py-2 pr-4">' + formatMoney(amt) + '</td>' +
-                '<td class="py-2 pr-4 text-red-400">' + (cFee === 0 ? 'Free' : formatMoney(cFee)) + '</td>' +
+                '<td class="py-2 pr-4 text-red-400">' + (cFee === 0 ? S.free_label : formatMoney(cFee)) + '</td>' +
                 '<td class="py-2 pr-4 text-green-400">' + formatMoney(cReceive) + '</td>' +
                 '<td class="py-2 text-gold">' + cEffective.toFixed(2) + '%</td>';
             tbody.appendChild(row);
@@ -184,7 +209,7 @@
         // Stats bar
         document.getElementById('stat-type').textContent = feeConfig.label;
         document.getElementById('stat-rate').textContent = feeConfig.description;
-        document.getElementById('stat-mode').textContent = mode === 'fee_from_amount' ? 'Fee from amount' : 'Reverse calculation';
+        document.getElementById('stat-mode').textContent = mode === 'fee_from_amount' ? S.fee_from_amount_mode : S.reverse_mode;
 
         // Show results
         resultsSection.classList.remove('hidden');
@@ -217,22 +242,22 @@
         inputAmount.value = '100.00';
         transactionType.value = 'business';
         modeSelect.value = 'fee_from_amount';
-        inputLabel.textContent = 'Payment Amount';
+        inputLabel.textContent = S.payment_amount;
         calculate();
     });
 
     btnCopy.addEventListener('click', function() {
         if (resultsSection.classList.contains('hidden')) {
-            showError('Calculate fees first before copying.');
+            showError(S.error_calculate_first_copy);
             return;
         }
         navigator.clipboard.writeText(getResultText()).then(function() {
-            copyText.textContent = 'Copied!';
+            copyText.textContent = S.copied;
             copyIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>';
             copyIcon.classList.add('text-green-400');
-            showSuccess('Results copied to clipboard!');
+            showSuccess(S.copied_to_clipboard);
             setTimeout(function() {
-                copyText.textContent = 'Copy';
+                copyText.textContent = S.copy;
                 copyIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>';
                 copyIcon.classList.remove('text-green-400');
             }, 2000);
@@ -241,7 +266,7 @@
 
     btnDownload.addEventListener('click', function() {
         if (resultsSection.classList.contains('hidden')) {
-            showError('Calculate fees first before downloading.');
+            showError(S.error_calculate_first_download);
             return;
         }
         var blob = new Blob([getResultText()], { type: 'text/plain' });
@@ -251,7 +276,7 @@
         a.download = 'venmo-fee-calculation.txt';
         a.click();
         URL.revokeObjectURL(url);
-        showSuccess('Downloaded venmo-fee-calculation.txt');
+        showSuccess(S.downloaded);
     });
 
     btnClear.addEventListener('click', function() {
@@ -269,9 +294,9 @@
 
     modeSelect.addEventListener('change', function() {
         if (modeSelect.value === 'fee_from_amount') {
-            inputLabel.textContent = 'Payment Amount';
+            inputLabel.textContent = S.payment_amount;
         } else {
-            inputLabel.textContent = 'Desired Receive Amount';
+            inputLabel.textContent = S.desired_receive_amount;
         }
         if (!resultsSection.classList.contains('hidden')) calculate();
     });

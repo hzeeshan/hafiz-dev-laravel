@@ -20,6 +20,8 @@ return [
     'generate' => 'Genera',
     'words_label' => 'Parole:',
     'characters_label' => 'Caratteri:',
+    'chars_label' => 'Caratt.:',
+    'generated_output' => 'Output Generato',
     'placeholder' => 'Clicca Genera per creare testo segnaposto...',
     'copy_to_clipboard' => 'Copia negli Appunti',
     'download_txt' => 'Scarica TXT',

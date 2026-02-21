@@ -137,85 +137,94 @@
             {{-- Main Tool Card --}}
             <div class="bg-gradient-card rounded-xl border border-gold/20 shadow-dark-card p-6 mb-8">
 
-                <x-tool-privacy-banner />
+                {{-- Side-by-side layout: Controls left, Output right --}}
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
 
-                {{-- Generation Type Tabs --}}
-                <div class="mb-6">
-                    <label class="text-light font-semibold mb-3 block">Generation Type</label>
-                    <div class="flex flex-wrap gap-2">
-                        <button data-type="paragraphs" class="type-tab px-4 py-2 rounded-lg font-semibold transition-all duration-300 cursor-pointer bg-gold text-darkBg">
-                            Paragraphs
-                        </button>
-                        <button data-type="sentences" class="type-tab px-4 py-2 rounded-lg font-semibold transition-all duration-300 cursor-pointer border border-gold/50 text-light-muted hover:bg-gold/10 hover:text-gold">
-                            Sentences
-                        </button>
-                        <button data-type="words" class="type-tab px-4 py-2 rounded-lg font-semibold transition-all duration-300 cursor-pointer border border-gold/50 text-light-muted hover:bg-gold/10 hover:text-gold">
-                            Words
-                        </button>
+                    {{-- Left Column: Controls (40%) --}}
+                    <div class="md:col-span-2 flex flex-col">
+                        {{-- Generation Type Tabs --}}
+                        <div class="mb-8">
+                            <label class="text-light font-semibold mb-3 block">Generation Type</label>
+                            <div class="flex flex-wrap gap-2">
+                                <button data-type="paragraphs" class="type-tab px-4 py-2 rounded-lg font-semibold transition-all duration-300 cursor-pointer bg-gold text-darkBg">
+                                    Paragraphs
+                                </button>
+                                <button data-type="sentences" class="type-tab px-4 py-2 rounded-lg font-semibold transition-all duration-300 cursor-pointer border border-gold/50 text-light-muted hover:bg-gold/10 hover:text-gold">
+                                    Sentences
+                                </button>
+                                <button data-type="words" class="type-tab px-4 py-2 rounded-lg font-semibold transition-all duration-300 cursor-pointer border border-gold/50 text-light-muted hover:bg-gold/10 hover:text-gold">
+                                    Words
+                                </button>
+                            </div>
+                        </div>
+
+                        {{-- Quantity Slider --}}
+                        <div class="mb-8">
+                            <div class="flex items-center justify-between mb-3">
+                                <label for="quantity-slider" class="text-light font-semibold">
+                                    <span id="quantity-label">Paragraphs</span>
+                                </label>
+                                <span id="quantity-display" class="text-gold font-mono text-lg font-bold">3</span>
+                            </div>
+                            <input type="range" id="quantity-slider" min="1" max="20" value="3"
+                                   class="w-full h-2 bg-darkBg rounded-lg appearance-none cursor-pointer accent-gold">
+                            <div class="flex justify-between text-xs text-light-muted mt-1">
+                                <span id="min-label">1</span>
+                                <span id="max-label">20</span>
+                            </div>
+                        </div>
+
+                        {{-- Options --}}
+                        <div class="mb-8 space-y-3">
+                            <label class="flex items-center gap-3 p-3 bg-darkBg rounded-lg border border-gold/10 hover:border-gold/30 transition-colors cursor-pointer">
+                                <input type="checkbox" id="start-with-lorem" checked class="w-4 h-4 rounded border-gold/30 bg-darkBg text-gold focus:ring-gold focus:ring-offset-darkBg cursor-pointer">
+                                <span class="text-light text-sm">Start with "Lorem ipsum dolor sit amet..."</span>
+                            </label>
+                            <label id="html-tags-option" class="flex items-center gap-3 p-3 bg-darkBg rounded-lg border border-gold/10 hover:border-gold/30 transition-colors cursor-pointer">
+                                <input type="checkbox" id="include-html-tags" class="w-4 h-4 rounded border-gold/30 bg-darkBg text-gold focus:ring-gold focus:ring-offset-darkBg cursor-pointer">
+                                <span class="text-light text-sm">Include HTML &lt;p&gt; tags</span>
+                            </label>
+                        </div>
+
+                        {{-- Generate Button + Stats --}}
+                        <div class="flex flex-wrap items-center gap-4 mt-auto">
+                            <button id="btn-generate" class="px-6 py-3 bg-gold text-darkBg font-semibold rounded-lg hover:bg-gold-light transition-all duration-300 flex items-center gap-2 cursor-pointer">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                                Generate
+                            </button>
+                            <div class="flex flex-wrap gap-3 text-sm">
+                                <div class="flex items-center gap-1">
+                                    <span class="text-light-muted" id="count-label">Paragraphs:</span>
+                                    <span id="para-count" class="text-gold font-mono font-semibold">0</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <span class="text-light-muted">Words:</span>
+                                    <span id="word-count" class="text-gold font-mono font-semibold">0</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <span class="text-light-muted">Chars:</span>
+                                    <span id="char-count" class="text-gold font-mono font-semibold">0</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
 
-                {{-- Quantity Slider --}}
-                <div class="mb-6">
-                    <div class="flex items-center justify-between mb-3">
-                        <label for="quantity-slider" class="text-light font-semibold">
-                            <span id="quantity-label">Paragraphs</span>
+                    {{-- Right Column: Output (60%) --}}
+                    <div class="md:col-span-3" style="min-width:0">
+                        <label class="text-light font-semibold mb-3 flex items-center gap-2">
+                            <svg class="w-4 h-4 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                            Generated Output
                         </label>
-                        <span id="quantity-display" class="text-gold font-mono text-lg font-bold">3</span>
+                        <textarea id="output-textarea" readonly
+                                  style="width:100%;box-sizing:border-box"
+                                  class="min-h-[400px] bg-darkBg border border-gold/20 rounded-lg p-4 text-light font-normal resize-none focus:border-gold/50 focus:outline-none"
+                                  placeholder="Click Generate to create placeholder text..."></textarea>
                     </div>
-                    <input type="range" id="quantity-slider" min="1" max="20" value="3"
-                           class="w-full h-2 bg-darkBg rounded-lg appearance-none cursor-pointer accent-gold">
-                    <div class="flex justify-between text-xs text-light-muted mt-1">
-                        <span id="min-label">1</span>
-                        <span id="max-label">20</span>
-                    </div>
+
                 </div>
 
-                {{-- Options --}}
-                <div class="mb-6 space-y-3">
-                    <label class="flex items-center gap-3 p-3 bg-darkBg rounded-lg border border-gold/10 hover:border-gold/30 transition-colors cursor-pointer w-fit">
-                        <input type="checkbox" id="start-with-lorem" checked class="w-4 h-4 rounded border-gold/30 bg-darkBg text-gold focus:ring-gold focus:ring-offset-darkBg cursor-pointer">
-                        <span class="text-light text-sm">Start with "Lorem ipsum dolor sit amet..."</span>
-                    </label>
-                    <label id="html-tags-option" class="flex items-center gap-3 p-3 bg-darkBg rounded-lg border border-gold/10 hover:border-gold/30 transition-colors cursor-pointer w-fit">
-                        <input type="checkbox" id="include-html-tags" class="w-4 h-4 rounded border-gold/30 bg-darkBg text-gold focus:ring-gold focus:ring-offset-darkBg cursor-pointer">
-                        <span class="text-light text-sm">Include HTML &lt;p&gt; tags</span>
-                    </label>
-                </div>
-
-                {{-- Generate Button --}}
-                <div class="mb-6">
-                    <button id="btn-generate" class="px-6 py-3 bg-gold text-darkBg font-semibold rounded-lg hover:bg-gold-light transition-all duration-300 flex items-center gap-2 cursor-pointer">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-                        Generate
-                    </button>
-                </div>
-
-                {{-- Stats Bar --}}
-                <div class="mb-4 flex flex-wrap gap-4 text-sm">
-                    <div class="flex items-center gap-2">
-                        <span class="text-light-muted" id="count-label">Paragraphs:</span>
-                        <span id="para-count" class="text-gold font-mono font-semibold">0</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span class="text-light-muted">Words:</span>
-                        <span id="word-count" class="text-gold font-mono font-semibold">0</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span class="text-light-muted">Characters:</span>
-                        <span id="char-count" class="text-gold font-mono font-semibold">0</span>
-                    </div>
-                </div>
-
-                {{-- Output Textarea --}}
-                <div class="mb-4">
-                    <textarea id="output-textarea" readonly
-                              class="w-full h-80 bg-darkBg border border-gold/20 rounded-lg p-4 text-light font-normal resize-y focus:border-gold/50 focus:outline-none"
-                              placeholder="Click Generate to create placeholder text..."></textarea>
-                </div>
-
-                {{-- Action Buttons --}}
-                <div class="flex flex-wrap gap-3">
+                {{-- Action Buttons (full width below both columns) --}}
+                <div class="flex flex-wrap gap-3 mt-6 pt-6 border-t border-gold/10">
                     <button id="btn-copy" class="px-4 py-2 border border-gold/50 text-light-muted rounded-lg hover:bg-gold/10 hover:text-gold transition-all duration-300 flex items-center gap-2 cursor-pointer">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                         Copy to Clipboard

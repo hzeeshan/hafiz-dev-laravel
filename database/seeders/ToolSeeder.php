@@ -729,6 +729,15 @@ class ToolSeeder extends Seeder
                 'position' => 80,
                 'related_tools' => ['small-text-generator', 'bold-italic-text-generator', 'bubble-text-generator', 'strikethrough-text-generator'],
             ],
+            [
+                'name' => 'Number to Word Converter',
+                'slug' => 'number-to-word-converter',
+                'description' => 'Convert numbers to English words instantly. Supports integers, decimals, negative numbers, and currency formatting.',
+                'icon' => '🔢',
+                'category' => 'Converter',
+                'position' => 81,
+                'related_tools' => ['text-to-binary', 'decimal-to-binary', 'octal-to-decimal', 'word-counter'],
+            ],
         ];
 
         foreach ($tools as $tool) {

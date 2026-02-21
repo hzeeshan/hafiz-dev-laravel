@@ -37,7 +37,21 @@
         2: [2, 5],   // Medium
         3: [5, 12]   // Extreme
     };
-    const intensityLabels = { 1: 'Subtle', 2: 'Medium', 3: 'Extreme' };
+    // Translatable strings from #tool-strings data attributes (Italian) or English defaults
+    const stringsEl = document.getElementById('tool-strings');
+    const S = {
+        enter_text: stringsEl?.dataset.enterText || 'Please enter some text to glitch.',
+        nothing_copy: stringsEl?.dataset.nothingCopy || 'Nothing to copy. Generate glitch text first.',
+        copied: stringsEl?.dataset.copied || 'Copied to clipboard!',
+        nothing_download: stringsEl?.dataset.nothingDownload || 'Nothing to download. Generate glitch text first.',
+        downloaded: stringsEl?.dataset.downloaded || 'Downloaded glitch-text.txt',
+        btn_copied: stringsEl?.dataset.btnCopied || 'Copied!',
+        subtle: stringsEl?.dataset.subtle || 'Subtle',
+        medium: stringsEl?.dataset.medium || 'Medium',
+        extreme: stringsEl?.dataset.extreme || 'Extreme',
+    };
+
+    const intensityLabels = { 1: S.subtle, 2: S.medium, 3: S.extreme };
 
     // DOM Elements
     const textInput = document.getElementById('text-input');
@@ -204,7 +218,7 @@
     function generate() {
         const text = textInput.value;
         if (!text.trim()) {
-            showError('Please enter some text to glitch.');
+            showError(S.enter_text);
             textOutput.value = '';
             statsBar.classList.add('hidden');
             return;
@@ -243,14 +257,14 @@
     btnCopy.addEventListener('click', function() {
         const output = textOutput.value;
         if (!output) {
-            showError('Nothing to copy. Generate glitch text first.');
+            showError(S.nothing_copy);
             return;
         }
         navigator.clipboard.writeText(output).then(() => {
             const orig = this.innerHTML;
-            this.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Copied!';
+            this.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> ' + S.btn_copied;
             this.classList.add('text-green-400', 'border-green-400');
-            showSuccess('Copied to clipboard!');
+            showSuccess(S.copied);
             setTimeout(() => {
                 this.innerHTML = orig;
                 this.classList.remove('text-green-400', 'border-green-400');
@@ -261,7 +275,7 @@
     btnDownload.addEventListener('click', function() {
         const output = textOutput.value;
         if (!output) {
-            showError('Nothing to download. Generate glitch text first.');
+            showError(S.nothing_download);
             return;
         }
         const blob = new Blob([output], { type: 'text/plain' });
@@ -273,7 +287,7 @@
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
-        showSuccess('Downloaded glitch-text.txt');
+        showSuccess(S.downloaded);
     });
 
     btnSample.addEventListener('click', function() {

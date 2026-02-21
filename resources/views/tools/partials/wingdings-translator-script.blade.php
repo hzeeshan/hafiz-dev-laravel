@@ -362,6 +362,26 @@
     const errorMessage = document.getElementById('error-message');
     const charRefTable = document.getElementById('char-ref-table');
 
+    // Translatable strings from #tool-strings data attributes (Italian) or English defaults
+    const stringsEl = document.getElementById('tool-strings');
+    const S = {
+        enter_text: stringsEl?.dataset.enterText || 'Please enter some text to translate.',
+        nothing_copy: stringsEl?.dataset.nothingCopy || 'Nothing to copy. Translate text first.',
+        copied: stringsEl?.dataset.copied || 'Copied to clipboard!',
+        nothing_download: stringsEl?.dataset.nothingDownload || 'Nothing to download. Translate text first.',
+        downloaded: stringsEl?.dataset.downloaded || 'Downloaded wingdings-translation.txt',
+        btn_copied: stringsEl?.dataset.btnCopied || 'Copied!',
+        gaster_loaded: stringsEl?.dataset.gasterLoaded || 'Gaster quote loaded: "{quote}"',
+        your_text: stringsEl?.dataset.yourText || 'Your Text',
+        wingdings_output: stringsEl?.dataset.wingdingsOutput || 'Wingdings Output',
+        wingdings_input: stringsEl?.dataset.wingdingsInput || 'Wingdings Input',
+        english_output: stringsEl?.dataset.englishOutput || 'English Output',
+        placeholder_type: stringsEl?.dataset.placeholderType || 'Type or paste your text here...',
+        placeholder_wingdings: stringsEl?.dataset.placeholderWingdings || 'Wingdings symbols will appear here...',
+        placeholder_paste: stringsEl?.dataset.placeholderPaste || 'Paste Wingdings symbols here...',
+        placeholder_translated: stringsEl?.dataset.placeholderTranslated || 'Translated English text will appear here...',
+    };
+
     let gasterIndex = 0;
 
     function showSuccess(msg) {
@@ -410,7 +430,7 @@
     function translate() {
         const text = textInput.value;
         if (!text.trim()) {
-            showError('Please enter some text to translate.');
+            showError(S.enter_text);
             textOutput.value = '';
             statsBar.classList.add('hidden');
             return;
@@ -439,15 +459,15 @@
     function updateLabels() {
         const direction = directionSelect.value;
         if (direction === 'to-wingdings') {
-            inputLabel.textContent = 'Your Text';
-            outputLabel.textContent = 'Wingdings Output';
-            textInput.placeholder = 'Type or paste your text here...';
-            textOutput.placeholder = 'Wingdings symbols will appear here...';
+            inputLabel.textContent = S.your_text;
+            outputLabel.textContent = S.wingdings_output;
+            textInput.placeholder = S.placeholder_type;
+            textOutput.placeholder = S.placeholder_wingdings;
         } else {
-            inputLabel.textContent = 'Wingdings Input';
-            outputLabel.textContent = 'English Output';
-            textInput.placeholder = 'Paste Wingdings symbols here...';
-            textOutput.placeholder = 'Translated English text will appear here...';
+            inputLabel.textContent = S.wingdings_input;
+            outputLabel.textContent = S.english_output;
+            textInput.placeholder = S.placeholder_paste;
+            textOutput.placeholder = S.placeholder_translated;
         }
     }
 
@@ -496,14 +516,14 @@
     btnCopy.addEventListener('click', function() {
         const output = textOutput.value;
         if (!output) {
-            showError('Nothing to copy. Translate text first.');
+            showError(S.nothing_copy);
             return;
         }
         navigator.clipboard.writeText(output).then(() => {
             const orig = this.innerHTML;
-            this.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Copied!';
+            this.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> ' + S.btn_copied;
             this.classList.add('text-green-400', 'border-green-400');
-            showSuccess('Copied to clipboard!');
+            showSuccess(S.copied);
             setTimeout(() => {
                 this.innerHTML = orig;
                 this.classList.remove('text-green-400', 'border-green-400');
@@ -514,7 +534,7 @@
     btnDownload.addEventListener('click', function() {
         const output = textOutput.value;
         if (!output) {
-            showError('Nothing to download. Translate text first.');
+            showError(S.nothing_download);
             return;
         }
         const blob = new Blob([output], { type: 'text/plain' });
@@ -526,7 +546,7 @@
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
-        showSuccess('Downloaded wingdings-translation.txt');
+        showSuccess(S.downloaded);
     });
 
     btnSample.addEventListener('click', function() {
@@ -549,7 +569,7 @@
 
         textInput.value = quote;
         translate();
-        showSuccess('Gaster quote loaded: "' + quote + '"');
+        showSuccess(S.gaster_loaded.replace('{quote}', quote));
     });
 
     btnClear.addEventListener('click', function() {

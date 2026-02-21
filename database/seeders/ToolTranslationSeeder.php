@@ -516,6 +516,27 @@ class ToolTranslationSeeder extends Seeder
                 'name' => 'Generatore di Parole Casuali per Canzoni',
                 'description' => 'Genera parole casuali per canzoni con temi, rime e vocabolario curato. Ispirazione istantanea per songwriter e parolieri.',
             ],
+            [
+                'tool_slug' => 'cursed-text-generator',
+                'locale' => 'it',
+                'slug' => 'generatore-testo-maledetto',
+                'name' => 'Generatore di Testo Maledetto',
+                'description' => 'Crea testo inquietante, spaventoso e bizzarro con stili Unicode per Discord, social media e meme. 100% lato client.',
+            ],
+            [
+                'tool_slug' => 'glitch-text-generator',
+                'locale' => 'it',
+                'slug' => 'generatore-testo-glitch',
+                'name' => 'Generatore di Testo Glitch',
+                'description' => 'Crea testo glitch, corrotto e distorto istantaneamente per Discord, social media e nomi utente. 100% lato client.',
+            ],
+            [
+                'tool_slug' => 'wingdings-translator',
+                'locale' => 'it',
+                'slug' => 'traduttore-wingdings',
+                'name' => 'Traduttore Wingdings',
+                'description' => 'Converti testo in simboli Wingdings e Wingdings in testo leggibile. Supporta Wingdings 1, 2 e 3. Decodifica i messaggi di Gaster.',
+            ],
         ];
 
         foreach ($translations as $data) {

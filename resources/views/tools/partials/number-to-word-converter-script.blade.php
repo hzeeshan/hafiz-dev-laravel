@@ -277,24 +277,43 @@
             }
         }
 
-        wordsOutput.value = results.join('\n');
-
+        // Single invalid input: show error and clear output
         if (hasError && lines.length === 1) {
+            wordsOutput.value = '';
             showError('Invalid number format. Please enter a valid number.');
             statsBar.classList.add('hidden');
             return;
         }
 
-        // Update stats
-        const firstNum = lines[0].trim().replace(/[,\s]/g, '');
-        const digitsOnly = firstNum.replace(/[^0-9]/g, '');
-        const wordsText = results[0] || '';
-        const wordCount = wordsText.split(/\s+/).filter(w => w.length > 0).length;
+        wordsOutput.value = results.join('\n');
 
-        statDigits.textContent = digitsOnly.length;
-        statWords.textContent = wordCount;
-        statChars.textContent = wordsText.length;
-        statMagnitude.textContent = getMagnitude(firstNum);
+        // Update stats across all valid numbers
+        let totalDigits = 0;
+        let totalWords = 0;
+        let totalChars = 0;
+        let maxMagnitude = 'Ones';
+        const magnitudeOrder = ['Ones', 'Thousands', 'Millions', 'Billions', 'Trillions', 'Quadrillions', 'Quintillions', 'Very Large'];
+
+        for (let i = 0; i < lines.length; i++) {
+            const numStr = lines[i].trim().replace(/[,\s]/g, '');
+            const digitsOnly = numStr.replace(/[^0-9]/g, '');
+            const wordsText = results[i] || '';
+
+            if (!wordsText.startsWith('[Invalid')) {
+                totalDigits += digitsOnly.length;
+                totalWords += wordsText.split(/\s+/).filter(w => w.length > 0).length;
+                totalChars += wordsText.length;
+                const mag = getMagnitude(numStr);
+                if (magnitudeOrder.indexOf(mag) > magnitudeOrder.indexOf(maxMagnitude)) {
+                    maxMagnitude = mag;
+                }
+            }
+        }
+
+        statDigits.textContent = totalDigits;
+        statWords.textContent = totalWords;
+        statChars.textContent = totalChars;
+        statMagnitude.textContent = maxMagnitude;
 
         statsBar.classList.remove('hidden');
 
